@@ -286,7 +286,11 @@ export const INTL = {
             "component": "Component",
             "quantity": "Quantity",
             "language": "Language",
-            "theme": "Theme"
+            "theme": "Theme",
+            "light-theme": "Light",
+            "dark-theme": "Dark",
+            "russian-language": "Russian",
+            "english-language": "English"
         },
         "ru": {
             "remove-turret": "Удалить турель",
@@ -297,7 +301,11 @@ export const INTL = {
             "component": "Компонент",
             "quantity": "Количество",
             "language": "Язык",
-            "theme": "Тема"
+            "theme": "Тема",
+            "light-theme": "Светлая",
+            "dark-theme": "Темная",
+            "russian-language": "Русский",
+            "english-language": "Английский"
         }
     }
 }

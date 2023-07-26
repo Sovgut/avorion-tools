@@ -72,8 +72,8 @@ function App() {
                                     label={intlContext.text("UI", "theme")}
                                     onChange={onThemeChange}
                                 >
-                                    <MenuItem value="light">Light</MenuItem>
-                                    <MenuItem value="dark">Dark</MenuItem>
+                                    <MenuItem value="light">{intlContext.text("UI", "light-theme")}</MenuItem>
+                                    <MenuItem value="dark">{intlContext.text("UI", "dark-theme")}</MenuItem>
                                 </Select>
                             </FormControl>
                             <FormControl>
@@ -86,8 +86,8 @@ function App() {
                                     label={intlContext.text("UI", "language")}
                                     onChange={(e) => intlContext.selectLanguage(e.target.value)}
                                 >
-                                    <MenuItem value="en-US">English</MenuItem>
-                                    <MenuItem value="ru">Russian</MenuItem>
+                                    <MenuItem value="en-US">{intlContext.text("UI", "english-language")}</MenuItem>
+                                    <MenuItem value="ru">{intlContext.text("UI", "russian-language")}</MenuItem>
                                 </Select>
                             </FormControl>
                         </Stack>
