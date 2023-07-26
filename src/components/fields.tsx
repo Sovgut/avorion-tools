@@ -1,6 +1,7 @@
-import {ChangeEvent, useContext, useState} from "react";
+import {ChangeEvent, SyntheticEvent, useContext, useState} from "react";
 import {IntlContext} from "../contexts/intl";
 import {INTL} from "../intl";
+import {Autocomplete, Stack, TextField} from "@mui/material";
 
 interface FieldComponentProps {
     onChange(component: string, quantity: number, prevComponent?: string): void;
@@ -20,25 +21,42 @@ export function FieldComponent(props: FieldComponentProps) {
         }
     }
 
-    function onChangeComponent(event: ChangeEvent<HTMLSelectElement>) {
+    function onChangeComponent(event: SyntheticEvent, value: string | null) {
+        console.log(event, value);
         const copy = component;
-        setComponent(event.target.value)
 
-        props.onChange(event.target.value, quantity, copy)
+        let key = String();
+
+        // @ts-ignore
+        for (const item of Object.keys(INTL["GOODS"][intlContext.language])) {
+            // @ts-ignore
+            if (INTL["GOODS"][intlContext.language][item] === value) {
+                key = item;
+                break;
+            }
+        }
+
+        setComponent(key)
+
+        props.onChange(key, quantity, copy)
     }
-
 
     // @ts-ignore
     const options = Object.values(INTL["GOODS"][intlContext.language]) as string[]
 
     return (
-        <div>
-            <select onChange={onChangeComponent}>
-                {options.sort().map((g) => <option key={g}
-                                                   value={g}>{g}</option>)}
-            </select>
-            <input type="number" min="0" defaultValue={0} disabled={!component}
-                   onChange={onChangeQuantity}/>
-        </div>
+        <Stack direction="row" spacing={2}>
+            <Autocomplete
+                onChange={onChangeComponent}
+                disablePortal
+                id="combo-box-demo"
+                options={options}
+                sx={{width: 300}}
+                renderInput={(params) => <TextField {...params} label={intlContext.text("UI", "component")}/>}
+            />
+            <TextField type="number" inputProps={{inputMode: 'numeric', pattern: '[0-9]*', min: 0}}
+                       disabled={!component} defaultValue={0}
+                       onChange={onChangeQuantity}/>
+        </Stack>
     )
 }

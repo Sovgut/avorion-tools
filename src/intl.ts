@@ -187,7 +187,7 @@ export const INTL = {
             "Fish": "Рыба",
             "Fluorine": "Фтор",
             "Food": "Еда",
-            "Food Bar": "Питательный батончик",
+            "Food Bar": "Пищевой батончик",
             "Force Generator": "Силовая установка",
             "Fruit": "Фрукт",
             "Fuel": "Топливо",
@@ -240,6 +240,7 @@ export const INTL = {
             "Raw Oil": "Сырая нефть",
             "Rice": "Рис",
             "Rocket": "Ракета",
+            "Plant": "Растение",
             "Rubber": "Резина",
             "Satellite": "Спутник",
             "Scrap Metal": "Металлолом",
@@ -271,7 +272,7 @@ export const INTL = {
             "Wheat": "Пшеница",
             "Wine": "Вино",
             "Wire": "Провод",
-            "Wood": "Древесина",
+            "Wood": "Дерево",
             "Zinc": "Цинк",
         }
     },
@@ -279,12 +280,20 @@ export const INTL = {
         "en-US": {
             "remove-turret": "Remove turret",
             "add-turret": "Add turret",
-            "add-component": "Add component"
+            "add-component": "Add component",
+            "components": "Components",
+            "turret-quantity": "Turret quantity",
+            "component": "Component",
+            "quantity": "Quantity",
         },
         "ru": {
             "remove-turret": "Удалить турель",
             "add-turret": "Добавить турель",
-            "add-component": "Добавить компонент"
+            "add-component": "Добавить компонент",
+            "components": "Компоненты",
+            "turret-quantity": "Количество турелей",
+            "component": "Компонент",
+            "quantity": "Количество",
         }
     }
 }
