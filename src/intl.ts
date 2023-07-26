@@ -285,6 +285,8 @@ export const INTL = {
             "turret-quantity": "Turret quantity",
             "component": "Component",
             "quantity": "Quantity",
+            "language": "Language",
+            "theme": "Theme"
         },
         "ru": {
             "remove-turret": "Удалить турель",
@@ -294,6 +296,8 @@ export const INTL = {
             "turret-quantity": "Количество турелей",
             "component": "Компонент",
             "quantity": "Количество",
+            "language": "Язык",
+            "theme": "Тема"
         }
     }
 }
