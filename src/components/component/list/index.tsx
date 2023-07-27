@@ -31,11 +31,9 @@ export function ComponentList(props: ComponentListProps) {
             const parsed = JSON.parse(cache);
             setComponentStates(parsed);
         }
-    }, [])
 
-    useEffect(() => {
         if (props.list.length === 0) {
-            setComponentStates({});
+            return setComponentStates({});
         }
 
         for (const turret of props.list) {
@@ -50,7 +48,7 @@ export function ComponentList(props: ComponentListProps) {
                                 value,
                                 checked: false,
                             }
-                        }))
+                        }));
                     }
                 }
             }
