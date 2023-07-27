@@ -215,7 +215,7 @@ export const INTL: { [key: string]: any } = {
             "quantity": "Quantity",
             "component": "Component",
             "components": "Components",
-            "estimated-price": "Estimated price",
+            "estimated-price": "Estimated price + Turret recipe price",
             "estimated-volume": "Estimated volume",
 
             // Turret
@@ -246,7 +246,7 @@ export const INTL: { [key: string]: any } = {
 
             // Turret
             "add-turret": "Добавить турель",
-            "remove-turret": "Удалить турель",
+            "remove-turret": "Удалить турель + цена рецепта турели",
             "turret-price": "Цена турели",
             "remove-turret-confirmation": "Вы уверены, что хотите удалить турель из списка?",
             "recipe-for-version": "Рецепт для:",
