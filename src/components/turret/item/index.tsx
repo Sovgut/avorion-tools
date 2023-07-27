@@ -3,6 +3,7 @@ import {Button, Card, CardContent, Divider, Input, Menu, MenuItem, Stack, Typogr
 import {MoreVert as MoreIcon} from "@mui/icons-material"
 import {useContext, useRef, useState} from "react";
 import {IntlContext} from "../../../contexts/intl";
+import styles from "./styles.module.css";
 
 interface TurretItemProps {
     turret: TurretState;
@@ -42,7 +43,11 @@ export function TurretItem(props: TurretItemProps) {
             <Stack direction="row" justifyContent="space-between">
                 <Stack direction="row" spacing={4}>
                     <Stack>
-                        <Typography level="h3">{intlContext.text("TURRET", props.turret.type)}</Typography>
+                        <Stack direction="row" spacing={1}>
+                            <img className={styles.icon} src={props.turret.icon} alt={props.turret.type}/>
+                            <Typography level="h3">{intlContext.text("TURRET", props.turret.type)}</Typography>
+                        </Stack>
+
                         <Typography level="body2">
                             {intlContext.text("UI", "recipe-for-version")} {props.turret.version}
                         </Typography>

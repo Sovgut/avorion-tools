@@ -212,6 +212,7 @@ type IComponentInfo = {
         volume: number;
         illegal: boolean;
         dangerous: boolean;
+        icon: string,
         soldBy: ComponentSeller[];
     }
 }
@@ -222,6 +223,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/aluminium.png",
         soldBy: [ComponentSeller["Aluminum Mine"]]
     },
     "Ammunition M": {
@@ -229,6 +231,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1.5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/ammunition-m.png",
         soldBy: [ComponentSeller["Ammunition Factory"]]
     },
     "Ammunition S": {
@@ -236,6 +239,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 0.5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/ammunition-s.png",
         soldBy: [ComponentSeller["Ammunition Factory"]]
     },
     "Conductor": {
@@ -243,6 +247,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 0.15,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/conductor.png",
         soldBy: [ComponentSeller["Conductor Factory"]]
     },
     "Copper": {
@@ -250,6 +255,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/copper.png",
         soldBy: [ComponentSeller["Copper Mine"], ComponentSeller["Planetary Trading Post"]]
     },
     "Crystal": {
@@ -257,6 +263,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1.5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/crystal.png",
         soldBy: [ComponentSeller["Crystal Farm"]]
     },
     "Electro Magnet": {
@@ -264,6 +271,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 0.75,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/electro-magnet.png",
         soldBy: [ComponentSeller["Electro Magnet Factory"]]
     },
     "Electromagnetic Charge": {
@@ -271,6 +279,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/electromagnetic-charge.png",
         soldBy: [ComponentSeller["Electromagnetic Charge Factory"]]
     },
     "Energy Cell": {
@@ -278,6 +287,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/battery-pack-alt.png",
         soldBy: [ComponentSeller["Solar Power Plant"]]
     },
     "Energy Container": {
@@ -285,6 +295,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 4.5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/electric.png",
         soldBy: [ComponentSeller["Energy Container Factory"]]
     },
     "Energy Inverter": {
@@ -292,6 +303,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 3,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/energy-inverter.png",
         soldBy: [ComponentSeller["Energy Inverter Factory"]]
     },
     "Energy Tube": {
@@ -299,6 +311,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1.5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/energy-tube.png",
         soldBy: [ComponentSeller["Energy Tube Factory"]]
     },
     "Explosive Charge": {
@@ -306,6 +319,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1.5,
         illegal: false,
         dangerous: true,
+        icon: "/assets/img/explosive-charge.png",
         soldBy: [ComponentSeller["Explosive Charge Factory"]]
     },
     "Force Generator": {
@@ -313,6 +327,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 4,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/force-generator.png",
         soldBy: [ComponentSeller["Force Generator Factory"]]
     },
     "Fuel": {
@@ -320,6 +335,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/fuel.png",
         soldBy: [ComponentSeller["Fuel Factory"]]
     },
     "Gauss Rail": {
@@ -327,6 +343,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 2,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/gauss-rail.png",
         soldBy: [ComponentSeller["Gauss Rail Factory"]]
     },
     "Gold": {
@@ -334,6 +351,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 0.5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/metal-bar.png",
         soldBy: [ComponentSeller["Noble Metal Mine"], ComponentSeller["Planetary Trading Post"]]
     },
     "High Capacity Lens": {
@@ -341,6 +359,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/high-capacity-lens.png",
         soldBy: [ComponentSeller["High Capacity Lens Factory"]]
     },
     "High Pressure Tube": {
@@ -348,6 +367,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 2,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/high-pressure-tube.png",
         soldBy: [ComponentSeller["High Pressure Tube Factory"]]
     },
     "Industrial Tesla Coil": {
@@ -355,6 +375,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 5.5,
         illegal: false,
         dangerous: true,
+        icon: "/assets/img/industrial-tesla-coil.png",
         soldBy: [ComponentSeller["Tesla Coil Factory"]]
     },
     "Laser Compressor": {
@@ -362,6 +383,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1.5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/laser-compressor.png",
         soldBy: [ComponentSeller["Laser Compressor Factory"]]
     },
     "Laser Head": {
@@ -369,6 +391,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 2,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/laser-head.png",
         soldBy: [ComponentSeller["Laser Head Factory"]]
     },
     "Laser Modulator": {
@@ -376,6 +399,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 3,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/laser-modulator.png",
         soldBy: [ComponentSeller["Laser Modulator Factory"]]
     },
     "Lead": {
@@ -383,6 +407,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/lead.png",
         soldBy: [ComponentSeller["Lead Mine"], ComponentSeller["Planetary Trading Post"]]
     },
     "Military Tesla Coil": {
@@ -390,6 +415,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 4.5,
         illegal: false,
         dangerous: true,
+        icon: "/assets/img/industrial-tesla-coil.png",
         soldBy: [ComponentSeller["Tesla Coil Factory"]]
     },
     "Nanobot": {
@@ -397,6 +423,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 0.5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/nanobots.png",
         soldBy: [ComponentSeller["Nanobot Factory"]]
     },
     "Plasma Cell": {
@@ -404,6 +431,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 0.25,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/plasma-cell.png",
         soldBy: [ComponentSeller["Plasma Cell Factory"]]
     },
     "Power Unit": {
@@ -411,6 +439,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/power-unit.png",
         soldBy: [ComponentSeller["Power Unit Factory"]]
     },
     "Rocket": {
@@ -418,6 +447,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 4,
         illegal: false,
         dangerous: true,
+        icon: "/assets/img/rocket.png",
         soldBy: [ComponentSeller["Rocket Factory"]]
     },
     "Servo": {
@@ -425,6 +455,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 0.25,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/servo.png",
         soldBy: [ComponentSeller["Servo Factory"]]
     },
     "Steel": {
@@ -432,6 +463,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/i-beam.png",
         soldBy: [ComponentSeller["Steel Factory"]]
     },
     "Steel Tube": {
@@ -439,6 +471,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 3,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/steel-tube.png",
         soldBy: [ComponentSeller["Steel Tube Factory"]]
     },
     "Targeting Card": {
@@ -446,6 +479,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 0.5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/targeting-card.png",
         soldBy: [ComponentSeller["Computer Component Factory"], ComponentSeller["Targeting Card Factory"]]
     },
     "Transformator": {
@@ -453,6 +487,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 0.2,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/grenade.png",
         soldBy: [ComponentSeller["Transformator Factory"]]
     },
     "Warhead": {
@@ -460,6 +495,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 3,
         illegal: false,
         dangerous: true,
+        icon: "/assets/img/warhead.png",
         soldBy: [ComponentSeller["Warhead Factory"]]
     },
     "Wire": {
@@ -467,6 +503,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 0.5,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/wire.png",
         soldBy: [ComponentSeller["Wire Manufacturer"]]
     },
     "Zinc": {
@@ -474,6 +511,7 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1,
         illegal: false,
         dangerous: false,
+        icon: "/assets/img/zinc.png",
         soldBy: [ComponentSeller["Zinc Mine"]]
     },
 }
@@ -481,6 +519,7 @@ export const ComponentInfo: IComponentInfo = {
 export const Turret = {
     "Chaingun": {
         version: "2.3.1",
+        icon: "/assets/img/minigun.png",
         components: [
             Component["Servo"],
             Component["Steel Tube"],
@@ -492,6 +531,7 @@ export const Turret = {
     },
     "Bolter": {
         version: "2.3.1",
+        icon: "/assets/img/sentry-gun.png",
         components: [
             Component["Servo"],
             Component["High Pressure Tube"],
@@ -503,6 +543,7 @@ export const Turret = {
     },
     "Laser": {
         version: "2.3.1",
+        icon: "/assets/img/laser-blast.png",
         components: [
             Component["Laser Head"],
             Component["Laser Compressor"],
@@ -513,8 +554,9 @@ export const Turret = {
             Component["Crystal"],
         ]
     },
-    "Plasma Gun": {
+    "Plasma": {
         version: "2.3.1",
+        icon: "/assets/img/tesla-turret.png",
         components: [
             Component["Plasma Cell"],
             Component["Energy Tube"],
@@ -527,6 +569,7 @@ export const Turret = {
     },
     "Cannon": {
         version: "2.3.1",
+        icon: "/assets/img/hypersonic-bolt.png",
         components: [
             Component["Servo"],
             Component["Warhead"],
@@ -536,8 +579,9 @@ export const Turret = {
             Component["Wire"],
         ]
     },
-    "Rocket Launcher": {
+    "Launcher": {
         version: "2.3.1",
+        icon: "/assets/img/missile-swarm.png",
         components: [
             Component["Servo"],
             Component["Rocket"],
@@ -550,6 +594,7 @@ export const Turret = {
     },
     "Railgun": {
         version: "2.3.1",
+        icon: "/assets/img/beam.png",
         components: [
             Component["Servo"],
             Component["Electromagnetic Charge"],
@@ -560,8 +605,9 @@ export const Turret = {
             Component["Copper"],
         ]
     },
-    "Repair Laser": {
+    "Repair": {
         version: "2.3.1",
+        icon: "/assets/img/laser-heal.png",
         components: [
             Component["Nanobot"],
             Component["Transformator"],
@@ -571,8 +617,9 @@ export const Turret = {
             Component["Steel"],
         ]
     },
-    "Purifying Mining Laser": {
+    "Mining Laser": {
         version: "2.3.1",
+        icon: "/assets/img/mining-laser.png",
         components: [
             Component["Laser Compressor"],
             Component["Laser Modulator"],
@@ -581,8 +628,9 @@ export const Turret = {
             Component["Steel"],
         ]
     },
-    "R-Mining Laser": {
+    "Raw Mining Laser": {
         version: "2.3.1",
+        icon: "/assets/img/r-mining-laser.png",
         components: [
             Component["Laser Compressor"],
             Component["Laser Modulator"],
@@ -591,8 +639,9 @@ export const Turret = {
             Component["Steel"],
         ]
     },
-    "Purifying Salvaging Laser": {
+    "Salvaging Laser": {
         version: "2.3.1",
+        icon: "/assets/img/recycle.png",
         components: [
             Component["Laser Compressor"],
             Component["Laser Modulator"],
@@ -601,8 +650,9 @@ export const Turret = {
             Component["Steel"]
         ]
     },
-    "R-Salvaging Laser": {
+    "Raw Salvaging Laser": {
         version: "2.3.1",
+        icon: "/assets/img/r-salvaging-laser.png",
         components: [
             Component["Laser Compressor"],
             Component["Laser Modulator"],
@@ -611,8 +661,9 @@ export const Turret = {
             Component["Steel"]
         ]
     },
-    "Force Turret": {
+    "Force Gun": {
         version: "2.3.1",
+        icon: "/assets/img/echo-ripples.png",
         components: [
             Component["Force Generator"],
             Component["Energy Tube"],
@@ -621,8 +672,9 @@ export const Turret = {
             Component["Zinc"],
         ]
     },
-    "Tesla": {
+    "Tesla Gun": {
         version: "2.3.1",
+        icon: "/assets/img/lightning-frequency.png",
         components: [
             Component["Industrial Tesla Coil"],
             Component["Electromagnetic Charge"],
@@ -633,8 +685,9 @@ export const Turret = {
             Component["Energy Cell"],
         ]
     },
-    "Lightning": {
+    "Lightning Gun": {
         version: "2.3.1",
+        icon: "/assets/img/lightning-branches.png",
         components: [
             Component["Military Tesla Coil"],
             Component["High Capacity Lens"],
@@ -647,6 +700,7 @@ export const Turret = {
     },
     "Pulse Cannon": {
         version: "2.3.1",
+        icon: "/assets/img/pulsecannon.png",
         components: [
             Component["Servo"],
             Component["Steel Tube"],
@@ -656,8 +710,9 @@ export const Turret = {
             Component["Energy Cell"],
         ]
     },
-    "Point-Defense Cannon": {
+    "Point Defense Cannon": {
         version: "2.3.1",
+        icon: "/assets/img/point-defense-chaingun.png",
         components: [
             Component["Servo"],
             Component["Steel Tube"],
@@ -667,8 +722,9 @@ export const Turret = {
             Component["Lead"]
         ]
     },
-    "Point-Defense Laser": {
+    "Point Defense Laser": {
         version: "2.3.1",
+        icon: "/assets/img/point-defense-laser.png",
         components: [
             Component["Servo"],
             Component["Laser Head"],
@@ -679,8 +735,9 @@ export const Turret = {
             Component["Crystal"]
         ]
     },
-    "Flak/Anti-Fighter cannon": {
+    "Anti Fighter": {
         version: "2.3.1",
+        icon: "/assets/img/flak.png",
         components: [
             Component["Servo"],
             Component["High Pressure Tube"],

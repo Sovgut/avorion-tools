@@ -44,6 +44,7 @@ export function TurretList() {
             type: selected,
             quantity: 1,
             price: 0,
+            icon: Turret[selected].icon,
             version: Turret[selected].version,
             components: Turret[selected].components.map(createComponent),
         }

@@ -15,45 +15,8 @@ export function ComponentList(props: ComponentListProps) {
     const intlContext = useContext(IntlContext);
 
     let estimatedPrice = 0;
+    let turretsPrice = 0;
     let volume = 0;
-
-    // useEffect(() => {
-    //     if (props.list.length === 0) {
-    //         return setComponentStates({});
-    //     }
-    //
-    //     setComponentStates((prevState) => {
-    //         for (const turret of props.list) {
-    //             for (const component of turret.components) {
-    //                 const value = (ComponentInfo[component.type].price * component.quantity) * turret.quantity;
-    //
-    //                 if (componentStates[component.type]) {
-    //                     if (componentStates[component.type].value !== value) {
-    //                         prevState[component.type] = {
-    //                             value,
-    //                             checked: false,
-    //                         }
-    //                     }
-    //                 } else {
-    //                     prevState[component.type] = {
-    //                         value,
-    //                         checked: false,
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //
-    //         console.log(prevState)
-    //
-    //         return prevState;
-    //     });
-    // }, [props.list.reduce((acc, turret) => {
-    //     for (const component of turret.components) {
-    //         acc += (ComponentInfo[component.type].price * component.quantity) * turret.quantity;
-    //     }
-    //
-    //     return acc;
-    // }, 0)])
 
     if (props.list.length === 0) return null;
 
@@ -69,7 +32,7 @@ export function ComponentList(props: ComponentListProps) {
             volume += (ComponentInfo[component.type].volume * component.quantity) * turret.quantity;
         }
 
-        estimatedPrice += turret.price * turret.quantity;
+        turretsPrice += turret.price * turret.quantity;
 
         return acc;
     }, {} as any);
@@ -117,7 +80,12 @@ export function ComponentList(props: ComponentListProps) {
                                 <InfoIcon fontSize="small" sx={{cursor: "pointer"}}/>
                             </Tooltip>
                         </Stack>
-                        <Typography level="body1">{estimatedPrice.toLocaleString()}</Typography>
+                        <Stack direction="row" spacing={1}>
+                            <Typography level="body1">{(estimatedPrice + turretsPrice).toLocaleString()}</Typography>
+                            <Typography level="body1">-</Typography>
+                            <Typography
+                                level="body1">{((estimatedPrice + estimatedPrice * 0.30) + turretsPrice).toLocaleString()}</Typography>
+                        </Stack>
                     </Grid>
                     <Divider/>
                     <Grid container xs={12} alignItems="center" justifyContent="space-between">

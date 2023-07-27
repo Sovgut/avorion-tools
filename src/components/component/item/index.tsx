@@ -1,8 +1,9 @@
 import {Component, ComponentInfo, SellerInfo} from "../../../constants";
-import {Checkbox, Link, Stack, Tooltip, Typography} from "@mui/joy";
-import {InfoOutlined as InfoIcon} from "@mui/icons-material";
+import {Box, Checkbox, Link, Stack, Tooltip, Typography} from "@mui/joy";
+import {DescriptionOutlined as LinkIcon, InfoOutlined as InfoIcon} from "@mui/icons-material";
 import {useContext, useEffect, useRef, useState} from "react";
 import {IntlContext} from "../../../contexts/intl";
+import styles from './styles.module.css'
 
 interface ListItemProps {
     type: Component;
@@ -102,12 +103,18 @@ export function ListItem(props: ListItemProps) {
                 <Checkbox onChange={() => onCheckboxCheck()} checked={isChecked}/>
             </td>
             <td>
-                {getComponentComponent(props.type)}
+                <Stack direction="row" spacing={1}>
+                    <img className={styles.icon} src={ComponentInfo[props.type].icon} alt={props.type}/>
+                    {getComponentComponent(props.type)}
+                </Stack>
                 <Stack spacing={1} direction="row">
                     {ComponentInfo[props.type].soldBy.map(station => (
-                        <Link key={props.type + station} href={SellerInfo[station].link} target="_blank">
-                            {intlContext.text("STATION", station)}
-                        </Link>
+                        <Stack direction="row" alignItems="center">
+                            <Box component="span">{intlContext.text("STATION", station)}</Box>
+                            <Link key={props.type + station} href={SellerInfo[station].link} target="_blank">
+                                <LinkIcon fontSize="small"/>
+                            </Link>
+                        </Stack>
                     ))}
                 </Stack>
             </td>

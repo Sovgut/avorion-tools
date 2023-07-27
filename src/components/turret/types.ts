@@ -11,6 +11,7 @@ export interface TurretState {
     key: string;
     quantity: number;
     price: number;
+    icon: string;
     version: string;
     components: ComponentState[];
 }
