@@ -31,15 +31,13 @@ const theme = extendTheme({
 })
 
 root.render(
-    <React.StrictMode>
-        <CssVarsProvider theme={theme} defaultMode="system" modeStorageKey="theme" disableNestedContext>
-            <CssBaseline/>
+    <CssVarsProvider theme={theme} defaultMode="system" modeStorageKey="theme" disableNestedContext>
+        <CssBaseline/>
 
-            <IntlContextProvider>
-                <App/>
-            </IntlContextProvider>
-        </CssVarsProvider>
-    </React.StrictMode>
+        <IntlContextProvider>
+            <App/>
+        </IntlContextProvider>
+    </CssVarsProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

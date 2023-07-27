@@ -1,65 +1,59 @@
 import {TurretState} from "../../turret/types";
-import {useContext, useEffect, useState} from "react";
-import {Card, CardOverflow, Checkbox, Divider, Grid, Stack, Table, Tooltip, Typography} from "@mui/joy";
+import {useContext} from "react";
+import {Card, CardOverflow, Divider, Grid, Stack, Table, Tooltip, Typography} from "@mui/joy";
 import {IntlContext} from "../../../contexts/intl";
 import {Component, ComponentInfo} from "../../../constants";
 import {InfoOutlined as InfoIcon} from "@mui/icons-material"
+import {ListItem} from "../item";
 
 interface ComponentListProps {
     list: TurretState[]
 }
 
-interface CheckboxState {
-    [component: string]: {
-        checked: boolean;
-        value: number;
-    }
-}
 
 export function ComponentList(props: ComponentListProps) {
-    const [componentStates, setComponentStates] = useState<CheckboxState>({})
-
     const intlContext = useContext(IntlContext);
 
-    let estimatedPrice = 0
+    let estimatedPrice = 0;
     let volume = 0;
 
-    useEffect(() => {
-        const cache = localStorage.getItem("checkboxes");
-
-        if (cache) {
-            const parsed = JSON.parse(cache);
-            setComponentStates(parsed);
-        }
-
-        if (props.list.length === 0) {
-            return setComponentStates({});
-        }
-
-        for (const turret of props.list) {
-            for (const component of turret.components) {
-                if (componentStates[component.type]) {
-                    const value = (ComponentInfo[component.type].price * component.quantity) * turret.quantity;
-
-                    if (componentStates[component.type].value !== value) {
-                        setComponentStates(prevState => ({
-                            ...prevState,
-                            [component.type]: {
-                                value,
-                                checked: false,
-                            }
-                        }));
-                    }
-                }
-            }
-        }
-    }, [props.list.reduce((acc, turret) => {
-        for (const component of turret.components) {
-            acc += (ComponentInfo[component.type].price * component.quantity) * turret.quantity;
-        }
-
-        return acc;
-    }, 0)])
+    // useEffect(() => {
+    //     if (props.list.length === 0) {
+    //         return setComponentStates({});
+    //     }
+    //
+    //     setComponentStates((prevState) => {
+    //         for (const turret of props.list) {
+    //             for (const component of turret.components) {
+    //                 const value = (ComponentInfo[component.type].price * component.quantity) * turret.quantity;
+    //
+    //                 if (componentStates[component.type]) {
+    //                     if (componentStates[component.type].value !== value) {
+    //                         prevState[component.type] = {
+    //                             value,
+    //                             checked: false,
+    //                         }
+    //                     }
+    //                 } else {
+    //                     prevState[component.type] = {
+    //                         value,
+    //                         checked: false,
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //
+    //         console.log(prevState)
+    //
+    //         return prevState;
+    //     });
+    // }, [props.list.reduce((acc, turret) => {
+    //     for (const component of turret.components) {
+    //         acc += (ComponentInfo[component.type].price * component.quantity) * turret.quantity;
+    //     }
+    //
+    //     return acc;
+    // }, 0)])
 
     if (props.list.length === 0) return null;
 
@@ -79,76 +73,6 @@ export function ComponentList(props: ComponentListProps) {
 
         return acc;
     }, {} as any);
-
-    function getComponentColor(component: string) {
-        if (ComponentInfo[component as Component].dangerous) return "danger";
-        if (ComponentInfo[component as Component].illegal) return "warning";
-
-        return undefined;
-    }
-
-    function getComponentComponent(component: string) {
-        if (ComponentInfo[component as Component].dangerous) {
-            return (
-                <Stack direction="row" spacing={.5} alignItems="center">
-                    <Typography
-                        level="h6"
-                        color={getComponentColor(component)}
-                        sx={{textDecoration: componentStates[component]?.checked ? "line-through" : "none"}}
-                    >
-                        {intlContext.text("COMPONENT", component)}
-                    </Typography>
-                    <Tooltip size="sm" arrow title={intlContext.text("UI", "dangerous-cargo")} variant="soft"
-                             color="danger"
-                             placement="top">
-                        <InfoIcon fontSize="small" sx={{cursor: "pointer"}}/>
-                    </Tooltip>
-                </Stack>
-            )
-        }
-
-        if (ComponentInfo[component as Component].illegal) {
-            return (
-                <Stack direction="row" spacing={.5} alignItems="center">
-                    <Typography
-                        level="h6"
-                        color={getComponentColor(component)}
-                        sx={{textDecoration: componentStates[component]?.checked ? "line-through" : "none"}}
-                    >
-                        {intlContext.text("COMPONENT", component)}
-                    </Typography>
-                    <Tooltip size="sm" arrow title={intlContext.text("UI", "illegal-cargo")} variant="soft"
-                             color="warning"
-                             placement="top">
-                        <InfoIcon fontSize="small" sx={{cursor: "pointer"}}/>
-                    </Tooltip>
-                </Stack>
-            )
-        }
-
-        return (
-            <Typography
-                level="h6"
-                color={getComponentColor(component)}
-                sx={{textDecoration: componentStates[component]?.checked ? "line-through" : "none"}}
-            >
-                {intlContext.text("COMPONENT", component)}
-            </Typography>
-        )
-    }
-
-    function onCheckboxCheck(component: string) {
-        setComponentStates(prevState => {
-            const state = {
-                ...prevState,
-                [component]: {value: prevState[component]?.value ?? 0, checked: !prevState[component]?.checked ?? true}
-            };
-
-            localStorage.setItem("checkboxes", JSON.stringify(state));
-
-            return state;
-        });
-    }
 
     return (
         <Card variant="outlined">
@@ -173,25 +97,7 @@ export function ComponentList(props: ComponentListProps) {
                 </thead>
                 <tbody>
                 {Object.keys(rows).map((row) => (
-                    <tr key={row}>
-                        <td>
-                            <Checkbox onChange={() => onCheckboxCheck(row)}
-                                      checked={componentStates[row]?.checked ?? false}/>
-                        </td>
-                        <td>
-                            {getComponentComponent(row)}
-                            <Stack spacing={1} direction="row">
-                                {ComponentInfo[row as Component].soldBy.map(station => (
-                                    <Typography key={row + station} level="body3">
-                                        {intlContext.text("STATION", station)}
-                                    </Typography>
-                                ))}
-                            </Stack>
-                        </td>
-                        <td style={{textAlign: "right"}}>
-                            <Typography color="primary">{rows[row].toLocaleString()}</Typography>
-                        </td>
-                    </tr>
+                    <ListItem key={row} type={row as Component} value={rows[row]}/>
                 ))}
                 </tbody>
             </Table>
