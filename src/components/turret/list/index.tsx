@@ -150,8 +150,8 @@ export function TurretList() {
     }
 
     return (
-        <Grid container spacing={2}>
-            <Grid container sm={12} sx={{mt: 2}}>
+        <Grid container spacing={1}>
+            <Grid container sm={12} sx={{mt: 2, mb: 1}}>
                 <Grid sm={7}>
                     <Select value={selected} onChange={(e, v) => onSelectTurret(v)}>
                         <Option value=""></Option>

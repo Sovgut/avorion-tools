@@ -1,7 +1,7 @@
 import {TurretState} from "../types";
-import {Button, Card, CardContent, Divider, Input, Stack, Typography} from "@mui/joy";
-import {Delete as DeleteIcon} from "@mui/icons-material"
-import {useContext} from "react";
+import {Button, Card, CardContent, Divider, Input, Menu, MenuItem, Stack, Typography} from "@mui/joy";
+import {MoreVert as MoreIcon} from "@mui/icons-material"
+import {useContext, useRef, useState} from "react";
 import {IntlContext} from "../../../contexts/intl";
 
 interface TurretItemProps {
@@ -17,10 +17,28 @@ interface TurretItemProps {
 }
 
 export function TurretItem(props: TurretItemProps) {
+    const [open, setOpen] = useState(false);
+
+    const buttonRef = useRef(null);
+
     const intlContext = useContext(IntlContext);
 
+    function onRemove() {
+        setOpen(false);
+
+        props.onRemoveTurret(props.turret.key)
+    }
+
+    function onClose() {
+        setOpen(false);
+    }
+
+    function onOpen() {
+        setOpen(!open);
+    }
+
     return (
-        <Card key={props.turret.key} sx={{height: "100%"}}>
+        <Card key={props.turret.key} sx={{height: "100%"}} variant="outlined">
             <Stack direction="row" justifyContent="space-between">
                 <Stack direction="row" spacing={4}>
                     <Stack>
@@ -30,9 +48,20 @@ export function TurretItem(props: TurretItemProps) {
                         </Typography>
                     </Stack>
                 </Stack>
-                <Button variant="soft" color="danger" title={intlContext.text("UI", "remove-turret")}
-                        sx={{height: "3rem", width: "3rem"}}
-                        onClick={() => props.onRemoveTurret(props.turret.key)}><DeleteIcon/></Button>
+                <Button
+                    variant="plain"
+                    color="neutral"
+                    title={intlContext.text("UI", "remove-turret")}
+                    sx={{height: "3rem", width: "3rem"}}
+                    ref={buttonRef}
+                    id={`basic-${props.turret.key}-menu`}
+                    aria-controls={`basic-${props.turret.key}-menu`}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={onOpen}
+                >
+                    <MoreIcon/>
+                </Button>
             </Stack>
             <Divider/>
             <CardContent>
@@ -71,6 +100,15 @@ export function TurretItem(props: TurretItemProps) {
                     </Stack>
                 </Stack>
             </CardContent>
+            <Menu
+                id={`basic-${props.turret.key}-menu`}
+                anchorEl={buttonRef.current}
+                open={open}
+                onClose={onClose}
+                aria-labelledby={`basic-${props.turret.key}-button`}
+            >
+                <MenuItem color="danger" onClick={onRemove}>{intlContext.text("UI", "remove-turret")}</MenuItem>
+            </Menu>
         </Card>
     )
 }

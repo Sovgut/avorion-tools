@@ -1,6 +1,6 @@
 import {TurretState} from "../../turret/types";
 import {useContext, useEffect} from "react";
-import {Sheet, Stack, Table, Tooltip, Typography} from "@mui/joy";
+import {Card, CardOverflow, Divider, Grid, Stack, Table, Tooltip, Typography} from "@mui/joy";
 import {IntlContext} from "../../../contexts/intl";
 import {Component, ComponentInfo} from "../../../constants";
 import {InfoOutlined as InfoIcon} from "@mui/icons-material"
@@ -54,7 +54,8 @@ export function ComponentList(props: ComponentListProps) {
                     >
                         {intlContext.text("COMPONENT", component)}
                     </Typography>
-                    <Tooltip arrow title={intlContext.text("UI", "dangerous-cargo")} variant="soft" color="danger"
+                    <Tooltip size="sm" arrow title={intlContext.text("UI", "dangerous-cargo")} variant="soft"
+                             color="danger"
                              placement="top">
                         <InfoIcon fontSize="small" sx={{cursor: "pointer"}}/>
                     </Tooltip>
@@ -71,7 +72,8 @@ export function ComponentList(props: ComponentListProps) {
                     >
                         {intlContext.text("COMPONENT", component)}
                     </Typography>
-                    <Tooltip arrow title={intlContext.text("UI", "illegal-cargo")} variant="soft" color="warning"
+                    <Tooltip size="sm" arrow title={intlContext.text("UI", "illegal-cargo")} variant="soft"
+                             color="warning"
                              placement="top">
                         <InfoIcon fontSize="small" sx={{cursor: "pointer"}}/>
                     </Tooltip>
@@ -90,7 +92,7 @@ export function ComponentList(props: ComponentListProps) {
     }
 
     return (
-        <Sheet variant="outlined">
+        <Card variant="outlined">
             <Table aria-label="basic table">
                 <thead>
                 <tr>
@@ -99,6 +101,7 @@ export function ComponentList(props: ComponentListProps) {
                             <Typography>{intlContext.text("UI", "component")}</Typography>
                             <Tooltip
                                 title={intlContext.text("UI", "component-source-info")}
+                                size="sm"
                                 arrow
                                 variant="outlined" placement="top">
                                 <InfoIcon fontSize="small" sx={{cursor: "pointer"}}/>
@@ -122,32 +125,39 @@ export function ComponentList(props: ComponentListProps) {
                             </Stack>
                         </td>
                         <td style={{textAlign: "right"}}>
-                            <Typography color="primary">{rows[row]}</Typography>
+                            <Typography color="primary">{rows[row].toLocaleString()}</Typography>
                         </td>
                     </tr>
                 ))}
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>
-                        <Stack direction="row" spacing={.5} alignItems="center">
-                            <Typography>{intlContext.text("UI", "estimated-price")}</Typography>
+            </Table>
+
+            <CardOverflow variant="soft" color="neutral">
+                <Divider inset="context"/>
+                {/*<Alert variant="soft" color="neutral">*/}
+                <Stack spacing={2} sx={{width: "100%", pt: 2, pb: 2}}>
+
+                    <Grid container xs={12} alignItems="center" justifyContent="space-between">
+                        <Stack direction="row" spacing={.5} alignItems="center" justifyContent="space-between">
+                            <Typography level="body1">{intlContext.text("UI", "estimated-price")}</Typography>
                             <Tooltip
                                 title={intlContext.text("UI", "estimated-price-info")}
+                                size="sm"
                                 arrow
                                 variant="outlined" placement="top">
                                 <InfoIcon fontSize="small" sx={{cursor: "pointer"}}/>
                             </Tooltip>
                         </Stack>
-                    </th>
-                    <th style={{textAlign: "right"}}>{estimatedPrice.toLocaleString()}</th>
-                </tr>
-                <tr>
-                    <th>{intlContext.text("UI", "estimated-volume")}</th>
-                    <th style={{textAlign: "right"}}>{volume.toLocaleString()}</th>
-                </tr>
-                </tfoot>
-            </Table>
-        </Sheet>
+                        <Typography level="body1">{estimatedPrice.toLocaleString()}</Typography>
+                    </Grid>
+                    <Divider/>
+                    <Grid container xs={12} alignItems="center" justifyContent="space-between">
+                        <Typography level="body1">{intlContext.text("UI", "estimated-volume")}</Typography>
+                        <Typography level="body1">{volume.toLocaleString()}</Typography>
+                    </Grid>
+                </Stack>
+                {/*</Alert>*/}
+            </CardOverflow>
+        </Card>
     )
 }
