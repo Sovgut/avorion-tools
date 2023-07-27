@@ -9,15 +9,30 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {IntlContextProvider} from "./contexts/intl";
-import {CssBaseline, CssVarsProvider} from "@mui/joy";
+import {CssBaseline, CssVarsProvider, extendTheme} from "@mui/joy";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
+const theme = extendTheme({
+    "colorSchemes": {
+        "light": {
+            "palette": {
+                "background": {
+                    "body": "var(--joy-palette-background-level1)"
+                }
+            }
+        },
+        "dark": {
+            "palette": {}
+        }
+    }
+})
+
 root.render(
     <React.StrictMode>
-        <CssVarsProvider defaultMode="system" modeStorageKey="theme" disableNestedContext>
+        <CssVarsProvider theme={theme} defaultMode="system" modeStorageKey="theme" disableNestedContext>
             <CssBaseline/>
 
             <IntlContextProvider>
