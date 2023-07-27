@@ -32,7 +32,7 @@ export function IntlContextProvider(props: IntlContextProviderProps) {
 
     function text(scope: string, label: string) {
         if (["en-US", "ru"].includes(language)) {
-            return INTL[scope][language][label] ?? INTL[scope]["en-US"][label];
+            return INTL[scope]?.[language]?.[label] || INTL[scope]["en-US"][label];
         }
 
         return INTL[scope]["en-US"][label];

@@ -96,259 +96,259 @@ export const ComponentInfo: IComponentInfo = {
         volume: 1,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Aluminum Mine"]]
+        soldBy: [ComponentSeller["Aluminum Mine"]]
     },
     "Ammunition M": {
         price: 422,
         volume: 1.5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Ammunition Factory"]]
+        soldBy: [ComponentSeller["Ammunition Factory"]]
     },
     "Ammunition S": {
         price: 422,
         volume: 0.5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Ammunition Factory"]]
+        soldBy: [ComponentSeller["Ammunition Factory"]]
     },
     "Conductor": {
         price: 168,
         volume: 0.15,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Conductor Factory"]]
+        soldBy: [ComponentSeller["Conductor Factory"]]
     },
     "Copper": {
         price: 350,
         volume: 1,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Copper Mine"], ComponentSeller["Planetary Trading Post"]]
+        soldBy: [ComponentSeller["Copper Mine"], ComponentSeller["Planetary Trading Post"]]
     },
     "Crystal": {
         price: 190,
         volume: 1.5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Crystal Farm"]]
+        soldBy: [ComponentSeller["Crystal Farm"]]
     },
     "Electro Magnet": {
         price: 483,
         volume: 0.75,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Electro Magnet Factory"]]
+        soldBy: [ComponentSeller["Electro Magnet Factory"]]
     },
     "Electromagnetic Charge": {
         price: 13985,
         volume: 1,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Electromagnetic Charge Factory"]]
+        soldBy: [ComponentSeller["Electromagnetic Charge Factory"]]
     },
     "Energy Cell": {
         price: 50,
         volume: 1,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Solar Power Plant"]]
+        soldBy: [ComponentSeller["Solar Power Plant"]]
     },
     "Energy Container": {
         price: 1087,
         volume: 4.5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Energy Container Factory"]]
+        soldBy: [ComponentSeller["Energy Container Factory"]]
     },
     "Energy Inverter": {
         price: 1277,
         volume: 3,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Energy Inverter Factory"]]
+        soldBy: [ComponentSeller["Energy Inverter Factory"]]
     },
     "Energy Tube": {
         price: 2895,
         volume: 1.5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Energy Tube Factory"]]
+        soldBy: [ComponentSeller["Energy Tube Factory"]]
     },
     "Explosive Charge": {
         price: 1423,
         volume: 1.5,
         illegal: false,
         dangerous: true,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Explosive Charge Factory"]]
+        soldBy: [ComponentSeller["Explosive Charge Factory"]]
     },
     "Force Generator": {
         price: 49576,
         volume: 4,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Force Generator Factory"]]
+        soldBy: [ComponentSeller["Force Generator Factory"]]
     },
     "Fuel": {
         price: 1232,
         volume: 1,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Fuel Factory"]]
+        soldBy: [ComponentSeller["Fuel Factory"]]
     },
     "Gauss Rail": {
         price: 7735,
         volume: 2,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Gauss Rail Factory"]]
+        soldBy: [ComponentSeller["Gauss Rail Factory"]]
     },
     "Gold": {
         price: 600,
         volume: 0.5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Noble Metal Mine"], ComponentSeller["Planetary Trading Post"]]
+        soldBy: [ComponentSeller["Noble Metal Mine"], ComponentSeller["Planetary Trading Post"]]
     },
     "High Capacity Lens": {
         price: 4689,
         volume: 1,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["High Capacity Lens Factory"]]
+        soldBy: [ComponentSeller["High Capacity Lens Factory"]]
     },
     "High Pressure Tube": {
         price: 1650,
         volume: 2,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["High Pressure Tube Factory"]]
+        soldBy: [ComponentSeller["High Pressure Tube Factory"]]
     },
     "Industrial Tesla Coil": {
         price: 10314,
         volume: 5.5,
         illegal: false,
         dangerous: true,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Tesla Coil Factory"]]
+        soldBy: [ComponentSeller["Tesla Coil Factory"]]
     },
     "Laser Compressor": {
         price: 6577,
         volume: 1.5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Laser Compressor Factory"]]
+        soldBy: [ComponentSeller["Laser Compressor Factory"]]
     },
     "Laser Head": {
         price: 4690,
         volume: 2,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Laser Head Factory"]]
+        soldBy: [ComponentSeller["Laser Head Factory"]]
     },
     "Laser Modulator": {
         price: 16742,
         volume: 3,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Laser Modulator Factory"]]
+        soldBy: [ComponentSeller["Laser Modulator Factory"]]
     },
     "Lead": {
         price: 200,
         volume: 1,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Lead Mine"], ComponentSeller["Planetary Trading Post"]]
+        soldBy: [ComponentSeller["Lead Mine"], ComponentSeller["Planetary Trading Post"]]
     },
     "Military Tesla Coil": {
         price: 10314,
         volume: 4.5,
         illegal: false,
         dangerous: true,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Tesla Coil Factory"]]
+        soldBy: [ComponentSeller["Tesla Coil Factory"]]
     },
     "Nanobot": {
         price: 1338,
         volume: 0.5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Nanobot Factory"]]
+        soldBy: [ComponentSeller["Nanobot Factory"]]
     },
     "Plasma Cell": {
         price: 174,
         volume: 0.25,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Plasma Cell Factory"]]
+        soldBy: [ComponentSeller["Plasma Cell Factory"]]
     },
     "Power Unit": {
         price: 1211,
         volume: 5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Power Unit Factory"]]
+        soldBy: [ComponentSeller["Power Unit Factory"]]
     },
     "Rocket": {
         price: 11250,
         volume: 4,
         illegal: false,
         dangerous: true,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Rocket Factory"]]
+        soldBy: [ComponentSeller["Rocket Factory"]]
     },
     "Servo": {
         price: 1387,
         volume: 0.25,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Servo Factory"]]
+        soldBy: [ComponentSeller["Servo Factory"]]
     },
     "Steel": {
         price: 277,
         volume: 1,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Steel Factory"]]
+        soldBy: [ComponentSeller["Steel Factory"]]
     },
     "Steel Tube": {
         price: 704,
         volume: 3,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Steel Tube Factory"]]
+        soldBy: [ComponentSeller["Steel Tube Factory"]]
     },
     "Targeting Card": {
         price: 11873,
         volume: 0.5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Computer Component Factory"], ComponentSeller["Targeting Card Factory"]]
+        soldBy: [ComponentSeller["Computer Component Factory"], ComponentSeller["Targeting Card Factory"]]
     },
     "Transformator": {
         price: 209,
         volume: 0.2,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Transformator Factory"]]
+        soldBy: [ComponentSeller["Transformator Factory"]]
     },
     "Warhead": {
         price: 5630,
         volume: 3,
         illegal: false,
         dangerous: true,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Warhead Factory"]]
+        soldBy: [ComponentSeller["Warhead Factory"]]
     },
     "Wire": {
         price: 95,
         volume: 0.5,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Wire Manufacturer"]]
+        soldBy: [ComponentSeller["Wire Manufacturer"]]
     },
     "Zinc": {
         price: 250,
         volume: 1,
         illegal: false,
         dangerous: false,
-        soldBy: [ComponentSeller["Turret Factory"], ComponentSeller["Turret Factory Supplier"], ComponentSeller["Zinc Mine"]]
+        soldBy: [ComponentSeller["Zinc Mine"]]
     },
 }
 
