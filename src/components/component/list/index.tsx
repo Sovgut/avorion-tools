@@ -1,6 +1,6 @@
 import {TurretState} from "../../turret/types";
-import {useContext, useEffect} from "react";
-import {Card, CardOverflow, Divider, Grid, Stack, Table, Tooltip, Typography} from "@mui/joy";
+import {useContext, useEffect, useState} from "react";
+import {Card, CardOverflow, Checkbox, Divider, Grid, Stack, Table, Tooltip, Typography} from "@mui/joy";
 import {IntlContext} from "../../../contexts/intl";
 import {Component, ComponentInfo} from "../../../constants";
 import {InfoOutlined as InfoIcon} from "@mui/icons-material"
@@ -10,13 +10,21 @@ interface ComponentListProps {
 }
 
 export function ComponentList(props: ComponentListProps) {
+    const [componentStates, setComponentStates] = useState<{ [component: string]: boolean }>({})
+
     const intlContext = useContext(IntlContext);
 
     let estimatedPrice = 0
     let volume = 0;
 
     useEffect(() => {
-    }, [props.list]);
+        const cache = localStorage.getItem("checkboxes");
+
+        if (cache) {
+            const parsed = JSON.parse(cache);
+            setComponentStates(parsed);
+        }
+    }, [])
 
     if (props.list.length === 0) return null;
 
@@ -32,7 +40,7 @@ export function ComponentList(props: ComponentListProps) {
             volume += (ComponentInfo[component.type].volume * component.quantity) * turret.quantity;
         }
 
-        estimatedPrice += turret.price * turret.quantity
+        estimatedPrice += turret.price * turret.quantity;
 
         return acc;
     }, {} as any);
@@ -51,6 +59,7 @@ export function ComponentList(props: ComponentListProps) {
                     <Typography
                         level="h6"
                         color={getComponentColor(component)}
+                        sx={{textDecoration: componentStates[component] ? "line-through" : "none"}}
                     >
                         {intlContext.text("COMPONENT", component)}
                     </Typography>
@@ -69,6 +78,7 @@ export function ComponentList(props: ComponentListProps) {
                     <Typography
                         level="h6"
                         color={getComponentColor(component)}
+                        sx={{textDecoration: componentStates[component] ? "line-through" : "none"}}
                     >
                         {intlContext.text("COMPONENT", component)}
                     </Typography>
@@ -85,10 +95,23 @@ export function ComponentList(props: ComponentListProps) {
             <Typography
                 level="h6"
                 color={getComponentColor(component)}
+                sx={{textDecoration: componentStates[component] ? "line-through" : "none"}}
             >
                 {intlContext.text("COMPONENT", component)}
             </Typography>
         )
+    }
+
+    function onCheckboxCheck(component: string) {
+
+
+        setComponentStates(prevState => {
+            const state = {...prevState, [component]: !prevState[component] ?? true};
+
+            localStorage.setItem("checkboxes", JSON.stringify(state));
+
+            return state;
+        });
     }
 
     return (
@@ -96,6 +119,7 @@ export function ComponentList(props: ComponentListProps) {
             <Table aria-label="basic table">
                 <thead>
                 <tr>
+                    <th style={{width: "2rem"}}/>
                     <th>
                         <Stack direction="row" spacing={.5} alignItems="center">
                             <Typography>{intlContext.text("UI", "component")}</Typography>
@@ -114,6 +138,9 @@ export function ComponentList(props: ComponentListProps) {
                 <tbody>
                 {Object.keys(rows).map((row) => (
                     <tr key={row}>
+                        <td>
+                            <Checkbox onChange={() => onCheckboxCheck(row)} checked={componentStates[row]}/>
+                        </td>
                         <td>
                             {getComponentComponent(row)}
                             <Stack spacing={1} direction="row">
@@ -134,7 +161,6 @@ export function ComponentList(props: ComponentListProps) {
 
             <CardOverflow variant="soft" color="neutral">
                 <Divider inset="context"/>
-                {/*<Alert variant="soft" color="neutral">*/}
                 <Stack spacing={2} sx={{width: "100%", pt: 2, pb: 2}}>
 
                     <Grid container xs={12} alignItems="center" justifyContent="space-between">
@@ -156,7 +182,6 @@ export function ComponentList(props: ComponentListProps) {
                         <Typography level="body1">{volume.toLocaleString()}</Typography>
                     </Grid>
                 </Stack>
-                {/*</Alert>*/}
             </CardOverflow>
         </Card>
     )
