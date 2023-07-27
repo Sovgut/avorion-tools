@@ -241,7 +241,7 @@ export const ComponentInfo: IComponentInfo = {
     "Laser Head": {
         price: 4690,
         volume: 2,
-        illegal: false,
+        illegal: true,
         dangerous: false,
         soldBy: [ComponentSeller["Laser Head Factory"]]
     },

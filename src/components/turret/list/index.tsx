@@ -152,14 +152,14 @@ export function TurretList() {
     return (
         <Grid container spacing={2}>
             <Grid container sm={12} sx={{mt: 2}}>
-                <Grid sm={8}>
+                <Grid sm={7}>
                     <Select value={selected} onChange={(e, v) => onSelectTurret(v)}>
                         <Option value=""></Option>
                         {Object.keys(Turret).map(turret => <Option key={turret}
                                                                    value={turret}>{intlContext.text("TURRET", turret)}</Option>)}
                     </Select>
                 </Grid>
-                <Grid sm={4}>
+                <Grid sm={5}>
                     <Stack direction="row" spacing={2} justifyContent="space-between">
                         <Button onClick={onAddTurret}
                                 disabled={!selected}>{intlContext.text("UI", "add-turret")}</Button>
@@ -180,7 +180,7 @@ export function TurretList() {
                     </Stack>
                 </Grid>
             </Grid>
-            <Grid xl={8} xs={12}>
+            <Grid xl={7} xs={12}>
                 <Container disableGutters maxWidth={false}>
                     <Stack spacing={1}>
                         {list.map(turret => (
@@ -194,7 +194,7 @@ export function TurretList() {
                 </Container>
             </Grid>
 
-            <Grid xl={4} xs={12}>
+            <Grid xl={5} xs={12}>
                 <Container disableGutters maxWidth={false}>
                     <ComponentList list={list}/>
                 </Container>

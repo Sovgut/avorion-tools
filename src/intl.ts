@@ -45,7 +45,7 @@ export const INTL: { [key: string]: any } = {
             "Turret Factory Supplier": "Поставщик фабрики турелей",
             "Turret Factory": "Фабрика турелей",
             "Aluminum Mine": "Алюминий шахта",
-            "Ammunition Factory": "",
+            "Ammunition Factory": "Фабрика боеприпасов",
             "Conductor Factory": "Фабрика проводник",
             "Copper Mine": "Медь шахта",
             "Planetary Trading Post": "Планетарная торговая фактория",
@@ -215,8 +215,12 @@ export const INTL: { [key: string]: any } = {
             "quantity": "Quantity",
             "component": "Component",
             "components": "Components",
-            "estimated-price": "Estimated price + Turret recipe price",
+            "estimated-price": "Turret recipe price + Estimated price",
             "estimated-volume": "Estimated volume",
+            "estimated-price-info": "Price of all components (based on 0% price)",
+            "component-source-info": "Turret Factory and Turret Factory Supplier can contain any of these components",
+            "dangerous-cargo": "Dangerous cargo",
+            "illegal-cargo": "Illegal cargo",
 
             // Turret
             "add-turret": "Add turret",
@@ -241,8 +245,12 @@ export const INTL: { [key: string]: any } = {
             "quantity": "Количество",
             "component": "Компонент",
             "components": "Компоненты",
-            "estimated-price": "Ожидаемая цена + Цена рецепта турели",
+            "estimated-price": "Цена рецепта турели + Ожидаемая цена",
             "estimated-volume": "Ожидаемый объем",
+            "estimated-price-info": "Цена за все компоненты на основе базовой цены каждого компонента",
+            "component-source-info": "Фабрика турелей и Поставщик фабрики турелей может вмещать любой из компонентов",
+            "dangerous-cargo": "Опасный груз",
+            "illegal-cargo": "Нелегальный груз",
 
             // Turret
             "add-turret": "Добавить турель",
