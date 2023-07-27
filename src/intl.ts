@@ -241,7 +241,7 @@ export const INTL: { [key: string]: any } = {
             "quantity": "Количество",
             "component": "Компонент",
             "components": "Компоненты",
-            "estimated-price": "Ожидаемая цена  + цена рецепта турели",
+            "estimated-price": "Ожидаемая цена + Цена рецепта турели",
             "estimated-volume": "Ожидаемый объем",
 
             // Turret
