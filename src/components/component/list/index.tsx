@@ -1,6 +1,6 @@
 import {TurretState} from "../../turret/types";
 import {useContext, useEffect} from "react";
-import {Card, Stack, Table, Typography} from "@mui/joy";
+import {Sheet, Stack, Table, Typography} from "@mui/joy";
 import {IntlContext} from "../../../contexts/intl";
 import {Component, ComponentInfo} from "../../../constants";
 
@@ -12,33 +12,37 @@ export function ComponentList(props: ComponentListProps) {
     const intlContext = useContext(IntlContext);
 
     let estimatedPrice = 0
+    let volume = 0;
 
     useEffect(() => {
     }, [props.list]);
 
     if (props.list.length === 0) return null;
 
-    const rows = props.list.reduce((acc, cur) => {
-        for (const component of cur.components) {
+    const rows = props.list.reduce((acc, turret) => {
+        for (const component of turret.components) {
             if (!acc[component.type]) {
-                acc[component.type] = component.quantity * cur.quantity;
+                acc[component.type] = component.quantity * turret.quantity;
             } else {
-                acc[component.type] += component.quantity * cur.quantity;
+                acc[component.type] += component.quantity * turret.quantity;
             }
 
-            estimatedPrice += (ComponentInfo[component.type].price * component.quantity) * cur.quantity;
+            estimatedPrice += (ComponentInfo[component.type].price * component.quantity) * turret.quantity;
+            volume += (ComponentInfo[component.type].volume * component.quantity) * turret.quantity;
         }
+
+        estimatedPrice += turret.price * turret.quantity
 
         return acc;
     }, {} as any);
 
     return (
-        <Card>
+        <Sheet variant="outlined">
             <Table aria-label="basic table">
                 <thead>
                 <tr>
                     <th>{intlContext.text("UI", "component")}</th>
-                    <th style={{width: "8rem"}}>{intlContext.text("UI", "quantity")}</th>
+                    <th style={{textAlign: "right"}}>{intlContext.text("UI", "quantity")}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,11 +66,15 @@ export function ComponentList(props: ComponentListProps) {
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th>Estimated price</th>
+                    <th>{intlContext.text("UI", "estimated-price")}</th>
                     <th style={{textAlign: "right"}}>{estimatedPrice.toLocaleString()}</th>
+                </tr>
+                <tr>
+                    <th>{intlContext.text("UI", "estimated-volume")}</th>
+                    <th style={{textAlign: "right"}}>{volume.toLocaleString()}</th>
                 </tr>
                 </tfoot>
             </Table>
-        </Card>
+        </Sheet>
     )
 }

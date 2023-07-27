@@ -10,6 +10,7 @@ export interface TurretState {
     type: keyof typeof Turret;
     key: string;
     quantity: number;
+    price: number;
     version: string;
     components: ComponentState[];
 }

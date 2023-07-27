@@ -43,6 +43,7 @@ export function TurretList() {
             key,
             type: selected,
             quantity: 1,
+            price: 0,
             version: Turret[selected].version,
             components: Turret[selected].components.map(createComponent),
         }
@@ -77,6 +78,25 @@ export function TurretList() {
             const turrets = copy.map(turret => {
                 if (turret.key === tKey) {
                     turret.quantity = Number(value)
+                }
+
+                return turret;
+            });
+
+            localStorage.setItem("cache", JSON.stringify(turrets))
+
+            return turrets
+        })
+    }
+
+    function onTurretPriceChange(tKey: string, value: string | null) {
+        if (Number(value) < 0) return;
+
+        setList(prevState => {
+            const copy = [...prevState];
+            const turrets = copy.map(turret => {
+                if (turret.key === tKey) {
+                    turret.price = Number(value)
                 }
 
                 return turret;
@@ -167,7 +187,8 @@ export function TurretList() {
                             <TurretItem key={turret.key} turret={turret}
                                         onComponentChange={onComponentChange}
                                         onRemoveTurret={onRemoveTurret}
-                                        onTurretQuantityChange={onTurretQuantityChange}/>
+                                        onTurretQuantityChange={onTurretQuantityChange}
+                                        onTurretPriceChange={onTurretPriceChange}/>
                         ))}
                     </Stack>
                 </Container>

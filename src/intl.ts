@@ -214,10 +214,14 @@ export const INTL: { [key: string]: any } = {
             // Common
             "quantity": "Quantity",
             "component": "Component",
+            "components": "Components",
+            "estimated-price": "Estimated price",
+            "estimated-volume": "Estimated volume",
 
             // Turret
             "add-turret": "Add turret",
             "remove-turret": "Remove turret",
+            "turret-price": "Turret price",
             "remove-turret-confirmation": "Are you certain that you wish to remove the turret from the list?",
             "recipe-for-version": "Recipe for:",
 
@@ -236,10 +240,14 @@ export const INTL: { [key: string]: any } = {
             // Common
             "quantity": "Количество",
             "component": "Компонент",
+            "components": "Компоненты",
+            "estimated-price": "Ожидаемая цена",
+            "estimated-volume": "Ожидаемый объем",
 
             // Turret
             "add-turret": "Добавить турель",
             "remove-turret": "Удалить турель",
+            "turret-price": "Цена турели",
             "remove-turret-confirmation": "Вы уверены, что хотите удалить турель из списка?",
             "recipe-for-version": "Рецепт для:",
 
