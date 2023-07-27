@@ -81,6 +81,7 @@ export function ComponentList(props: ComponentListProps) {
                             </Tooltip>
                         </Stack>
                         <Stack direction="row" spacing={1}>
+                            <Typography level="body1">¢</Typography>
                             <Typography level="body1">{(estimatedPrice + turretsPrice).toLocaleString()}</Typography>
                             <Typography level="body1">-</Typography>
                             <Typography

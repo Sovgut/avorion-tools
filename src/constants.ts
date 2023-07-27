@@ -519,7 +519,7 @@ export const ComponentInfo: IComponentInfo = {
 export const Turret = {
     "Chaingun": {
         version: "2.3.1",
-        icon: "/assets/img/minigun.png",
+        icon: "/assets/img/chaingun.png",
         components: [
             Component["Servo"],
             Component["Steel Tube"],
@@ -531,7 +531,7 @@ export const Turret = {
     },
     "Bolter": {
         version: "2.3.1",
-        icon: "/assets/img/sentry-gun.png",
+        icon: "/assets/img/bolter.png",
         components: [
             Component["Servo"],
             Component["High Pressure Tube"],
@@ -543,7 +543,7 @@ export const Turret = {
     },
     "Laser": {
         version: "2.3.1",
-        icon: "/assets/img/laser-blast.png",
+        icon: "/assets/img/laser-gun.png",
         components: [
             Component["Laser Head"],
             Component["Laser Compressor"],
@@ -556,7 +556,7 @@ export const Turret = {
     },
     "Plasma": {
         version: "2.3.1",
-        icon: "/assets/img/tesla-turret.png",
+        icon: "/assets/img/plasma-gun.png",
         components: [
             Component["Plasma Cell"],
             Component["Energy Tube"],
@@ -569,7 +569,7 @@ export const Turret = {
     },
     "Cannon": {
         version: "2.3.1",
-        icon: "/assets/img/hypersonic-bolt.png",
+        icon: "/assets/img/cannon.png",
         components: [
             Component["Servo"],
             Component["Warhead"],
@@ -581,7 +581,7 @@ export const Turret = {
     },
     "Launcher": {
         version: "2.3.1",
-        icon: "/assets/img/missile-swarm.png",
+        icon: "/assets/img/rocket-launcher.png",
         components: [
             Component["Servo"],
             Component["Rocket"],
@@ -594,7 +594,7 @@ export const Turret = {
     },
     "Railgun": {
         version: "2.3.1",
-        icon: "/assets/img/beam.png",
+        icon: "/assets/img/rail-gun.png",
         components: [
             Component["Servo"],
             Component["Electromagnetic Charge"],
@@ -607,7 +607,7 @@ export const Turret = {
     },
     "Repair": {
         version: "2.3.1",
-        icon: "/assets/img/laser-heal.png",
+        icon: "/assets/img/repair-beam.png",
         components: [
             Component["Nanobot"],
             Component["Transformator"],
@@ -641,7 +641,7 @@ export const Turret = {
     },
     "Salvaging Laser": {
         version: "2.3.1",
-        icon: "/assets/img/recycle.png",
+        icon: "/assets/img/salvage-laser.png",
         components: [
             Component["Laser Compressor"],
             Component["Laser Modulator"],
@@ -663,7 +663,7 @@ export const Turret = {
     },
     "Force Gun": {
         version: "2.3.1",
-        icon: "/assets/img/echo-ripples.png",
+        icon: "/assets/img/force-gun.png",
         components: [
             Component["Force Generator"],
             Component["Energy Tube"],
@@ -674,7 +674,7 @@ export const Turret = {
     },
     "Tesla Gun": {
         version: "2.3.1",
-        icon: "/assets/img/lightning-frequency.png",
+        icon: "/assets/img/tesla-gun.png",
         components: [
             Component["Industrial Tesla Coil"],
             Component["Electromagnetic Charge"],
@@ -687,7 +687,7 @@ export const Turret = {
     },
     "Lightning Gun": {
         version: "2.3.1",
-        icon: "/assets/img/lightning-branches.png",
+        icon: "/assets/img/lightning-gun.png",
         components: [
             Component["Military Tesla Coil"],
             Component["High Capacity Lens"],
@@ -737,7 +737,7 @@ export const Turret = {
     },
     "Anti Fighter": {
         version: "2.3.1",
-        icon: "/assets/img/flak.png",
+        icon: "/assets/img/anti-fighter-gun.png",
         components: [
             Component["Servo"],
             Component["High Pressure Tube"],

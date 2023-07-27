@@ -41,17 +41,9 @@ export function TurretItem(props: TurretItemProps) {
     return (
         <Card key={props.turret.key} sx={{height: "100%"}} variant="outlined">
             <Stack direction="row" justifyContent="space-between">
-                <Stack direction="row" spacing={4}>
-                    <Stack>
-                        <Stack direction="row" spacing={1}>
-                            <img className={styles.icon} src={props.turret.icon} alt={props.turret.type}/>
-                            <Typography level="h3">{intlContext.text("TURRET", props.turret.type)}</Typography>
-                        </Stack>
-
-                        <Typography level="body2">
-                            {intlContext.text("UI", "recipe-for-version")} {props.turret.version}
-                        </Typography>
-                    </Stack>
+                <Stack direction="row" spacing={1} alignItems="center">
+                    <img className={styles.icon} src={props.turret.icon} alt={props.turret.type}/>
+                    <Typography level="h5">{intlContext.text("TURRET", props.turret.type)}</Typography>
                 </Stack>
                 <Button
                     variant="plain"
