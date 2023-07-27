@@ -31,6 +31,7 @@ export function TurretItem(props: TurretItemProps) {
                     </Stack>
                 </Stack>
                 <Button variant="soft" color="danger" title={intlContext.text("UI", "remove-turret")}
+                        sx={{height: "3rem", width: "3rem"}}
                         onClick={() => props.onRemoveTurret(props.turret.key)}><DeleteIcon/></Button>
             </Stack>
             <Divider/>
