@@ -182,15 +182,17 @@ export function TurretList() {
             </Grid>
             <Grid xl={7} xs={12}>
                 <Container disableGutters maxWidth={false}>
-                    <Stack spacing={1}>
+                    <Grid container spacing={1}>
                         {list.map(turret => (
-                            <TurretItem key={turret.key} turret={turret}
-                                        onComponentChange={onComponentChange}
-                                        onRemoveTurret={onRemoveTurret}
-                                        onTurretQuantityChange={onTurretQuantityChange}
-                                        onTurretPriceChange={onTurretPriceChange}/>
+                            <Grid xs={6}>
+                                <TurretItem key={turret.key} turret={turret}
+                                            onComponentChange={onComponentChange}
+                                            onRemoveTurret={onRemoveTurret}
+                                            onTurretQuantityChange={onTurretQuantityChange}
+                                            onTurretPriceChange={onTurretPriceChange}/>
+                            </Grid>
                         ))}
-                    </Stack>
+                    </Grid>
                 </Container>
             </Grid>
 

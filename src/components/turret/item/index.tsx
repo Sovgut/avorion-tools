@@ -20,7 +20,7 @@ export function TurretItem(props: TurretItemProps) {
     const intlContext = useContext(IntlContext);
 
     return (
-        <Card key={props.turret.key}>
+        <Card key={props.turret.key} sx={{height: "100%"}}>
             <Stack direction="row" justifyContent="space-between">
                 <Stack direction="row" spacing={4}>
                     <Stack>
@@ -36,15 +36,15 @@ export function TurretItem(props: TurretItemProps) {
             <Divider/>
             <CardContent>
                 <Stack spacing={2}>
-                    <Stack spacing={2} direction="row">
-                        <Input startDecorator={(
+                    <Stack spacing={2} direction="row" justifyContent="space-between">
+                        <Input sx={{width: "100%"}} startDecorator={(
                             <Stack direction="row" spacing={1}>
                                 <Typography level="body2">{intlContext.text("UI", "quantity")}</Typography>
                                 <Divider orientation="vertical"/>
                             </Stack>
                         )} type="number" value={props.turret.quantity}
                                onChange={(e) => props.onTurretQuantityChange(props.turret.key, e.target.value)}/>
-                        <Input startDecorator={(
+                        <Input sx={{width: "100%"}} startDecorator={(
                             <Stack direction="row" spacing={1}>
                                 <Typography level="body2">{intlContext.text("UI", "turret-price")}</Typography>
                                 <Divider orientation="vertical"/>
