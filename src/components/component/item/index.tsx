@@ -1,5 +1,5 @@
-import {Component, ComponentInfo} from "../../../constants";
-import {Checkbox, Stack, Tooltip, Typography} from "@mui/joy";
+import {Component, ComponentInfo, SellerInfo} from "../../../constants";
+import {Checkbox, Link, Stack, Tooltip, Typography} from "@mui/joy";
 import {InfoOutlined as InfoIcon} from "@mui/icons-material";
 import {useContext, useEffect, useRef, useState} from "react";
 import {IntlContext} from "../../../contexts/intl";
@@ -105,9 +105,9 @@ export function ListItem(props: ListItemProps) {
                 {getComponentComponent(props.type)}
                 <Stack spacing={1} direction="row">
                     {ComponentInfo[props.type].soldBy.map(station => (
-                        <Typography key={props.type + station} level="body3">
+                        <Link key={props.type + station} href={SellerInfo[station].link} target="_blank">
                             {intlContext.text("STATION", station)}
-                        </Typography>
+                        </Link>
                     ))}
                 </Stack>
             </td>

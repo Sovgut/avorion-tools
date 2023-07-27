@@ -80,6 +80,132 @@ export enum ComponentSeller {
     "Zinc Mine" = "Zinc Mine",
 }
 
+type ISellerInfo = {
+    [key in ComponentSeller]: {
+        link: string;
+    }
+}
+
+export const SellerInfo: ISellerInfo = {
+    "Turret Factory Supplier": {
+        link: "https://avorion.fandom.com/wiki/Turret_Factory_Supplier"
+    },
+    "Turret Factory": {
+        link: "https://avorion.fandom.com/wiki/Turret_Factory"
+    },
+    "Aluminum Mine": {
+        link: "https://avorion.fandom.com/wiki/Aluminum_Mine"
+    },
+    "Ammunition Factory": {
+        link: "https://avorion.fandom.com/wiki/Ammunition_Factory"
+    },
+    "Conductor Factory": {
+        link: "https://avorion.fandom.com/wiki/Conductor_Factory"
+    },
+    "Copper Mine": {
+        link: "https://avorion.fandom.com/wiki/Copper_Mine"
+    },
+    "Planetary Trading Post": {
+        link: "https://avorion.fandom.com/wiki/Planetary_Trading_Post"
+    },
+    "Crystal Farm": {
+        link: "https://avorion.fandom.com/wiki/Crystal_Farm"
+    },
+    "Electro Magnet Factory": {
+        link: "https://avorion.fandom.com/wiki/Electro_Magnet_Factory"
+    },
+    "Electromagnetic Charge Factory": {
+        link: "https://avorion.fandom.com/wiki/Electromagnetic_Charge_Factory"
+    },
+    "Solar Power Plant": {
+        link: "https://avorion.fandom.com/wiki/Solar_Power_Plant"
+    },
+    "Energy Container Factory": {
+        link: "https://avorion.fandom.com/wiki/Energy_Container_Factory"
+    },
+    "Energy Inverter Factory": {
+        link: "https://avorion.fandom.com/wiki/Energy_Inverter_Factory"
+    },
+    "Energy Tube Factory": {
+        link: "https://avorion.fandom.com/wiki/Energy_Tube_Factory"
+    },
+    "Explosive Charge Factory": {
+        link: "https://avorion.fandom.com/wiki/Explosive_Charge_Factory"
+    },
+    "Force Generator Factory": {
+        link: "https://avorion.fandom.com/wiki/Force_Generator_Factory"
+    },
+    "Fuel Factory": {
+        link: "https://avorion.fandom.com/wiki/Fuel_Factory"
+    },
+    "Gauss Rail Factory": {
+        link: "https://avorion.fandom.com/wiki/Gauss_Rail_Factory"
+    },
+    "Noble Metal Mine": {
+        link: "https://avorion.fandom.com/wiki/Noble_Metal_Mine"
+    },
+    "High Capacity Lens Factory": {
+        link: "https://avorion.fandom.com/wiki/High_Capacity_Lens_Factory"
+    },
+    "High Pressure Tube Factory": {
+        link: "https://avorion.fandom.com/wiki/High_Pressure_Tube_Factory"
+    },
+    "Tesla Coil Factory": {
+        link: "https://avorion.fandom.com/wiki/Tesla_Coil_Factory"
+    },
+    "Laser Compressor Factory": {
+        link: "https://avorion.fandom.com/wiki/Laser_Compressor_Factory"
+    },
+    "Laser Head Factory": {
+        link: "https://avorion.fandom.com/wiki/Laser_Head_Factory"
+    },
+    "Laser Modulator Factory": {
+        link: "https://avorion.fandom.com/wiki/Laser_Modulator_Factory"
+    },
+    "Lead Mine": {
+        link: "https://avorion.fandom.com/wiki/Lead_Mine"
+    },
+    "Nanobot Factory": {
+        link: "https://avorion.fandom.com/wiki/Nanobot_Factory"
+    },
+    "Plasma Cell Factory": {
+        link: "https://avorion.fandom.com/wiki/Plasma_Cell_Factory"
+    },
+    "Power Unit Factory": {
+        link: "https://avorion.fandom.com/wiki/Power_Unit_Factory"
+    },
+    "Rocket Factory": {
+        link: "https://avorion.fandom.com/wiki/Rocket_Factory"
+    },
+    "Servo Factory": {
+        link: "https://avorion.fandom.com/wiki/Servo_Factory"
+    },
+    "Steel Factory": {
+        link: "https://avorion.fandom.com/wiki/Steel_Factory"
+    },
+    "Steel Tube Factory": {
+        link: "https://avorion.fandom.com/wiki/Steel_Tube_Factory"
+    },
+    "Computer Component Factory": {
+        link: "https://avorion.fandom.com/wiki/Computer_Component_Factory"
+    },
+    "Targeting Card Factory": {
+        link: "https://avorion.fandom.com/wiki/Targeting_Card_Factory"
+    },
+    "Transformator Factory": {
+        link: "https://avorion.fandom.com/wiki/Transformator_Factory"
+    },
+    "Warhead Factory": {
+        link: "https://avorion.fandom.com/wiki/Warhead_Factory"
+    },
+    "Wire Manufacturer": {
+        link: "https://avorion.fandom.com/wiki/Wire_Manufacturer"
+    },
+    "Zinc Mine": {
+        link: "https://avorion.fandom.com/wiki/Zinc_Mine"
+    },
+}
+
 type IComponentInfo = {
     [key in Component]: {
         price: number;
