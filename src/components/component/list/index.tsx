@@ -9,8 +9,15 @@ interface ComponentListProps {
     list: TurretState[]
 }
 
+interface CheckboxState {
+    [component: string]: {
+        checked: boolean;
+        value: number;
+    }
+}
+
 export function ComponentList(props: ComponentListProps) {
-    const [componentStates, setComponentStates] = useState<{ [component: string]: boolean }>({})
+    const [componentStates, setComponentStates] = useState<CheckboxState>({})
 
     const intlContext = useContext(IntlContext);
 
@@ -25,6 +32,36 @@ export function ComponentList(props: ComponentListProps) {
             setComponentStates(parsed);
         }
     }, [])
+
+    useEffect(() => {
+        if (props.list.length === 0) {
+            setComponentStates({});
+        }
+
+        for (const turret of props.list) {
+            for (const component of turret.components) {
+                if (componentStates[component.type]) {
+                    const value = (ComponentInfo[component.type].price * component.quantity) * turret.quantity;
+
+                    if (componentStates[component.type].value !== value) {
+                        setComponentStates(prevState => ({
+                            ...prevState,
+                            [component.type]: {
+                                value,
+                                checked: false,
+                            }
+                        }))
+                    }
+                }
+            }
+        }
+    }, [props.list.reduce((acc, turret) => {
+        for (const component of turret.components) {
+            acc += (ComponentInfo[component.type].price * component.quantity) * turret.quantity;
+        }
+
+        return acc;
+    }, 0)])
 
     if (props.list.length === 0) return null;
 
@@ -59,7 +96,7 @@ export function ComponentList(props: ComponentListProps) {
                     <Typography
                         level="h6"
                         color={getComponentColor(component)}
-                        sx={{textDecoration: componentStates[component] ? "line-through" : "none"}}
+                        sx={{textDecoration: componentStates[component]?.checked ? "line-through" : "none"}}
                     >
                         {intlContext.text("COMPONENT", component)}
                     </Typography>
@@ -78,7 +115,7 @@ export function ComponentList(props: ComponentListProps) {
                     <Typography
                         level="h6"
                         color={getComponentColor(component)}
-                        sx={{textDecoration: componentStates[component] ? "line-through" : "none"}}
+                        sx={{textDecoration: componentStates[component]?.checked ? "line-through" : "none"}}
                     >
                         {intlContext.text("COMPONENT", component)}
                     </Typography>
@@ -95,7 +132,7 @@ export function ComponentList(props: ComponentListProps) {
             <Typography
                 level="h6"
                 color={getComponentColor(component)}
-                sx={{textDecoration: componentStates[component] ? "line-through" : "none"}}
+                sx={{textDecoration: componentStates[component]?.checked ? "line-through" : "none"}}
             >
                 {intlContext.text("COMPONENT", component)}
             </Typography>
@@ -103,10 +140,11 @@ export function ComponentList(props: ComponentListProps) {
     }
 
     function onCheckboxCheck(component: string) {
-
-
         setComponentStates(prevState => {
-            const state = {...prevState, [component]: !prevState[component] ?? true};
+            const state = {
+                ...prevState,
+                [component]: {value: prevState[component]?.value ?? 0, checked: !prevState[component]?.checked ?? true}
+            };
 
             localStorage.setItem("checkboxes", JSON.stringify(state));
 
@@ -139,7 +177,8 @@ export function ComponentList(props: ComponentListProps) {
                 {Object.keys(rows).map((row) => (
                     <tr key={row}>
                         <td>
-                            <Checkbox onChange={() => onCheckboxCheck(row)} checked={componentStates[row]}/>
+                            <Checkbox onChange={() => onCheckboxCheck(row)}
+                                      checked={componentStates[row]?.checked ?? false}/>
                         </td>
                         <td>
                             {getComponentComponent(row)}

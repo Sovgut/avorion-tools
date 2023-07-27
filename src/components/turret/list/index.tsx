@@ -184,7 +184,7 @@ export function TurretList() {
                 <Container disableGutters maxWidth={false}>
                     <Grid container spacing={1}>
                         {list.map(turret => (
-                            <Grid xs={6}>
+                            <Grid key={turret.key} xs={6}>
                                 <TurretItem key={turret.key} turret={turret}
                                             onComponentChange={onComponentChange}
                                             onRemoveTurret={onRemoveTurret}
