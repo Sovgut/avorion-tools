@@ -1,6 +1,6 @@
 import {Button, Container, Grid, Option, Select, Stack, useColorScheme} from "@mui/joy";
 import {Component, Turret} from "../../../constants";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {nanoid} from "nanoid";
 import {TurretState} from "../types";
 import {TurretItem} from "../item";
@@ -14,6 +14,16 @@ export function TurretList() {
     const {mode, setMode} = useColorScheme();
 
     const intlContext = useContext(IntlContext);
+
+    useEffect(() => {
+        const cache = localStorage.getItem("cache");
+
+        if (cache) {
+            const parsed = JSON.parse(cache);
+
+            setList(parsed);
+        }
+    }, [])
 
     function createComponent(component: Component) {
         const key = nanoid();
@@ -29,23 +39,33 @@ export function TurretList() {
         if (!selected) return;
 
         const key = nanoid();
+        const turret = {
+            key,
+            type: selected,
+            quantity: 1,
+            version: Turret[selected].version,
+            components: Turret[selected].components.map(createComponent),
+        }
 
-        setList(prevState => ([
-            ...prevState,
-            {
-                key,
-                type: selected,
-                quantity: 1,
-                version: Turret[selected].version,
-                components: Turret[selected].components.map(createComponent),
-            },
-        ]))
+        setList(prevState => {
+            const turrets = [...prevState, turret];
+
+            localStorage.setItem("cache", JSON.stringify(turrets))
+
+            return turrets
+        })
         setSelected(null);
     }
 
     function onRemoveTurret(tKey: string) {
         if (window.confirm(intlContext.text("UI", "remove-turret-confirmation"))) {
-            setList(prevState => prevState.filter(turret => turret.key !== tKey))
+            setList(prevState => {
+                const turrets = prevState.filter(turret => turret.key !== tKey);
+
+                localStorage.setItem("cache", JSON.stringify(turrets))
+
+                return turrets;
+            })
         }
     }
 
@@ -54,14 +74,17 @@ export function TurretList() {
 
         setList(prevState => {
             const copy = [...prevState];
-
-            return copy.map(turret => {
+            const turrets = copy.map(turret => {
                 if (turret.key === tKey) {
                     turret.quantity = Number(value)
                 }
 
                 return turret;
-            })
+            });
+
+            localStorage.setItem("cache", JSON.stringify(turrets))
+
+            return turrets
         })
     }
 
@@ -70,8 +93,7 @@ export function TurretList() {
 
         setList(prevState => {
             const copy = [...prevState];
-
-            return copy.map(turret => {
+            const turrets = copy.map(turret => {
                 if (turret.key === tKey) {
                     turret.components = turret.components.map(component => {
                         if (component.key === cKey) {
@@ -88,6 +110,10 @@ export function TurretList() {
 
                 return turret;
             })
+
+            localStorage.setItem("cache", JSON.stringify(turrets))
+
+            return turrets
         })
     }
 
