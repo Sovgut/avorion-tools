@@ -31,7 +31,6 @@ export function IntlContextProvider(props: IntlContextProviderProps) {
     }
 
     function text(scope: string, label: string) {
-        // @ts-ignore
         return INTL[scope][language][label] ?? INTL[scope]["en-US"][label];
     }
 

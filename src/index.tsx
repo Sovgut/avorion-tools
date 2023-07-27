@@ -3,12 +3,13 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import '@fontsource/public-sans';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {TurretContextProvider} from "./contexts/turret";
 import {IntlContextProvider} from "./contexts/intl";
+import {CssBaseline, CssVarsProvider} from "@mui/joy";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -16,13 +17,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
+        <CssVarsProvider defaultMode="system" modeStorageKey="theme" disableNestedContext>
+            <CssBaseline/>
 
-
-        <IntlContextProvider>
-            <TurretContextProvider>
+            <IntlContextProvider>
                 <App/>
-            </TurretContextProvider>
-        </IntlContextProvider>
+            </IntlContextProvider>
+        </CssVarsProvider>
     </React.StrictMode>
 );
 

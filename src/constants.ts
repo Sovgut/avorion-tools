@@ -1,4 +1,4 @@
-export const GOODS = {
+export const GOODS: { [key: string]: any } = {
     "": 0,
     "Acid": 0,
     "Acron Drug": 0,
@@ -135,4 +135,258 @@ export const GOODS = {
     "Wire": 0,
     "Wood": 0,
     "Zinc": 0,
+}
+
+export enum Component {
+    "Aluminum" = "Aluminum",
+    "Ammunition M" = "Ammunition M",
+    "Ammunition S" = "Ammunition S",
+    "Conductor" = "Conductor",
+    "Copper" = "Copper",
+    "Crystal" = "Crystal",
+    "Electro Magnet" = "Electro Magnet",
+    "Electromagnetic Charge" = "Electromagnetic Charge",
+    "Energy Cell" = "Energy Cell",
+    "Energy Container" = "Energy Container",
+    "Energy Inverter" = "Energy Inverter",
+    "Energy Tube" = "Energy Tube",
+    "Explosive Charge" = "Explosive Charge",
+    "Force Generator" = "Force Generator",
+    "Fuel" = "Fuel",
+    "Gauss Rail" = "Gauss Rail",
+    "Gold" = "Gold",
+    "High Capacity Lens" = "High Capacity Lens",
+    "High Pressure Tube" = "High Pressure Tube",
+    "Industrial Tesla Coil" = "Industrial Tesla Coil",
+    "Laser Compressor" = "Laser Compressor",
+    "Laser Head" = "Laser Head",
+    "Laser Modulator" = "Laser Modulator",
+    "Lead" = "Lead",
+    "Military Tesla Coil" = "Military Tesla Coil",
+    "Nanobot" = "Nanobot",
+    "Plasma Cell" = "Plasma Cell",
+    "Power Unit" = "Power Unit",
+    "Rocket" = "Rocket",
+    "Servo" = "Servo",
+    "Steel" = "Steel",
+    "Steel Tube" = "Steel Tube",
+    "Targeting Card" = "Targeting Card",
+    "Transformator" = "Transformator",
+    "Warhead" = "Warhead",
+    "Wire" = "Wire",
+    "Zinc" = "Zinc"
+}
+
+export const Turret = {
+    "Chaingun": {
+        version: "2.3.1",
+        components: [
+            Component["Servo"],
+            Component["Steel Tube"],
+            Component["Ammunition S"],
+            Component["Steel"],
+            Component["Aluminum"],
+            Component["Lead"],
+        ]
+    },
+    "Bolter": {
+        version: "2.3.1",
+        components: [
+            Component["Servo"],
+            Component["High Pressure Tube"],
+            Component["Ammunition M"],
+            Component["Explosive Charge"],
+            Component["Steel"],
+            Component["Aluminum"],
+        ]
+    },
+    "Laser": {
+        version: "2.3.1",
+        components: [
+            Component["Laser Head"],
+            Component["Laser Compressor"],
+            Component["High Capacity Lens"],
+            Component["Laser Modulator"],
+            Component["Power Unit"],
+            Component["Steel"],
+            Component["Crystal"],
+        ]
+    },
+    "Plasma": {
+        version: "2.3.1",
+        components: [
+            Component["Plasma Cell"],
+            Component["Energy Tube"],
+            Component["Conductor"],
+            Component["Energy Container"],
+            Component["Power Unit"],
+            Component["Steel"],
+            Component["Crystal"],
+        ]
+    },
+    "Cannon": {
+        version: "2.3.1",
+        components: [
+            Component["Servo"],
+            Component["Warhead"],
+            Component["High Pressure Tube"],
+            Component["Explosive Charge"],
+            Component["Steel"],
+            Component["Wire"],
+        ]
+    },
+    "Rocket Launcher": {
+        version: "2.3.1",
+        components: [
+            Component["Servo"],
+            Component["Rocket"],
+            Component["High Pressure Tube"],
+            Component["Fuel"],
+            Component["Targeting Card"],
+            Component["Steel"],
+            Component["Wire"],
+        ]
+    },
+    "Railgun": {
+        version: "2.3.1",
+        components: [
+            Component["Servo"],
+            Component["Electromagnetic Charge"],
+            Component["Electro Magnet"],
+            Component["Gauss Rail"],
+            Component["High Pressure Tube"],
+            Component["Steel"],
+            Component["Copper"],
+        ]
+    },
+    "Repair Turret": {
+        version: "2.3.1",
+        components: [
+            Component["Nanobot"],
+            Component["Transformator"],
+            Component["Laser Modulator"],
+            Component["Conductor"],
+            Component["Gold"],
+            Component["Steel"],
+        ]
+    },
+    "Mining Laser": {
+        version: "2.3.1",
+        components: [
+            Component["Laser Compressor"],
+            Component["Laser Modulator"],
+            Component["High Capacity Lens"],
+            Component["Conductor"],
+            Component["Steel"],
+        ]
+    },
+    "R-Mining Laser": {
+        version: "2.3.1",
+        components: [
+            Component["Laser Compressor"],
+            Component["Laser Modulator"],
+            Component["High Capacity Lens"],
+            Component["Conductor"],
+            Component["Steel"],
+        ]
+    },
+    "R-Salvaging Laser": {
+        version: "2.3.1",
+        components: [
+            Component["Laser Compressor"],
+            Component["Laser Modulator"],
+            Component["High Capacity Lens"],
+            Component["Conductor"],
+            Component["Steel"]
+        ]
+    },
+    "Salvaging Laser": {
+        version: "2.3.1",
+        components: [
+            Component["Laser Compressor"],
+            Component["Laser Modulator"],
+            Component["High Capacity Lens"],
+            Component["Conductor"],
+            Component["Steel"]
+        ]
+    },
+    "Force Turret": {
+        version: "2.3.1",
+        components: [
+            Component["Force Generator"],
+            Component["Energy Tube"],
+            Component["Conductor"],
+            Component["Steel"],
+            Component["Zinc"],
+        ]
+    },
+    "Tesla": {
+        version: "2.3.1",
+        components: [
+            Component["Industrial Tesla Coil"],
+            Component["Electromagnetic Charge"],
+            Component["Energy Inverter"],
+            Component["Conductor"],
+            Component["Power Unit"],
+            Component["Copper"],
+            Component["Energy Cell"],
+        ]
+    },
+    "Lightning": {
+        version: "2.3.1",
+        components: [
+            Component["Military Tesla Coil"],
+            Component["High Capacity Lens"],
+            Component["Electromagnetic Charge"],
+            Component["Conductor"],
+            Component["Power Unit"],
+            Component["Copper"],
+            Component["Energy Cell"],
+        ]
+    },
+    "Pulse Cannon": {
+        version: "2.3.1",
+        components: [
+            Component["Servo"],
+            Component["Steel Tube"],
+            Component["Ammunition S"],
+            Component["Steel"],
+            Component["Copper"],
+            Component["Energy Cell"],
+        ]
+    },
+    "Point-Defense Chaingun": {
+        version: "2.3.1",
+        components: [
+            Component["Servo"],
+            Component["Steel Tube"],
+            Component["Ammunition S"],
+            Component["Steel"],
+            Component["Aluminum"],
+            Component["Lead"]
+        ]
+    },
+    "Point-Defense Laser": {
+        version: "2.3.1",
+        components: [
+            Component["Servo"],
+            Component["Laser Head"],
+            Component["Laser Compressor"],
+            Component["High Capacity Lens"],
+            Component["Laser Modulator"],
+            Component["Steel"],
+            Component["Crystal"]
+        ]
+    },
+    "Flak/Anti-Fighter cannon": {
+        version: "2.3.1",
+        components: [
+            Component["Servo"],
+            Component["High Pressure Tube"],
+            Component["Ammunition M"],
+            Component["Explosive Charge"],
+            Component["Steel"],
+            Component["Aluminum"]
+        ]
+    }
 }
