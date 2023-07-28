@@ -109,7 +109,7 @@ export function ListItem(props: ListItemProps) {
                 </Stack>
                 <Stack spacing={1} direction="row">
                     {ComponentInfo[props.type].soldBy.map(station => (
-                        <Stack direction="row" alignItems="center">
+                        <Stack key={props.type + station} direction="row" alignItems="center">
                             <Box component="span">{intlContext.text("STATION", station)}</Box>
                             <Link key={props.type + station} href={SellerInfo[station].link} target="_blank">
                                 <LinkIcon fontSize="small"/>
