@@ -554,7 +554,7 @@ export const Turret = {
             Component["Crystal"],
         ]
     },
-    "Plasma": {
+    "Plasma Gun": {
         version: "2.3.1",
         icon: "/assets/img/plasma-gun.png",
         components: [
@@ -579,7 +579,7 @@ export const Turret = {
             Component["Wire"],
         ]
     },
-    "Launcher": {
+    "Rocket Launcher": {
         version: "2.3.1",
         icon: "/assets/img/rocket-launcher.png",
         components: [
