@@ -7,6 +7,7 @@ import {TurretItem} from "../item";
 import {ComponentList} from "../../component/list";
 import {IntlContext} from "../../../contexts/intl";
 import {FIRST_TURRET} from "./constants";
+import {IIntlTurret} from "../../../contexts/intl/storage/types";
 
 export function TurretList() {
     const [list, setList] = useState<TurretState[]>([]);
@@ -156,7 +157,7 @@ export function TurretList() {
                 <Grid sm={7}>
                     <Select value={selected} onChange={(e, v) => onSelectTurret(v)}>
                         {Object.keys(Turret).map(turret => <Option key={turret}
-                                                                   value={turret}>{intlContext.text("TURRET", turret)}</Option>)}
+                                                                   value={turret}>{intlContext.text("TURRET", turret as keyof IIntlTurret)}</Option>)}
                     </Select>
                 </Grid>
                 <Grid sm={5}>

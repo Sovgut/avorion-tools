@@ -10,6 +10,7 @@ import {useContext, useEffect, useRef, useState} from "react";
 import {IntlContext} from "../../../contexts/intl";
 import styles from './styles.module.css'
 import {FieldComponent} from "../../field";
+import {IIntlComponent} from "../../../contexts/intl/storage/types";
 
 interface ListItemProps {
     type: Component;
@@ -60,7 +61,7 @@ export function ListItem(props: ListItemProps) {
                         color={getComponentColor(component)}
                         sx={{textDecoration: isChecked ? "line-through" : "none"}}
                     >
-                        {intlContext.text("COMPONENT", component)}
+                        {intlContext.text("COMPONENT", component as keyof IIntlComponent)}
                     </Typography>
                     <Tooltip size="sm" arrow title={intlContext.text("UI", "dangerous-cargo")} variant="soft"
                              color="danger"
@@ -79,7 +80,7 @@ export function ListItem(props: ListItemProps) {
                         color={getComponentColor(component)}
                         sx={{textDecoration: isChecked ? "line-through" : "none"}}
                     >
-                        {intlContext.text("COMPONENT", component)}
+                        {intlContext.text("COMPONENT", component as keyof IIntlComponent)}
                     </Typography>
                     <Tooltip size="sm" arrow title={intlContext.text("UI", "illegal-cargo")} variant="soft"
                              color="warning"
@@ -96,7 +97,7 @@ export function ListItem(props: ListItemProps) {
                 color={getComponentColor(component)}
                 sx={{textDecoration: isChecked ? "line-through" : "none"}}
             >
-                {intlContext.text("COMPONENT", component)}
+                {intlContext.text("COMPONENT", component as keyof IIntlComponent)}
             </Typography>
         )
     }

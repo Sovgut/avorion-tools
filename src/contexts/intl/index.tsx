@@ -1,10 +1,11 @@
 import {createContext, ReactNode, useState} from "react";
-import {INTL} from "../intl";
+import {INTL_STORAGE} from "./storage";
+import {IIntlComponent, IIntlStation, IIntlStorage, IIntlTurret, IIntlUI, ILanguage} from "./storage/types";
 
 interface IntlContextProps {
     language: string;
 
-    text(scope: string, label: string): string;
+    text(scope: keyof IIntlStorage, label: keyof IIntlUI | keyof IIntlTurret | keyof IIntlComponent | keyof IIntlStation): string;
 
     selectLanguage(language: string): void;
 }
@@ -16,7 +17,7 @@ interface IntlContextProviderProps {
 export const IntlContext = createContext<IntlContextProps>({
     language: "en-US",
 
-    text: (scope: string, label: string) => String(),
+    text: (scope: keyof IIntlStorage, label: keyof IIntlUI | keyof IIntlTurret | keyof IIntlComponent | keyof IIntlStation) => String(),
     selectLanguage: (language: string) => {
     },
 });
@@ -30,12 +31,12 @@ export function IntlContextProvider(props: IntlContextProviderProps) {
         setLanguage(language);
     }
 
-    function text(scope: string, label: string) {
+    function text(scope: keyof IIntlStorage, label: keyof IIntlUI & keyof IIntlTurret & keyof IIntlComponent & keyof IIntlStation): string {
         if (["en-US", "ru"].includes(language)) {
-            return INTL[scope]?.[language]?.[label] || INTL[scope]["en-US"][label];
+            return INTL_STORAGE[scope][language as ILanguage][label] || INTL_STORAGE[scope]["en-US"][label];
         }
 
-        return INTL[scope]["en-US"][label];
+        return INTL_STORAGE[scope]["en-US"][label];
     }
 
     return <IntlContext.Provider value={{language, selectLanguage, text}}>
