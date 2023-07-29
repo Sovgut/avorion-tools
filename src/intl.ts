@@ -216,7 +216,7 @@ export const INTL: { [key: string]: any } = {
             "estimated-price": "Turret recipe price + Estimated price",
             "estimated-volume": "Estimated volume",
             "estimated-price-info": "Price of all components (based on min price and max price)",
-            "component-source-info": "Turret Factory, Turret Factory Supplier and Trading Post can contain any of these components",
+            "component-source-info": '"Turret Factory", "Turret Factory Supplier" and "Trading Post" can contain any of these components',
             "dangerous-cargo": "Dangerous cargo",
             "illegal-cargo": "Illegal cargo",
 
