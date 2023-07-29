@@ -213,12 +213,15 @@ export const INTL: { [key: string]: any } = {
             "quantity": "Quantity",
             "component": "Component",
             "components": "Components",
-            "estimated-price": "Turret recipe price + Estimated price",
+            "estimated-price": "Turret price + Estimated price",
             "estimated-volume": "Estimated volume",
             "estimated-price-info": "Price of all components (based on min price and max price)",
             "component-source-info": '"Turret Factory", "Turret Factory Supplier" and "Trading Post" can contain any of these components',
             "dangerous-cargo": "Dangerous cargo",
             "illegal-cargo": "Illegal cargo",
+            "please-note": "Please note",
+            "cargo-field-note": "Whenever the quantity of the component is modified, the cargo value is automatically reset to its default state.",
+            "cargo-field-label": "In cargo",
 
             // Turret
             "add-turret": "Add turret",
@@ -243,12 +246,15 @@ export const INTL: { [key: string]: any } = {
             "quantity": "Количество",
             "component": "Компонент",
             "components": "Компоненты",
-            "estimated-price": "Цена рецепта турели + Ожидаемая цена",
+            "estimated-price": "Цена турели + Ожидаемая цена",
             "estimated-volume": "Ожидаемый объем",
             "estimated-price-info": "Цена за все компоненты на основе базовой цены каждого компонента и максимально возможной",
             "component-source-info": '"Фабрика турелей", "Поставщик фабрики турелей" и "Торговая фактория" может содержать любой из компонентов',
             "dangerous-cargo": "Опасный груз",
             "illegal-cargo": "Нелегальный груз",
+            "please-note": "Обратите внимание",
+            "cargo-field-note": "Всякий раз, когда изменяется количество компонента, значение трюма автоматически сбрасывается на начальное состояние.",
+            "cargo-field-label": "В трюме",
 
             // Turret
             "add-turret": "Добавить турель",

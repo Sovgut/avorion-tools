@@ -29,6 +29,8 @@ export function FieldComponent(props: IFieldComponent) {
             startDecorator={decorator}
             onChange={onChange}
             type={props.type}
-            defaultValue={props.value}/>
+            value={props.value}
+            defaultValue={props.defaultValue}
+        />
     )
 }

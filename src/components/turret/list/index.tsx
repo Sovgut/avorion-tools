@@ -6,10 +6,11 @@ import {TurretState} from "../types";
 import {TurretItem} from "../item";
 import {ComponentList} from "../../component/list";
 import {IntlContext} from "../../../contexts/intl";
+import {FIRST_TURRET} from "./constants";
 
 export function TurretList() {
     const [list, setList] = useState<TurretState[]>([]);
-    const [selected, setSelected] = useState<keyof typeof Turret | null>(null);
+    const [selected, setSelected] = useState<keyof typeof Turret>(Object.keys(Turret)[FIRST_TURRET] as keyof typeof Turret);
 
     const {mode, setMode} = useColorScheme();
 
@@ -56,7 +57,6 @@ export function TurretList() {
 
             return turrets
         })
-        setSelected(null);
     }
 
     function onRemoveTurret(tKey: string) {
@@ -155,7 +155,6 @@ export function TurretList() {
             <Grid container sm={12} sx={{mt: 2, mb: 1}}>
                 <Grid sm={7}>
                     <Select value={selected} onChange={(e, v) => onSelectTurret(v)}>
-                        <Option value=""></Option>
                         {Object.keys(Turret).map(turret => <Option key={turret}
                                                                    value={turret}>{intlContext.text("TURRET", turret)}</Option>)}
                     </Select>
