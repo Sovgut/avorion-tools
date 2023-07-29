@@ -106,7 +106,7 @@ export function ComponentList(props: ComponentListProps) {
     }
 
     function calculateMaxPrice() {
-        const percentage = 0.30;
+        const percentage = 3.00; // 300%
         const value = ((estimatedPrice + estimatedPrice * percentage) - (getCargoEstimatedAttribute("price") + getCargoEstimatedAttribute("price") * percentage)) + turretsPrice;
 
         return value > 0 ? value : 0
