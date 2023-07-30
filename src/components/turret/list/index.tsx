@@ -1,6 +1,6 @@
 import {Button, Container, Grid, Option, Select, Stack, useColorScheme} from "@mui/joy";
 import {Component, Turret} from "../../../constants";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {nanoid} from "nanoid";
 import {TurretState} from "../types";
 import {TurretItem} from "../item";
@@ -8,14 +8,36 @@ import {ComponentList} from "../../component/list";
 import {IntlContext} from "../../../contexts/intl";
 import {FIRST_TURRET} from "./constants";
 import {IIntlTurret} from "../../../contexts/intl/storage/types";
+import {VolumeOffOutlined, VolumeUpOutlined} from "@mui/icons-material";
 
 export function TurretList() {
     const [list, setList] = useState<TurretState[]>([]);
     const [selected, setSelected] = useState<keyof typeof Turret>(Object.keys(Turret)[FIRST_TURRET] as keyof typeof Turret);
+    const [audioState, setAudio] = useState(true);
 
     const {mode, setMode} = useColorScheme();
 
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
     const intlContext = useContext(IntlContext);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = 0.2;
+
+            window.addEventListener("click", async () => await audioRef.current?.play(), {once: true})
+        }
+    }, []);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            if (audioState) {
+                audioRef.current?.play();
+            } else {
+                audioRef.current?.pause();
+            }
+        }
+    }, [audioState]);
 
     useEffect(() => {
         const cache = localStorage.getItem("cache");
@@ -151,8 +173,17 @@ export function TurretList() {
         }
     }
 
+    function onAudioStateChange() {
+        setAudio(prevState => !prevState);
+    }
+
     return (
         <Grid container spacing={1}>
+            <audio src="/assets/audio/dune-herald-of-the-change-1-hour-edit.mp3"
+                   ref={audioRef}
+                   autoPlay={true}
+                   loop/>
+
             <Grid container sm={12} sx={{mt: 2, mb: 1}}>
                 <Grid sm={7}>
                     <Select value={selected} onChange={(e, v) => onSelectTurret(v)}>
@@ -165,6 +196,8 @@ export function TurretList() {
                         <Button onClick={onAddTurret}
                                 disabled={!selected}>{intlContext.text("UI", "add-turret")}</Button>
                         <Stack direction="row" spacing={2}>
+                            <Button onClick={onAudioStateChange}>{audioState ? <VolumeUpOutlined/> :
+                                <VolumeOffOutlined/>}</Button>
                             <Select placeholder={intlContext.text("UI", "theme")} defaultValue={mode}
                                     onChange={onThemeChange}>
                                 <Option value="system">{intlContext.text("UI", "system-theme")}</Option>
