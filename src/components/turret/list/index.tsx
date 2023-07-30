@@ -25,7 +25,9 @@ export function TurretList() {
         if (audioRef.current) {
             audioRef.current.volume = 0.2;
 
-            window.addEventListener("click", async () => await audioRef.current?.play(), {once: true})
+            if (localStorage.getItem("cache:audio") !== "false") {
+                window.addEventListener("click", async () => await audioRef.current?.play(), {once: true});
+            }
         }
     }, []);
 
@@ -36,6 +38,8 @@ export function TurretList() {
             } else {
                 audioRef.current?.pause();
             }
+
+            localStorage.setItem("cache:audio", audioState.toString());
         }
     }, [audioState]);
 
