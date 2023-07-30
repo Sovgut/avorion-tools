@@ -13,7 +13,7 @@ import {VolumeOffOutlined, VolumeUpOutlined} from "@mui/icons-material";
 export function TurretList() {
     const [list, setList] = useState<TurretState[]>([]);
     const [selected, setSelected] = useState<keyof typeof Turret>(Object.keys(Turret)[FIRST_TURRET] as keyof typeof Turret);
-    const [audioState, setAudio] = useState(true);
+    const [audioState, setAudio] = useState(localStorage.getItem("cache:audio") !== "false");
 
     const {mode, setMode} = useColorScheme();
 
