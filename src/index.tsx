@@ -1,8 +1,4 @@
 import React from 'react';
-// import '@fontsource/roboto/300.css';
-// import '@fontsource/roboto/400.css';
-// import '@fontsource/roboto/500.css';
-// import '@fontsource/roboto/700.css';
 import '@fontsource/public-sans';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -10,6 +6,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {IntlContextProvider} from "./contexts/intl";
 import {CssBaseline, CssVarsProvider, extendTheme} from "@mui/joy";
+import {TurretContextProvider} from "./contexts/turrets";
+import {ComponentContextProvider} from "./contexts/components";
+import {CargoContextProvider} from "./contexts/cargo";
+import {ComponentsCalculationsContextProvider} from "./contexts/components-calculations";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -35,7 +35,15 @@ root.render(
         <CssBaseline/>
 
         <IntlContextProvider>
-            <App/>
+            <TurretContextProvider>
+                <ComponentContextProvider>
+                    <CargoContextProvider>
+                        <ComponentsCalculationsContextProvider>
+                            <App/>
+                        </ComponentsCalculationsContextProvider>
+                    </CargoContextProvider>
+                </ComponentContextProvider>
+            </TurretContextProvider>
         </IntlContextProvider>
     </CssVarsProvider>
 );

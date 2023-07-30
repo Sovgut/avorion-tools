@@ -1,142 +1,23 @@
 import {Button, Container, Grid, Option, Select, Stack, useColorScheme} from "@mui/joy";
-import {Component, Turret} from "../../../constants";
-import React, {useContext, useEffect, useState} from "react";
-import {nanoid} from "nanoid";
-import {TurretState} from "../types";
+import React, {useContext} from "react";
+import {TTurret} from "../../../types";
 import {TurretItem} from "../item";
 import {ComponentList} from "../../component/list";
 import {IntlContext} from "../../../contexts/intl";
-import {FIRST_TURRET} from "./constants";
 import {IIntlTurret} from "../../../contexts/intl/storage/types";
+import {TurretContext} from "../../../contexts/turrets";
+import {TurretMetadata} from "../../../contexts/turrets/constants";
 
 export function TurretList() {
-    const [list, setList] = useState<TurretState[]>([]);
-    const [selected, setSelected] = useState<keyof typeof Turret>(Object.keys(Turret)[FIRST_TURRET] as keyof typeof Turret);
-
     const {mode, setMode} = useColorScheme();
 
     const intlContext = useContext(IntlContext);
-
-    useEffect(() => {
-        const cache = localStorage.getItem("cache");
-
-        if (cache) {
-            const parsed = JSON.parse(cache);
-
-            setList(parsed);
-        }
-    }, [])
-
-    function createComponent(component: Component) {
-        const key = nanoid();
-
-        return {key, type: component, quantity: 0}
-    }
+    const turretContext = useContext(TurretContext);
 
     function onSelectTurret(value: string | null) {
-        setSelected(value as keyof typeof Turret);
-    }
+        if (!value) return;
 
-    function onAddTurret() {
-        if (!selected) return;
-
-        const key = nanoid();
-        const turret = {
-            key,
-            type: selected,
-            quantity: 1,
-            price: 0,
-            icon: Turret[selected].icon,
-            version: Turret[selected].version,
-            components: Turret[selected].components.map(createComponent),
-        }
-
-        setList(prevState => {
-            const turrets = [...prevState, turret];
-
-            localStorage.setItem("cache", JSON.stringify(turrets))
-
-            return turrets
-        })
-    }
-
-    function onRemoveTurret(tKey: string) {
-        if (window.confirm(intlContext.text("UI", "remove-turret-confirmation"))) {
-            setList(prevState => {
-                const turrets = prevState.filter(turret => turret.key !== tKey);
-
-                localStorage.setItem("cache", JSON.stringify(turrets))
-
-                return turrets;
-            })
-        }
-    }
-
-    function onTurretQuantityChange(tKey: string, value: string | null) {
-        if (Number(value) < 1) return;
-
-        setList(prevState => {
-            const copy = [...prevState];
-            const turrets = copy.map(turret => {
-                if (turret.key === tKey) {
-                    turret.quantity = Number(value)
-                }
-
-                return turret;
-            });
-
-            localStorage.setItem("cache", JSON.stringify(turrets))
-
-            return turrets
-        })
-    }
-
-    function onTurretPriceChange(tKey: string, value: string | null) {
-        if (Number(value) < 0) return;
-
-        setList(prevState => {
-            const copy = [...prevState];
-            const turrets = copy.map(turret => {
-                if (turret.key === tKey) {
-                    turret.price = Number(value)
-                }
-
-                return turret;
-            });
-
-            localStorage.setItem("cache", JSON.stringify(turrets))
-
-            return turrets
-        })
-    }
-
-    function onComponentChange(tKey: string, cKey: string, value: string | null) {
-        if (Number(value) < 0) return;
-
-        setList(prevState => {
-            const copy = [...prevState];
-            const turrets = copy.map(turret => {
-                if (turret.key === tKey) {
-                    turret.components = turret.components.map(component => {
-                        if (component.key === cKey) {
-                            return {
-                                key: component.key,
-                                type: component.type,
-                                quantity: Number(value)
-                            }
-                        }
-
-                        return component
-                    })
-                }
-
-                return turret;
-            })
-
-            localStorage.setItem("cache", JSON.stringify(turrets))
-
-            return turrets
-        })
+        turretContext.select(value as TTurret);
     }
 
     function onThemeChange(event: React.SyntheticEvent | null, newValue: string | null) {
@@ -155,15 +36,14 @@ export function TurretList() {
         <Grid container spacing={1}>
             <Grid container sm={12} sx={{mt: 2, mb: 1}}>
                 <Grid sm={7}>
-                    <Select value={selected} onChange={(e, v) => onSelectTurret(v)}>
-                        {Object.keys(Turret).map(turret => <Option key={turret}
-                                                                   value={turret}>{intlContext.text("TURRET", turret as keyof IIntlTurret)}</Option>)}
+                    <Select value={turretContext.selected} onChange={(e, v) => onSelectTurret(v)}>
+                        {Object.keys(TurretMetadata).map(turret => <Option key={turret}
+                                                                           value={turret}>{intlContext.text("TURRET", turret as keyof IIntlTurret)}</Option>)}
                     </Select>
                 </Grid>
                 <Grid sm={5}>
                     <Stack direction="row" spacing={2} justifyContent="space-between">
-                        <Button onClick={onAddTurret}
-                                disabled={!selected}>{intlContext.text("UI", "add-turret")}</Button>
+                        <Button onClick={turretContext.add}>{intlContext.text("UI", "add-turret")}</Button>
                         <Stack direction="row" spacing={2}>
                             <Select placeholder={intlContext.text("UI", "theme")} defaultValue={mode}
                                     onChange={onThemeChange}>
@@ -184,13 +64,9 @@ export function TurretList() {
             <Grid xl={7} xs={12}>
                 <Container disableGutters maxWidth={false}>
                     <Grid container spacing={1}>
-                        {list.map(turret => (
+                        {turretContext.container.map(turret => (
                             <Grid key={turret.key} xs={6}>
-                                <TurretItem key={turret.key} turret={turret}
-                                            onComponentChange={onComponentChange}
-                                            onRemoveTurret={onRemoveTurret}
-                                            onTurretQuantityChange={onTurretQuantityChange}
-                                            onTurretPriceChange={onTurretPriceChange}/>
+                                <TurretItem key={turret.key} turret={turret}/>
                             </Grid>
                         ))}
                     </Grid>
@@ -199,7 +75,7 @@ export function TurretList() {
 
             <Grid xl={5} xs={12}>
                 <Container disableGutters maxWidth={false}>
-                    <ComponentList list={list}/>
+                    <ComponentList/>
                 </Container>
             </Grid>
         </Grid>

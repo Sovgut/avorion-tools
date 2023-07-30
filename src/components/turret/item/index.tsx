@@ -8,20 +8,17 @@ import {TurretComponents} from "../../turret-components";
 export function TurretItem(props: ITurretItem) {
     return (
         <Card key={props.turret.key} sx={{height: "100%"}} variant="outlined">
-            <TurretHeader turret={props.turret} onRemove={props.onRemoveTurret}/>
+            <TurretHeader turret={props.turret}/>
 
             <Divider/>
 
             <CardContent>
                 <Stack spacing={2}>
-                    <TurretOptions
-                        turret={props.turret}
-                        onQuantityChange={props.onTurretQuantityChange}
-                        onPriceChange={props.onTurretPriceChange}/>
+                    <TurretOptions turret={props.turret}/>
 
                     <Divider/>
 
-                    <TurretComponents turret={props.turret} onComponentChange={props.onComponentChange}/>
+                    <TurretComponents turret={props.turret}/>
                 </Stack>
             </CardContent>
         </Card>

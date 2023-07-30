@@ -1,7 +1,5 @@
-import {type TurretState} from "../turret/types";
+import {ITurretState} from "../../contexts/turrets/types";
 
 export interface ITurretHeader {
-    turret: TurretState
-
-    onRemove(tKey: string): void;
+    turret: ITurretState
 }

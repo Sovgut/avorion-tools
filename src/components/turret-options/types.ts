@@ -1,9 +1,5 @@
-import {type TurretState} from "../turret/types";
+import {ITurretState} from "../../contexts/turrets/types";
 
 export interface ITurretOptions {
-    turret: TurretState;
-
-    onQuantityChange(tKey: string, value: string | null): void;
-
-    onPriceChange(tKey: string, value: string | null): void;
+    turret: ITurretState;
 }

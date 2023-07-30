@@ -11,20 +11,20 @@ import {IntlContext} from "../../../contexts/intl";
 import styles from './styles.module.css'
 import {FieldComponent} from "../../field";
 import {IIntlComponent} from "../../../contexts/intl/storage/types";
+import {ComponentsCalculationsContext} from "../../../contexts/components-calculations";
+import {CargoContext} from "../../../contexts/cargo";
 
 interface ListItemProps {
     type: Component;
-    value: number;
-    cargo: number | undefined;
-
-    onCargoChange(cType: string, value: string | null): void;
 }
 
 export function ListItem(props: ListItemProps) {
-    const [isChecked, setIsChecked] = useState(localStorage.getItem(`checkboxes-${props.type}`) === "true");
+    const [isChecked, setIsChecked] = useState(localStorage.getItem(`cache:checkboxes-${props.type}`) === "true");
     const [open, setOpen] = useState(false);
 
     const intlContext = useContext(IntlContext);
+    const cargoContext = useContext(CargoContext);
+    const calculationsContext = useContext(ComponentsCalculationsContext);
     const isFirstRender = useRef(true);
     const buttonRef = useRef(null);
 
@@ -35,13 +35,12 @@ export function ListItem(props: ListItemProps) {
         }
 
         setIsChecked(false);
-        props.onCargoChange(props.type, "0");
-        localStorage.setItem(`checkboxes-${props.type}`, "false");
-    }, [props.type, props.value]);
+        localStorage.setItem(`cache:checkboxes-${props.type}`, "false");
+    }, [props.type]);
 
     useEffect(() => {
         return function cleanup() {
-            localStorage.removeItem(`checkboxes-${props.type}`)
+            localStorage.removeItem(`cache:checkboxes-${props.type}`)
         }
     }, [props.type]);
 
@@ -118,10 +117,10 @@ export function ListItem(props: ListItemProps) {
         setOpen(!open);
     }
 
-    function calculateQuantity() {
-        const value = props.value - (props.cargo || 0);
+    function onCargoUpdate(cType: Component, value: string | null) {
+        if (Number(value) < 0) return;
 
-        return value > 0 ? value : 0;
+        cargoContext.update(cType, Number(value));
     }
 
     return (
@@ -148,8 +147,8 @@ export function ListItem(props: ListItemProps) {
             <td style={{textAlign: "right"}}>
                 <Stack direction="row" spacing={2} justifyContent="flex-end" alignItems="center">
                     <Typography
-                        color={calculateQuantity() !== props.value ? "info" : "primary"}
-                        fontWeight="bold">{calculateQuantity().toLocaleString()}</Typography>
+                        color={calculationsContext.isComponentQuantityModified(props.type) ? "info" : "primary"}
+                        fontWeight="bold">{calculationsContext.calculateComponentQuantity(props.type).toLocaleString()}</Typography>
                     <Button
                         variant="plain"
                         color="neutral"
@@ -188,8 +187,8 @@ export function ListItem(props: ListItemProps) {
                         <Divider/>
                         <Box sx={{p: 1}}>
                             <FieldComponent id={props.type} label={intlContext.text("UI", "cargo-field-label")}
-                                            value={props.cargo || 0} type="number"
-                                            onChange={props.onCargoChange}/>
+                                            value={cargoContext.container[props.type]} type="number"
+                                            onChange={onCargoUpdate}/>
                         </Box>
                     </Stack>
                 </Menu>

@@ -5,12 +5,14 @@ import {MoreVert as MoreIcon} from "@mui/icons-material";
 import {IntlContext} from "../../contexts/intl";
 import {Box, Button, Menu, MenuItem, Stack, Typography} from "@mui/joy";
 import styles from "./styles.module.css";
+import {TurretContext} from "../../contexts/turrets";
 
 export function TurretHeader(props: ITurretHeader) {
     const [open, setOpen] = useState(false);
 
     const buttonRef = useRef(null);
     const intlContext = useContext(IntlContext);
+    const turretContext = useContext(TurretContext)
 
     function onClose() {
         setOpen(false);
@@ -23,7 +25,9 @@ export function TurretHeader(props: ITurretHeader) {
     function onRemove() {
         setOpen(false);
 
-        props.onRemove(props.turret.key)
+        if (window.confirm(intlContext.text("UI", "remove-turret-confirmation"))) {
+            turretContext.remove(props.turret.key);
+        }
     }
 
     return (
