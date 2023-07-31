@@ -63,6 +63,14 @@ export function TurretList() {
         setSelected(value as keyof typeof Turret);
     }
 
+    function onClearTurrets() {
+        if (window.confirm(intlContext.text("UI", "clear-turrets-confirmation"))) {
+            localStorage.removeItem("cache");
+
+            setList([]);
+        }
+    }
+
     function onAddTurret() {
         if (!selected) return;
 
@@ -199,6 +207,9 @@ export function TurretList() {
                     <Stack direction="row" spacing={2} justifyContent="space-between">
                         <Button onClick={onAddTurret}
                                 disabled={!selected}>{intlContext.text("UI", "add-turret")}</Button>
+                        <Button onClick={onClearTurrets}
+                                color="danger"
+                                disabled={!list.length}>{intlContext.text("UI", "clear-turrets")}</Button>
                         <Stack direction="row" spacing={2}>
                             <Button onClick={onAudioStateChange}>{audioState ? <VolumeUpOutlined/> :
                                 <VolumeOffOutlined/>}</Button>

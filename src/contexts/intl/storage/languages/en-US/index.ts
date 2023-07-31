@@ -16,6 +16,8 @@ export const EN_US_UI: IIntlUI = {
     "add-turret": "Add turret",
     "remove-turret": "Remove turret",
     "turret-price": "Turret price",
+    "clear-turrets": "Clear turrets",
+    "clear-turrets-confirmation": "Are you sure you want to clear the turret list?",
     "remove-turret-confirmation": "Are you certain that you wish to remove the turret from the list?",
     "recipe-for-version": "Recipe for:",
     "theme": "Theme",

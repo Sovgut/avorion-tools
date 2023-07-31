@@ -119,6 +119,8 @@ export interface IIntlUI {
     "cargo-field-label": string;
     "add-turret": string;
     "remove-turret": string;
+    "clear-turrets": string;
+    "clear-turrets-confirmation": string;
     "turret-price": string;
     "remove-turret-confirmation": string;
     "recipe-for-version": string;
