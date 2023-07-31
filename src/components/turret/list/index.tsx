@@ -205,11 +205,13 @@ export function TurretList() {
                 </Grid>
                 <Grid sm={5}>
                     <Stack direction="row" spacing={2} justifyContent="space-between">
-                        <Button onClick={onAddTurret}
-                                disabled={!selected}>{intlContext.text("UI", "add-turret")}</Button>
-                        <Button onClick={onClearTurrets}
-                                color="danger"
-                                disabled={!list.length}>{intlContext.text("UI", "clear-turrets")}</Button>
+                        <Stack direction="row" spacing={2}>
+                            <Button onClick={onAddTurret}
+                                    disabled={!selected}>{intlContext.text("UI", "add-turret")}</Button>
+                            <Button onClick={onClearTurrets}
+                                    color="danger"
+                                    disabled={!list.length}>{intlContext.text("UI", "clear-turrets")}</Button>
+                        </Stack>
                         <Stack direction="row" spacing={2}>
                             <Button onClick={onAudioStateChange}>{audioState ? <VolumeUpOutlined/> :
                                 <VolumeOffOutlined/>}</Button>
