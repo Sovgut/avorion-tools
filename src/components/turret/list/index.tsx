@@ -1,4 +1,4 @@
-import {Button, Container, Grid, Option, Select, Stack, useColorScheme} from "@mui/joy";
+import {Box, Button, Container, Grid, Option, Select, Stack, useColorScheme} from "@mui/joy";
 import {Component, Turret} from "../../../constants";
 import React, {useContext, useEffect, useRef, useState} from "react";
 import {nanoid} from "nanoid";
@@ -8,15 +8,11 @@ import {ComponentList} from "../../component/list";
 import {IntlContext} from "../../../contexts/intl";
 import {FIRST_TURRET} from "./constants";
 import {IIntlTurret} from "../../../contexts/intl/storage/types";
-import {VolumeOffOutlined, VolumeUpOutlined} from "@mui/icons-material";
+import {Add, VolumeOffOutlined, VolumeUpOutlined} from "@mui/icons-material";
 
 export function TurretList() {
     const [list, setList] = useState<TurretState[]>([]);
     const [selected, setSelected] = useState<keyof typeof Turret>(Object.keys(Turret)[FIRST_TURRET] as keyof typeof Turret);
-
-    const {mode, setMode} = useColorScheme();
-
-    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const intlContext = useContext(IntlContext);
 
@@ -150,56 +146,26 @@ export function TurretList() {
         })
     }
 
-    function onThemeChange(event: React.SyntheticEvent | null, newValue: string | null) {
-        if (newValue) {
-            setMode(newValue as "dark" | "light")
-        }
-    }
 
-    function onLanguageChange(event: React.SyntheticEvent | null, newValue: string | null) {
-        if (newValue) {
-            intlContext.selectLanguage(newValue)
-        }
-    }
 
     return (
-        <Grid container spacing={1}>
-            <Grid container sm={12} sx={{mt: 2, mb: 1}}>
-                <Grid sm={7}>
-                    <Select value={selected} onChange={(e, v) => onSelectTurret(v)}>
-                        {Object.keys(Turret).map(turret => <Option key={turret}
-                                                                   value={turret}>{intlContext.text("TURRET", turret as keyof IIntlTurret)}</Option>)}
-                    </Select>
-                </Grid>
-                <Grid sm={5}>
-                    <Stack direction="row" spacing={2} justifyContent="space-between">
-                        <Stack direction="row" spacing={2}>
+        <Grid container xs={12} spacing={1}>
+            <Grid container xl={7} xs={12}>
+                <Grid container xs={12} spacing={1} alignContent="flex-start">
+                    <Grid xs={12}>
+                        <Stack direction="row" spacing={1}>
+                            <Select value={selected} onChange={(e, v) => onSelectTurret(v)} sx={{width: "100%"}}>
+                                {Object.keys(Turret).map(turret => <Option key={turret}
+                                                                           value={turret}>{intlContext.text("TURRET", turret as keyof IIntlTurret)}</Option>)}
+                            </Select>
                             <Button onClick={onAddTurret}
-                                    disabled={!selected}>{intlContext.text("UI", "add-turret")}</Button>
-                            <Button onClick={onClearTurrets}
-                                    color="danger"
-                                    disabled={!list.length}>{intlContext.text("UI", "clear-turrets")}</Button>
+                                    disabled={!selected}
+                            >
+                                <Add />
+                            </Button>
                         </Stack>
-                        <Stack direction="row" spacing={2}>
-                            <Select placeholder={intlContext.text("UI", "theme")} defaultValue={mode}
-                                    onChange={onThemeChange}>
-                                <Option value="system">{intlContext.text("UI", "system-theme")}</Option>
-                                <Option value="light">{intlContext.text("UI", "light-theme")}</Option>
-                                <Option value="dark">{intlContext.text("UI", "dark-theme")}</Option>
-                            </Select>
-
-                            <Select placeholder={intlContext.text("UI", "language")} defaultValue={intlContext.language}
-                                    onChange={onLanguageChange}>
-                                <Option value="en-US">{intlContext.text("UI", "english-language")}</Option>
-                                <Option value="ru">{intlContext.text("UI", "russian-language")}</Option>
-                            </Select>
-                        </Stack>
-                    </Stack>
-                </Grid>
-            </Grid>
-            <Grid xl={7} xs={12}>
-                <Container disableGutters maxWidth={false}>
-                    <Grid container spacing={1}>
+                    </Grid>
+                    <Grid container xs={12}>
                         {list.map(turret => (
                             <Grid key={turret.key} xs={6}>
                                 <TurretItem key={turret.key} turret={turret}
@@ -210,7 +176,7 @@ export function TurretList() {
                             </Grid>
                         ))}
                     </Grid>
-                </Container>
+                </Grid>
             </Grid>
 
             <Grid xl={5} xs={12}>

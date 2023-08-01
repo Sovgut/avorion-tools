@@ -1,5 +1,6 @@
-import {Box, Container, useColorScheme} from "@mui/joy";
+import {Box, Container, Stack, useColorScheme} from "@mui/joy";
 import {TurretList} from "./components/turret/list";
+import {Header} from "./components/header";
 
 function App() {
     const {mode} = useColorScheme();
@@ -34,7 +35,10 @@ function App() {
                 opacity: ".75"
             }}/>
             <Container maxWidth={false}>
-                <TurretList/>
+                <Stack spacing={2}>
+                    <Header />
+                    <TurretList/>
+                </Stack>
             </Container>
         </Box>
     );
