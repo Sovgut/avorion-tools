@@ -13,35 +13,12 @@ import {VolumeOffOutlined, VolumeUpOutlined} from "@mui/icons-material";
 export function TurretList() {
     const [list, setList] = useState<TurretState[]>([]);
     const [selected, setSelected] = useState<keyof typeof Turret>(Object.keys(Turret)[FIRST_TURRET] as keyof typeof Turret);
-    const [audioState, setAudio] = useState(localStorage.getItem("cache:audio") !== "false");
 
     const {mode, setMode} = useColorScheme();
 
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const intlContext = useContext(IntlContext);
-
-    useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.volume = 0.2;
-
-            if (localStorage.getItem("cache:audio") !== "false") {
-                window.addEventListener("click", async () => await audioRef.current?.play(), {once: true});
-            }
-        }
-    }, []);
-
-    useEffect(() => {
-        if (audioRef.current) {
-            if (audioState) {
-                audioRef.current?.play();
-            } else {
-                audioRef.current?.pause();
-            }
-
-            localStorage.setItem("cache:audio", audioState.toString());
-        }
-    }, [audioState]);
 
     useEffect(() => {
         const cache = localStorage.getItem("cache");
@@ -185,17 +162,8 @@ export function TurretList() {
         }
     }
 
-    function onAudioStateChange() {
-        setAudio(prevState => !prevState);
-    }
-
     return (
         <Grid container spacing={1}>
-            <audio src="/assets/audio/dune-herald-of-the-change-1-hour-edit.mp3"
-                   ref={audioRef}
-                   autoPlay={true}
-                   loop/>
-
             <Grid container sm={12} sx={{mt: 2, mb: 1}}>
                 <Grid sm={7}>
                     <Select value={selected} onChange={(e, v) => onSelectTurret(v)}>
@@ -211,10 +179,8 @@ export function TurretList() {
                             <Button onClick={onClearTurrets}
                                     color="danger"
                                     disabled={!list.length}>{intlContext.text("UI", "clear-turrets")}</Button>
-                        </Stack>
+                        </Stack>w
                         <Stack direction="row" spacing={2}>
-                            <Button onClick={onAudioStateChange}>{audioState ? <VolumeUpOutlined/> :
-                                <VolumeOffOutlined/>}</Button>
                             <Select placeholder={intlContext.text("UI", "theme")} defaultValue={mode}
                                     onChange={onThemeChange}>
                                 <Option value="system">{intlContext.text("UI", "system-theme")}</Option>
