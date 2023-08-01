@@ -179,7 +179,7 @@ export function TurretList() {
                             <Button onClick={onClearTurrets}
                                     color="danger"
                                     disabled={!list.length}>{intlContext.text("UI", "clear-turrets")}</Button>
-                        </Stack>w
+                        </Stack>
                         <Stack direction="row" spacing={2}>
                             <Select placeholder={intlContext.text("UI", "theme")} defaultValue={mode}
                                     onChange={onThemeChange}>
