@@ -14,7 +14,7 @@ export const RU_UI: IIntlUI = {
     "cargo-required": "Требуемые компоненты",
     "cargo": "Трюм",
     "cargo-field-note": "Всякий раз, когда изменяется количество компонента, значение трюма автоматически сбрасывается на начальное состояние.",
-    "cargo-field-label": "В трюме",
+    "cargo-field-label": "Добавить",
     "add-turret": "Добавить турель",
     "remove-turret": "Удалить турель",
     "clear-turrets": "Очистить туррели",

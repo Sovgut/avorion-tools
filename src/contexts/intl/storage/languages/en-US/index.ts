@@ -14,7 +14,7 @@ export const EN_US_UI: IIntlUI = {
     "cargo-required": "Required components",
     "cargo": "Cargo",
     "cargo-field-note": "Whenever the quantity of the component-table is modified, the cargo value is automatically reset to its default state.",
-    "cargo-field-label": "In cargo",
+    "cargo-field-label": "Add",
     "add-turret": "Add turret",
     "remove-turret": "Remove turret",
     "turret-price": "Turret price",
