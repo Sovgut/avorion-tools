@@ -3,7 +3,12 @@ import {TurretList} from "./components/turret/list";
 import {Header} from "./components/header";
 
 function App() {
-    const {mode} = useColorScheme();
+    const {mode, systemMode} = useColorScheme();
+    let theme: "light" | "dark" = mode as "light" | "dark";
+
+    if (mode === 'system') {
+        theme = systemMode as "light" | "dark";
+    }
 
     return (
         <Box sx={{position: "relative", minHeight: "100vh"}}>
@@ -16,7 +21,7 @@ function App() {
                 width: "100%",
                 overflow: "hidden"
             }}>
-                {mode === "dark" || mode === "system"
+                {theme === "dark"
                     ? <video style={{width: "100%", height: "100%", objectFit: "cover"}}
                              src="/assets/video/background.mp4"
                              autoPlay loop muted

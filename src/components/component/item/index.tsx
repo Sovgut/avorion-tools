@@ -155,8 +155,8 @@ export function ListItem(props: ListItemProps) {
                         color="neutral"
                         sx={{height: "3rem", width: "3rem"}}
                         ref={buttonRef}
-                        id={`cargo-${props.type}-menu`}
-                        aria-controls={`cargo-${props.type}-menu`}
+                        id={`cargo-${props.type.toLowerCase().replace(String(), "-")}-menu`}
+                        aria-controls={`cargo-${props.type.toLowerCase().replace(String(), "-")}-menu`}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                         onClick={onOpen}
@@ -165,11 +165,11 @@ export function ListItem(props: ListItemProps) {
                     </Button>
                 </Stack>
                 <Menu
-                    id={`cargo-${props.type}-menu`}
+                    id={`cargo-${props.type.toLowerCase().replace(String(), "-")}-menu`}
                     anchorEl={buttonRef.current}
                     open={open}
                     onClose={onClose}
-                    aria-labelledby={`cargo-${props.type}-button`}
+                    aria-labelledby={`cargo-${props.type.toLowerCase().replace(String(), "-")}-button`}
                     sx={{width: "300px", pt: 0, pb: 0}}
                 >
                     <Stack>
