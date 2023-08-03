@@ -75,13 +75,23 @@ export function ComponentTable() {
                                 <InfoIcon fontSize="small" sx={{cursor: "pointer"}}/>
                             </Tooltip>
                         </Stack>
-                        <Stack direction="row" spacing={1}>
+                        <Stack direction="row" spacing={1} alignItems="center">
                             <Typography level="body-lg">¢</Typography>
                             <Typography
-                                level="body-lg">{calculatorContext.estimation("price").min.toLocaleString()}</Typography>
-                            <Typography level="body-lg">-</Typography>
-                            <Typography
-                                level="body-lg">{calculatorContext.estimation("price").max.toLocaleString()}</Typography>
+                                level="body-lg">~{calculatorContext.estimation("price").avg.toLocaleString()}</Typography>
+                            <Tooltip size="sm" arrow title={(
+                                <Stack direction="row" spacing={1}>
+                                    <Typography level="body-lg">¢</Typography>
+                                    <Typography
+                                        level="body-lg">{calculatorContext.estimation("price").min.toLocaleString()}</Typography>
+                                    <Typography level="body-lg">-</Typography>
+                                    <Typography level="body-lg">¢</Typography>
+                                    <Typography
+                                        level="body-lg">{calculatorContext.estimation("price").max.toLocaleString()}</Typography>
+                                </Stack>
+                            )} variant="soft" placement="top">
+                                <InfoIcon fontSize="small" sx={{cursor: "pointer"}}/>
+                            </Tooltip>
                         </Stack>
                     </Grid>
                     <Divider/>
