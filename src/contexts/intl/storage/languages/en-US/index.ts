@@ -11,7 +11,7 @@ export const EN_US_UI: IIntlUI = {
     "dangerous-cargo": "Dangerous cargo",
     "illegal-cargo": "Illegal cargo",
     "please-note": "Please note",
-    "cargo-required": "Required cargo",
+    "cargo-required": "Required components",
     "cargo": "Cargo",
     "cargo-field-note": "Whenever the quantity of the component-table is modified, the cargo value is automatically reset to its default state.",
     "cargo-field-label": "In cargo",
