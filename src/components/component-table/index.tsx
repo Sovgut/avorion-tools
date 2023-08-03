@@ -76,20 +76,27 @@ export function ComponentTable() {
                             </Tooltip>
                         </Stack>
                         <Stack direction="row" spacing={1} alignItems="center">
-                            <Typography level="body-lg">¢</Typography>
-                            <Typography
-                                level="body-lg">~{calculatorContext.estimation("price").avg.toLocaleString()}</Typography>
+                            <Typography level="body-lg">~</Typography>
+                            <Stack direction="row">
+                                <Typography level="body-lg">¢</Typography>
+                                <Typography
+                                    level="body-lg">{calculatorContext.estimation("price").avg.toLocaleString()}</Typography>
+                            </Stack>
                             <Tooltip size="sm" arrow title={(
                                 <Stack direction="row" spacing={1}>
-                                    <Typography level="body-lg">¢</Typography>
-                                    <Typography
-                                        level="body-lg">{calculatorContext.estimation("price").min.toLocaleString()}</Typography>
+                                    <Stack direction="row">
+                                        <Typography level="body-lg">¢</Typography>
+                                        <Typography
+                                            level="body-lg">{calculatorContext.estimation("price").min.toLocaleString()}</Typography>
+                                    </Stack>
                                     <Typography level="body-lg">-</Typography>
-                                    <Typography level="body-lg">¢</Typography>
-                                    <Typography
-                                        level="body-lg">{calculatorContext.estimation("price").max.toLocaleString()}</Typography>
+                                    <Stack direction="row">
+                                        <Typography level="body-lg">¢</Typography>
+                                        <Typography
+                                            level="body-lg">{calculatorContext.estimation("price").max.toLocaleString()}</Typography>
+                                    </Stack>
                                 </Stack>
-                            )} variant="soft" placement="top">
+                            )} variant="outlined" placement="top">
                                 <InfoIcon fontSize="small" sx={{cursor: "pointer"}}/>
                             </Tooltip>
                         </Stack>

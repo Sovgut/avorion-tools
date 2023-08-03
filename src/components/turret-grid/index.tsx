@@ -1,11 +1,23 @@
-import {Button, Container, Grid, Option, Select, Stack} from "@mui/joy";
+import {
+    Button,
+    Container,
+    Dropdown,
+    Grid,
+    ListItemDecorator,
+    Menu,
+    MenuButton,
+    MenuItem,
+    Option,
+    Select,
+    Stack
+} from "@mui/joy";
 import React, {useContext, useState} from "react";
 import {TurretItem} from "../turret-item";
 import {TurretContext} from "../../contexts/turret";
 import {ComponentTable} from "../component-table";
 import {TurretType} from "../../constants";
 import {IIntlTurret} from "../../contexts/intl/storage/types";
-import {Add} from "@mui/icons-material";
+import {Add, ArrowDropDown, ClearAll} from "@mui/icons-material";
 import {IntlContext} from "../../contexts/intl";
 import {CargoTable} from "../cargo-table";
 
@@ -27,6 +39,10 @@ export function TurretGrid() {
         turretContext.add(selected);
     }
 
+    function onClearTurrets() {
+        turretContext.clear();
+    }
+
     return (
         <Grid container xs={12} spacing={1}>
             <Grid container xl={7} xs={12}>
@@ -43,8 +59,27 @@ export function TurretGrid() {
                                 onClick={onAddTurret}
                                 disabled={!selected}
                             >
-                                <Add/>
+                                <Stack direction="row" sx={{width: "max-content"}} alignItems="center" spacing={1}>
+                                    <Add/>
+                                    {intlContext.text("UI", "add-turret")}
+                                </Stack>
                             </Button>
+                            <Dropdown>
+                                <MenuButton variant="solid" color="primary">
+                                    <ArrowDropDown/>
+                                </MenuButton>
+                                <Menu>
+                                    <MenuItem
+                                        color="danger"
+                                        onClick={onClearTurrets}
+                                    >
+                                        <ListItemDecorator>
+                                            <ClearAll/>
+                                        </ListItemDecorator>
+                                        {intlContext.text("UI", "clear-turrets")}
+                                    </MenuItem>
+                                </Menu>
+                            </Dropdown>
                         </Stack>
                     </Grid>
                     <Grid container xs={12}>

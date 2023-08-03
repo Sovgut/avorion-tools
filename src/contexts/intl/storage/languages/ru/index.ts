@@ -17,7 +17,7 @@ export const RU_UI: IIntlUI = {
     "cargo-field-label": "Добавить",
     "add-turret": "Добавить турель",
     "remove-turret": "Удалить турель",
-    "clear-turrets": "Очистить туррели",
+    "clear-turrets": "Очистить турели",
     "turret-price": "Цена турели",
     "clear-turrets-confirmation": "Вы уверены, что хотите очистить список турелей?",
     "remove-turret-confirmation": "Вы уверены, что хотите удалить турель из списка?",
