@@ -140,8 +140,8 @@ export function ComponentList(props: ComponentListProps) {
                 </tr>
                 </thead>
                 <tbody>
-                {Object.keys(rows).map((row) => (
-                    <ListItem key={row} type={row as Component} value={rows[row]} onCargoChange={onCargoChange}
+                {Object.keys(rows).map((row, index) => (
+                    <ListItem key={row} index={index} type={row as Component} value={rows[row]} onCargoChange={onCargoChange}
                               cargo={cargo[row as Component]?.quantity}/>
                 ))}
                 </tbody>
@@ -153,7 +153,7 @@ export function ComponentList(props: ComponentListProps) {
 
                     <Grid container xs={12} alignItems="center" justifyContent="space-between">
                         <Stack direction="row" spacing={.5} alignItems="center" justifyContent="space-between">
-                            <Typography level="body1">{intlContext.text("UI", "estimated-price")}</Typography>
+                            <Typography level="body-lg">{intlContext.text("UI", "estimated-price")}</Typography>
                             <Tooltip
                                 title={intlContext.text("UI", "estimated-price-info")}
                                 size="sm"
@@ -163,19 +163,19 @@ export function ComponentList(props: ComponentListProps) {
                             </Tooltip>
                         </Stack>
                         <Stack direction="row" spacing={1}>
-                            <Typography level="body1">¢</Typography>
+                            <Typography level="body-lg">¢</Typography>
                             <Typography
-                                level="body1">{calculateMinPrice().toLocaleString()}</Typography>
-                            <Typography level="body1">-</Typography>
+                                level="body-lg">{calculateMinPrice().toLocaleString()}</Typography>
+                            <Typography level="body-lg">-</Typography>
                             <Typography
-                                level="body1">{calculateMaxPrice().toLocaleString()}</Typography>
+                                level="body-lg">{calculateMaxPrice().toLocaleString()}</Typography>
                         </Stack>
                     </Grid>
                     <Divider/>
                     <Grid container xs={12} alignItems="center" justifyContent="space-between">
-                        <Typography level="body1">{intlContext.text("UI", "estimated-volume")}</Typography>
+                        <Typography level="body-lg">{intlContext.text("UI", "estimated-volume")}</Typography>
                         <Typography
-                            level="body1">{calculateVolume().toLocaleString()}</Typography>
+                            level="body-lg">{calculateVolume().toLocaleString()}</Typography>
                     </Grid>
                 </Stack>
             </CardOverflow>

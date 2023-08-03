@@ -1,5 +1,17 @@
 import {Component, ComponentInfo, SellerInfo} from "../../../constants";
-import {Alert, Box, Button, Checkbox, Divider, Link, Menu, Stack, Tooltip, Typography} from "@mui/joy";
+import {
+    Alert,
+    Box,
+    Checkbox,
+    Divider,
+    Link,
+    Menu,
+    Stack,
+    Tooltip,
+    Typography,
+    Dropdown,
+    MenuButton, MenuItem, Button, Modal, ModalDialog, ModalClose
+} from "@mui/joy";
 import {
     DescriptionOutlined as LinkIcon,
     Info as NoteIcon,
@@ -16,17 +28,17 @@ interface ListItemProps {
     type: Component;
     value: number;
     cargo: number | undefined;
+    index: number;
 
     onCargoChange(cType: string, value: string | null): void;
 }
 
 export function ListItem(props: ListItemProps) {
     const [isChecked, setIsChecked] = useState(localStorage.getItem(`checkboxes-${props.type}`) === "true");
-    const [open, setOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const intlContext = useContext(IntlContext);
     const isFirstRender = useRef(true);
-    const buttonRef = useRef(null);
 
     useEffect(() => {
         if (isFirstRender.current) {
@@ -57,7 +69,7 @@ export function ListItem(props: ListItemProps) {
             return (
                 <Stack direction="row" spacing={.5} alignItems="center">
                     <Typography
-                        level="h6"
+                        level="title-sm"
                         color={getComponentColor(component)}
                         sx={{textDecoration: isChecked ? "line-through" : "none"}}
                     >
@@ -76,7 +88,7 @@ export function ListItem(props: ListItemProps) {
             return (
                 <Stack direction="row" spacing={.5} alignItems="center">
                     <Typography
-                        level="h6"
+                        level="title-sm"
                         color={getComponentColor(component)}
                         sx={{textDecoration: isChecked ? "line-through" : "none"}}
                     >
@@ -93,7 +105,7 @@ export function ListItem(props: ListItemProps) {
 
         return (
             <Typography
-                level="h6"
+                level="title-sm"
                 color={getComponentColor(component)}
                 sx={{textDecoration: isChecked ? "line-through" : "none"}}
             >
@@ -110,18 +122,18 @@ export function ListItem(props: ListItemProps) {
         });
     }
 
-    function onClose() {
-        setOpen(false);
-    }
-
-    function onOpen() {
-        setOpen(!open);
-    }
-
     function calculateQuantity() {
         const value = props.value - (props.cargo || 0);
 
         return value > 0 ? value : 0;
+    }
+
+    function onMenuToggle() {
+        setMenuOpen(prevState => !prevState);
+    }
+
+    function onMenuClose() {
+        setMenuOpen(false);
     }
 
     return (
@@ -148,51 +160,44 @@ export function ListItem(props: ListItemProps) {
             <td style={{textAlign: "right"}}>
                 <Stack direction="row" spacing={2} justifyContent="flex-end" alignItems="center">
                     <Typography
-                        color={calculateQuantity() !== props.value ? "info" : "primary"}
+                        color={calculateQuantity() !== props.value ? "warning" : "primary"}
                         fontWeight="bold">{calculateQuantity().toLocaleString()}</Typography>
-                    <Button
-                        variant="plain"
-                        color="neutral"
-                        sx={{height: "3rem", width: "3rem"}}
-                        ref={buttonRef}
-                        id={`cargo-${props.type.toLowerCase().replace(String(), "-")}-menu`}
-                        aria-controls={`cargo-${props.type.toLowerCase().replace(String(), "-")}-menu`}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={onOpen}
-                    >
-                        <MoreIcon/>
-                    </Button>
-                </Stack>
-                <Menu
-                    id={`cargo-${props.type.toLowerCase().replace(String(), "-")}-menu`}
-                    anchorEl={buttonRef.current}
-                    open={open}
-                    onClose={onClose}
-                    aria-labelledby={`cargo-${props.type.toLowerCase().replace(String(), "-")}-button`}
-                    sx={{width: "300px", pt: 0, pb: 0}}
-                >
-                    <Stack>
-                        <Alert color="info"
-                               sx={{alignItems: 'flex-start', borderRadius: 0}}
-                               startDecorator={<NoteIcon/>}>
-                            <Stack spacing={1}>
-                                <Typography fontWeight="lg">
-                                    {intlContext.text("UI", "please-note")}
-                                </Typography>
-                                <Typography fontSize="sm" sx={{opacity: 0.8}}>
-                                    {intlContext.text("UI", "cargo-field-note")}
-                                </Typography>
+                    <Button variant="outlined" color="neutral" onClick={onMenuToggle}><MoreIcon/></Button>
+                    <Modal open={menuOpen} onClose={onMenuClose}>
+                        <ModalDialog
+                            layout="center"
+                            size="lg"
+                            variant="plain"
+                            sx={{pt: 0}}
+                        >
+                            <Stack spacing={2}>
+                                <ModalClose onClick={onMenuClose}/>
+                                <Typography level="h2">{props.type}</Typography>
+
+                                <Stack spacing={2}>
+                                    <Alert color="warning"
+                                           variant="soft"
+                                           startDecorator={<NoteIcon/>}>
+                                        <Stack spacing={1}>
+                                            <Typography fontWeight="lg">
+                                                {intlContext.text("UI", "please-note")}
+                                            </Typography>
+                                            <Typography fontSize="sm" sx={{opacity: 0.8}}>
+                                                {intlContext.text("UI", "cargo-field-note")}
+                                            </Typography>
+                                        </Stack>
+                                    </Alert>
+                                    <FieldComponent id={props.type}
+                                                    label={intlContext.text("UI", "cargo-field-label")}
+                                                    value={props.cargo || 0}
+                                                    type="number"
+                                                    focus
+                                                    onChange={props.onCargoChange}/>
+                                </Stack>
                             </Stack>
-                        </Alert>
-                        <Divider/>
-                        <Box sx={{p: 1}}>
-                            <FieldComponent id={props.type} label={intlContext.text("UI", "cargo-field-label")}
-                                            value={props.cargo || 0} type="number"
-                                            onChange={props.onCargoChange}/>
-                        </Box>
-                    </Stack>
-                </Menu>
+                        </ModalDialog>
+                    </Modal>
+                </Stack>
             </td>
         </tr>
     )

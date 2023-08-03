@@ -1,9 +1,11 @@
-import {type ChangeEvent} from "react";
+import {type ChangeEvent, useEffect, useRef} from "react";
 import {type IFieldComponent} from "./types";
 
 import {Divider, Input, Stack, Typography} from "@mui/joy";
 
 export function FieldComponent(props: IFieldComponent) {
+    const ref = useRef<HTMLInputElement>(null);
+
     const sx = {
         minWidth: "auto"
     }
@@ -14,7 +16,7 @@ export function FieldComponent(props: IFieldComponent) {
 
     const decorator = (
         <Stack direction="row" spacing={1}>
-            <Typography level="body2" sx={sx}>{props.label}</Typography>
+            <Typography level="body-md" sx={sx}>{props.label}</Typography>
             <Divider orientation="vertical"/>
         </Stack>
     );
@@ -23,8 +25,15 @@ export function FieldComponent(props: IFieldComponent) {
         props.onChange(props.id, e.target.value);
     }
 
+    useEffect(() => {
+        if (props.focus && ref.current) {
+            ref.current.focus();
+        }
+    }, []);
+
     return (
         <Input
+            ref={ref}
             sx={{width: "100%"}}
             startDecorator={decorator}
             onChange={onChange}
