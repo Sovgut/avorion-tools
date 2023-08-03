@@ -5,12 +5,14 @@ import {MoreVert as MoreIcon} from "@mui/icons-material";
 import {IntlContext} from "../../contexts/intl";
 import {Box, Dropdown, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
 import styles from "./styles.module.css";
+import {TurretContext} from "../../contexts/turret";
 
 export function TurretHeader(props: ITurretHeader) {
     const intlContext = useContext(IntlContext);
+    const turretContext = useContext(TurretContext);
 
     function onRemove() {
-        props.onRemove(props.turret.key)
+        turretContext.remove(props.turret.id);
     }
 
     return (

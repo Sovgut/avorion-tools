@@ -115,6 +115,8 @@ export interface IIntlUI {
     "dangerous-cargo": string;
     "illegal-cargo": string;
     "please-note": string;
+    "cargo-required": string;
+    "cargo": string;
     "cargo-field-note": string;
     "cargo-field-label": string;
     "add-turret": string;

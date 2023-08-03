@@ -11,6 +11,8 @@ export const RU_UI: IIntlUI = {
     "dangerous-cargo": "Опасный груз",
     "illegal-cargo": "Нелегальный груз",
     "please-note": "Обратите внимание",
+    "cargo-required": "Требуемый трюм",
+    "cargo": "Трюм",
     "cargo-field-note": "Всякий раз, когда изменяется количество компонента, значение трюма автоматически сбрасывается на начальное состояние.",
     "cargo-field-label": "В трюме",
     "add-turret": "Добавить турель",

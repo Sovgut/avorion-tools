@@ -516,7 +516,7 @@ export const ComponentInfo: IComponentInfo = {
     },
 }
 
-export const Turret = {
+export const Turret: Record<TurretType, { version: string, icon: string, components: Component[] }> = {
     "Chaingun": {
         version: "2.3.1",
         icon: "/assets/img/chaingun.png",
@@ -747,4 +747,26 @@ export const Turret = {
             Component["Aluminum"]
         ]
     }
+}
+
+export enum TurretType {
+    "Chaingun" = "Chaingun",
+    "Bolter" = "Bolter",
+    "Laser" = "Laser",
+    "Plasma Gun" = "Plasma Gun",
+    "Cannon" = "Cannon",
+    "Rocket Launcher" = "Rocket Launcher",
+    "Railgun" = "Railgun",
+    "Repair" = "Repair",
+    "Mining Laser" = "Mining Laser",
+    "Raw Mining Laser" = "Raw Mining Laser",
+    "Salvaging Laser" = "Salvaging Laser",
+    "Raw Salvaging Laser" = "Raw Salvaging Laser",
+    "Force Gun" = "Force Gun",
+    "Tesla Gun" = "Tesla Gun",
+    "Lightning Gun" = "Lightning Gun",
+    "Pulse Cannon" = "Pulse Cannon",
+    "Point Defense Cannon" = "Point Defense Cannon",
+    "Point Defense Laser" = "Point Defense Laser",
+    "Anti Fighter" = "Anti Fighter",
 }

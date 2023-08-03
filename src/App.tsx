@@ -1,14 +1,11 @@
 import {Box, Container, Stack, useColorScheme} from "@mui/joy";
-import {TurretList} from "./components/turret/list";
+import {TurretGrid} from "./components/turret-grid";
 import {Header} from "./components/header";
+import {isDarkTheme} from "./utils/is-dark-theme";
 
 function App() {
     const {mode, systemMode} = useColorScheme();
-    let theme: "light" | "dark" = mode as "light" | "dark";
-
-    if (mode === 'system') {
-        theme = systemMode as "light" | "dark";
-    }
+    const isDark = isDarkTheme(mode, systemMode);
 
     return (
         <Box sx={{position: "relative", minHeight: "100vh"}}>
@@ -21,13 +18,12 @@ function App() {
                 width: "100%",
                 overflow: "hidden"
             }}>
-                {theme === "dark"
+                {isDark
                     ? <video style={{width: "100%", height: "100%", objectFit: "cover"}}
                              src="/assets/video/background.mp4"
                              autoPlay loop muted
                              controls={false}/>
                     : null}
-
             </Box>
             <Box sx={{
                 top: 0,
@@ -41,8 +37,9 @@ function App() {
             }}/>
             <Container maxWidth={false}>
                 <Stack spacing={2}>
-                    <Header />
-                    <TurretList/>
+                    <Header/>
+
+                    <TurretGrid/>
                 </Stack>
             </Container>
         </Box>

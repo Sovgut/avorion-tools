@@ -6,6 +6,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {IntlContextProvider} from "./contexts/intl";
 import {CssBaseline, CssVarsProvider, extendTheme} from "@mui/joy";
+import {TurretContextProvider} from "./contexts/turret";
+import {ComponentContextProvider} from "./contexts/component";
+import {CargoContextProvider} from "./contexts/cargo";
+import {CalculatorContextProvider} from "./contexts/calculator";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -31,7 +35,15 @@ root.render(
         <CssBaseline/>
 
         <IntlContextProvider>
-            <App/>
+            <TurretContextProvider>
+                <ComponentContextProvider>
+                    <CargoContextProvider>
+                        <CalculatorContextProvider>
+                            <App/>
+                        </CalculatorContextProvider>
+                    </CargoContextProvider>
+                </ComponentContextProvider>
+            </TurretContextProvider>
         </IntlContextProvider>
     </CssVarsProvider>
 );
