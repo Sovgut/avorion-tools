@@ -172,7 +172,7 @@ export function ListItem(props: ListItemProps) {
                         >
                             <Stack spacing={2}>
                                 <ModalClose onClick={onMenuClose}/>
-                                <Typography level="h2">{props.type}</Typography>
+                                <Typography level="h2">{intlContext.text("COMPONENT", props.type)}</Typography>
 
                                 <Stack spacing={2}>
                                     <Alert color="warning"
