@@ -1,0 +1,13 @@
+@keyframes moveBackground {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 1000px -1000px;
+    }
+}
+
+.pipes {
+    background: url('../../../../public/assets/img/pipes.webp');
+    animation: moveBackground 60s linear infinite;
+}

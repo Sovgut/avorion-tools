@@ -14,7 +14,7 @@ export function ComponentItemSkeleton(props: ComponentItemSkeletonProps) {
             </td>
             <td>
                 <Stack direction="row" spacing={1}>
-                    <Typography level="h3"><Skeleton animation={false}>Lorem ipsum</Skeleton></Typography>
+                    <Typography level="h4"><Skeleton animation={false}>Lorem ipsum</Skeleton></Typography>
                 </Stack>
                 <Stack spacing={1} direction="row">
                     <Typography><Skeleton animation={false}>Lorem ipsum</Skeleton></Typography>

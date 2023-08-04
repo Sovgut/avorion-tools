@@ -1,8 +1,14 @@
-import {Link as MUILink, Option, Select, Stack, Typography, useColorScheme} from "@mui/joy";
+import {Container, Link, Option, Select, Stack, Typography, useColorScheme} from "@mui/joy";
 import React, {useContext} from "react";
 import {IntlContext} from "../../contexts/intl";
+import {Link as RouterLink} from 'react-router-dom'
 
-export function Header() {
+type HeaderProps = {
+    fontColor?: "black" | "white";
+    disableGutters?: boolean;
+}
+
+export function Header(props: HeaderProps) {
     const {mode, setMode} = useColorScheme();
     const intlContext = useContext(IntlContext);
 
@@ -19,38 +25,50 @@ export function Header() {
     }
 
     return (
-        <Stack direction="row" spacing={2} sx={{pt: 2}} justifyContent="space-between">
-            <Stack direction="row" spacing={4}>
-                <Stack justifyItems="center" spacing={-1} sx={{opacity: .5, userSelect: "none", pointerEvents: "none"}}>
-                    <Typography fontWeight="bolder" fontSize={18}>Avorion</Typography>
-                    <Typography letterSpacing={4} fontSize={16}>Instruments</Typography>
+        <Container maxWidth={false} disableGutters={props.disableGutters}>
+            <Stack direction="row" spacing={2} sx={{pt: 3, pb: 3}} justifyContent="space-between">
+                <Stack direction="row" spacing={4}>
+                    <Stack justifyItems="center" spacing={-1}
+                           sx={{opacity: .5, userSelect: "none", pointerEvents: "none"}}>
+                        <Typography fontWeight="bolder" fontSize={18} textColor={props.fontColor}>Avorion</Typography>
+                        <Typography letterSpacing={4} fontSize={16} textColor={props.fontColor}>Instruments</Typography>
+                    </Stack>
+                    <Stack direction="row" spacing={2}>
+                        <Link
+                            component={RouterLink}
+                            color="neutral"
+                            level="title-sm"
+                            fontWeight="bold"
+                            underline="hover"
+                            to="/turret-planner"
+                            sx={{textTransform: "uppercase"}}
+                            textColor={props.fontColor}
+                        >
+                            Turret planner
+                        </Link>
+                    </Stack>
                 </Stack>
                 <Stack direction="row" spacing={2}>
-                    <MUILink color="neutral" level="title-lg" underline="none" variant="plain" href="/turret-planner">
-                        Turret planner
-                    </MUILink>
+                    <Select placeholder={intlContext.text("UI", "theme")}
+                            defaultValue={mode}
+                            onChange={onThemeChange}
+                            sx={{height: "2rem"}}
+                    >
+                        <Option value="system">{intlContext.text("UI", "system-theme")}</Option>
+                        <Option value="light">{intlContext.text("UI", "light-theme")}</Option>
+                        <Option value="dark">{intlContext.text("UI", "dark-theme")}</Option>
+                    </Select>
+
+                    <Select placeholder={intlContext.text("UI", "language")}
+                            defaultValue={intlContext.language}
+                            onChange={onLanguageChange}
+                            sx={{height: "2rem"}}
+                    >
+                        <Option value="en-US">{intlContext.text("UI", "english-language")}</Option>
+                        <Option value="ru">{intlContext.text("UI", "russian-language")}</Option>
+                    </Select>
                 </Stack>
             </Stack>
-            <Stack direction="row" spacing={2}>
-                <Select placeholder={intlContext.text("UI", "theme")}
-                        defaultValue={mode}
-                        onChange={onThemeChange}
-                        sx={{height: "2rem"}}
-                >
-                    <Option value="system">{intlContext.text("UI", "system-theme")}</Option>
-                    <Option value="light">{intlContext.text("UI", "light-theme")}</Option>
-                    <Option value="dark">{intlContext.text("UI", "dark-theme")}</Option>
-                </Select>
-
-                <Select placeholder={intlContext.text("UI", "language")}
-                        defaultValue={intlContext.language}
-                        onChange={onLanguageChange}
-                        sx={{height: "2rem"}}
-                >
-                    <Option value="en-US">{intlContext.text("UI", "english-language")}</Option>
-                    <Option value="ru">{intlContext.text("UI", "russian-language")}</Option>
-                </Select>
-            </Stack>
-        </Stack>
+        </Container>
     )
 }

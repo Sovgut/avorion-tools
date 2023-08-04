@@ -10,7 +10,8 @@ import {CargoContextProvider} from "./contexts/cargo";
 import {CalculatorContextProvider} from "./contexts/calculator";
 import {createBrowserRouter, Navigate, RouterProvider,} from "react-router-dom";
 import {Layout} from "./components/layout";
-import {TurretGrid} from "./components/turret-grid";
+import {TurretBuilder} from "./pages/turret-builder";
+import {GettingStarted} from "./pages/getting-started";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -40,13 +41,27 @@ const router = createBrowserRouter([
                     <CargoContextProvider>
                         <CalculatorContextProvider>
                             <Layout>
-                                <TurretGrid/>
+                                <TurretBuilder/>
                             </Layout>
                         </CalculatorContextProvider>
                     </CargoContextProvider>
                 </ComponentContextProvider>
             </TurretContextProvider>
         ),
+    },
+    {
+        path: "/turret-planner/getting-started",
+        element: (
+            <TurretContextProvider>
+                <ComponentContextProvider>
+                    <CargoContextProvider>
+                        <CalculatorContextProvider>
+                            <GettingStarted/>
+                        </CalculatorContextProvider>
+                    </CargoContextProvider>
+                </ComponentContextProvider>
+            </TurretContextProvider>
+        )
     },
     {
         path: "*",

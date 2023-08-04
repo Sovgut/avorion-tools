@@ -1,7 +1,6 @@
 import {Box, Container, Stack, useColorScheme} from "@mui/joy";
 import {isDarkTheme} from "../../utils/is-dark-theme";
 import {ReactNode} from "react";
-import {Header} from "../header";
 
 type LayoutProps = {
     children: ReactNode;
@@ -10,9 +9,10 @@ type LayoutProps = {
 export function Layout(props: LayoutProps) {
     const {mode, systemMode} = useColorScheme();
     const isDark = isDarkTheme(mode, systemMode);
+    const theme = isDark ? "dark" : "light";
 
     return (
-        <Box sx={{position: "relative", minHeight: "100vh"}}>
+        <Box sx={{display: "flex", position: "relative", minHeight: "100vh", height: 0}}>
             <Box sx={{
                 top: 0,
                 left: 0,
@@ -22,12 +22,12 @@ export function Layout(props: LayoutProps) {
                 width: "100%",
                 overflow: "hidden"
             }}>
-                {isDark
-                    ? <video style={{width: "100%", height: "100%", objectFit: "cover"}}
-                             src="/assets/video/background.mp4"
-                             autoPlay loop muted
-                             controls={false}/>
-                    : null}
+                <video style={{width: "100%", height: "100%", objectFit: "cover"}}
+                       src={`/assets/video/${theme}-background.mp4`}
+                       autoPlay
+                       loop
+                       muted
+                       controls={false}/>
             </Box>
             <Box sx={{
                 top: 0,
@@ -39,9 +39,8 @@ export function Layout(props: LayoutProps) {
                 background: "linear-gradient(to bottom, transparent, var(--joy-palette-background-level1))",
                 opacity: ".75"
             }}/>
-            <Container maxWidth={false}>
-                <Stack spacing={2}>
-                    <Header/>
+            <Container maxWidth={false} disableGutters sx={{height: "100%"}}>
+                <Stack spacing={2} sx={{height: "100%"}}>
                     {props.children}
                 </Stack>
             </Container>

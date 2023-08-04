@@ -9,7 +9,7 @@ export function ComponentTableSkeleton() {
     useEffect(() => {
         const components: string[] = [];
 
-        for (let i = 0; i < 13; i++) {
+        for (let i = 0; i < 15; i++) {
             components.push(nanoid());
         }
 
