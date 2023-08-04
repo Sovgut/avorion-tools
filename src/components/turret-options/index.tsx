@@ -1,6 +1,6 @@
 import {type ITurretOptions} from "./types";
 
-import {FieldComponent} from "../field";
+import {Field} from "../field";
 import {Stack} from "@mui/joy";
 import {useContext} from "react";
 import {IntlContext} from "../../contexts/intl";
@@ -23,16 +23,16 @@ export function TurretOptions(props: ITurretOptions) {
 
     return (
         <Stack spacing={2} direction="row" justifyContent="space-between">
-            <FieldComponent id={props.turret.id}
-                            label={intlContext.text("UI", "quantity")}
-                            value={props.turret.quantity}
-                            type="number"
-                            onChange={onAttributeChange("quantity")}/>
-            <FieldComponent id={props.turret.id}
-                            label={intlContext.text("UI", "turret-price")}
-                            value={props.turret.price}
-                            type="number"
-                            onChange={onAttributeChange("price")}/>
+            <Field id={props.turret.id}
+                   label={intlContext.text("UI", "quantity")}
+                   value={props.turret.quantity}
+                   type="number"
+                   onChange={onAttributeChange("quantity")}/>
+            <Field id={props.turret.id}
+                   label={intlContext.text("UI", "turret-price")}
+                   value={props.turret.price}
+                   type="number"
+                   onChange={onAttributeChange("price")}/>
         </Stack>
     )
 }

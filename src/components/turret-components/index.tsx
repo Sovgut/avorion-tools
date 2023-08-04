@@ -4,7 +4,7 @@ import {Stack, Typography} from "@mui/joy";
 import {useContext} from "react";
 import {IntlContext} from "../../contexts/intl";
 import {ComponentContext} from "../../contexts/component";
-import {FieldComponent} from "../field";
+import {Field} from "../field";
 
 export function TurretComponents(props: ITurretComponents) {
     const intlContext = useContext(IntlContext);
@@ -21,7 +21,7 @@ export function TurretComponents(props: ITurretComponents) {
             <Typography>{intlContext.text("UI", "components")}</Typography>
             <Stack spacing={2}>
                 {componentContext.turretComponents(props.turret.id).map(component => (
-                    <FieldComponent
+                    <Field
                         key={component.id}
                         id={component.id}
                         label={intlContext.text("COMPONENT", component.type)}

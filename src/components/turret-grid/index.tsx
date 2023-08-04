@@ -11,7 +11,7 @@ import {
     Select,
     Stack
 } from "@mui/joy";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {TurretItem} from "../turret-item";
 import {TurretContext} from "../../contexts/turret";
 import {ComponentTable} from "../component-table";
@@ -20,12 +20,26 @@ import {IIntlTurret} from "../../contexts/intl/storage/types";
 import {Add, ArrowDropDown, ClearAll} from "@mui/icons-material";
 import {IntlContext} from "../../contexts/intl";
 import {CargoTable} from "../cargo-table";
+import {nanoid} from "nanoid";
+import {TurretItemSkeleton} from "../turret-item/skeleton";
+import {ComponentTableSkeleton} from "../component-table/skeleton";
 
 export function TurretGrid() {
     const [selected, setSelected] = useState<TurretType>(TurretType.Chaingun);
+    const [skeletonTurrets, setSkeletonTurrets] = useState<string[]>([])
 
     const intlContext = useContext(IntlContext);
     const turretContext = useContext(TurretContext);
+
+    useEffect(() => {
+        const turrets: string[] = [];
+
+        for (let i = 0; i < 4; i++) {
+            turrets.push(nanoid());
+        }
+
+        setSkeletonTurrets(turrets);
+    }, []);
 
     function onSelectTurret(value: TurretType | null) {
         if (value) {
@@ -41,6 +55,34 @@ export function TurretGrid() {
 
     function onClearTurrets() {
         turretContext.clear();
+    }
+
+    function renderTurrets() {
+        if (turretContext.records.length === 0) {
+            return renderTurretsSkeleton();
+        }
+
+        return turretContext.records.map(turret => (
+            <Grid key={turret.id} xs={6}>
+                <TurretItem key={turret.id} turret={turret}/>
+            </Grid>
+        ))
+    }
+
+    function renderTurretsSkeleton() {
+        return skeletonTurrets.map(turret => (
+            <Grid key={turret} xs={6}>
+                <TurretItemSkeleton key={turret} id={turret}/>
+            </Grid>
+        ))
+    }
+
+    function renderComponents() {
+        return turretContext.records.length === 0 ? renderComponentsSkeleton() : <ComponentTable/>
+    }
+
+    function renderComponentsSkeleton() {
+        return <ComponentTableSkeleton/>
     }
 
     return (
@@ -72,6 +114,7 @@ export function TurretGrid() {
                                     <MenuItem
                                         color="danger"
                                         onClick={onClearTurrets}
+                                        disabled={turretContext.records.length === 0}
                                     >
                                         <ListItemDecorator>
                                             <ClearAll/>
@@ -83,11 +126,7 @@ export function TurretGrid() {
                         </Stack>
                     </Grid>
                     <Grid container xs={12}>
-                        {turretContext.records.map(turret => (
-                            <Grid key={turret.id} xs={6}>
-                                <TurretItem key={turret.id} turret={turret}/>
-                            </Grid>
-                        ))}
+                        {renderTurrets()}
                     </Grid>
                 </Grid>
             </Grid>
@@ -96,7 +135,7 @@ export function TurretGrid() {
                 <Container disableGutters maxWidth={false}>
                     <Stack spacing={1}>
                         <CargoTable/>
-                        <ComponentTable/>
+                        {renderComponents()}
                     </Stack>
                 </Container>
             </Grid>

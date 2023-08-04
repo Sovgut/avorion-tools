@@ -1,6 +1,6 @@
 import {Box, Button, Modal, ModalClose, ModalDialog, Stack, Typography} from "@mui/joy";
 import {Add, MoreVert as MoreIcon} from "@mui/icons-material";
-import {FieldComponent} from "../field";
+import {Field} from "../field";
 import {Component} from "../../constants";
 import {FormEvent, useContext, useState} from "react";
 import {CargoContext} from "../../contexts/cargo";
@@ -63,12 +63,12 @@ export function ComponentAddCargo(props: ComponentAddCargoProps) {
 
                         <form onSubmit={onCargoSubmit}>
                             <Stack spacing={2}>
-                                <FieldComponent id={props.type}
-                                                label={intlContext.text("UI", "cargo-field-label")}
-                                                value={cargoInput}
-                                                type="number"
-                                                focus
-                                                onChange={onCargoChange}/>
+                                <Field id={props.type}
+                                       label={intlContext.text("UI", "cargo-field-label")}
+                                       value={cargoInput}
+                                       type="number"
+                                       focus
+                                       onChange={onCargoChange}/>
                                 <Button onClick={onModalClose}><Add/></Button>
                             </Stack>
                         </form>

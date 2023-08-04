@@ -3,7 +3,7 @@ import {type IFieldComponent} from "./types";
 
 import {Divider, Input, Stack, Typography} from "@mui/joy";
 
-export function FieldComponent(props: IFieldComponent) {
+export function Field(props: IFieldComponent) {
     const ref = useRef<HTMLInputElement>(null);
 
     const sx = {
