@@ -1,9 +1,13 @@
 import {Box, Container, Stack, useColorScheme} from "@mui/joy";
-import {TurretGrid} from "./components/turret-grid";
-import {Header} from "./components/header";
-import {isDarkTheme} from "./utils/is-dark-theme";
+import {isDarkTheme} from "../../utils/is-dark-theme";
+import {ReactNode} from "react";
+import {Header} from "../header";
 
-function App() {
+type LayoutProps = {
+    children: ReactNode;
+}
+
+export function Layout(props: LayoutProps) {
     const {mode, systemMode} = useColorScheme();
     const isDark = isDarkTheme(mode, systemMode);
 
@@ -38,12 +42,9 @@ function App() {
             <Container maxWidth={false}>
                 <Stack spacing={2}>
                     <Header/>
-
-                    <TurretGrid/>
+                    {props.children}
                 </Stack>
             </Container>
         </Box>
     );
 }
-
-export default App;

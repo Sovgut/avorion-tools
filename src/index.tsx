@@ -2,14 +2,15 @@ import React from 'react';
 import '@fontsource/public-sans';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 import {IntlContextProvider} from "./contexts/intl";
 import {CssBaseline, CssVarsProvider, extendTheme} from "@mui/joy";
 import {TurretContextProvider} from "./contexts/turret";
 import {ComponentContextProvider} from "./contexts/component";
 import {CargoContextProvider} from "./contexts/cargo";
 import {CalculatorContextProvider} from "./contexts/calculator";
+import {createBrowserRouter, Navigate, RouterProvider,} from "react-router-dom";
+import {Layout} from "./components/layout";
+import {TurretGrid} from "./components/turret-grid";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -28,27 +29,37 @@ const theme = extendTheme({
             "palette": {}
         }
     }
-})
+});
+
+const router = createBrowserRouter([
+    {
+        path: "/turret-planner",
+        element: (
+            <TurretContextProvider>
+                <ComponentContextProvider>
+                    <CargoContextProvider>
+                        <CalculatorContextProvider>
+                            <Layout>
+                                <TurretGrid/>
+                            </Layout>
+                        </CalculatorContextProvider>
+                    </CargoContextProvider>
+                </ComponentContextProvider>
+            </TurretContextProvider>
+        ),
+    },
+    {
+        path: "*",
+        element: <Navigate to="/turret-planner" replace/>
+    }
+]);
 
 root.render(
     <CssVarsProvider theme={theme} defaultMode="system" modeStorageKey="theme" disableNestedContext>
         <CssBaseline/>
 
         <IntlContextProvider>
-            <TurretContextProvider>
-                <ComponentContextProvider>
-                    <CargoContextProvider>
-                        <CalculatorContextProvider>
-                            <App/>
-                        </CalculatorContextProvider>
-                    </CargoContextProvider>
-                </ComponentContextProvider>
-            </TurretContextProvider>
+            <RouterProvider router={router}/>
         </IntlContextProvider>
     </CssVarsProvider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

@@ -1,4 +1,4 @@
-import {Box, Option, Select, Stack, useColorScheme} from "@mui/joy";
+import {Link as MUILink, Option, Select, Stack, Typography, useColorScheme} from "@mui/joy";
 import React, {useContext} from "react";
 import {IntlContext} from "../../contexts/intl";
 
@@ -19,15 +19,26 @@ export function Header() {
     }
 
     return (
-        <Stack direction="row" spacing={2} sx={{pt:2}} justifyContent="space-between">
-            <Box>
-                <img height={80} width={70} src="/logo.png" alt="Turrer Turtet" />
-            </Box>
+        <Stack direction="row" spacing={2} sx={{pt: 2}} justifyContent="space-between">
+            <Stack direction="row" spacing={4}>
+                <Stack justifyItems="center" spacing={-1} sx={{opacity: .5, userSelect: "none", pointerEvents: "none"}}>
+                    <Typography fontWeight="bolder" fontSize={18}>Avorion</Typography>
+                    <Typography letterSpacing={4} fontSize={16}>Instruments</Typography>
+                </Stack>
+                <Stack direction="row" spacing={2}>
+                    <MUILink color="neutral" level="title-lg" underline="none" variant="plain" href="/turret-planner">
+                        Turret planner
+                    </MUILink>
+                    <MUILink disabled color="neutral" level="title-lg" underline="none" variant="plain">
+                        Galaxy overview
+                    </MUILink>
+                </Stack>
+            </Stack>
             <Stack direction="row" spacing={2}>
                 <Select placeholder={intlContext.text("UI", "theme")}
                         defaultValue={mode}
                         onChange={onThemeChange}
-                        sx={{ height: "2rem" }}
+                        sx={{height: "2rem"}}
                 >
                     <Option value="system">{intlContext.text("UI", "system-theme")}</Option>
                     <Option value="light">{intlContext.text("UI", "light-theme")}</Option>
@@ -37,7 +48,7 @@ export function Header() {
                 <Select placeholder={intlContext.text("UI", "language")}
                         defaultValue={intlContext.language}
                         onChange={onLanguageChange}
-                        sx={{ height: "2rem" }}
+                        sx={{height: "2rem"}}
                 >
                     <Option value="en-US">{intlContext.text("UI", "english-language")}</Option>
                     <Option value="ru">{intlContext.text("UI", "russian-language")}</Option>
