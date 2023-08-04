@@ -29,9 +29,6 @@ export function Header() {
                     <MUILink color="neutral" level="title-lg" underline="none" variant="plain" href="/turret-planner">
                         Turret planner
                     </MUILink>
-                    <MUILink disabled color="neutral" level="title-lg" underline="none" variant="plain">
-                        Galaxy overview
-                    </MUILink>
                 </Stack>
             </Stack>
             <Stack direction="row" spacing={2}>
