@@ -2,14 +2,18 @@ import React, {useContext, useState} from "react";
 import {TurretType} from "../../../constants";
 import {IntlContext} from "../../../contexts/intl";
 import {TurretContext} from "../../../contexts/turret";
-import {Box, Button, Container, Option, Select, Sheet, Stack, Typography} from "@mui/joy";
+import {Box, Button, Container, Option, Select, Sheet, Stack, Typography, useColorScheme} from "@mui/joy";
 import {Header} from "../../../components/header";
 import {IIntlTurret} from "../../../contexts/intl/storage/types";
 import {Add} from "@mui/icons-material";
 import styles from './styles.module.css'
+import {isDarkTheme} from "../../../utils/is-dark-theme";
 
 export function GettingStartedDesktop() {
     const [selected, setSelected] = useState<TurretType>(TurretType.Chaingun);
+    const {mode, systemMode} = useColorScheme();
+    const isDark = isDarkTheme(mode, systemMode);
+    const theme = isDark ? "dark" : "light";
 
     const intlContext = useContext(IntlContext);
     const turretContext = useContext(TurretContext);
@@ -29,7 +33,7 @@ export function GettingStartedDesktop() {
     return (
         <Box sx={{display: "flex", position: "relative", width: "100%", height: "100vh", flexDirection: "column"}}>
             <Box sx={{position: "absolute", zIndex: 999, width: "100%"}}>
-                <Header fontColor="white"/>
+                <Header/>
             </Box>
             <Stack direction="row" sx={{height: "100%"}}>
                 <Box sx={{display: "flex", position: "relative", height: "100%", width: "50vw"}}>
@@ -42,12 +46,20 @@ export function GettingStartedDesktop() {
                         width: "100%",
                         overflow: "hidden"
                     }}>
-                        <video style={{width: "100%", height: "100%", objectFit: "cover"}}
-                               src={`/assets/video/dark-background.mp4`}
-                               autoPlay
-                               loop
-                               muted
-                               controls={false}/>
+                        {theme === "dark"
+                            ? <video
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover",
+                                }}
+                                src={`/assets/video/dark-background.mp4`}
+                                autoPlay
+                                loop
+                                muted
+                                controls={false}/>
+                            : null}
+
                     </Box>
                     <Box sx={{
                         top: 0,
@@ -93,20 +105,19 @@ export function GettingStartedDesktop() {
                                    justifyContent="center" spacing={4}>
                                 <Typography level="h2">Welcome pilot 👋</Typography>
                                 <Stack spacing={2}>
-                                    <Typography level="title-lg">Ready to upgrade your Avorion ship's defense
-                                        system?</Typography>
                                     <Typography>
-                                        Within our application,
-                                        we can guide you through the process of adding a brand new turret! Not only we
-                                        provide detailed recipes for constructing the turret, but we also offer a
-                                        comprehensive rundown of the components required.
+                                        Ready to upgrade your Avorion ship's defense system but don't want calculate
+                                        components in Excel? So, you're not alone. That's why you should try to use this
+                                        application.
+                                        Turret Planner can guide you through the process of adding a brand new turret!
+                                        Not only provide detailed recipes for constructing the turret, but also offer a
+                                        comprehensive rundown of the components which used in recipe.
                                     </Typography>
                                     <Typography level="title-lg">Estimations</Typography>
                                     <Typography>
-                                        To ensure you stay within budget,
-                                        our application will calculate a price estimate for your proposed turret.
-                                        Moreover,
-                                        to ensure a perfect fit, we'll also provide volume estimations.
+                                        To ensure you stay within budget, application will calculate a price estimate
+                                        for your proposed turret. Moreover, to ensure a perfect cargo fit, it also
+                                        provide volume estimations.
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" spacing={1}>
