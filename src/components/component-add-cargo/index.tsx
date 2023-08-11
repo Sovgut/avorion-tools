@@ -10,6 +10,8 @@ type ComponentAddCargoProps = {
     type: Component;
 }
 
+const MAX_CARGO_QUANTITY = 1_000_000;
+
 export function ComponentAddCargo(props: ComponentAddCargoProps) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [cargoInput, setCargoInput] = useState(0);
@@ -18,7 +20,7 @@ export function ComponentAddCargo(props: ComponentAddCargoProps) {
     const cargoContext = useContext(CargoContext);
 
     function onCargoChange(id: string, value: string | null) {
-        if (value && Number(value) > 0) {
+        if (value && Number(value) > 0 && Number(value) < MAX_CARGO_QUANTITY) {
             setCargoInput(Number(value));
         }
     }
@@ -65,6 +67,7 @@ export function ComponentAddCargo(props: ComponentAddCargoProps) {
                             <Stack spacing={2}>
                                 <Field id={props.type}
                                        label={intlContext.text("UI", "cargo-field-label")}
+                                       maxValue={MAX_CARGO_QUANTITY}
                                        value={cargoInput}
                                        type="number"
                                        focus

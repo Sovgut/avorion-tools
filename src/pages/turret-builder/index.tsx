@@ -11,7 +11,7 @@ import {
     Select,
     Stack
 } from "@mui/joy";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useLayoutEffect, useState} from "react";
 import {TurretItem} from "../../components/turret-item";
 import {TurretContext} from "../../contexts/turret";
 import {ComponentTable} from "../../components/component-table";
@@ -43,6 +43,12 @@ export function TurretBuilder() {
 
         setSkeletonTurrets(turrets);
     }, []);
+
+    useLayoutEffect(() => {
+        if (turretContext.records.length === 0) {
+            navigate("/turret-planner/getting-started");
+        }
+    }, [navigate, turretContext.records]);
 
     function onSelectTurret(value: TurretType | null) {
         if (value) {
@@ -86,10 +92,6 @@ export function TurretBuilder() {
 
     function renderComponentsSkeleton() {
         return <ComponentTableSkeleton/>
-    }
-
-    if (turretContext.records.length === 0) {
-        navigate("/turret-planner/getting-started");
     }
 
     return (

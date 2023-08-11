@@ -40,8 +40,8 @@ export function CargoItem(props: CargoItemProps) {
             </td>
             <td style={{textAlign: "right"}}>
                 <Typography
-                    color="primary"
-                    fontWeight="bold"
+                    color="warning"
+                    fontFamily="monospace"
                 >
                     {props.value.toLocaleString()}
                 </Typography>

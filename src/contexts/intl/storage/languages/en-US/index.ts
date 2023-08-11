@@ -17,7 +17,7 @@ export const EN_US_UI: IIntlUI = {
     "cargo-field-label": "Add",
     "add-turret": "Add turret",
     "remove-turret": "Remove turret",
-    "turret-price": "Turret price",
+    "turret-price": "Price",
     "clear-turrets": "Clear turrets",
     "clear-turrets-confirmation": "Are you sure you want to clear the turret list?",
     "remove-turret-confirmation": "Are you certain that you wish to remove the turret from the list?",

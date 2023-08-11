@@ -1,23 +1,16 @@
 import {type ChangeEvent, useEffect, useRef} from "react";
 import {type IFieldComponent} from "./types";
 
-import {Divider, Input, Stack, Typography} from "@mui/joy";
+import {Input, Stack, Typography} from "@mui/joy";
+import {useTheme} from '@mui/joy/styles';
 
 export function Field(props: IFieldComponent) {
+    const theme = useTheme();
     const ref = useRef<HTMLInputElement>(null);
-
-    const sx = {
-        minWidth: "auto"
-    }
-
-    if (props.labelWidth) {
-        sx.minWidth = `${props.labelWidth}rem`
-    }
 
     const decorator = (
         <Stack direction="row" spacing={1}>
-            <Typography level="body-md" sx={sx}>{props.label}</Typography>
-            <Divider orientation="vertical"/>
+            <Typography level="body-md">{props.label}</Typography>
         </Stack>
     );
 
@@ -34,8 +27,18 @@ export function Field(props: IFieldComponent) {
     return (
         <Input
             ref={ref}
-            sx={{width: "100%"}}
+            sx={{width: "100%", display: "flex", justifyContent: "space-between"}}
             startDecorator={decorator}
+            slotProps={{
+                input: {
+                    style: {
+                        color: `rgb(${theme.palette.primary.mainChannel})`,
+                        textAlign: "right",
+                        fontFamily: "monospace"
+                    },
+                    max: props.maxValue
+                }
+            }}
             onChange={onChange}
             type={props.type}
             value={props.value}

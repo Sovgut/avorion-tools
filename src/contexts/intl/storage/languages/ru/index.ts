@@ -18,7 +18,7 @@ export const RU_UI: IIntlUI = {
     "add-turret": "Добавить турель",
     "remove-turret": "Удалить турель",
     "clear-turrets": "Очистить турели",
-    "turret-price": "Цена турели",
+    "turret-price": "Цена",
     "clear-turrets-confirmation": "Вы уверены, что хотите очистить список турелей?",
     "remove-turret-confirmation": "Вы уверены, что хотите удалить турель из списка?",
     "recipe-for-version": "Рецепт для:",

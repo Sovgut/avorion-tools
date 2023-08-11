@@ -6,12 +6,14 @@ import {IntlContext} from "../../contexts/intl";
 import {ComponentContext} from "../../contexts/component";
 import {Field} from "../field";
 
+const MAX_COMPONENT_QUANTITY = 9_999;
+
 export function TurretComponents(props: ITurretComponents) {
     const intlContext = useContext(IntlContext);
     const componentContext = useContext(ComponentContext);
 
     function onComponentChange(id: string, value: string | null) {
-        if (value && Number(value) >= 0) {
+        if (value && Number(value) >= 0 && Number(value) <= MAX_COMPONENT_QUANTITY) {
             componentContext.update(id, Number(value));
         }
     }
@@ -24,6 +26,7 @@ export function TurretComponents(props: ITurretComponents) {
                     <Field
                         key={component.id}
                         id={component.id}
+                        maxValue={MAX_COMPONENT_QUANTITY}
                         label={intlContext.text("COMPONENT", component.type)}
                         labelWidth={14}
                         value={component.quantity}

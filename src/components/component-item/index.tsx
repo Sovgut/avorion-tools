@@ -76,7 +76,7 @@ export function ComponentItem(props: ComponentItemProps) {
             <td style={{textAlign: "right"}}>
                 <Typography
                     color={calculateQuantity() !== props.value ? "warning" : "primary"}
-                    fontWeight="bold"
+                    fontFamily="monospace"
                 >
                     {calculateQuantity().toLocaleString()}
                 </Typography>
