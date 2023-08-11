@@ -11,3 +11,7 @@
     background: url('../../../../public/assets/img/pipes.webp');
     animation: moveBackground 60s linear infinite;
 }
+
+.text {
+    text-align: justify;
+}

@@ -103,22 +103,16 @@ export function GettingStartedDesktop() {
                             }}/>
                             <Stack sx={{position: "relative", height: "calc(100% - 16rem)", zIndex: 3}}
                                    justifyContent="center" spacing={4}>
-                                <Typography level="h2">Welcome pilot 👋</Typography>
+                                <Typography level="h2">{intlContext.text("UI", "getting-started-0")}</Typography>
                                 <Stack spacing={2}>
-                                    <Typography>
-                                        Ready to upgrade your Avorion ship's defense system but don't want calculate
-                                        components in Excel? So, you're not alone. That's why you should try to use this
-                                        application.
-                                        Turret Planner can guide you through the process of adding a brand new turret!
-                                        Not only provide detailed recipes for constructing the turret, but also offer a
-                                        comprehensive rundown of the components which used in recipe.
-                                    </Typography>
-                                    <Typography level="title-lg">Estimations</Typography>
-                                    <Typography>
-                                        To ensure you stay within budget, application will calculate a price estimate
-                                        for your proposed turret. Moreover, to ensure a perfect cargo fit, it also
-                                        provide volume estimations.
-                                    </Typography>
+                                    <Typography className={styles.text}
+                                                level="title-lg">{intlContext.text("UI", "getting-started-1")}</Typography>
+                                    <Typography
+                                        className={styles.text}>{intlContext.text("UI", "getting-started-2")}</Typography>
+                                    <Typography className={styles.text}
+                                                level="title-lg">{intlContext.text("UI", "getting-started-3")}</Typography>
+                                    <Typography
+                                        className={styles.text}>{intlContext.text("UI", "getting-started-4")}</Typography>
                                 </Stack>
                                 <Stack direction="row" spacing={1}>
                                     <Select value={selected} onChange={(e, v) => onSelectTurret(v)}

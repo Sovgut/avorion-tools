@@ -44,7 +44,7 @@ export function Header(props: HeaderProps) {
                             sx={{textTransform: "uppercase"}}
                             textColor={props.fontColor}
                         >
-                            Turret planner
+                            {intlContext.text("UI", "turret-planner")}
                         </Link>
                     </Stack>
                 </Stack>

@@ -29,6 +29,12 @@ export const EN_US_UI: IIntlUI = {
     "language": "Language",
     "english-language": "English",
     "russian-language": "Russian",
+    "getting-started-0": "Welcome commander 👋",
+    "getting-started-1": "New turret recipe",
+    "getting-started-2": "Ready to upgrade your Avorion ship's defense system but don't want calculate components in Excel? So, you're not alone. That's why you should try to use this application. Turret Planner can guide you through the process of crafting a new turret from Turret Factory! Not only provide detailed recipes for constructing the turret, but also offer a comprehensive rundown of the components which used in recipe. You just need to fill amount of resources needed for your new turret and amount of turrets.",
+    "getting-started-3": "Estimations",
+    "getting-started-4": "To ensure you stay within budget, application will calculate a price estimate for your proposed turrets. Moreover, to ensure a perfect cargo fit, it also provide volume estimations.",
+    "turret-planner": "Turret planner"
 }
 
 export const EN_US_COMPONENT: IIntlComponent = {

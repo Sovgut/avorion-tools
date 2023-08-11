@@ -133,6 +133,12 @@ export interface IIntlUI {
     "language": string;
     "english-language": string;
     "russian-language": string;
+    "getting-started-0": string;
+    "getting-started-1": string;
+    "getting-started-2": string;
+    "getting-started-3": string;
+    "getting-started-4": string;
+    "turret-planner": string;
 }
 
 export interface IIntlStorage {

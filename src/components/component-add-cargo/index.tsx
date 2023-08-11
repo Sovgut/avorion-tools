@@ -36,6 +36,11 @@ export function ComponentAddCargo(props: ComponentAddCargoProps) {
 
     function onModalClose() {
         setMenuOpen(false);
+        setCargoInput(0);
+    }
+
+    function onModalSubmit() {
+        setMenuOpen(false);
 
         if (cargoInput > 0) {
             cargoContext.add(props.type, cargoInput);
@@ -46,7 +51,7 @@ export function ComponentAddCargo(props: ComponentAddCargoProps) {
     function onCargoSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        onModalClose();
+        onModalSubmit();
     }
 
     return (
@@ -73,7 +78,7 @@ export function ComponentAddCargo(props: ComponentAddCargoProps) {
                                        type="number"
                                        focus
                                        onChange={onCargoChange}/>
-                                <Button onClick={onModalClose}><Add/></Button>
+                                <Button onClick={onModalSubmit}><Add/></Button>
                             </Stack>
                         </form>
                     </Stack>

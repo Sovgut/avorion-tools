@@ -14,8 +14,27 @@ export function Field(props: IFieldComponent) {
         </Stack>
     );
 
+    function trimZeroNumber(value: string | null) {
+        if (!value) return undefined;
+        let result = value.split("");
+
+        for (let i = 0; i < value.length; i++) {
+            if (result.length > 2) {
+                if (result[i] === "0") {
+                    result.shift();
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return result.join("");
+    }
+
     function onChange(e: ChangeEvent<HTMLInputElement>): void {
-        props.onChange(props.id, e.target.value);
+        const value = trimZeroNumber(e.target.value);
+
+        props.onChange(props.id, value || null);
     }
 
     useEffect(() => {
@@ -24,24 +43,39 @@ export function Field(props: IFieldComponent) {
         }
     }, []);
 
+    function onFocus(): void {
+        if (ref.current) {
+            ref.current.select()
+        }
+    }
+
+    function onClick(): void {
+        if (ref.current) {
+            ref.current.focus();
+        }
+    }
+
     return (
         <Input
-            ref={ref}
             sx={{width: "100%", display: "flex", justifyContent: "space-between"}}
             startDecorator={decorator}
             slotProps={{
                 input: {
+                    inputMode: "numeric",
                     style: {
                         color: `rgb(${theme.palette.primary.mainChannel})`,
                         textAlign: "right",
                         fontFamily: "monospace"
                     },
-                    max: props.maxValue
+                    max: props.maxValue,
+                    ref,
+                    onFocus,
                 }
             }}
             onChange={onChange}
-            type={props.type}
-            value={props.value}
+            onClick={onClick}
+            type="text"
+            value={trimZeroNumber(String(props.value))}
             defaultValue={props.defaultValue}
         />
     )

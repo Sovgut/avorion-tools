@@ -6,7 +6,7 @@ import {IntlContext} from "../../contexts/intl";
 import {ComponentContext} from "../../contexts/component";
 import {Field} from "../field";
 
-const MAX_COMPONENT_QUANTITY = 9_999;
+const MAX_COMPONENT_QUANTITY = 1_000_000;
 
 export function TurretComponents(props: ITurretComponents) {
     const intlContext = useContext(IntlContext);
