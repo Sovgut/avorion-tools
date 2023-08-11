@@ -47,7 +47,10 @@ export function CargoItem(props: CargoItemProps) {
                 </Typography>
             </td>
             <td>
-                <Button variant="outlined" color="neutral" onClick={onClear}><Remove/></Button>
+                <Box sx={{display: "flex", justifyContent: "end"}}>
+                    <Button sx={{width: "44px", height: "40px"}} variant="outlined" color="neutral"
+                            onClick={onClear}><Remove/></Button>
+                </Box>
             </td>
         </tr>
     )

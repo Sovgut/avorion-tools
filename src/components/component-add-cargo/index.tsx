@@ -50,8 +50,9 @@ export function ComponentAddCargo(props: ComponentAddCargoProps) {
     }
 
     return (
-        <Box>
-            <Button variant="outlined" color="neutral" onClick={onModalToggle}><MoreIcon/></Button>
+        <Box sx={{display: "flex", justifyContent: "end"}}>
+            <Button sx={{width: "44px", height: "40px"}} variant="outlined" color="neutral"
+                    onClick={onModalToggle}><MoreIcon/></Button>
             <Modal open={menuOpen} onClose={onModalClose}>
                 <ModalDialog
                     layout="center"
