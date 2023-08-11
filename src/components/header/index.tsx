@@ -1,4 +1,4 @@
-import {Container, Link, Option, Select, Stack, Typography, useColorScheme} from "@mui/joy";
+import {Container, Link, Option, Select, Stack, Typography,} from "@mui/joy";
 import React, {useContext} from "react";
 import {IntlContext} from "../../contexts/intl";
 import {Link as RouterLink} from 'react-router-dom'
@@ -9,14 +9,14 @@ type HeaderProps = {
 }
 
 export function Header(props: HeaderProps) {
-    const {mode, setMode} = useColorScheme();
+    // const {mode, setMode} = useColorScheme();
     const intlContext = useContext(IntlContext);
 
-    function onThemeChange(event: React.SyntheticEvent | null, newValue: string | null) {
-        if (newValue) {
-            setMode(newValue as "dark" | "light")
-        }
-    }
+    // function onThemeChange(event: React.SyntheticEvent | null, newValue: string | null) {
+    //     if (newValue) {
+    //         setMode(newValue as "dark" | "light")
+    //     }
+    // }
 
     function onLanguageChange(event: React.SyntheticEvent | null, newValue: string | null) {
         if (newValue) {
@@ -49,15 +49,15 @@ export function Header(props: HeaderProps) {
                     </Stack>
                 </Stack>
                 <Stack direction="row" spacing={2}>
-                    <Select placeholder={intlContext.text("UI", "theme")}
-                            defaultValue={mode}
-                            onChange={onThemeChange}
-                            sx={{height: "2rem"}}
-                    >
-                        <Option value="system">{intlContext.text("UI", "system-theme")}</Option>
-                        <Option value="light">{intlContext.text("UI", "light-theme")}</Option>
-                        <Option value="dark">{intlContext.text("UI", "dark-theme")}</Option>
-                    </Select>
+                    {/*<Select placeholder={intlContext.text("UI", "theme")}*/}
+                    {/*        defaultValue={mode}*/}
+                    {/*        onChange={onThemeChange}*/}
+                    {/*        sx={{height: "2rem"}}*/}
+                    {/*>*/}
+                    {/*    <Option value="system">{intlContext.text("UI", "system-theme")}</Option>*/}
+                    {/*    <Option value="light">{intlContext.text("UI", "light-theme")}</Option>*/}
+                    {/*    <Option value="dark">{intlContext.text("UI", "dark-theme")}</Option>*/}
+                    {/*</Select>*/}
 
                     <Select placeholder={intlContext.text("UI", "language")}
                             defaultValue={intlContext.language}

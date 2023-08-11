@@ -1,5 +1,5 @@
-import {Box, Container, Stack, useColorScheme} from "@mui/joy";
-import {isDarkTheme} from "../../utils/is-dark-theme";
+import {Box, Container, Stack,} from "@mui/joy";
+//import {isDarkTheme} from "../../utils/is-dark-theme";
 import {ReactNode} from "react";
 
 type LayoutProps = {
@@ -7,9 +7,9 @@ type LayoutProps = {
 }
 
 export function Layout(props: LayoutProps) {
-    const {mode, systemMode} = useColorScheme();
-    const isDark = isDarkTheme(mode, systemMode);
-    const theme = isDark ? "dark" : "light";
+    //const {mode, systemMode} = useColorScheme();
+    //const isDark = isDarkTheme(mode, systemMode);
+    const theme = /*isDark ? "dark" : "light"*/ "dark";
 
     return (
         <Box sx={{display: "flex", position: "relative", minHeight: "100vh", height: 0}}>

@@ -70,7 +70,7 @@ const router = createBrowserRouter([
 ]);
 
 root.render(
-    <CssVarsProvider theme={theme} defaultMode="system" modeStorageKey="theme" disableNestedContext>
+    <CssVarsProvider theme={theme} defaultMode="dark" modeStorageKey="theme" disableNestedContext>
         <CssBaseline/>
 
         <IntlContextProvider>
