@@ -1,7 +1,8 @@
 import {Container, Link, Option, Select, Stack, Typography,} from "@mui/joy";
-import React, {useContext} from "react";
+import {SyntheticEvent, useContext} from "react";
 import {IntlContext} from "../../contexts/intl";
 import {Link as RouterLink} from 'react-router-dom'
+import {isNull} from "../../utils/helpers";
 
 type HeaderProps = {
     fontColor?: "black" | "white";
@@ -18,8 +19,8 @@ export function Header(props: HeaderProps) {
     //     }
     // }
 
-    function onLanguageChange(event: React.SyntheticEvent | null, newValue: string | null) {
-        if (newValue) {
+    function onLanguageChange(event: SyntheticEvent | null, newValue: string | null) {
+        if (!isNull(newValue)) {
             intlContext.selectLanguage(newValue)
         }
     }
@@ -31,7 +32,8 @@ export function Header(props: HeaderProps) {
                     <Stack justifyItems="center" spacing={-1}
                            sx={{opacity: .5, userSelect: "none", pointerEvents: "none"}}>
                         <Typography fontWeight="bolder" fontSize={18} textColor={props.fontColor}>Avorion</Typography>
-                        <Typography letterSpacing={4} fontSize={16} textColor={props.fontColor}>Instruments</Typography>
+                        <Typography letterSpacing={4.8} fontSize={16} textTransform="uppercase"
+                                    textColor={props.fontColor}>Tools</Typography>
                     </Stack>
                     <Stack direction="row" spacing={2}>
                         <Link

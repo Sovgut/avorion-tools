@@ -1,7 +1,6 @@
-import React from 'react';
 import '@fontsource/public-sans';
-import ReactDOM from 'react-dom/client';
 import './index.css';
+import ReactDOM from 'react-dom/client';
 import {IntlContextProvider} from "./contexts/intl";
 import {CssBaseline, CssVarsProvider, extendTheme} from "@mui/joy";
 import {TurretContextProvider} from "./contexts/turret";
@@ -70,7 +69,7 @@ const router = createBrowserRouter([
 ]);
 
 root.render(
-    <CssVarsProvider theme={theme} defaultMode="dark" modeStorageKey="theme" disableNestedContext>
+    <CssVarsProvider theme={theme} defaultMode="dark" modeStorageKey="avorion.tools-theme" disableNestedContext>
         <CssBaseline/>
 
         <IntlContextProvider>
