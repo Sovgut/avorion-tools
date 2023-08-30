@@ -7,6 +7,8 @@ import {useDispatch} from "react-redux";
 import {removeTurret} from "@/reducers/turret";
 import {Turret} from "@/types";
 import {TurretsMeta} from "@/constants/meta/turrets";
+import {checkboxRemove} from "@/reducers/checkbox";
+import {ComponentType} from "@/constants/enums/components";
 
 type TurretHeaderProps = {
     id: string;
@@ -18,7 +20,11 @@ export function TurretHeader(props: TurretHeaderProps) {
     const dispatch = useDispatch();
 
     function onRemove() {
-        dispatch(removeTurret(props.id))
+        for (const componentType of Object.keys(props.turret.components)) {
+            dispatch(checkboxRemove(componentType as ComponentType));
+        }
+
+        dispatch(removeTurret(props.id));
     }
 
     return (
