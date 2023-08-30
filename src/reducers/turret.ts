@@ -46,8 +46,7 @@ const turretSlice = createSlice({
                 delete state[action.payload];
             }
         },
-        reset: () => {
-        },
+        reset: () => ({}),
     }
 });
 
