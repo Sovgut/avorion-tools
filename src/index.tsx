@@ -5,7 +5,6 @@ import {CssBaseline, CssVarsProvider, extendTheme} from "@mui/joy";
 import {createBrowserRouter, Navigate, RouterProvider,} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "@/store";
-import {inject as VercelAnalytics} from "@vercel/analytics";
 import {Layout} from "@/common/components/layout";
 import {TurretBuilder} from "@/pages/turret-builder";
 import {GettingStarted} from "@/pages/getting-started";
