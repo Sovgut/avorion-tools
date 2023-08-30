@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/turret-build-calculator.iml" filepath="$PROJECT_DIR$/.idea/turret-build-calculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/avorion-tools.iml" filepath="$PROJECT_DIR$/.idea/avorion-tools.iml" />
     </modules>
   </component>
 </project>
