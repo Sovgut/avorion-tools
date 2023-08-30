@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {IntlContext} from "@/contexts/intl";
-import {Box, Container, Sheet, Stack, Typography} from "@mui/joy";
+import {Box, Container, Link, Sheet, Stack, Typography} from "@mui/joy";
 import {Header} from "@/common/components/header";
 import styles from './styles.module.css'
 import {TurretPicker} from "@/features/turret-picker";
@@ -90,6 +90,9 @@ export function GettingStartedDesktop() {
                                         className={styles.text}>{intlContext.text("UI", "getting-started-4")}</Typography>
                                 </Stack>
                                 <TurretPicker/>
+                                <Stack>
+                                    <Typography textAlign="center">Avorion Tools is a community work, and not officially created or maintained by <Link href="https://boxelware.de/" target="_blank">Boxelware</Link>.</Typography>
+                                </Stack>
                             </Stack>
                         </Sheet>
                     </Box>
