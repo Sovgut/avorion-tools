@@ -1,26 +1,32 @@
-import {type ITurretHeader} from "./types";
-
 import {useContext} from "react";
 import {MoreVert as MoreIcon} from "@mui/icons-material";
-import {IntlContext} from "../../contexts/intl";
+import {IntlContext} from "@/contexts/intl";
 import {Box, Dropdown, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
 import styles from "./styles.module.css";
-import {TurretContext} from "../../contexts/turret";
+import {useDispatch} from "react-redux";
+import {removeTurret} from "@/reducers/turrets";
+import {TODOANY, Turret} from "@/types";
+import {TurretsMeta} from "@/constants/meta/turrets";
 
-export function TurretHeader(props: ITurretHeader) {
+type TurretHeaderProps = {
+    id: string;
+    turret: Turret;
+}
+
+export function TurretHeader(props: TurretHeaderProps) {
     const intlContext = useContext(IntlContext);
-    const turretContext = useContext(TurretContext);
+    const dispatch = useDispatch();
 
     function onRemove() {
-        turretContext.remove(props.turret.id);
+        dispatch(removeTurret(props.id))
     }
 
     return (
         <Box>
             <Stack direction="row" justifyContent="space-between">
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <img className={styles.icon} src={props.turret.icon} alt={props.turret.type}/>
-                    <Typography level="title-md">{intlContext.text("TURRET", props.turret.type)}</Typography>
+                    <img className={styles.icon} src={TurretsMeta[props.turret.key].icon} alt={props.turret.key}/>
+                    <Typography level="title-md">{intlContext.text("TURRET", props.turret.key as TODOANY)}</Typography>
                 </Stack>
                 <Dropdown>
                     <MenuButton sx={{width: "44px", height: "40px"}}><MoreIcon/></MenuButton>

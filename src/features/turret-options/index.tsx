@@ -1,17 +1,20 @@
-import {type ITurretOptions} from "./types";
-
-import {Field} from "../field";
 import {Stack} from "@mui/joy";
 import {useContext} from "react";
-import {IntlContext} from "../../contexts/intl";
-import {TurretContext} from "../../contexts/turret";
+import {IntlContext} from "@/contexts/intl";
+import {Turret} from "@/types";
+import {useDispatch} from "react-redux";
+import {updateTurret} from "@/reducers/turrets";
+import {Field} from "@/components/field";
+import {MAX_TURRET_PRICE, MAX_TURRET_QUANTITY} from "@/constants/common";
 
-const MAX_TURRET_QUANTITY = 9_999;
-const MAX_TURRET_PRICE = 1_000_000_000;
+type TurretOptionsProps = {
+    id: string;
+    turret: Turret;
+}
 
-export function TurretOptions(props: ITurretOptions) {
+export function TurretOptions(props: TurretOptionsProps) {
     const intlContext = useContext(IntlContext)
-    const turretContext = useContext(TurretContext);
+    const dispatch = useDispatch();
 
     function onAttributeChange(attribute: "quantity" | "price") {
         return function onChange(id: string, value: string | null) {
@@ -19,20 +22,29 @@ export function TurretOptions(props: ITurretOptions) {
                 if (attribute === 'quantity' && (Number(value) < 1 || Number(value) > MAX_TURRET_QUANTITY)) return;
                 if (attribute === 'price' && (Number(value) < 0 || Number(value) > MAX_TURRET_PRICE)) return;
 
-                turretContext.update(id, attribute, Number(value));
+                dispatch(updateTurret({
+                    id,
+                    data: {
+                        key: props.turret.key,
+                        components: props.turret.components,
+                        quantity: props.turret.quantity,
+                        price: props.turret.price,
+                        [attribute]: Number(value),
+                    }
+                }))
             }
         }
     }
 
     return (
         <Stack spacing={2} direction="row" justifyContent="space-between">
-            <Field id={props.turret.id}
+            <Field id={props.id}
                    label={intlContext.text("UI", "quantity")}
                    maxValue={MAX_TURRET_QUANTITY}
                    value={props.turret.quantity}
                    type="number"
                    onChange={onAttributeChange("quantity")}/>
-            <Field id={props.turret.id}
+            <Field id={props.id}
                    label={intlContext.text("UI", "turret-price")}
                    maxValue={MAX_TURRET_PRICE}
                    value={props.turret.price}

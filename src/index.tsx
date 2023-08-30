@@ -11,6 +11,8 @@ import {createBrowserRouter, Navigate, RouterProvider,} from "react-router-dom";
 import {Layout} from "./components/layout";
 import {TurretBuilder} from "./pages/turret-builder";
 import {GettingStarted} from "./pages/getting-started";
+import {Provider} from "react-redux";
+import {store} from "@/store";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -72,8 +74,10 @@ root.render(
     <CssVarsProvider theme={theme} defaultMode="dark" modeStorageKey="avorion.tools-theme" disableNestedContext>
         <CssBaseline/>
 
-        <IntlContextProvider>
-            <RouterProvider router={router}/>
-        </IntlContextProvider>
+        <Provider store={store}>
+            <IntlContextProvider>
+                <RouterProvider router={router}/>
+            </IntlContextProvider>
+        </Provider>
     </CssVarsProvider>
 );
