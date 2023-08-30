@@ -1,5 +1,5 @@
-import {useContext, useMemo} from "react";
-import {Card, CardOverflow, Divider, Grid, Stack, Table, Tooltip, Typography} from "@mui/joy";
+import React, {useContext, useMemo} from "react";
+import {Card, CardOverflow, Divider, Grid, Link, Stack, Table, Tooltip, Typography} from "@mui/joy";
 import {IntlContext} from "@/contexts/intl";
 import {InfoOutlined as InfoIcon} from "@mui/icons-material"
 import {ComponentItem} from "@/features/component-item";
@@ -49,7 +49,7 @@ export function ComponentTable() {
                 </tbody>
             </Table>
 
-            <CardOverflow variant="soft" color="neutral">
+            <CardOverflow variant="soft" color="neutral" sx={{ borderRadius: 0 }}>
                 <Divider inset="context"/>
                 <Stack spacing={2} sx={{width: "100%", pt: 2, pb: 2}}>
 
@@ -98,6 +98,9 @@ export function ComponentTable() {
                     </Grid>
                 </Stack>
             </CardOverflow>
+            <Stack>
+                <Typography>Avorion Tools is a community work, and not officially created or maintained by <Link href="https://boxelware.de/" target="_blank">Boxelware</Link>.</Typography>
+            </Stack>
         </Card>
     )
 }
