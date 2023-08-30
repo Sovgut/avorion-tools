@@ -1,19 +1,16 @@
 import '@fontsource/public-sans';
-import './index.css';
+import '@/index.css';
 import ReactDOM from 'react-dom/client';
-import {IntlContextProvider} from "./contexts/intl";
 import {CssBaseline, CssVarsProvider, extendTheme} from "@mui/joy";
-import {TurretContextProvider} from "./contexts/turret";
-import {ComponentContextProvider} from "./contexts/component";
-import {CargoContextProvider} from "./contexts/cargo";
-import {CalculatorContextProvider} from "./contexts/calculator";
 import {createBrowserRouter, Navigate, RouterProvider,} from "react-router-dom";
-import {Layout} from "./components/layout";
-import {TurretBuilder} from "./pages/turret-builder";
-import {GettingStarted} from "./pages/getting-started";
 import {Provider} from "react-redux";
 import {store} from "@/store";
 import {inject as VercelAnalytics} from "@vercel/analytics";
+import {Layout} from "@/common/components/layout";
+import {TurretBuilder} from "@/pages/turret-builder";
+import {GettingStarted} from "@/pages/getting-started";
+import {IntlContextProvider} from "@/contexts/intl";
+import {CACHE_THEME} from "@/constants/common";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -38,31 +35,15 @@ const router = createBrowserRouter([
     {
         path: "/turret-planner",
         element: (
-            <TurretContextProvider>
-                <ComponentContextProvider>
-                    <CargoContextProvider>
-                        <CalculatorContextProvider>
-                            <Layout>
-                                <TurretBuilder/>
-                            </Layout>
-                        </CalculatorContextProvider>
-                    </CargoContextProvider>
-                </ComponentContextProvider>
-            </TurretContextProvider>
+            <Layout>
+                <TurretBuilder/>
+            </Layout>
         ),
     },
     {
         path: "/turret-planner/getting-started",
         element: (
-            <TurretContextProvider>
-                <ComponentContextProvider>
-                    <CargoContextProvider>
-                        <CalculatorContextProvider>
-                            <GettingStarted/>
-                        </CalculatorContextProvider>
-                    </CargoContextProvider>
-                </ComponentContextProvider>
-            </TurretContextProvider>
+            <GettingStarted/>
         )
     },
     {
@@ -72,7 +53,7 @@ const router = createBrowserRouter([
 ]);
 
 root.render(
-    <CssVarsProvider theme={theme} defaultMode="dark" modeStorageKey="avorion.tools-theme" disableNestedContext>
+    <CssVarsProvider theme={theme} defaultMode="dark" modeStorageKey={CACHE_THEME} disableNestedContext>
         <CssBaseline/>
 
         <Provider store={store}>

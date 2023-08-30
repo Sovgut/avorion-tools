@@ -7,7 +7,7 @@ import {RootState} from "@/store";
 
 export function GettingStarted() {
     const navigate = useNavigate();
-    const turrets = useSelector((state: RootState) => state.turrets)
+    const turrets = useSelector((state: RootState) => state.turret)
 
     useLayoutEffect(() => {
         if (Object.keys(turrets).length > 0) {

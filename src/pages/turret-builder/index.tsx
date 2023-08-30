@@ -1,9 +1,9 @@
 import {Container, Grid, Stack} from "@mui/joy";
 import React, {useLayoutEffect} from "react";
 import {TurretItem} from "@/features/turret-item";
-import {ComponentTable} from "@/components/component-table";
-import {CargoTable} from "@/components/cargo-table";
-import {Header} from "@/components/header";
+import {ComponentTable} from "@/features/component-table";
+import {CargoTable} from "@/features/cargo-table";
+import {Header} from "@/common/components/header";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RootState} from "@/store";
@@ -11,7 +11,7 @@ import {TurretPicker} from "@/features/turret-picker";
 
 export function TurretBuilder() {
     const navigate = useNavigate();
-    const turrets = useSelector((state: RootState) => state.turrets);
+    const turrets = useSelector((state: RootState) => state.turret);
 
     useLayoutEffect(() => {
         if (Object.keys(turrets).length === 0) {

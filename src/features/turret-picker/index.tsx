@@ -1,10 +1,10 @@
 import {Button, Dropdown, ListItemDecorator, Menu, MenuButton, MenuItem, Option, Select, Stack} from "@mui/joy";
-import {IIntlTurret} from "@/contexts/intl/storage/types";
+
 import {Add, ArrowDropDown, ClearAll} from "@mui/icons-material";
 import React, {useContext, useState} from "react";
 import {IntlContext} from "@/contexts/intl";
 import {useDispatch, useSelector} from "react-redux";
-import {addTurret, clearTurrets} from "@/reducers/turrets";
+import {addTurret, clearTurrets} from "@/reducers/turret";
 import {RootState} from "@/store";
 import {TurretType} from "@/constants/enums/turrets";
 
@@ -16,7 +16,7 @@ export function TurretPicker(props: TurretPickerProps) {
     const [selected, setSelected] = useState<TurretType>(TurretType.Chaingun);
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
-    const turrets = useSelector((state: RootState) => state.turrets);
+    const turrets = useSelector((state: RootState) => state.turret);
 
     function onSelectTurret(value: TurretType | null) {
         if (value) {
@@ -36,7 +36,7 @@ export function TurretPicker(props: TurretPickerProps) {
                     sx={{width: "100%"}}>
                 {Object.values(TurretType).map(turret => (
                     <Option key={turret}
-                            value={turret}>{intlContext.text("TURRET", turret as keyof IIntlTurret)}</Option>
+                            value={turret}>{intlContext.text("TURRET", turret as TurretType)}</Option>
                 ))}
             </Select>
             <Button

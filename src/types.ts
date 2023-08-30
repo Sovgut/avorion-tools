@@ -1,5 +1,6 @@
 import {TurretType} from "@/constants/enums/turrets";
 import {ComponentType} from "@/constants/enums/components";
+import {SellerType} from "@/constants/enums/sellers";
 
 export interface Component {
     key: ComponentType;
@@ -10,7 +11,7 @@ export interface Turret {
     key: TurretType;
     quantity: number;
     price: number;
-    components: Record<string, Component>;
+    components: Record<ComponentType, number>;
 }
 
 export interface TurretPayload {
@@ -20,13 +21,17 @@ export interface TurretPayload {
 
 export interface ComponentPayload {
     turretId: string;
-    id: string;
-    data: Component;
+    type: ComponentType;
+    data: number;
 }
 
 export type TurretMetaType = { icon: string, components: ComponentType[] };
-
-/**
- * @deprecated
- */
-export type TODOANY = any;
+export type ComponentMetaType = {
+    price: number,
+    volume: number,
+    illegal: boolean,
+    dangerous: boolean,
+    icon: string,
+    sellers: SellerType[]
+};
+export type SellerMetaType = { link: string };

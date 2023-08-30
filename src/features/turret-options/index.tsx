@@ -3,8 +3,8 @@ import {useContext} from "react";
 import {IntlContext} from "@/contexts/intl";
 import {Turret} from "@/types";
 import {useDispatch} from "react-redux";
-import {updateTurret} from "@/reducers/turrets";
-import {Field} from "@/components/field";
+import {updateTurret} from "@/reducers/turret";
+import {Field} from "@/common/components/field";
 import {MAX_TURRET_PRICE, MAX_TURRET_QUANTITY} from "@/constants/common";
 
 type TurretOptionsProps = {
