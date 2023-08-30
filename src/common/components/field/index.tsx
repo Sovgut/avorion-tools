@@ -53,7 +53,7 @@ export function Field(props: FieldProps) {
         if (props.focus && ref.current) {
             ref.current.focus();
         }
-    }, []);
+    }, [props.focus]);
 
     function onFocus(): void {
         if (ref.current) {

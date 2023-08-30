@@ -18,9 +18,8 @@ interface IntlContextProviderProps {
 export const IntlContext = createContext<IntlContextProps>({
     language: "en-US",
 
-    text: (scope: keyof IntlStorage, label: keyof IntlStorageLabel) => String(),
-    selectLanguage: (language: string) => {
-    },
+    text: () => String(),
+    selectLanguage: () => undefined,
 });
 
 export function IntlContextProvider(props: IntlContextProviderProps) {

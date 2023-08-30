@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
-import {IntlContext} from "../../../contexts/intl";
+import {IntlContext} from "@/contexts/intl";
 import {Box, Container, Sheet, Stack, Typography} from "@mui/joy";
-import {Header} from "../../../common/components/header";
+import {Header} from "@/common/components/header";
 import styles from './styles.module.css'
 import {TurretPicker} from "@/features/turret-picker";
 
