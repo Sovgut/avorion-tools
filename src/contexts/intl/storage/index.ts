@@ -1,10 +1,10 @@
-import {IIntlStorage} from "./types";
-import {EN_US_COMPONENT, EN_US_STATION, EN_US_TURRET, EN_US_UI} from "./languages/en-US";
-import {RU_COMPONENT, RU_STATION, RU_TURRET, RU_UI} from "./languages/ru";
+import {IntlStorage} from "./types";
+import English from "@/contexts/intl/storage/languages/en-US";
+import Russian from "@/contexts/intl/storage/languages/ru";
 
-export const INTL_STORAGE: IIntlStorage = {
-    COMPONENT: {"en-US": EN_US_COMPONENT, ru: RU_COMPONENT},
-    STATION: {"en-US": EN_US_STATION, ru: RU_STATION},
-    TURRET: {"en-US": EN_US_TURRET, ru: RU_TURRET},
-    UI: {"en-US": EN_US_UI, ru: RU_UI}
+export const INTL_STORAGE: IntlStorage = {
+    COMPONENT: {"en-US": English.COMPONENT, ru: Russian.COMPONENT},
+    SELLER: {"en-US": English.SELLER, ru: Russian.SELLER},
+    TURRET: {"en-US": English.TURRET, ru: Russian.TURRET},
+    UI: {"en-US": English.UI, ru: Russian.UI}
 }

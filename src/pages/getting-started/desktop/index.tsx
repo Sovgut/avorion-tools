@@ -1,34 +1,12 @@
-import React, {useContext, useState} from "react";
-import {TurretType} from "../../../constants";
+import React, {useContext} from "react";
 import {IntlContext} from "../../../contexts/intl";
-import {TurretContext} from "../../../contexts/turret";
-import {Box, Button, Container, Option, Select, Sheet, Stack, Typography, useColorScheme} from "@mui/joy";
-import {Header} from "../../../components/header";
-import {IIntlTurret} from "../../../contexts/intl/storage/types";
-import {Add} from "@mui/icons-material";
+import {Box, Container, Sheet, Stack, Typography} from "@mui/joy";
+import {Header} from "../../../common/components/header";
 import styles from './styles.module.css'
-import {isDarkTheme} from "../../../utils/is-dark-theme";
+import {TurretPicker} from "@/features/turret-picker";
 
 export function GettingStartedDesktop() {
-    const [selected, setSelected] = useState<TurretType>(TurretType.Chaingun);
-    const {mode, systemMode} = useColorScheme();
-    const isDark = isDarkTheme(mode, systemMode);
-    const theme = isDark ? "dark" : "light";
-
     const intlContext = useContext(IntlContext);
-    const turretContext = useContext(TurretContext);
-
-    function onSelectTurret(value: TurretType | null) {
-        if (value) {
-            setSelected(value);
-        }
-    }
-
-    function onAddTurret() {
-        if (!selected) return;
-
-        turretContext.add(selected);
-    }
 
     return (
         <Box sx={{display: "flex", position: "relative", width: "100%", height: "100vh", flexDirection: "column"}}>
@@ -46,20 +24,17 @@ export function GettingStartedDesktop() {
                         width: "100%",
                         overflow: "hidden"
                     }}>
-                        {theme === "dark"
-                            ? <video
-                                style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    objectFit: "cover",
-                                }}
-                                src={`/assets/video/dark-background.mp4`}
-                                autoPlay
-                                loop
-                                muted
-                                controls={false}/>
-                            : null}
-
+                        <video
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                            }}
+                            src={`/assets/video/dark-background.mp4`}
+                            autoPlay
+                            loop
+                            muted
+                            controls={false}/>
                     </Box>
                     <Box sx={{
                         top: 0,
@@ -114,25 +89,7 @@ export function GettingStartedDesktop() {
                                     <Typography
                                         className={styles.text}>{intlContext.text("UI", "getting-started-4")}</Typography>
                                 </Stack>
-                                <Stack direction="row" spacing={1}>
-                                    <Select value={selected} onChange={(e, v) => onSelectTurret(v)}
-                                            sx={{width: "100%"}}>
-                                        {Object.keys(TurretType).map(turret => (
-                                            <Option key={turret}
-                                                    value={turret}>{intlContext.text("TURRET", turret as keyof IIntlTurret)}</Option>
-                                        ))}
-                                    </Select>
-                                    <Button
-                                        onClick={onAddTurret}
-                                        disabled={!selected}
-                                    >
-                                        <Stack direction="row" sx={{width: "max-content"}} alignItems="center"
-                                               spacing={1}>
-                                            <Add/>
-                                            {intlContext.text("UI", "add-turret")}
-                                        </Stack>
-                                    </Button>
-                                </Stack>
+                                <TurretPicker/>
                             </Stack>
                         </Sheet>
                     </Box>

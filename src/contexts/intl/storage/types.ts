@@ -1,110 +1,114 @@
-export type ILanguage = "en-US" | "ru"
+import {SellerType} from "@/constants/enums/sellers";
+import {TurretType} from "@/constants/enums/turrets";
+import {ComponentType} from "@/constants/enums/components";
 
-export interface IIntlStation {
-    "Turret Factory Supplier": string;
-    "Turret Factory": string;
-    "Aluminum Mine": string;
-    "Ammunition Factory": string;
-    "Conductor Factory": string;
-    "Copper Mine": string;
-    "Planetary Trading Post": string;
-    "Crystal Farm": string;
-    "Electro Magnet Factory": string;
-    "Electromagnetic Charge Factory": string;
-    "Solar Power Plant": string;
-    "Energy Container Factory": string;
-    "Energy Inverter Factory": string;
-    "Energy Tube Factory": string;
-    "Explosive Charge Factory": string;
-    "Force Generator Factory": string;
-    "Fuel Factory": string;
-    "Gauss Rail Factory": string;
-    "Noble Metal Mine": string;
-    "High Capacity Lens Factory": string;
-    "High Pressure Tube Factory": string;
-    "Tesla Coil Factory": string;
-    "Laser Compressor Factory": string;
-    "Laser Head Factory": string;
-    "Laser Modulator Factory": string;
-    "Lead Mine": string;
-    "Nanobot Factory": string;
-    "Plasma Cell Factory": string;
-    "Power Unit Factory": string;
-    "Rocket Factory": string;
-    "Servo Factory": string;
-    "Steel Factory": string;
-    "Steel Tube Factory": string;
-    "Computer Component Factory": string;
-    "Targeting Card Factory": string;
-    "Transformator Factory": string;
-    "Warhead Factory": string;
-    "Wire Manufacturer": string;
-    "Zinc Mine": string;
+export type LanguageType = "en-US" | "ru";
+
+export interface IntlSeller {
+    [SellerType.TurretFactorySupplier]: string;
+    [SellerType.TurretFactory]: string;
+    [SellerType.AluminumMine]: string;
+    [SellerType.AmmunitionFactory]: string;
+    [SellerType.ConductorFactory]: string;
+    [SellerType.CopperMine]: string;
+    [SellerType.PlanetaryTradingPost]: string;
+    [SellerType.CrystalFarm]: string;
+    [SellerType.ElectroMagnetFactory]: string;
+    [SellerType.ElectromagneticChargeFactory]: string;
+    [SellerType.SolarPowerPlant]: string;
+    [SellerType.EnergyContainerFactory]: string;
+    [SellerType.EnergyInverterFactory]: string;
+    [SellerType.EnergyTubeFactory]: string;
+    [SellerType.ExplosiveChargeFactory]: string;
+    [SellerType.ForceGeneratorFactory]: string;
+    [SellerType.FuelFactory]: string;
+    [SellerType.GaussRailFactory]: string;
+    [SellerType.NobleMetalMine]: string;
+    [SellerType.HighCapacityLensFactory]: string;
+    [SellerType.HighPressureTubeFactory]: string;
+    [SellerType.TeslaCoilFactory]: string;
+    [SellerType.LaserCompressorFactory]: string;
+    [SellerType.LaserHeadFactory]: string;
+    [SellerType.LaserModulatorFactory]: string;
+    [SellerType.LeadMine]: string;
+    [SellerType.NanobotFactory]: string;
+    [SellerType.PlasmaCellFactory]: string;
+    [SellerType.PowerUnitFactory]: string;
+    [SellerType.RocketFactory]: string;
+    [SellerType.ServoFactory]: string;
+    [SellerType.SteelFactory]: string;
+    [SellerType.SteelTubeFactory]: string;
+    [SellerType.ComputerComponentFactory]: string;
+    [SellerType.TargetingCardFactory]: string;
+    [SellerType.TransformatorFactory]: string;
+    [SellerType.WarheadFactory]: string;
+    [SellerType.WireManufacturer]: string;
+    [SellerType.ZincMine]: string;
 }
 
-export interface IIntlTurret {
-    "Chaingun": string;
-    "Bolter": string;
-    "Laser": string;
-    "Plasma Gun": string;
-    "Cannon": string;
-    "Rocket Launcher": string;
-    "Railgun": string;
-    "Repair": string;
-    "Mining Laser": string;
-    "Raw Mining Laser": string;
-    "Salvaging Laser": string;
-    "Raw Salvaging Laser": string;
-    "Force Gun": string;
-    "Tesla Gun": string;
-    "Lightning Gun": string;
-    "Pulse Cannon": string;
-    "Point Defense Cannon": string;
-    "Point Defense Laser": string;
-    "Anti Fighter": string;
+export interface IntlTurret {
+    [TurretType.Chaingun]: string;
+    [TurretType.Bolter]: string;
+    [TurretType.Laser]: string;
+    [TurretType.PlasmaGun]: string;
+    [TurretType.Cannon]: string;
+    [TurretType.RocketLauncher]: string;
+    [TurretType.Railgun]: string;
+    [TurretType.Repair]: string;
+    [TurretType.MiningLaser]: string;
+    [TurretType.RawMiningLaser]: string;
+    [TurretType.SalvagingLaser]: string;
+    [TurretType.RawSalvagingLaser]: string;
+    [TurretType.ForceGun]: string;
+    [TurretType.TeslaGun]: string;
+    [TurretType.LightningGun]: string;
+    [TurretType.PulseCannon]: string;
+    [TurretType.PointDefenseCannon]: string;
+    [TurretType.PointDefenseLaser]: string;
+    [TurretType.AntiFighter]: string;
 }
 
-export interface IIntlComponent {
-    "Servo": string;
-    "Steel Tube": string;
-    "Ammunition S": string;
-    "Steel": string;
-    "Aluminum": string;
-    "Lead": string;
-    "Industrial Tesla Coil": string;
-    "Electromagnetic Charge": string;
-    "Energy Inverter": string;
-    "Conductor": string;
-    "Power Unit": string;
-    "Copper": string;
-    "Energy Cell": string;
-    "Laser Compressor": string;
-    "Laser Modulator": string;
-    "High Capacity Lens": string;
-    "Rocket": string;
-    "High Pressure Tube": string;
-    "Fuel": string;
-    "Targeting Card": string;
-    "Wire": string;
-    "Nanobot": string;
-    "Transformator": string;
-    "Gold": string;
-    "Electro Magnet": string;
-    "Gauss Rail": string;
-    "Laser Head": string;
-    "Crystal": string;
-    "Plasma Cell": string;
-    "Energy Tube": string;
-    "Energy Container": string;
-    "Military Tesla Coil": string;
-    "Force Generator": string;
-    "Zinc": string;
-    "Warhead": string;
-    "Explosive Charge": string;
-    "Ammunition M": string;
+export interface IntlComponent {
+    [ComponentType.Servo]: string;
+    [ComponentType.SteelTube]: string;
+    [ComponentType.AmmunitionS]: string;
+    [ComponentType.Steel]: string;
+    [ComponentType.Aluminum]: string;
+    [ComponentType.Lead]: string;
+    [ComponentType.IndustrialTeslaCoil]: string;
+    [ComponentType.ElectromagneticCharge]: string;
+    [ComponentType.EnergyInverter]: string;
+    [ComponentType.Conductor]: string;
+    [ComponentType.PowerUnit]: string;
+    [ComponentType.Copper]: string;
+    [ComponentType.EnergyCell]: string;
+    [ComponentType.LaserCompressor]: string;
+    [ComponentType.LaserModulator]: string;
+    [ComponentType.HighCapacityLens]: string;
+    [ComponentType.Rocket]: string;
+    [ComponentType.HighPressureTube]: string;
+    [ComponentType.Fuel]: string;
+    [ComponentType.TargetingCard]: string;
+    [ComponentType.Wire]: string;
+    [ComponentType.Nanobot]: string;
+    [ComponentType.Transformator]: string;
+    [ComponentType.Gold]: string;
+    [ComponentType.ElectroMagnet]: string;
+    [ComponentType.GaussRail]: string;
+    [ComponentType.LaserHead]: string;
+    [ComponentType.Crystal]: string;
+    [ComponentType.PlasmaCell]: string;
+    [ComponentType.EnergyTube]: string;
+    [ComponentType.EnergyContainer]: string;
+    [ComponentType.MilitaryTeslaCoil]: string;
+    [ComponentType.ForceGenerator]: string;
+    [ComponentType.Zinc]: string;
+    [ComponentType.Warhead]: string;
+    [ComponentType.ExplosiveCharge]: string;
+    [ComponentType.AmmunitionM]: string;
 }
 
-export interface IIntlUI {
+export interface IntlUI {
     "quantity": string;
     "component": string;
     "components": string;
@@ -141,9 +145,12 @@ export interface IIntlUI {
     "turret-planner": string;
 }
 
-export interface IIntlStorage {
-    UI: Record<ILanguage, IIntlUI>;
-    TURRET: Record<ILanguage, IIntlTurret>;
-    COMPONENT: Record<ILanguage, IIntlComponent>;
-    STATION: Record<ILanguage, IIntlStation>;
+export interface IntlStorage {
+    UI: Record<LanguageType, IntlUI>;
+    TURRET: Record<LanguageType, IntlTurret>;
+    COMPONENT: Record<LanguageType, IntlComponent>;
+    SELLER: Record<LanguageType, IntlSeller>;
+}
+
+export interface IntlStorageLabel extends IntlUI, IntlTurret, IntlComponent, IntlSeller {
 }

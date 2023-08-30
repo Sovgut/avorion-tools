@@ -1,98 +1,23 @@
-import {
-    Button,
-    Container,
-    Dropdown,
-    Grid,
-    ListItemDecorator,
-    Menu,
-    MenuButton,
-    MenuItem,
-    Option,
-    Select,
-    Stack
-} from "@mui/joy";
-import React, {useContext, useEffect, useLayoutEffect, useState} from "react";
-import {TurretItem} from "../../components/turret-item";
-import {TurretContext} from "../../contexts/turret";
-import {ComponentTable} from "../../components/component-table";
-import {TurretType} from "../../constants";
-import {IIntlTurret} from "../../contexts/intl/storage/types";
-import {Add, ArrowDropDown, ClearAll} from "@mui/icons-material";
-import {IntlContext} from "../../contexts/intl";
-import {CargoTable} from "../../components/cargo-table";
-import {nanoid} from "nanoid";
-import {TurretItemSkeleton} from "../../components/turret-item/skeleton";
-import {ComponentTableSkeleton} from "../../components/component-table/skeleton";
-import {Header} from "../../components/header";
+import {Container, Grid, Stack} from "@mui/joy";
+import React, {useLayoutEffect} from "react";
+import {TurretItem} from "@/features/turret-item";
+import {ComponentTable} from "@/features/component-table";
+import {CargoTable} from "@/features/cargo-table";
+import {Header} from "@/common/components/header";
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {RootState} from "@/store";
+import {TurretPicker} from "@/features/turret-picker";
 
 export function TurretBuilder() {
-    const [selected, setSelected] = useState<TurretType>(TurretType.Chaingun);
-    const [skeletonTurrets, setSkeletonTurrets] = useState<string[]>([])
     const navigate = useNavigate();
-
-    const intlContext = useContext(IntlContext);
-    const turretContext = useContext(TurretContext);
-
-    useEffect(() => {
-        const turrets: string[] = [];
-
-        for (let i = 0; i < 4; i++) {
-            turrets.push(nanoid());
-        }
-
-        setSkeletonTurrets(turrets);
-    }, []);
+    const turrets = useSelector((state: RootState) => state.turret);
 
     useLayoutEffect(() => {
-        if (turretContext.records.length === 0) {
+        if (Object.keys(turrets).length === 0) {
             navigate("/turret-planner/getting-started");
         }
-    }, [navigate, turretContext.records]);
-
-    function onSelectTurret(value: TurretType | null) {
-        if (value) {
-            setSelected(value);
-        }
-    }
-
-    function onAddTurret() {
-        if (!selected) return;
-
-        turretContext.add(selected);
-    }
-
-    function onClearTurrets() {
-        turretContext.clear();
-    }
-
-    function renderTurrets() {
-        if (turretContext.records.length === 0) {
-            return renderTurretsSkeleton();
-        }
-
-        return turretContext.records.map(turret => (
-            <Grid key={turret.id} xs={6}>
-                <TurretItem key={turret.id} turret={turret}/>
-            </Grid>
-        ))
-    }
-
-    function renderTurretsSkeleton() {
-        return skeletonTurrets.map(turret => (
-            <Grid key={turret} xs={6}>
-                <TurretItemSkeleton key={turret} id={turret}/>
-            </Grid>
-        ))
-    }
-
-    function renderComponents() {
-        return turretContext.records.length === 0 ? renderComponentsSkeleton() : <ComponentTable/>
-    }
-
-    function renderComponentsSkeleton() {
-        return <ComponentTableSkeleton/>
-    }
+    }, [navigate, turrets]);
 
     return (
         <Container maxWidth={false}>
@@ -101,43 +26,14 @@ export function TurretBuilder() {
                 <Grid container xl={7} xs={12}>
                     <Grid container xs={12} spacing={1} alignContent="flex-start">
                         <Grid xs={12}>
-                            <Stack direction="row" spacing={1}>
-                                <Select value={selected} onChange={(e, v) => onSelectTurret(v)} sx={{width: "100%"}}>
-                                    {Object.keys(TurretType).map(turret => (
-                                        <Option key={turret}
-                                                value={turret}>{intlContext.text("TURRET", turret as keyof IIntlTurret)}</Option>
-                                    ))}
-                                </Select>
-                                <Button
-                                    onClick={onAddTurret}
-                                    disabled={!selected}
-                                >
-                                    <Stack direction="row" sx={{width: "max-content"}} alignItems="center" spacing={1}>
-                                        <Add/>
-                                        {intlContext.text("UI", "add-turret")}
-                                    </Stack>
-                                </Button>
-                                <Dropdown>
-                                    <MenuButton variant="solid" color="primary">
-                                        <ArrowDropDown/>
-                                    </MenuButton>
-                                    <Menu>
-                                        <MenuItem
-                                            color="danger"
-                                            onClick={onClearTurrets}
-                                            disabled={turretContext.records.length === 0}
-                                        >
-                                            <ListItemDecorator>
-                                                <ClearAll/>
-                                            </ListItemDecorator>
-                                            {intlContext.text("UI", "clear-turrets")}
-                                        </MenuItem>
-                                    </Menu>
-                                </Dropdown>
-                            </Stack>
+                            <TurretPicker clearable/>
                         </Grid>
                         <Grid container xs={12}>
-                            {renderTurrets()}
+                            {Object.keys(turrets).map(id => (
+                                <Grid key={id} xs={6}>
+                                    <TurretItem id={id} turret={turrets[id]}/>
+                                </Grid>
+                            ))}
                         </Grid>
                     </Grid>
                 </Grid>
@@ -146,7 +42,7 @@ export function TurretBuilder() {
                     <Container disableGutters maxWidth={false}>
                         <Stack spacing={1}>
                             <CargoTable/>
-                            {renderComponents()}
+                            <ComponentTable/>
                         </Stack>
                     </Container>
                 </Grid>
