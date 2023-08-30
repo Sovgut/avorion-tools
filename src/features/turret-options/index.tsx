@@ -19,6 +19,8 @@ export function TurretOptions(props: TurretOptionsProps) {
     function onAttributeChange(attribute: "quantity" | "price") {
         return function onChange(id: string, value: string | null) {
             if (value) {
+                if (Number.isNaN(Number(value))) return;
+
                 if (attribute === 'quantity' && (Number(value) < 1 || Number(value) > MAX_TURRET_QUANTITY)) return;
                 if (attribute === 'price' && (Number(value) < 0 || Number(value) > MAX_TURRET_PRICE)) return;
 
