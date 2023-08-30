@@ -11,6 +11,7 @@ import {createBrowserRouter, Navigate, RouterProvider,} from "react-router-dom";
 import {Layout} from "./components/layout";
 import {TurretBuilder} from "./pages/turret-builder";
 import {GettingStarted} from "./pages/getting-started";
+import {inject as VercelAnalytics} from '@vercel/analytics';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -77,3 +78,5 @@ root.render(
         </IntlContextProvider>
     </CssVarsProvider>
 );
+
+VercelAnalytics();
