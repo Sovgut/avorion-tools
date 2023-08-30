@@ -7,6 +7,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {addTurret, resetTurrets} from "@/reducers/turret";
 import {RootState} from "@/store";
 import {TurretType} from "@/constants/enums/turrets";
+import {uniteComponents} from "@/common/utils/transformations/unite-components";
+import {checkboxRemove} from "@/reducers/checkbox";
+import {ComponentType} from "@/constants/enums/components";
 
 type TurretPickerProps = {
     clearable?: boolean;
@@ -28,6 +31,16 @@ export function TurretPicker(props: TurretPickerProps) {
         if (!selected) return;
 
         dispatch(addTurret(selected));
+    }
+
+    function onResetTurrets() {
+        const components = uniteComponents(turrets);
+
+        for (const componentType of Object.keys(components)) {
+            dispatch(checkboxRemove(componentType as ComponentType));
+        }
+
+        dispatch(resetTurrets())
     }
 
     return (
@@ -57,7 +70,7 @@ export function TurretPicker(props: TurretPickerProps) {
                     <Menu>
                         <MenuItem
                             color="danger"
-                            onClick={() => dispatch(resetTurrets())}
+                            onClick={onResetTurrets}
                             disabled={Object.keys(turrets).length === 0}
                         >
                             <ListItemDecorator>
