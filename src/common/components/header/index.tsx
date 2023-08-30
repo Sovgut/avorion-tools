@@ -1,8 +1,9 @@
-import {Container, Link, Option, Select, Stack, Typography,} from "@mui/joy";
+import {Container, IconButton, Link, Option, Select, Stack, Typography} from "@mui/joy";
 import {SyntheticEvent, useContext} from "react";
 import {IntlContext} from "@/contexts/intl";
 import {Link as RouterLink} from 'react-router-dom'
 import {isNull} from "@/common/utils/helpers";
+import {GitHub} from "@mui/icons-material";
 
 type HeaderProps = {
     fontColor?: "black" | "white";
@@ -44,6 +45,11 @@ export function Header(props: HeaderProps) {
                     </Stack>
                 </Stack>
                 <Stack direction="row" spacing={2}>
+                    <Link href="https://github.com/Sovgut/avorion-tools" target="_blank">
+                        <IconButton>
+                            <GitHub />
+                        </IconButton>
+                    </Link>
                     <Select placeholder={intlContext.text("UI", "language")}
                             defaultValue={intlContext.language}
                             onChange={onLanguageChange}
