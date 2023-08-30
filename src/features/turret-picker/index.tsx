@@ -4,7 +4,7 @@ import {Add, ArrowDropDown, ClearAll} from "@mui/icons-material";
 import React, {useContext, useState} from "react";
 import {IntlContext} from "@/contexts/intl";
 import {useDispatch, useSelector} from "react-redux";
-import {addTurret, clearTurrets} from "@/reducers/turret";
+import {addTurret, resetTurrets} from "@/reducers/turret";
 import {RootState} from "@/store";
 import {TurretType} from "@/constants/enums/turrets";
 
@@ -57,7 +57,7 @@ export function TurretPicker(props: TurretPickerProps) {
                     <Menu>
                         <MenuItem
                             color="danger"
-                            onClick={() => dispatch(clearTurrets())}
+                            onClick={() => dispatch(resetTurrets())}
                             disabled={Object.keys(turrets).length === 0}
                         >
                             <ListItemDecorator>

@@ -21,24 +21,16 @@ const cargoSlice = createSlice({
                 state[action.payload.key] = action.payload.quantity;
             }
         },
-        update: (state, action: PayloadAction<Component>) => {
-            if (state[action.payload.key]) {
-                state[action.payload.key] = action.payload.quantity;
-            }
-        },
         remove: (state, action: PayloadAction<ComponentType>) => {
             if (state[action.payload]) {
                 delete state[action.payload];
             }
         },
-        clear: (state) => state = {} as Record<ComponentType, number>,
     }
 });
 
 export const {
     add: cargoComponentAdd,
-    update: cargoComponentUpdate,
     remove: cargoComponentRemove,
-    clear: cargoComponentClear
 } = cargoSlice.actions;
 export default cargoSlice.reducer;

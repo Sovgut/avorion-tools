@@ -144,4 +144,4 @@ const SELLER: IntlSeller = {
     [SellerType.ZincMine]: "Zinc Mine",
 }
 
-export default {UI, TURRET, COMPONENT, SELLER}
+export const English = {UI, TURRET, COMPONENT, SELLER}

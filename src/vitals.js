@@ -36,5 +36,5 @@ export function sendToVercelAnalytics(metric) {
             method: 'POST',
             credentials: 'omit',
             keepalive: true,
-        });
+        }).then();
 }

@@ -1,1 +1,0 @@
-export const FIRST_TURRET = 0;

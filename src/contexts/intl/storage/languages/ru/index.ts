@@ -144,4 +144,4 @@ const SELLER: IntlSeller = {
     [SellerType.ZincMine]: "Фабрика Боеголовка",
 }
 
-export default {UI, TURRET, COMPONENT, SELLER}
+export const Russian = {UI, TURRET, COMPONENT, SELLER}

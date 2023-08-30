@@ -46,7 +46,8 @@ const turretSlice = createSlice({
                 delete state[action.payload];
             }
         },
-        clear: (state) => state = {} as Record<string, Turret>,
+        reset: () => {
+        },
     }
 });
 
@@ -55,6 +56,6 @@ export const {
     updateTurret,
     updateComponent,
     remove: removeTurret,
-    clear: clearTurrets
+    reset: resetTurrets
 } = turretSlice.actions;
 export default turretSlice.reducer;

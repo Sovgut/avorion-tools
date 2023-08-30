@@ -1,6 +1,6 @@
 import {Box, Button, Modal, ModalClose, ModalDialog, Stack, Typography} from "@mui/joy";
 import {Add, MoreVert as MoreIcon} from "@mui/icons-material";
-import {Field} from "../../common/components/field";
+import {Field} from "@/common/components/field";
 import {FormEvent, useContext, useState} from "react";
 import {IntlContext} from "@/contexts/intl";
 import {ComponentType} from "@/constants/enums/components";

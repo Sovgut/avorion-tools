@@ -6,11 +6,11 @@ import {useContext} from "react";
 import {IntlContext} from "@/contexts/intl";
 import {SellersMeta} from "@/constants/meta/sellers";
 
-type ComponentSellers = {
+type ComponentSellersProps = {
     type: ComponentType;
 }
 
-export function ComponentSellers(props: ComponentSellers) {
+export function ComponentSellers(props: ComponentSellersProps) {
     const intlContext = useContext(IntlContext);
 
     return (
