@@ -1,3 +1,5 @@
+import {TTurret} from "../../../types";
+
 export type ILanguage = "en-US" | "ru"
 
 export interface IIntlStation {
@@ -42,27 +44,7 @@ export interface IIntlStation {
     "Zinc Mine": string;
 }
 
-export interface IIntlTurret {
-    "Chaingun": string;
-    "Bolter": string;
-    "Laser": string;
-    "Plasma Gun": string;
-    "Cannon": string;
-    "Rocket Launcher": string;
-    "Railgun": string;
-    "Repair": string;
-    "Mining Laser": string;
-    "Raw Mining Laser": string;
-    "Salvaging Laser": string;
-    "Raw Salvaging Laser": string;
-    "Force Gun": string;
-    "Tesla Gun": string;
-    "Lightning Gun": string;
-    "Pulse Cannon": string;
-    "Point Defense Cannon": string;
-    "Point Defense Laser": string;
-    "Anti Fighter": string;
-}
+export type IIntlTurret = Record<TTurret, string>
 
 export interface IIntlComponent {
     "Servo": string;
