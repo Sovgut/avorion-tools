@@ -11,6 +11,9 @@ import {TurretBuilder} from "@/pages/turret-builder";
 import {GettingStarted} from "@/pages/getting-started";
 import {IntlContextProvider} from "@/contexts/intl";
 import {CACHE_THEME} from "@/constants/common";
+import {inject as VercelAnalytics} from '@vercel/analytics';
+import {sendToVercelAnalytics} from "@/vitals";
+import reportWebVitals from "@/reportWebVitals";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -65,3 +68,4 @@ root.render(
 );
 
 VercelAnalytics();
+reportWebVitals(sendToVercelAnalytics);
