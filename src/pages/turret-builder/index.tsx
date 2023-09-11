@@ -14,8 +14,8 @@ export function TurretBuilder() {
     const turrets = useSelector((state: RootState) => state.turret);
 
     useLayoutEffect(() => {
-        if (Object.keys(turrets).length === 0) {
-            navigate("/turret-planner/getting-started");
+        if (!turrets || Object.keys(turrets).length === 0) {
+            navigate("/turret-planner/getting-started", { replace: true });
         }
     }, [navigate, turrets]);
 
