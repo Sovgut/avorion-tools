@@ -1,4 +1,4 @@
-import {Stack, Typography} from "@mui/joy";
+import {Stack} from "@mui/joy";
 import {useContext} from "react";
 import {IntlContext} from "@/contexts/intl";
 import {Numeric} from "common/components/numeric";
@@ -27,7 +27,6 @@ export function TurretComponents(props: TurretComponentsProps) {
 
     return (
         <Stack spacing={2}>
-            <Typography>{intlContext.text("UI", "components")}</Typography>
             <Stack spacing={2}>
                 {Object.keys(props.turret.components).map(componentType => (
                     <Numeric
