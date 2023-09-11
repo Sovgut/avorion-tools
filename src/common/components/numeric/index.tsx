@@ -2,21 +2,25 @@ import {type ChangeEvent, useEffect, useRef} from "react";
 
 import {Input, Stack, Typography} from "@mui/joy";
 import {useTheme} from '@mui/joy/styles';
+import styles from './styles.module.css';
+import {preventNaN} from "@/common/components/numeric/utils/prevent-nan";
+import {preventOverMin} from "@/common/components/numeric/utils/prevent-over-min";
+import {preventOverMax} from "@/common/components/numeric/utils/prevent-over-max";
 
-type FieldProps = {
+type NumericProps = {
     id: string;
     label: string;
     labelWidth?: number;
     value?: string | number;
     defaultValue?: string | number;
-    type: "text" | "number";
     focus?: boolean
-    maxValue: number
+    min?: number;
+    max?: number;
 
     onChange(id: string, value: string | null): void;
 }
 
-export function Field(props: FieldProps) {
+export function Numeric(props: NumericProps) {
     const theme = useTheme();
     const ref = useRef<HTMLInputElement>(null);
 
@@ -26,27 +30,17 @@ export function Field(props: FieldProps) {
         </Stack>
     );
 
-    function trimZeroNumber(value: string | null) {
-        if (!value) return undefined;
-        let result = value.split("");
-
-        for (let i = 0; i < value.length; i++) {
-            if (result.length > 2) {
-                if (result[i] === "0") {
-                    result.shift();
-                } else {
-                    break;
-                }
-            }
-        }
-
-        return result.join("");
-    }
-
     function onChange(e: ChangeEvent<HTMLInputElement>): void {
-        const value = trimZeroNumber(e.target.value);
+        const value = e.target.value;
+        const min = Number(props.min) ?? 0;
+        const max = Number(props.max) ?? Number.MAX_SAFE_INTEGER;
+        let parsed = Number(value ?? min);
 
-        props.onChange(props.id, value || null);
+        parsed = preventNaN(parsed, min);
+        parsed = preventOverMin(parsed, min);
+        parsed = preventOverMax(parsed, max);
+
+        props.onChange(props.id, parsed.toString() || null);
     }
 
     useEffect(() => {
@@ -74,20 +68,21 @@ export function Field(props: FieldProps) {
             slotProps={{
                 input: {
                     inputMode: "numeric",
+                    className: styles.input,
                     style: {
                         color: `rgb(${theme.palette.primary.mainChannel})`,
                         textAlign: "right",
                         fontFamily: "monospace"
                     },
-                    max: props.maxValue,
+                    max: props.max,
                     ref,
                     onFocus,
                 }
             }}
             onChange={onChange}
             onClick={onClick}
-            type="text"
-            value={trimZeroNumber(String(props.value))}
+            type="number"
+            value={String(props.value)}
             defaultValue={props.defaultValue}
         />
     )

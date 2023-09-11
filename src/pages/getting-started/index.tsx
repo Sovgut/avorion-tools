@@ -10,8 +10,8 @@ export function GettingStarted() {
     const turrets = useSelector((state: RootState) => state.turret)
 
     useLayoutEffect(() => {
-        if (Object.keys(turrets).length > 0) {
-            navigate("/turret-planner");
+        if (turrets && Object.keys(turrets).length > 0) {
+            navigate("/turret-planner", { replace: true });
         }
     }, [navigate, turrets]);
 

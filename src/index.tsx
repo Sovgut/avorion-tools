@@ -36,17 +36,22 @@ const theme = extendTheme({
 const router = createBrowserRouter([
     {
         path: "/turret-planner",
-        element: (
-            <Layout>
-                <TurretBuilder/>
-            </Layout>
-        ),
-    },
-    {
-        path: "/turret-planner/getting-started",
-        element: (
-            <GettingStarted/>
-        )
+        children: [
+            {
+                index: true,
+                element: (
+                    <Layout>
+                        <TurretBuilder/>
+                    </Layout>
+                )
+            },
+            {
+                path: "getting-started",
+                element: (
+                    <GettingStarted/>
+                )
+            },
+        ],
     },
     {
         path: "*",

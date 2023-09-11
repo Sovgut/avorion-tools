@@ -1,7 +1,11 @@
-export const MAX_TURRET_QUANTITY = 9_999;
-export const MAX_TURRET_PRICE = 1_000_000_000;
-export const MAX_COMPONENT_QUANTITY = 1_000_000;
+export const MAX_TURRET_QUANTITY = 999_999;
+export const MIN_TURRET_QUANTITY = 1;
+export const MAX_TURRET_PRICE = 9_999_999_999;
+export const MIN_TURRET_PRICE = 0;
+export const MAX_COMPONENT_QUANTITY = 9_999_999;
 export const MAX_PRICE_PERCENTAGE = 3.00;
+export const MAX_CARGO_QUANTITY = 9_999_999;
+export const MIN_CARGO_QUANTITY = 1;
 
 export const CACHE_CHECKBOX = "cache:v2:checkbox";
 export const CACHE_CARGO = "cache:v2:cargo";
