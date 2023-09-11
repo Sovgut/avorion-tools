@@ -35,7 +35,6 @@ export function TurretComponents(props: TurretComponentsProps) {
                         id={componentType}
                         max={MAX_COMPONENT_QUANTITY}
                         label={intlContext.text("COMPONENT", componentType as ComponentType)}
-                        labelWidth={14}
                         value={props.turret.components[componentType as ComponentType]}
                         onChange={onComponentChange}/>
                 ))}
