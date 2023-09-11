@@ -24,8 +24,7 @@ export function Numeric(props: NumericProps) {
 
     const decorator = (
         <Stack direction="row" spacing={1}>
-            <Typography className={styles.label} level="body-md" fontWeight="bold"
-                        sx={{opacity: .5}}>{props.label}</Typography>
+            <Typography className={styles.label} level="body-md" fontWeight="bold">{props.label}</Typography>
         </Stack>
     );
 
