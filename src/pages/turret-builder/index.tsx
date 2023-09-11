@@ -15,7 +15,7 @@ export function TurretBuilder() {
 
     useLayoutEffect(() => {
         if (!turrets || Object.keys(turrets).length === 0) {
-            navigate("/turret-planner/getting-started", { replace: true });
+            navigate("/turret-planner/getting-started", {replace: true});
         }
     }, [navigate, turrets]);
 
@@ -30,7 +30,7 @@ export function TurretBuilder() {
                         </Grid>
                         <Grid container xs={12}>
                             {Object.keys(turrets).map(id => (
-                                <Grid key={id} xs={6}>
+                                <Grid key={id} sm={6} xs={12}>
                                     <TurretItem id={id} turret={turrets[id]}/>
                                 </Grid>
                             ))}
