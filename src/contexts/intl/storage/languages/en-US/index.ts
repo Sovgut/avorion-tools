@@ -4,6 +4,9 @@ import {SellerType} from "@/constants/enums/sellers";
 import {IntlComponent, IntlSeller, IntlTurret, IntlUI} from "@/contexts/intl/storage/types";
 
 const UI: IntlUI = {
+    "cargo-offset": "Cargo offset",
+    "guaranteed-in": "Guaranteed in",
+    "can-be-found-in": "Can be found in",
     "quantity": "Quantity",
     "component": "Component",
     "components": "Components",
@@ -16,7 +19,7 @@ const UI: IntlUI = {
     "please-note": "Please note",
     "cargo-required": "Required components",
     "cargo": "Cargo",
-    "cargo-field-note": "Whenever the quantity of the component-table is modified, the cargo value is automatically reset to its default state.",
+    "cargo-field-note": "Whenever the quantity of the component-components-table is modified, the cargo value is automatically reset to its default state.",
     "cargo-field-label": "Add",
     "add-turret": "Add turret",
     "remove-turret": "Remove turret",

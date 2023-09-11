@@ -5,9 +5,8 @@ import {CssBaseline, CssVarsProvider, extendTheme} from "@mui/joy";
 import {createBrowserRouter, Navigate, RouterProvider,} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "@/store";
-import {Layout} from "@/common/components/layout";
-import {TurretBuilder} from "@/pages/turret-builder";
-import {GettingStarted} from "@/pages/getting-started";
+import {TurretPlannerPage} from "pages/turret-planner";
+import {GettingStartedPage} from "@/pages/getting-started";
 import {IntlContextProvider} from "@/contexts/intl";
 import {CACHE_THEME} from "@/constants/common";
 import {inject as VercelAnalytics} from '@vercel/analytics';
@@ -39,16 +38,12 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: (
-                    <Layout>
-                        <TurretBuilder/>
-                    </Layout>
-                )
+                element: <TurretPlannerPage/>
             },
             {
                 path: "getting-started",
                 element: (
-                    <GettingStarted/>
+                    <GettingStartedPage/>
                 )
             },
         ],
