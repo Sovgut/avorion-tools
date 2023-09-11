@@ -1,7 +1,7 @@
 import {Stack, Typography} from "@mui/joy";
 import {useContext} from "react";
 import {IntlContext} from "@/contexts/intl";
-import {Field} from "@/common/components/field";
+import {Numeric} from "common/components/numeric";
 import {MAX_COMPONENT_QUANTITY} from "@/constants/common";
 import {Turret} from "@/types";
 import {useDispatch} from "react-redux";
@@ -18,13 +18,11 @@ export function TurretComponents(props: TurretComponentsProps) {
     const dispatch = useDispatch();
 
     function onComponentChange(type: string, value: string | null) {
-        if (value && Number(value) >= 0 && Number(value) <= MAX_COMPONENT_QUANTITY) {
-            dispatch(updateComponent({
-                type: type as ComponentType,
-                turretId: props.id,
-                data: Number(value)
-            }));
-        }
+        dispatch(updateComponent({
+            type: type as ComponentType,
+            turretId: props.id,
+            data: Number(value)
+        }));
     }
 
     return (
@@ -32,14 +30,13 @@ export function TurretComponents(props: TurretComponentsProps) {
             <Typography>{intlContext.text("UI", "components")}</Typography>
             <Stack spacing={2}>
                 {Object.keys(props.turret.components).map(componentType => (
-                    <Field
+                    <Numeric
                         key={componentType}
                         id={componentType}
-                        maxValue={MAX_COMPONENT_QUANTITY}
+                        max={MAX_COMPONENT_QUANTITY}
                         label={intlContext.text("COMPONENT", componentType as ComponentType)}
                         labelWidth={14}
                         value={props.turret.components[componentType as ComponentType]}
-                        type="number"
                         onChange={onComponentChange}/>
                 ))}
             </Stack>
