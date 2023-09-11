@@ -1,5 +1,5 @@
-import {TurretType} from "@/constants/enums/turrets";
 import {ComponentType} from "@/constants/enums/components";
+import {TurretType} from "@/constants/enums/turrets";
 import {SellerType} from "@/constants/enums/sellers";
 
 export interface Component {
