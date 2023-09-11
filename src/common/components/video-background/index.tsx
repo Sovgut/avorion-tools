@@ -1,24 +1,36 @@
 import {Box} from "@mui/joy";
-import React, {useEffect, useRef} from "react";
+import React from "react";
+import {useTheme} from "@mui/joy/styles";
+import {useMediaQuery} from "react-responsive";
 
 export function VideoBackground() {
-    const videoRef = useRef<HTMLVideoElement>(null);
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery({query: `(max-width: ${theme.breakpoints.values.md}px)`});
+    let element = (
+        <video
+            style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+            }}
+            src={`/assets/video/dark-background.mp4`}
+            autoPlay
+            loop
+            muted
+            controls={false}/>
+    )
 
-    useEffect(() => {
-        function preventControls(event: any) {
-            event.preventDefault();
-        }
-
-        const videoElem = videoRef.current;
-
-        if (videoElem) {
-            videoElem.addEventListener("touchstart", preventControls);
-
-            return () => {
-                videoElem.removeEventListener("touchstart", preventControls);
-            };
-        }
-    }, []);
+    if (isSmallScreen) {
+        element = (
+            <img style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+            }}
+                 src={`/assets/img/dark-background.png`}
+                 alt="avorion dark background"/>
+        )
+    }
 
     return (
         <Box sx={{display: "flex", position: "fixed", height: "100%", width: "100%", zIndex: "-1"}}>
@@ -31,18 +43,7 @@ export function VideoBackground() {
                 width: "100%",
                 overflow: "hidden"
             }}>
-                <video
-                    ref={videoRef}
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                    }}
-                    src={`/assets/video/dark-background.mp4`}
-                    autoPlay
-                    loop
-                    muted
-                    controls={false}/>
+                {element}
             </Box>
             <Box sx={{
                 top: 0,
