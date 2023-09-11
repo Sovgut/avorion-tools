@@ -10,9 +10,7 @@ import {preventOverMax} from "@/common/components/numeric/utils/prevent-over-max
 type NumericProps = {
     id: string;
     label: string;
-    labelWidth?: number;
     value?: string | number;
-    defaultValue?: string | number;
     focus?: boolean
     min?: number;
     max?: number;
@@ -26,11 +24,30 @@ export function Numeric(props: NumericProps) {
 
     const decorator = (
         <Stack direction="row" spacing={1}>
-            <Typography level="body-md">{props.label}</Typography>
+            <Typography className={styles.label} level="body-md" fontWeight="bold">{props.label}</Typography>
         </Stack>
     );
 
-    function onChange(e: ChangeEvent<HTMLInputElement>): void {
+    useEffect(() => {
+        if (props.focus && ref.current) {
+            handleFocus();
+            ref.current.focus();
+        }
+    }, [props.focus]);
+
+    function handleClick(): void {
+        if (ref.current) {
+            handleFocus()
+        }
+    }
+
+    function handleFocus(): void {
+        if (ref.current) {
+            ref.current.select()
+        }
+    }
+
+    function handleChange(e: ChangeEvent<HTMLInputElement>): void {
         const value = e.target.value;
         const min = Number(props.min) ?? 0;
         const max = Number(props.max) ?? Number.MAX_SAFE_INTEGER;
@@ -43,27 +60,9 @@ export function Numeric(props: NumericProps) {
         props.onChange(props.id, parsed.toString() || null);
     }
 
-    useEffect(() => {
-        if (props.focus && ref.current) {
-            ref.current.focus();
-        }
-    }, [props.focus]);
-
-    function onFocus(): void {
-        if (ref.current) {
-            ref.current.select()
-        }
-    }
-
-    function onClick(): void {
-        if (ref.current) {
-            ref.current.focus();
-        }
-    }
-
     return (
         <Input
-            sx={{width: "100%", display: "flex", justifyContent: "space-between"}}
+            className={styles.component}
             startDecorator={decorator}
             slotProps={{
                 input: {
@@ -72,18 +71,18 @@ export function Numeric(props: NumericProps) {
                     style: {
                         color: `rgb(${theme.palette.primary.mainChannel})`,
                         textAlign: "right",
-                        fontFamily: "monospace"
+                        fontFamily: "monospace",
+                        fontWeight: "bold"
                     },
                     max: props.max,
                     ref,
-                    onFocus,
+                    onFocus: handleFocus,
                 }
             }}
-            onChange={onChange}
-            onClick={onClick}
+            onChange={handleChange}
+            onClick={handleClick}
             type="number"
             value={String(props.value)}
-            defaultValue={props.defaultValue}
         />
     )
 }

@@ -1,3 +1,23 @@
+.component,
+.component * {
+    transition: all 200ms ease-in-out;
+}
+
+.component {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.component .label {
+    opacity: .5;
+}
+
+.component:focus .label,
+.component:focus-within .label {
+    opacity: 1;
+}
+
 .input::-webkit-outer-spin-button,
 .input::-webkit-inner-spin-button {
     -webkit-appearance: none;
