@@ -1,9 +1,7 @@
-import {Container, IconButton, Link, Option, Select, Stack, Typography} from "@mui/joy";
-import {SyntheticEvent, useContext} from "react";
+import {Container, Dropdown, IconButton, Link, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
+import {useContext} from "react";
 import {IntlContext} from "@/contexts/intl";
-import {Link as RouterLink} from 'react-router-dom'
-import {isNull} from "@/common/utils/helpers";
-import {GitHub} from "@mui/icons-material";
+import {GitHub, Translate} from "@mui/icons-material";
 
 type HeaderProps = {
     fontColor?: "black" | "white";
@@ -13,9 +11,9 @@ type HeaderProps = {
 export function Header(props: HeaderProps) {
     const intlContext = useContext(IntlContext);
 
-    function onLanguageChange(event: SyntheticEvent | null, newValue: string | null) {
-        if (!isNull(newValue)) {
-            intlContext.selectLanguage(newValue)
+    function handleLanguageChange(value: string) {
+        return function $dropdownMenuItemClick() {
+            intlContext.selectLanguage(value);
         }
     }
 
@@ -30,34 +28,33 @@ export function Header(props: HeaderProps) {
                                     textColor={props.fontColor}>Tools</Typography>
                     </Stack>
                     <Stack direction="row" spacing={2}>
-                        <Link
-                            component={RouterLink}
-                            color="neutral"
-                            level="title-sm"
-                            fontWeight="bold"
-                            underline="hover"
-                            to="/turret-planner"
-                            sx={{textTransform: "uppercase"}}
-                            textColor={props.fontColor}
-                        >
-                            {intlContext.text("UI", "turret-planner")}
-                        </Link>
+                        {/*  navigation links...  */}
                     </Stack>
                 </Stack>
-                <Stack direction="row" spacing={2}>
+                <Stack direction="row" spacing={1}>
                     <Link href="https://github.com/Sovgut/avorion-tools" target="_blank">
                         <IconButton>
-                            <GitHub />
+                            <GitHub/>
                         </IconButton>
                     </Link>
-                    <Select placeholder={intlContext.text("UI", "language")}
-                            defaultValue={intlContext.language}
-                            onChange={onLanguageChange}
-                            sx={{height: "2rem"}}
-                    >
-                        <Option value="en-US">{intlContext.text("UI", "english-language")}</Option>
-                        <Option value="ru">{intlContext.text("UI", "russian-language")}</Option>
-                    </Select>
+                    <Dropdown>
+                        <MenuButton
+                            slots={{root: IconButton}}
+                            slotProps={{root: {variant: 'plain', color: 'neutral'}}}
+                        >
+                            <Translate/>
+                        </MenuButton>
+                        <Menu placement="bottom-end" sx={{minWidth: "200px"}}>
+                            <MenuItem selected={intlContext.language === 'en-US'}
+                                      onClick={handleLanguageChange("en-US")}>
+                                {intlContext.text("UI", "english-language")}
+                            </MenuItem>
+                            <MenuItem selected={intlContext.language === 'ru'}
+                                      onClick={handleLanguageChange("ru")}>
+                                {intlContext.text("UI", "russian-language")}
+                            </MenuItem>
+                        </Menu>
+                    </Dropdown>
                 </Stack>
             </Stack>
         </Container>

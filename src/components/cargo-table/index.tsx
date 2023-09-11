@@ -29,7 +29,6 @@ export function CargoTable() {
                         <Typography>{intlContext.text("UI", "component")}</Typography>
                     </th>
                     <th style={{
-                        width: "calc(40% - 40px - 32px)",
                         textAlign: "right",
                         paddingLeft: 0,
                         paddingRight: 0,
