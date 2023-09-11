@@ -1,7 +1,25 @@
 import {Box} from "@mui/joy";
-import React from "react";
+import React, {useEffect, useRef} from "react";
 
 export function VideoBackground() {
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        function preventControls(event: any) {
+            event.preventDefault();
+        }
+
+        const videoElem = videoRef.current;
+
+        if (videoElem) {
+            videoElem.addEventListener("touchstart", preventControls);
+
+            return () => {
+                videoElem.removeEventListener("touchstart", preventControls);
+            };
+        }
+    }, []);
+
     return (
         <Box sx={{display: "flex", position: "fixed", height: "100%", width: "100%", zIndex: "-1"}}>
             <Box sx={{
@@ -14,6 +32,7 @@ export function VideoBackground() {
                 overflow: "hidden"
             }}>
                 <video
+                    ref={videoRef}
                     style={{
                         width: "100%",
                         height: "100%",
