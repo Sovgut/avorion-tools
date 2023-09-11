@@ -24,7 +24,7 @@ export function Numeric(props: NumericProps) {
 
     const decorator = (
         <Stack direction="row" spacing={1}>
-            <Typography className={styles.label} level="body-md" fontWeight="bold">{props.label}</Typography>
+            <Typography className={styles.label} level="body-sm" fontWeight="bold">{props.label}</Typography>
         </Stack>
     );
 
@@ -71,6 +71,7 @@ export function Numeric(props: NumericProps) {
                     style: {
                         color: `rgb(${theme.palette.primary.mainChannel})`,
                         textAlign: "right",
+                        fontSize: theme.fontSize.sm,
                         fontFamily: "monospace",
                         fontWeight: "bold"
                     },

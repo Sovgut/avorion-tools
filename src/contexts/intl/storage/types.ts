@@ -109,6 +109,9 @@ export interface IntlComponent {
 }
 
 export interface IntlUI {
+    "cargo-offset": string;
+    "guaranteed-in": string;
+    "can-be-found-in": string;
     "quantity": string;
     "component": string;
     "components": string;
