@@ -4,7 +4,7 @@ import {IntlContext} from "@/contexts/intl";
 import {Turret} from "@/types";
 import {useDispatch} from "react-redux";
 import {updateTurret} from "@/reducers/turret";
-import {Numeric} from "common/components/numeric";
+import {Numeric} from "components/numeric";
 import {MAX_TURRET_PRICE, MAX_TURRET_QUANTITY, MIN_TURRET_PRICE, MIN_TURRET_QUANTITY} from "@/constants/common";
 
 type TurretOptionsProps = {

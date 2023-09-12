@@ -1,7 +1,7 @@
 import {Stack} from "@mui/joy";
 import {Fragment, useContext} from "react";
 import {IntlContext} from "@/contexts/intl";
-import {Numeric} from "common/components/numeric";
+import {Numeric} from "components/numeric";
 import {MAX_COMPONENT_QUANTITY} from "@/constants/common";
 import {Turret} from "@/types";
 import {useDispatch} from "react-redux";

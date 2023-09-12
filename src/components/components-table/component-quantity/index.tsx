@@ -2,7 +2,7 @@ import {Typography} from "@mui/joy";
 import React, {useMemo} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "@/store";
-import {computeQuantity} from "@/common/utils/computations/quantity";
+import {computeQuantity} from "@/utils/computations/quantity";
 import {ComponentType} from "@/constants/enums/components";
 
 type Props = {

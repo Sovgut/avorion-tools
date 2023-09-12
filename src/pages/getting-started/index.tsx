@@ -8,8 +8,8 @@ import styles from './styles.module.css'
 import {clsx} from "clsx";
 import {IntlContext} from "@/contexts/intl";
 import {TurretPicker} from "@/components/turret-picker";
-import {Header} from "@/common/components/header";
-import {VideoBackground} from "@/common/components/video-background";
+import {Header} from "components/header";
+import {VideoBackground} from "components/video-background";
 
 export function GettingStartedPage() {
     const [isClosePage, setClose] = useState(false);

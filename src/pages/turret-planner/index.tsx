@@ -1,11 +1,11 @@
 import {Box, Button, Container, Stack} from "@mui/joy";
 import React, {useContext, useEffect, useState} from "react";
-import {Header} from "@/common/components/header";
+import {Header} from "components/header";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store";
-import {VideoBackground} from "@/common/components/video-background";
-import {TurretItem} from "@/features/turret-item";
+import {VideoBackground} from "components/video-background";
+import {TurretItem} from "@/components/turret-item";
 import {ComponentsTable} from "@/components/components-table";
 import {CargoTable} from "@/components/cargo-table";
 import {clsx} from "clsx";
