@@ -24,7 +24,7 @@ const UI: IntlUI = {
     "cargo-field-label": "Добавить",
     "select-turret": "Выберите турель...",
     "add-turret": "Добавить турель",
-    "remove-turret": "Удалить турель",
+    "remove-turret": "Удалить",
     "reset-components": "Сбросить",
     "clear-turrets": "Очистить турели",
     "turret-price": "Цена",

@@ -56,7 +56,7 @@ export function TurretHeader(props: TurretHeaderProps) {
                 </Stack>
                 <Dropdown>
                     <MenuButton variant="plain" sx={{width: "44px", height: "40px"}}><MoreIcon/></MenuButton>
-                    <Menu placement="bottom-end">
+                    <Menu placement="bottom-end" sx={{minWidth: "200px"}}>
                         <MenuItem onClick={handleResetFields}>{intlContext.text("UI", "reset-components")}</MenuItem>
                         <Divider/>
                         <MenuItem color="danger" onClick={onRemove}>{intlContext.text("UI", "remove-turret")}</MenuItem>

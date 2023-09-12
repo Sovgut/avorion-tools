@@ -25,7 +25,7 @@ const UI: IntlUI = {
     "select-turret": "Select turret...",
     "add-turret": "Add turret",
     "reset-components": "Reset",
-    "remove-turret": "Remove turret",
+    "remove-turret": "Remove",
     "turret-price": "Price",
     "clear-turrets": "Clear turrets",
     "clear-turrets-confirmation": "Are you sure you want to clear the turret list?",
