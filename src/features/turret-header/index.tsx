@@ -36,7 +36,7 @@ export function TurretHeader(props: TurretHeaderProps) {
                 </Stack>
                 <Dropdown>
                     <MenuButton sx={{width: "44px", height: "40px"}}><MoreIcon/></MenuButton>
-                    <Menu>
+                    <Menu placement="bottom-end">
                         <MenuItem color="danger" onClick={onRemove}>{intlContext.text("UI", "remove-turret")}</MenuItem>
                     </Menu>
                 </Dropdown>

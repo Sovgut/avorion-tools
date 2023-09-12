@@ -65,7 +65,7 @@ export function TurretPicker(props: TurretPickerProps) {
                     <MenuButton variant="solid" color="primary">
                         <ArrowDropDown/>
                     </MenuButton>
-                    <Menu>
+                    <Menu placement="bottom-end">
                         <MenuItem
                             color="danger"
                             onClick={onResetTurrets}
