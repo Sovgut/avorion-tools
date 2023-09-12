@@ -17,7 +17,7 @@ export function CargoTable() {
     }
 
     return (
-        <Card variant="outlined" sx={{p: 0, mb: 2, gap: 0}}>
+        <Card variant="outlined" sx={{p: 0, gap: 0, boxShadow: "sm"}}>
             <Typography level="body-lg" fontWeight="bold" textColor="white" sx={{p: 2, pb: 0}}>
                 {intlContext.text("UI", "cargo")}
             </Typography>

@@ -8,7 +8,7 @@ type Props = {
 export function CargoItemQuantity(props: Props) {
     return (
         <td align="right" style={{paddingLeft: 0, paddingRight: 0}}>
-            <Typography color="primary" fontWeight="bold" fontFamily="monospace">
+            <Typography color="primary" fontFamily="monospace">
                 {props.value.toLocaleString()}
             </Typography>
         </td>

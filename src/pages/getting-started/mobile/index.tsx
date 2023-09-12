@@ -22,7 +22,7 @@ export function GettingStartedMobile() {
                         <Typography level="h2">{intlContext.text("UI", "getting-started-0")}</Typography>
                     </Stack>
                     <Stack alignItems="center">
-                        <ArrowDownward/>
+                        <ArrowDownward className={styles.arrow}/>
                     </Stack>
                 </Box>
                 <Box sx={{minHeight: "40dvh", height: "max-content"}}>

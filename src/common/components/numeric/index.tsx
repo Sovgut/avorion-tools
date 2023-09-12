@@ -14,8 +14,9 @@ type NumericProps = {
     focus?: boolean
     min?: number;
     max?: number;
+    hidden?: boolean;
 
-    onChange(id: string, value: string | null): void;
+    onChange?(id: string, value: string | null): void;
 }
 
 export function Numeric(props: NumericProps) {
@@ -24,7 +25,7 @@ export function Numeric(props: NumericProps) {
 
     const decorator = (
         <Stack direction="row" spacing={1}>
-            <Typography className={styles.label} level="body-sm" fontWeight="bold">{props.label}</Typography>
+            <Typography className={styles.label} level="body-sm">{props.label}</Typography>
         </Stack>
     );
 
@@ -57,7 +58,7 @@ export function Numeric(props: NumericProps) {
         parsed = preventOverMin(parsed, min);
         parsed = preventOverMax(parsed, max);
 
-        props.onChange(props.id, parsed.toString() || null);
+        props.onChange?.(props.id, parsed.toString() || null);
     }
 
     return (
@@ -73,13 +74,14 @@ export function Numeric(props: NumericProps) {
                         textAlign: "right",
                         fontSize: theme.fontSize.sm,
                         fontFamily: "monospace",
-                        fontWeight: "bold"
                     },
                     max: props.max,
                     ref,
                     onFocus: handleFocus,
                 }
             }}
+            sx={{opacity: props.hidden ? '0' : '1'}}
+            disabled={props.hidden}
             onChange={handleChange}
             onClick={handleClick}
             type="number"

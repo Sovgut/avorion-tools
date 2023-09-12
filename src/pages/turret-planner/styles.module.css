@@ -1,0 +1,59 @@
+.desktop .layout {
+    display: flex;
+    padding-top: 8px;
+    gap: 8px;
+}
+
+.desktop .itemsList {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: max-content;
+
+    gap: 8px;
+}
+
+.desktop .itemsList .item {
+    min-width: 200px;
+    width: 100%;
+    height: max-content;
+}
+
+.desktop .tableList {
+    display: flex;
+
+    flex-direction: column;
+    flex: 600px 1 0;
+
+    gap: 8px;
+}
+
+.desktop .tableList .table {
+    height: max-content;
+}
+
+
+@media screen and (max-width: 1536px) {
+    .desktop .itemsList {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .desktop .layout {
+        flex-direction: column;
+    }
+
+    .desktop .tableList .table {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .desktop .itemsList {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
