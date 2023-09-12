@@ -1,5 +1,5 @@
 import {Box, Button, Container, Stack} from "@mui/joy";
-import React, {useContext, useEffect, useState} from "react";
+import React, {Fragment, useContext, useEffect, useState} from "react";
 import {Header} from "components/header";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -48,37 +48,39 @@ export function TurretPlannerPage() {
     }
 
     return (
-        <Box className={componentClasses}>
-            <VideoBackground/>
-            <Container maxWidth={false} sx={{pb: 2}} className={styles.desktop}>
-                <Header disableGutters/>
+        <Fragment>
+            <Box className={componentClasses}>
+                <VideoBackground/>
+                <Container maxWidth={false} sx={{pb: 2}} className={styles.desktop}>
+                    <Header disableGutters/>
 
-                <Stack direction="row" spacing={1}>
-                    <Box sx={{width: "100%"}}>
-                        <TurretPicker/>
-                    </Box>
-                    <Button color="danger"
-                            variant="soft"
-                            title={intlContext.text("UI", "clear-turrets")}
-                            onClick={handleClearTurrets}>
-                        <ClearAll/>
-                    </Button>
-                </Stack>
+                    <Stack direction="row" spacing={1}>
+                        <Box sx={{width: "100%"}}>
+                            <TurretPicker/>
+                        </Box>
+                        <Button color="danger"
+                                variant="soft"
+                                title={intlContext.text("UI", "clear-turrets")}
+                                onClick={handleClearTurrets}>
+                            <ClearAll/>
+                        </Button>
+                    </Stack>
 
-                <Box className={styles.layout}>
-                    <Box className={styles.itemsList}>
-                        {Object.keys(turrets).map(id => (
-                            <Box key={id} className={styles.item}>
-                                <TurretItem id={id} turret={turrets[id]}/>
-                            </Box>
-                        ))}
+                    <Box className={styles.layout}>
+                        <Box className={styles.itemsList}>
+                            {Object.keys(turrets).map(id => (
+                                <Box key={id} className={styles.item}>
+                                    <TurretItem id={id} turret={turrets[id]}/>
+                                </Box>
+                            ))}
+                        </Box>
+                        <Box className={styles.tableList}>
+                            <Box className={styles.table}><ComponentsTable/></Box>
+                            <Box className={styles.table}><CargoTable/></Box>
+                        </Box>
                     </Box>
-                    <Box className={styles.tableList}>
-                        <Box className={styles.table}><ComponentsTable/></Box>
-                        <Box className={styles.table}><CargoTable/></Box>
-                    </Box>
-                </Box>
-            </Container>
-        </Box>
+                </Container>
+            </Box>
+        </Fragment>
     )
 }
