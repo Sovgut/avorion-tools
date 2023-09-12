@@ -23,9 +23,6 @@
 .component {
     animation: OpenPage;
     animation-duration: 150ms;
-
-    min-height: 100vh;
-    min-width: 100vw;
 }
 
 .component.close {

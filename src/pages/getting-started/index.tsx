@@ -39,7 +39,7 @@ export function GettingStartedPage() {
     });
 
     return (
-        <Box className={componentClasses} sx={{minHeight: "100vh"}}>
+        <Box className={componentClasses}>
             <Box sx={{position: "relative", zIndex: 2}}>
                 <Header/>
             </Box>
