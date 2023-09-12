@@ -24,7 +24,7 @@ export function CargoItemType(props: Props) {
 
     return (
         <td style={{paddingRight: 0}}>
-            <Stack direction="row" spacing={1}>
+            <Stack direction="row" spacing={1} alignItems="center">
                 <img className={styles.icon}
                      src={ComponentsMeta[props.type].icon}
                      alt={intlContext.text("COMPONENT", props.type)}/>
