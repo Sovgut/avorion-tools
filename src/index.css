@@ -8,7 +8,7 @@ html, body {
 body:after {
     content: "";
     position: fixed; /* stretch a fixed position to the whole screen */
-    height: 100lvh; /* fix for mobile browser address bar appearing disappearing */
+    height: 100vh; /* fix for mobile browser address bar appearing disappearing */
     top: 0;
     left: 0;
     right: 0;
@@ -28,7 +28,7 @@ body::before {
     left: 0;
     position: fixed;
     z-index: -997;
-    height: 100lvh;
+    height: 100vh;
     width: 100%;
     background: linear-gradient(to bottom, transparent, #23272B);
     opacity: .75;
