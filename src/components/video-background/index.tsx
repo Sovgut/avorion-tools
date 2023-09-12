@@ -20,7 +20,7 @@ export function VideoBackground() {
                 left: "0",
                 objectFit: "cover",
             }}
-                 src={`/assets/img/dark-background.png`}
+                 src={`/assets/img/dark-background.webp`}
                  alt="avorion dark background"/>
         </Fragment>
     )
@@ -37,7 +37,7 @@ export function VideoBackground() {
                     left: "0",
                     objectFit: "cover",
                 }}
-                     src={`/assets/img/dark-background.png`}
+                     src={`/assets/img/dark-background.webp`}
                      alt="avorion dark background"/>
                 <video
                     style={{
