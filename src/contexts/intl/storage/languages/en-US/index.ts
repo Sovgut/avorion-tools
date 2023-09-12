@@ -23,6 +23,7 @@ const UI: IntlUI = {
     "cargo-field-note": "Whenever the quantity of the component-components-table is modified, the cargo value is automatically reset to its default state.",
     "cargo-field-label": "Add",
     "add-turret": "Add turret",
+    "reset-components": "Reset components",
     "remove-turret": "Remove turret",
     "turret-price": "Price",
     "clear-turrets": "Clear turrets",
