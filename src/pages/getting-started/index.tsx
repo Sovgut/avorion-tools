@@ -40,7 +40,7 @@ export function GettingStartedPage() {
 
     return (
         <Box className={componentClasses}>
-            <Box sx={{position: "relative", zIndex: 2}}>
+            <Box sx={{position: "fixed", width: "100%", zIndex: 2}}>
                 <Header/>
             </Box>
 
@@ -48,8 +48,7 @@ export function GettingStartedPage() {
                 <VideoBackground/>
 
                 <Box sx={{
-                    minHeight: "100vh",
-                    minWidth: "100vw",
+                    height: "100%",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
