@@ -27,7 +27,6 @@ export function GettingStartedDesktop() {
                         display: "flex",
                         height: "100%",
                         width: "50vw",
-                        borderLeft: "2px solid var(--joy-palette-background-level2)"
                     }}>
                         <PipesBackground>
                             <Box sx={{height: "100vh", p: 4}}>

@@ -1,5 +1,5 @@
 import {Box, Sheet} from "@mui/joy";
-import styles from "@/pages/getting-started/desktop/styles.module.css";
+import styles from "./styles.module.css";
 import React, {ReactNode} from "react";
 
 type Props = {

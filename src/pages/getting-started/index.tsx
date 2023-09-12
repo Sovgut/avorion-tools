@@ -1,18 +1,16 @@
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {useNavigate} from 'react-router-dom';
-
-import {GettingStartedDesktop} from "./desktop";
 import {useSelector} from "react-redux";
 import {RootState} from "@/store";
-import {useTheme} from "@mui/joy/styles";
-import {useMediaQuery} from "react-responsive";
-import {GettingStartedMobile} from "@/pages/getting-started/mobile";
+import {Box, Card, Container, Link, Stack, Typography} from "@mui/joy";
+import {Header} from "@/common/components/header";
+import {VideoBackground} from "@/common/components/video-background";
+import {GettingStartedLayout} from "@/layouts/getting-started";
+import {TurretPicker} from "@/features/turret-picker";
 
 export function GettingStartedPage() {
-    const theme = useTheme();
     const navigate = useNavigate();
     const turrets = useSelector((state: RootState) => state.turret);
-    const isSmallScreen = useMediaQuery({query: `(max-width: ${theme.breakpoints.values.md}px)`});
 
     useEffect(() => {
         if (turrets && Object.keys(turrets).length > 0) {
@@ -21,9 +19,37 @@ export function GettingStartedPage() {
         }
     }, [navigate, turrets]);
 
-    if (isSmallScreen) {
-        return <GettingStartedMobile/>;
-    }
+    return (
+        <Box>
+            <Header/>
 
-    return <GettingStartedDesktop/>
+            <GettingStartedLayout>
+                <VideoBackground/>
+
+                <Box sx={{
+                    minHeight: "100vh",
+                    minWidth: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
+                    <Container>
+                        <Stack spacing={4}>
+                            <Typography level="h1" textAlign="center">Let's add your first recipe to Turret
+                                planner!</Typography>
+                            <Card sx={{boxShadow: "sm"}}>
+                                <TurretPicker/>
+                                <Typography level="body-sm">
+                                    <b>Avorion Tools</b> is a community work, and not officially created or maintained
+                                    by <Link
+                                    href="https://boxelware.de/" target="_blank">Boxelware</Link>.
+                                </Typography>
+                            </Card>
+                        </Stack>
+                    </Container>
+                </Box>
+
+            </GettingStartedLayout>
+        </Box>
+    )
 }

@@ -12,3 +12,5 @@ export const CACHE_CARGO = "cache:v2:cargo";
 export const CACHE_LANG = "cache:v2:lang";
 export const CACHE_TURRETS = "cache:v2:turrets";
 export const CACHE_THEME = "cache:v2:theme";
+
+export const PROD_MODE = process.env.NODE_ENV === 'production';
