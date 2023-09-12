@@ -23,7 +23,11 @@ export function Numeric(props: NumericProps) {
     const theme = useTheme();
     const ref = useRef<HTMLInputElement>(null);
 
-    const decorator = <Typography className={styles.label} level="body-sm">{props.label}</Typography>;
+    const decorator = (
+        <Typography className={styles.label} level="body-sm">
+            {props.label}
+        </Typography>
+    );
 
     useEffect(() => {
         if (props.focus && ref.current) {
