@@ -44,12 +44,12 @@ export function ComponentItemType(props: Props) {
 
     return (
         <Fragment>
-            <td>
+            <td onClick={handleCheckbox}>
                 <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Checkbox size="sm" onChange={handleCheckbox} checked={!!checkbox[props.type]}/>
                 </Box>
             </td>
-            <td style={{paddingLeft: 0, paddingRight: 0}}>
+            <td onClick={handleCheckbox} style={{paddingLeft: 0, paddingRight: 0}}>
                 <Stack direction="row" spacing={1}>
                     <img className={styles.icon}
                          src={ComponentsMeta[props.type].icon}
