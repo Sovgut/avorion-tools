@@ -1,12 +1,10 @@
 .component,
 .component * {
-    transition: all 200ms ease-in-out;
+    transition: opacity 200ms ease-in-out;
 }
 
 .component {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
 }
 
 .component .label {
