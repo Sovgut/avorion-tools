@@ -3,13 +3,13 @@ import {useNavigate} from 'react-router-dom';
 import {useSelector} from "react-redux";
 import {RootState} from "@/store";
 import {Box, Card, Container, Link, Stack, Typography} from "@mui/joy";
-import {Header} from "@/common/components/header";
-import {VideoBackground} from "@/common/components/video-background";
 import {GettingStartedLayout} from "@/layouts/getting-started";
 import styles from './styles.module.css'
 import {clsx} from "clsx";
 import {IntlContext} from "@/contexts/intl";
 import {TurretPicker} from "@/components/turret-picker";
+import {Header} from "@/common/components/header";
+import {VideoBackground} from "@/common/components/video-background";
 
 export function GettingStartedPage() {
     const [isClosePage, setClose] = useState(false);
