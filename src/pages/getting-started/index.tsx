@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from "react-redux";
 import {RootState} from "@/store";
@@ -9,10 +9,12 @@ import {GettingStartedLayout} from "@/layouts/getting-started";
 import {TurretPicker} from "@/features/turret-picker";
 import styles from './styles.module.css'
 import {clsx} from "clsx";
+import {IntlContext} from "@/contexts/intl";
 
 export function GettingStartedPage() {
     const [isClosePage, setClose] = useState(false);
 
+    const intlContext = useContext(IntlContext);
     const navigate = useNavigate();
     const turrets = useSelector((state: RootState) => state.turret);
 
@@ -54,8 +56,8 @@ export function GettingStartedPage() {
                 }}>
                     <Container>
                         <Stack spacing={4}>
-                            <Typography level="h1" textAlign="center">Let's add your first recipe to Turret
-                                planner!</Typography>
+                            <Typography level="h1"
+                                        textAlign="center">{intlContext.text("UI", "lets-add-turret")}</Typography>
                             <Card sx={{boxShadow: "sm"}}>
                                 <TurretPicker/>
                                 <Typography level="body-sm">

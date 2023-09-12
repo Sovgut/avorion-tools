@@ -73,7 +73,7 @@ export function ComponentsTable() {
             </CardOverflow>
             <Box sx={{p: 1}}>
                 <Typography level="body-sm">
-                    Avorion Tools is a community work, and not officially created or maintained by <Link
+                    <b>Avorion Tools</b> is a community work, and not officially created or maintained by <Link
                     href="https://boxelware.de/" target="_blank">Boxelware</Link>.
                 </Typography>
             </Box>
