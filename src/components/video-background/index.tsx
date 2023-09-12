@@ -2,8 +2,11 @@ import {Box} from "@mui/joy";
 import React, {Fragment} from "react";
 import {useTheme} from "@mui/joy/styles";
 import {useMediaQuery} from "react-responsive";
+import useVH from 'react-viewport-height';
 
 export function VideoBackground() {
+    const vh = useVH();
+
     const theme = useTheme();
     const isSmallScreen = useMediaQuery({query: `(max-width: ${theme.breakpoints.values.md}px)`});
     let element = (
@@ -56,7 +59,7 @@ export function VideoBackground() {
     }
 
     return (
-        <Box sx={{display: "flex", position: "fixed", height: "100dvh", width: "100dvw", zIndex: "-1"}}>
+        <Box style={{height: `${100 * vh}px`, width: "100%"}} sx={{display: "flex", position: "fixed", zIndex: "-1"}}>
             <Box sx={{
                 top: 0,
                 left: 0,
