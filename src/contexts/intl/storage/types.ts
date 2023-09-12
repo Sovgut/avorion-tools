@@ -127,6 +127,7 @@ export interface IntlUI {
     "cargo": string;
     "cargo-field-note": string;
     "cargo-field-label": string;
+    "select-turret": string;
     "add-turret": string;
     "reset-components": string;
     "remove-turret": string;
