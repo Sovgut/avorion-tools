@@ -9,13 +9,10 @@ import {clsx} from "clsx";
 import {IntlContext} from "@/contexts/intl";
 import {TurretPicker} from "@/components/turret-picker";
 import {Header} from "components/header";
-import {VideoBackground} from "components/video-background";
-import useVH from "react-viewport-height";
 
 export function GettingStartedPage() {
     const [isClosePage, setClose] = useState(false);
 
-    const vh = useVH();
     const intlContext = useContext(IntlContext);
     const navigate = useNavigate();
     const turrets = useSelector((state: RootState) => state.turret);
@@ -36,43 +33,43 @@ export function GettingStartedPage() {
     }, [navigate, turrets]);
 
     const componentClasses = clsx({
-        [styles.component]: true,
+        [styles.animation]: true,
         [styles.close]: isClosePage,
     });
 
     return (
-        <Box className={componentClasses} style={{height: `${100 * vh}px`, width: "100%"}}>
+        <Box sx={{height: "100lvh"}}>
             <Box sx={{position: "fixed", width: "100%", zIndex: 2}}>
                 <Header/>
             </Box>
 
-            <GettingStartedLayout>
-                <VideoBackground/>
+            <Box className={componentClasses}>
+                <GettingStartedLayout>
+                    <Box sx={{
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}>
+                        <Container>
+                            <Stack spacing={4}>
+                                <Typography level="h1"
+                                            textAlign="center">{intlContext.text("UI", "lets-add-turret")}</Typography>
+                                <Card sx={{boxShadow: "sm"}}>
+                                    <TurretPicker/>
+                                    <Typography level="body-sm">
+                                        <b>Avorion Tools</b> is a community work, and not officially created or
+                                        maintained
+                                        by <Link
+                                        href="https://boxelware.de/" target="_blank">Boxelware</Link>.
+                                    </Typography>
+                                </Card>
+                            </Stack>
+                        </Container>
+                    </Box>
 
-                <Box sx={{
-                    height: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}>
-                    <Container>
-                        <Stack spacing={4}>
-                            <Typography level="h1"
-                                        textAlign="center">{intlContext.text("UI", "lets-add-turret")}</Typography>
-                            <Card sx={{boxShadow: "sm"}}>
-                                <TurretPicker/>
-                                <Typography level="body-sm">
-                                    <b>Avorion Tools</b> is a community work, and not officially created or
-                                    maintained
-                                    by <Link
-                                    href="https://boxelware.de/" target="_blank">Boxelware</Link>.
-                                </Typography>
-                            </Card>
-                        </Stack>
-                    </Container>
-                </Box>
-
-            </GettingStartedLayout>
+                </GettingStartedLayout>
+            </Box>
         </Box>
     )
 }
