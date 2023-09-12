@@ -3,9 +3,9 @@ import {type ChangeEvent, useEffect, useRef} from "react";
 import {Input, Stack, Typography} from "@mui/joy";
 import {useTheme} from '@mui/joy/styles';
 import styles from './styles.module.css';
-import {preventNaN} from "@/common/components/numeric/utils/prevent-nan";
-import {preventOverMin} from "@/common/components/numeric/utils/prevent-over-min";
-import {preventOverMax} from "@/common/components/numeric/utils/prevent-over-max";
+import {preventNaN} from "@/components/numeric/utils/prevent-nan";
+import {preventOverMin} from "@/components/numeric/utils/prevent-over-min";
+import {preventOverMax} from "@/components/numeric/utils/prevent-over-max";
 
 type NumericProps = {
     id: string;

@@ -17,7 +17,7 @@ export function TurretPicker() {
     }
 
     return (
-        <Select defaultValue={turrets[0]} onChange={handleSelect}>
+        <Select placeholder={intlContext.text("UI", "select-turret")} onChange={handleSelect} value={null}>
             {turrets.map(turret => <Option key={turret} value={turret}>{intlContext.text("TURRET", turret)}</Option>)}
         </Select>
     )

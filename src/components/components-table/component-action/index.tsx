@@ -5,7 +5,7 @@ import {MAX_CARGO_QUANTITY, MIN_CARGO_QUANTITY} from "@/constants/common";
 import {IntlContext} from "@/contexts/intl";
 import {useDispatch} from "react-redux";
 import {cargoComponentAdd} from "@/reducers/cargo";
-import {Numeric} from "@/common/components/numeric";
+import {Numeric} from "components/numeric";
 import {ComponentType} from "@/constants/enums/components";
 import {SellerType} from "@/constants/enums/sellers";
 import {ComponentsMeta} from "@/constants/meta/components";

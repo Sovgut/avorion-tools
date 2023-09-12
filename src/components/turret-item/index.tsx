@@ -1,8 +1,8 @@
 import {Card, CardContent, Divider, Stack} from "@mui/joy";
 import {Turret} from "@/types";
-import {TurretHeader} from "@/features/turret-header";
-import {TurretOptions} from "@/features/turret-options";
-import {TurretComponents} from "@/features/turret-components";
+import {TurretHeader} from "@/components/turret-item/turret-header";
+import {TurretOptions} from "@/components/turret-item/turret-options";
+import {TurretComponents} from "@/components/turret-item/turret-components";
 
 type TurretItemProps = {
     id: string;
