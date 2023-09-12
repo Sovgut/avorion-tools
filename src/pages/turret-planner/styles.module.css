@@ -22,7 +22,7 @@
 
 .component {
     animation: OpenPage;
-    animation-duration: 300ms;
+    animation-duration: 150ms;
 
     min-height: 100vh;
     min-width: 100vw;
@@ -30,7 +30,7 @@
 
 .component.close {
     animation: ClosePage;
-    animation-duration: 300ms;
+    animation-duration: 150ms;
 }
 
 .desktop .layout {
