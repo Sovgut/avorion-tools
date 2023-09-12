@@ -20,12 +20,14 @@
     }
 }
 
-.component {
+.animation {
     animation: OpenPage;
     animation-duration: 150ms;
+
+    height: 100lvh;
 }
 
-.component.close {
+.animation.close {
     animation: ClosePage;
     animation-duration: 150ms;
 }

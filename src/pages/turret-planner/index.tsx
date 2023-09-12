@@ -4,7 +4,6 @@ import {Header} from "components/header";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store";
-import {VideoBackground} from "components/video-background";
 import {TurretItem} from "@/components/turret-item";
 import {ComponentsTable} from "@/components/components-table";
 import {CargoTable} from "@/components/cargo-table";
@@ -38,8 +37,8 @@ export function TurretPlannerPage() {
         }
     }, [navigate, turrets]);
 
-    const componentClasses = clsx({
-        [styles.component]: true,
+    const animationClasses = clsx({
+        [styles.animation]: true,
         [styles.close]: isClosePage,
     });
 
@@ -48,11 +47,10 @@ export function TurretPlannerPage() {
     }
 
     return (
-        <Box className={componentClasses}>
-            <VideoBackground/>
-            <Container maxWidth={false} sx={{pb: 2}} className={styles.desktop}>
-                <Header disableGutters/>
+        <Container maxWidth={false} sx={{pb: 2}} className={styles.desktop}>
+            <Header disableGutters/>
 
+            <Box className={animationClasses}>
                 <Stack direction="row" spacing={1}>
                     <Box sx={{width: "100%"}}>
                         <TurretPicker/>
@@ -78,7 +76,7 @@ export function TurretPlannerPage() {
                         <Box className={styles.table}><CargoTable/></Box>
                     </Box>
                 </Box>
-            </Container>
-        </Box>
+            </Box>
+        </Container>
     )
 }
