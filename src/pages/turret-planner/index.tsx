@@ -1,5 +1,5 @@
 import {Box, Container} from "@mui/joy";
-import React, {Fragment, useLayoutEffect} from "react";
+import React, {Fragment, useEffect} from "react";
 import {Header} from "@/common/components/header";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
@@ -15,8 +15,9 @@ export function TurretPlannerPage() {
     const navigate = useNavigate();
     const turrets = useSelector((state: RootState) => state.turret);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (!turrets || Object.keys(turrets).length === 0) {
+            window.scrollTo(0, 0);
             navigate("/turret-planner/getting-started", {replace: true});
         }
     }, [navigate, turrets]);

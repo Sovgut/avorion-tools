@@ -1,4 +1,4 @@
-import {useLayoutEffect} from "react";
+import {useEffect} from "react";
 import {useNavigate} from 'react-router-dom';
 
 import {GettingStartedDesktop} from "./desktop";
@@ -14,8 +14,9 @@ export function GettingStartedPage() {
     const turrets = useSelector((state: RootState) => state.turret);
     const isSmallScreen = useMediaQuery({query: `(max-width: ${theme.breakpoints.values.md}px)`});
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (turrets && Object.keys(turrets).length > 0) {
+            window.scrollTo(0, 0);
             navigate("/turret-planner", {replace: true});
         }
     }, [navigate, turrets]);
