@@ -1,21 +1,26 @@
-import {Box, Container} from "@mui/joy";
-import React, {useEffect, useState} from "react";
+import {Box, Button, Container, Stack} from "@mui/joy";
+import React, {useContext, useEffect, useState} from "react";
 import {Header} from "@/common/components/header";
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store";
-import {TurretPicker} from "@/features/turret-picker";
 import {VideoBackground} from "@/common/components/video-background";
 import {TurretItem} from "@/features/turret-item";
 import {ComponentsTable} from "@/components/components-table";
 import {CargoTable} from "@/components/cargo-table";
 import {clsx} from "clsx";
 import styles from './styles.module.css';
+import {TurretPicker} from "@/components/turret-picker";
+import {ClearAll} from "@mui/icons-material";
+import {resetTurrets} from "@/reducers/turret";
+import {IntlContext} from "@/contexts/intl";
 
 export function TurretPlannerPage() {
     const [isClosePage, setClose] = useState(false);
 
+    const intlContext = useContext(IntlContext);
     const navigate = useNavigate();
+    const dispatcher = useDispatch();
     const turrets = useSelector((state: RootState) => state.turret);
 
     useEffect(() => {
@@ -38,12 +43,27 @@ export function TurretPlannerPage() {
         [styles.close]: isClosePage,
     });
 
+    function handleClearTurrets() {
+        dispatcher(resetTurrets());
+    }
+
     return (
         <Box className={componentClasses}>
             <VideoBackground/>
             <Container maxWidth={false} sx={{pb: 2}} className={styles.desktop}>
                 <Header disableGutters/>
-                <TurretPicker clearable/>
+
+                <Stack direction="row" spacing={1}>
+                    <Box sx={{width: "100%"}}>
+                        <TurretPicker/>
+                    </Box>
+                    <Button color="danger"
+                            variant="soft"
+                            title={intlContext.text("UI", "clear-turrets")}
+                            onClick={handleClearTurrets}>
+                        <ClearAll/>
+                    </Button>
+                </Stack>
 
                 <Box className={styles.layout}>
                     <Box className={styles.itemsList}>

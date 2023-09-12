@@ -6,10 +6,10 @@ import {Box, Card, Container, Link, Stack, Typography} from "@mui/joy";
 import {Header} from "@/common/components/header";
 import {VideoBackground} from "@/common/components/video-background";
 import {GettingStartedLayout} from "@/layouts/getting-started";
-import {TurretPicker} from "@/features/turret-picker";
 import styles from './styles.module.css'
 import {clsx} from "clsx";
 import {IntlContext} from "@/contexts/intl";
+import {TurretPicker} from "@/components/turret-picker";
 
 export function GettingStartedPage() {
     const [isClosePage, setClose] = useState(false);
