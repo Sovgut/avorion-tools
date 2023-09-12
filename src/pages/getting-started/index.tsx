@@ -10,10 +10,12 @@ import {IntlContext} from "@/contexts/intl";
 import {TurretPicker} from "@/components/turret-picker";
 import {Header} from "components/header";
 import {VideoBackground} from "components/video-background";
+import useVH from "react-viewport-height";
 
 export function GettingStartedPage() {
     const [isClosePage, setClose] = useState(false);
 
+    const vh = useVH();
     const intlContext = useContext(IntlContext);
     const navigate = useNavigate();
     const turrets = useSelector((state: RootState) => state.turret);
@@ -39,7 +41,7 @@ export function GettingStartedPage() {
     });
 
     return (
-        <Box className={componentClasses}>
+        <Box className={componentClasses} style={{height: `${100 * vh}px`, width: "100%"}}>
             <Box sx={{position: "fixed", width: "100%", zIndex: 2}}>
                 <Header/>
             </Box>
