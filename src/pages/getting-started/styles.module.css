@@ -1,0 +1,31 @@
+@keyframes OpenPage {
+    from {
+        opacity: 0;
+        transform: scale(95%);
+    }
+    to {
+        opacity: 1;
+        transform: scale(100%);
+    }
+}
+
+@keyframes ClosePage {
+    to {
+        opacity: 0;
+        transform: scale(95%);
+    }
+    from {
+        opacity: 1;
+        transform: scale(100%);
+    }
+}
+
+.component {
+    animation: OpenPage;
+    animation-duration: 300ms;
+}
+
+.component.close {
+    animation: ClosePage;
+    animation-duration: 300ms;
+}

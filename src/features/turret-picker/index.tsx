@@ -45,8 +45,17 @@ export function TurretPicker(props: TurretPickerProps) {
 
     return (
         <Stack direction="row" spacing={1}>
-            <Select value={selected} onChange={(e, v) => onSelectTurret(v)}
-                    sx={{width: "100%"}}>
+            <Select value={selected}
+                    onChange={(e, v) => onSelectTurret(v)}
+                    sx={{width: "100%"}}
+                    slotProps={{
+                        listbox: {
+                            sx: {
+                                maxHeight: '300px',
+                            },
+                        },
+                    }}
+            >
                 {Object.values(TurretType).map(turret => (
                     <Option key={turret}
                             value={turret}>{intlContext.text("TURRET", turret as TurretType)}</Option>
