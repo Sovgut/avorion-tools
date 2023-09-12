@@ -50,7 +50,7 @@ export function ComponentItemType(props: Props) {
                 </Box>
             </td>
             <td onClick={handleCheckbox} style={{paddingLeft: 0, paddingRight: 0}}>
-                <Stack direction="row" spacing={1}>
+                <Stack direction="row" spacing={1} alignItems="center">
                     <img className={styles.icon}
                          src={ComponentsMeta[props.type].icon}
                          alt={intlContext.text("COMPONENT", props.type)}/>
