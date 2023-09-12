@@ -1,7 +1,7 @@
 import {useContext} from "react";
-import {MoreVert as MoreIcon} from "@mui/icons-material";
+import {Close, MoreVert as MoreIcon, RestartAlt} from "@mui/icons-material";
 import {IntlContext} from "@/contexts/intl";
-import {Box, Divider, Dropdown, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
+import {Box, Divider, Dropdown, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
 import styles from "./styles.module.css";
 import {useDispatch} from "react-redux";
 import {removeTurret, updateComponent, updateTurret} from "@/reducers/turret";
@@ -57,9 +57,19 @@ export function TurretHeader(props: TurretHeaderProps) {
                 <Dropdown>
                     <MenuButton variant="plain" sx={{width: "44px", height: "40px"}}><MoreIcon/></MenuButton>
                     <Menu placement="bottom-end" sx={{minWidth: "200px"}}>
-                        <MenuItem onClick={handleResetFields}>{intlContext.text("UI", "reset-components")}</MenuItem>
+                        <MenuItem onClick={handleResetFields}>
+                            <ListItemDecorator>
+                                <RestartAlt/>
+                            </ListItemDecorator>
+                            {intlContext.text("UI", "reset-components")}
+                        </MenuItem>
                         <Divider/>
-                        <MenuItem color="danger" onClick={onRemove}>{intlContext.text("UI", "remove-turret")}</MenuItem>
+                        <MenuItem color="danger" onClick={onRemove}>
+                            <ListItemDecorator>
+                                <Close/>
+                            </ListItemDecorator>
+                            {intlContext.text("UI", "remove-turret")}
+                        </MenuItem>
                     </Menu>
                 </Dropdown>
             </Stack>
