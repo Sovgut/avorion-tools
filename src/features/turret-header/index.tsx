@@ -1,14 +1,15 @@
 import {useContext} from "react";
 import {MoreVert as MoreIcon} from "@mui/icons-material";
 import {IntlContext} from "@/contexts/intl";
-import {Box, Dropdown, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
+import {Box, Divider, Dropdown, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
 import styles from "./styles.module.css";
 import {useDispatch} from "react-redux";
-import {removeTurret} from "@/reducers/turret";
+import {removeTurret, updateComponent, updateTurret} from "@/reducers/turret";
 import {Turret} from "@/types";
 import {TurretsMeta} from "@/constants/meta/turrets";
 import {checkboxRemove} from "@/reducers/checkbox";
 import {ComponentType} from "@/constants/enums/components";
+import {MIN_COMPONENT_PRICE, MIN_TURRET_PRICE, MIN_TURRET_QUANTITY} from "@/constants/common";
 
 type TurretHeaderProps = {
     id: string;
@@ -27,6 +28,25 @@ export function TurretHeader(props: TurretHeaderProps) {
         dispatch(removeTurret(props.id));
     }
 
+    function handleResetFields() {
+        dispatch(updateTurret({
+            id: props.id,
+            data: {
+                ...props.turret,
+                price: MIN_TURRET_PRICE,
+                quantity: MIN_TURRET_QUANTITY,
+            }
+        }))
+
+        for (const componentType of Object.keys(props.turret.components)) {
+            dispatch(updateComponent({
+                type: componentType as ComponentType,
+                turretId: props.id,
+                data: MIN_COMPONENT_PRICE,
+            }));
+        }
+    }
+
     return (
         <Box>
             <Stack direction="row" justifyContent="space-between">
@@ -37,6 +57,8 @@ export function TurretHeader(props: TurretHeaderProps) {
                 <Dropdown>
                     <MenuButton variant="plain" sx={{width: "44px", height: "40px"}}><MoreIcon/></MenuButton>
                     <Menu placement="bottom-end">
+                        <MenuItem onClick={handleResetFields}>{intlContext.text("UI", "reset-components")}</MenuItem>
+                        <Divider/>
                         <MenuItem color="danger" onClick={onRemove}>{intlContext.text("UI", "remove-turret")}</MenuItem>
                     </Menu>
                 </Dropdown>
