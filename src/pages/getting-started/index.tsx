@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from "react-redux";
 import {RootState} from "@/store";
@@ -7,28 +7,47 @@ import {Header} from "@/common/components/header";
 import {VideoBackground} from "@/common/components/video-background";
 import {GettingStartedLayout} from "@/layouts/getting-started";
 import {TurretPicker} from "@/features/turret-picker";
+import styles from './styles.module.css'
+import {clsx} from "clsx";
 
 export function GettingStartedPage() {
+    const [isClosePage, setClose] = useState(false);
+
     const navigate = useNavigate();
     const turrets = useSelector((state: RootState) => state.turret);
 
     useEffect(() => {
         if (turrets && Object.keys(turrets).length > 0) {
-            window.scrollTo(0, 0);
-            navigate("/turret-planner", {replace: true});
+            setClose(true);
+
+            const timeoutId = setTimeout(() => {
+                window.scrollTo(0, 0);
+                navigate("/turret-planner", {replace: true});
+            }, 300);
+
+            return function cleanup() {
+                clearTimeout(timeoutId);
+            }
         }
     }, [navigate, turrets]);
 
+    const componentClasses = clsx({
+        [styles.component]: true,
+        [styles.close]: isClosePage,
+    });
+
     return (
-        <Box>
-            <Header/>
+        <Box className={componentClasses} sx={{minHeight: "100vh"}}>
+            <Box sx={{position: "relative", zIndex: 2}}>
+                <Header/>
+            </Box>
 
             <GettingStartedLayout>
                 <VideoBackground/>
 
                 <Box sx={{
                     minHeight: "100vh",
-                    minWidth: "100%",
+                    minWidth: "100vw",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -40,7 +59,8 @@ export function GettingStartedPage() {
                             <Card sx={{boxShadow: "sm"}}>
                                 <TurretPicker/>
                                 <Typography level="body-sm">
-                                    <b>Avorion Tools</b> is a community work, and not officially created or maintained
+                                    <b>Avorion Tools</b> is a community work, and not officially created or
+                                    maintained
                                     by <Link
                                     href="https://boxelware.de/" target="_blank">Boxelware</Link>.
                                 </Typography>

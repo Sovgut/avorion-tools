@@ -42,9 +42,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "getting-started",
-                element: (
-                    <GettingStartedPage/>
-                )
+                element: <GettingStartedPage/>
             },
         ],
     },
