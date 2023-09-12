@@ -21,7 +21,7 @@ export function ComponentItemQuantity(props: Props) {
 
     return (
         <td align="right" style={{paddingLeft: 0, paddingRight: 0}}>
-            <Typography color={color} fontWeight="bold" fontFamily="monospace">
+            <Typography color={color} fontFamily="monospace">
                 {quantity.toLocaleString()}
             </Typography>
         </td>

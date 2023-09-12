@@ -7,6 +7,7 @@ import {Turret} from "@/types";
 import {useDispatch} from "react-redux";
 import {updateComponent} from "@/reducers/turret";
 import {ComponentType} from "@/constants/enums/components";
+import {nanoid} from "nanoid";
 
 type TurretComponentsProps = {
     id: string;
@@ -37,6 +38,13 @@ export function TurretComponents(props: TurretComponentsProps) {
                         value={props.turret.components[componentType as ComponentType]}
                         onChange={onComponentChange}/>
                 ))}
+
+                {Object.keys(props.turret.components).length === 6 ? (
+                    <Numeric
+                        id={nanoid()}
+                        label={String()}
+                        hidden/>
+                ) : null}
             </Stack>
         </Stack>
     )

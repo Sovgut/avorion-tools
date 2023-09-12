@@ -11,7 +11,7 @@ type TurretItemProps = {
 
 export function TurretItem(props: TurretItemProps) {
     return (
-        <Card sx={{height: "100%"}} variant="outlined">
+        <Card sx={{height: "100%", width: '100%', flexShrink: 0, boxShadow: "sm"}} variant="outlined">
             <TurretHeader turret={props.turret} id={props.id}/>
 
             <Divider/>
