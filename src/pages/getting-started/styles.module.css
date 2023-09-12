@@ -22,10 +22,10 @@
 
 .component {
     animation: OpenPage;
-    animation-duration: 300ms;
+    animation-duration: 150ms;
 }
 
 .component.close {
     animation: ClosePage;
-    animation-duration: 300ms;
+    animation-duration: 150ms;
 }

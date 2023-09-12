@@ -25,7 +25,7 @@ export function GettingStartedPage() {
             const timeoutId = setTimeout(() => {
                 window.scrollTo(0, 0);
                 navigate("/turret-planner", {replace: true});
-            }, 300);
+            }, 150);
 
             return function cleanup() {
                 clearTimeout(timeoutId);
