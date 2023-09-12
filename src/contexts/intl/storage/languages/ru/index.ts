@@ -4,6 +4,7 @@ import {SellerType} from "@/constants/enums/sellers";
 import {IntlComponent, IntlSeller, IntlTurret, IntlUI} from "@/contexts/intl/storage/types";
 
 const UI: IntlUI = {
+    "lets-add-turret": "Давайте добавим ваш первый рецепт в планировщик турелей!",
     "cargo-offset": "Наличие в трюме",
     "guaranteed-in": "Гарантировано содержится в",
     "can-be-found-in": "Может содержаться в",

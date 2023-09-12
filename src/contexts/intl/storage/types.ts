@@ -109,6 +109,7 @@ export interface IntlComponent {
 }
 
 export interface IntlUI {
+    "lets-add-turret": string;
     "cargo-offset": string;
     "guaranteed-in": string;
     "can-be-found-in": string;
