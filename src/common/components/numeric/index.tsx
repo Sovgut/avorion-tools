@@ -80,7 +80,7 @@ export function Numeric(props: NumericProps) {
                     onFocus: handleFocus,
                 }
             }}
-            sx={{opacity: props.hidden ? '0' : '1'}}
+            sx={{opacity: props.hidden ? '0.75' : '1'}}
             disabled={props.hidden}
             onChange={handleChange}
             onClick={handleClick}
