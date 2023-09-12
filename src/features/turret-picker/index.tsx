@@ -56,10 +56,8 @@ export function TurretPicker(props: TurretPickerProps) {
                 onClick={onAddTurret}
                 disabled={!selected}
             >
-                <Stack direction="row" sx={{width: "max-content"}} alignItems="center"
-                       spacing={1}>
+                <Stack direction="row" sx={{width: "max-content"}} alignItems="center" spacing={1}>
                     <Add/>
-                    {intlContext.text("UI", "add-turret")}
                 </Stack>
             </Button>
             {props.clearable && (
