@@ -56,7 +56,7 @@ export function VideoBackground() {
     }
 
     return (
-        <Box sx={{display: "flex", position: "fixed", height: "100vh", width: "100vw", zIndex: "-1"}}>
+        <Box sx={{display: "flex", position: "fixed", height: "100dvh", width: "100dvw", zIndex: "-1"}}>
             <Box sx={{
                 top: 0,
                 left: 0,

@@ -1,6 +1,6 @@
 import {type ChangeEvent, useEffect, useRef} from "react";
 
-import {Input, Stack, Typography} from "@mui/joy";
+import {Input, Typography} from "@mui/joy";
 import {useTheme} from '@mui/joy/styles';
 import styles from './styles.module.css';
 import {preventNaN} from "@/components/numeric/utils/prevent-nan";
@@ -23,16 +23,11 @@ export function Numeric(props: NumericProps) {
     const theme = useTheme();
     const ref = useRef<HTMLInputElement>(null);
 
-    const decorator = (
-        <Stack direction="row" spacing={1}>
-            <Typography className={styles.label} level="body-sm">{props.label}</Typography>
-        </Stack>
-    );
+    const decorator = <Typography className={styles.label} level="body-sm">{props.label}</Typography>;
 
     useEffect(() => {
         if (props.focus && ref.current) {
             handleFocus();
-            ref.current.focus();
         }
     }, [props.focus]);
 
@@ -77,7 +72,6 @@ export function Numeric(props: NumericProps) {
                     },
                     max: props.max,
                     ref,
-                    onFocus: handleFocus,
                 }
             }}
             sx={{opacity: props.hidden ? '0.75' : '1'}}
