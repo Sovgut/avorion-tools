@@ -1,0 +1,27 @@
+.container {
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: -3;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    background-image: url("../../../public/assets/img/dark-background.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.container::after,
+.container video::after {
+    content: "";
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, transparent, #23272B);
+    opacity: .75;
+}
