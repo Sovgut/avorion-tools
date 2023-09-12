@@ -1,5 +1,5 @@
 import {Stack} from "@mui/joy";
-import {useContext} from "react";
+import {Fragment, useContext} from "react";
 import {IntlContext} from "@/contexts/intl";
 import {Numeric} from "common/components/numeric";
 import {MAX_COMPONENT_QUANTITY} from "@/constants/common";
@@ -39,6 +39,19 @@ export function TurretComponents({id, turret}: Props) {
                     value={turret.components[component]}
                     onChange={onComponentChange}/>
             ))}
+
+            {components.length === 5 &&
+                <Fragment>
+                    <Numeric
+                        id={nanoid()}
+                        label={String()}
+                        hidden/>
+                    <Numeric
+                        id={nanoid()}
+                        label={String()}
+                        hidden/>
+                </Fragment>
+            }
 
             {components.length === 6 &&
                 <Numeric
