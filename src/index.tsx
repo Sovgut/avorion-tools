@@ -12,6 +12,7 @@ import {CACHE_THEME} from "@/constants/common";
 import {inject as VercelAnalytics} from '@vercel/analytics';
 import {sendToVercelAnalytics} from "@/vitals";
 import reportWebVitals from "@/reportWebVitals";
+import {App} from "@/layouts/app";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -58,7 +59,9 @@ root.render(
 
         <Provider store={store}>
             <IntlContextProvider>
-                <RouterProvider router={router}/>
+                <App>
+                    <RouterProvider router={router}/>
+                </App>
             </IntlContextProvider>
         </Provider>
     </CssVarsProvider>
