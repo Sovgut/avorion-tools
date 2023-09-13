@@ -9,6 +9,7 @@ import {clsx} from "clsx";
 import {IntlContext} from "@/contexts/intl";
 import {TurretPicker} from "@/components/turret-picker";
 import {Header} from "components/header";
+import {Center} from "@/components/center";
 
 export function GettingStartedPage() {
     const [isClosePage, setClose] = useState(false);
@@ -45,12 +46,7 @@ export function GettingStartedPage() {
 
             <Box className={componentClasses}>
                 <GettingStartedLayout>
-                    <Box sx={{
-                        height: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}>
+                    <Center vertical horizontal>
                         <Container>
                             <Stack spacing={4}>
                                 <Typography level="h1"
@@ -66,8 +62,7 @@ export function GettingStartedPage() {
                                 </Card>
                             </Stack>
                         </Container>
-                    </Box>
-
+                    </Center>
                 </GettingStartedLayout>
             </Box>
         </Box>

@@ -47,7 +47,7 @@ export function TurretPlannerPage() {
     }
 
     return (
-        <Container maxWidth={false} sx={{pb: 2}} className={styles.desktop}>
+        <Container maxWidth={false} sx={{pb: 2}} className={styles.component}>
             <Header disableGutters/>
 
             <Box className={animationClasses}>
