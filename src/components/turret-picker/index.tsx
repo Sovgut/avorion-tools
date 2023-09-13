@@ -17,7 +17,18 @@ export function TurretPicker() {
     }
 
     return (
-        <Select placeholder={intlContext.text("UI", "select-turret")} onChange={handleSelect} value={null}>
+        <Select
+            placeholder={intlContext.text("UI", "select-turret")}
+            onChange={handleSelect}
+            value={null}
+            slotProps={{
+                listbox: {
+                    sx: {
+                        maxHeight: "200px"
+                    }
+                }
+            }}
+        >
             {turrets.map(turret => <Option key={turret} value={turret}>{intlContext.text("TURRET", turret)}</Option>)}
         </Select>
     )
