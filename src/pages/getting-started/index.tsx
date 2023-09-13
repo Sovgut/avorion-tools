@@ -38,7 +38,7 @@ export function GettingStartedPage() {
     });
 
     return (
-        <Box sx={{height: "100lvh"}}>
+        <Box>
             <Box sx={{position: "fixed", width: "100%", zIndex: 2}}>
                 <Header/>
             </Box>
