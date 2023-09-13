@@ -24,7 +24,7 @@
     animation: OpenPage;
     animation-duration: 150ms;
 
-    height: 100vh;
+    height: 100%;
 }
 
 .animation.close {
