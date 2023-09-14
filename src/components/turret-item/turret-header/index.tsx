@@ -54,7 +54,7 @@ export function TurretHeader({id, entity}: Props) {
     }
 
     return (
-        <Box>
+        <Box sx={{p: 2, pb: 0}}>
             <Stack direction="row" justifyContent="space-between">
                 <Stack direction="row" spacing={1} alignItems="center">
                     <TurretIcon type={entity.type}/>

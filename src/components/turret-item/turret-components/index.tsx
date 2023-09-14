@@ -32,7 +32,7 @@ export function TurretComponents({id}: Props) {
     const list = Object.keys(componentStore.entities[id] ?? {}) as ComponentType[];
 
     return (
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={{p: 2, pt: 0}}>
             {list.map(type => (
                 <Numeric
                     key={type}

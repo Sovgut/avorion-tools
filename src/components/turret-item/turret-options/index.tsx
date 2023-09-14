@@ -29,7 +29,7 @@ export function TurretOptions({id, entity}: Props) {
     }
 
     return (
-        <Stack spacing={2} direction="row" justifyContent="space-between">
+        <Stack spacing={2} direction="row" justifyContent="space-between" sx={{p: 2, pt: 0, pb: 0}}>
             <Numeric id={id}
                      label={intlContext.text("UI", "quantity")}
                      max={MAX_TURRET_QUANTITY}

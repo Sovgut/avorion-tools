@@ -1,4 +1,4 @@
-import {Card, CardContent, Divider, Stack} from "@mui/joy";
+import {Card, Divider, Stack} from "@mui/joy";
 import {TurretHeader} from "~components/turret-item/turret-header";
 import {TurretOptions} from "~components/turret-item/turret-options";
 import {TurretComponents} from "~components/turret-item/turret-components";
@@ -11,20 +11,18 @@ type Props = {
 
 export function Turret({id, entity}: Props) {
     return (
-        <Card sx={{height: "100%", width: '100%', flexShrink: 0, boxShadow: "sm"}} variant="outlined">
+        <Card sx={{height: "100%", width: '100%', flexShrink: 0, boxShadow: "sm", p: 0}} variant="outlined">
             <TurretHeader entity={entity} id={id}/>
 
             <Divider/>
 
-            <CardContent>
-                <Stack spacing={2}>
-                    <TurretOptions entity={entity} id={id}/>
+            <Stack spacing={2}>
+                <TurretOptions entity={entity} id={id}/>
 
-                    <Divider/>
+                <Divider/>
 
-                    <TurretComponents id={id}/>
-                </Stack>
-            </CardContent>
+                <TurretComponents id={id}/>
+            </Stack>
         </Card>
     )
 }
