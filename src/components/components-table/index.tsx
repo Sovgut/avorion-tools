@@ -12,6 +12,7 @@ import {clearTurrets} from "~reducers/turret.ts";
 import {clearComponents} from "~reducers/component.ts";
 import {clearCargoComponents} from "~reducers/cargo.ts";
 import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
+import styles from './styles.module.css';
 
 export function ComponentsTable() {
     const [components, setComponents] = useState<Record<ComponentType, number>>({} as Record<ComponentType, number>)
@@ -48,7 +49,7 @@ export function ComponentsTable() {
     }
 
     return (
-        <Card variant="outlined" sx={{p: 0, gap: 0, boxShadow: "sm"}}>
+        <Card className={styles.animation} variant="outlined" sx={{p: 0, gap: 0, boxShadow: "sm"}}>
             <Typography level="body-lg" fontWeight="bold" textColor="white" sx={{p: 2, pb: 1, pt: 3}}>
                 {intlContext.text("UI", "cargo-required")}
             </Typography>
