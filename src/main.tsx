@@ -49,6 +49,10 @@ const router = createBrowserRouter([
     }
 ]);
 
+window.onerror = function () {
+    localStorage.clear();
+};
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <CssVarsProvider theme={theme} defaultMode="dark" modeStorageKey={CACHE_THEME} disableNestedContext>
