@@ -1,6 +1,6 @@
-import {ComponentMetaType} from "@/types";
-import {ComponentType} from "@/constants/enums/components";
-import {SellerType} from "@/constants/enums/sellers";
+import {ComponentMetaType} from "~types";
+import {ComponentType} from "~constants/enums/components";
+import {SellerType} from "~constants/enums/sellers";
 
 export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
     [ComponentType.Aluminum]: {
@@ -8,7 +8,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/aluminium.png",
+        icon: "/img/icon/aluminium.png",
         sellers: [SellerType.AluminumMine],
     },
     [ComponentType.AmmunitionM]: {
@@ -16,7 +16,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1.5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/ammunition-m.png",
+        icon: "/img/icon/ammunition-m.png",
         sellers: [SellerType.AmmunitionFactory],
     },
     [ComponentType.AmmunitionS]: {
@@ -24,7 +24,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 0.5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/ammunition-s.png",
+        icon: "/img/icon/ammunition-s.png",
         sellers: [SellerType.AmmunitionFactory],
     },
     [ComponentType.Conductor]: {
@@ -32,7 +32,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 0.15,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/conductor.png",
+        icon: "/img/icon/conductor.png",
         sellers: [SellerType.ConductorFactory],
     },
     [ComponentType.Copper]: {
@@ -40,7 +40,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/copper.png",
+        icon: "/img/icon/copper.png",
         sellers: [SellerType.CopperMine, SellerType.PlanetaryTradingPost],
     },
     [ComponentType.Crystal]: {
@@ -48,7 +48,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1.5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/crystal.png",
+        icon: "/img/icon/crystal.png",
         sellers: [SellerType.CrystalFarm],
     },
     [ComponentType.ElectroMagnet]: {
@@ -56,7 +56,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 0.75,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/electro-magnet.png",
+        icon: "/img/icon/electro-magnet.png",
         sellers: [SellerType.ElectroMagnetFactory],
     },
     [ComponentType.ElectromagneticCharge]: {
@@ -64,7 +64,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/electromagnetic-charge.png",
+        icon: "/img/icon/electromagnetic-charge.png",
         sellers: [SellerType.ElectromagneticChargeFactory],
     },
     [ComponentType.EnergyCell]: {
@@ -72,7 +72,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/battery-pack-alt.png",
+        icon: "/img/icon/battery-pack-alt.png",
         sellers: [SellerType.SolarPowerPlant],
     },
     [ComponentType.EnergyContainer]: {
@@ -80,7 +80,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 4.5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/electric.png",
+        icon: "/img/icon/electric.png",
         sellers: [SellerType.EnergyContainerFactory],
     },
     [ComponentType.EnergyInverter]: {
@@ -88,7 +88,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 3,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/energy-inverter.png",
+        icon: "/img/icon/energy-inverter.png",
         sellers: [SellerType.EnergyInverterFactory],
     },
     [ComponentType.EnergyTube]: {
@@ -96,7 +96,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1.5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/energy-tube.png",
+        icon: "/img/icon/energy-tube.png",
         sellers: [SellerType.EnergyTubeFactory],
     },
     [ComponentType.ExplosiveCharge]: {
@@ -104,7 +104,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1.5,
         illegal: false,
         dangerous: true,
-        icon: "/assets/img/explosive-charge.png",
+        icon: "/img/icon/explosive-charge.png",
         sellers: [SellerType.ExplosiveChargeFactory],
     },
     [ComponentType.ForceGenerator]: {
@@ -112,7 +112,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 4,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/force-generator.png",
+        icon: "/img/icon/force-generator.png",
         sellers: [SellerType.ForceGeneratorFactory],
     },
     [ComponentType.Fuel]: {
@@ -120,7 +120,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/fuel.png",
+        icon: "/img/icon/fuel.png",
         sellers: [SellerType.FuelFactory],
     },
     [ComponentType.GaussRail]: {
@@ -128,7 +128,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 2,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/gauss-rail.png",
+        icon: "/img/icon/gauss-rail.png",
         sellers: [SellerType.GaussRailFactory],
     },
     [ComponentType.Gold]: {
@@ -136,7 +136,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 0.5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/metal-bar.png",
+        icon: "/img/icon/metal-bar.png",
         sellers: [SellerType.NobleMetalMine, SellerType.PlanetaryTradingPost],
     },
     [ComponentType.HighCapacityLens]: {
@@ -144,7 +144,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/high-capacity-lens.png",
+        icon: "/img/icon/high-capacity-lens.png",
         sellers: [SellerType.HighCapacityLensFactory],
     },
     [ComponentType.HighPressureTube]: {
@@ -152,7 +152,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 2,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/high-pressure-tube.png",
+        icon: "/img/icon/high-pressure-tube.png",
         sellers: [SellerType.HighPressureTubeFactory],
     },
     [ComponentType.IndustrialTeslaCoil]: {
@@ -160,7 +160,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 5.5,
         illegal: false,
         dangerous: true,
-        icon: "/assets/img/industrial-tesla-coil.png",
+        icon: "/img/icon/industrial-tesla-coil.png",
         sellers: [SellerType.TeslaCoilFactory],
     },
     [ComponentType.LaserCompressor]: {
@@ -168,7 +168,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1.5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/laser-compressor.png",
+        icon: "/img/icon/laser-compressor.png",
         sellers: [SellerType.LaserCompressorFactory],
     },
     [ComponentType.LaserHead]: {
@@ -176,7 +176,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 2,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/laser-head.png",
+        icon: "/img/icon/laser-head.png",
         sellers: [SellerType.LaserHeadFactory],
     },
     [ComponentType.LaserModulator]: {
@@ -184,7 +184,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 3,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/laser-modulator.png",
+        icon: "/img/icon/laser-modulator.png",
         sellers: [SellerType.LaserModulatorFactory],
     },
     [ComponentType.Lead]: {
@@ -192,7 +192,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/lead.png",
+        icon: "/img/icon/lead.png",
         sellers: [SellerType.LeadMine, SellerType.PlanetaryTradingPost],
     },
     [ComponentType.MilitaryTeslaCoil]: {
@@ -200,7 +200,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 4.5,
         illegal: false,
         dangerous: true,
-        icon: "/assets/img/industrial-tesla-coil.png",
+        icon: "/img/icon/industrial-tesla-coil.png",
         sellers: [SellerType.TeslaCoilFactory],
     },
     [ComponentType.Nanobot]: {
@@ -208,7 +208,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 0.5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/nanobots.png",
+        icon: "/img/icon/nanobots.png",
         sellers: [SellerType.NanobotFactory],
     },
     [ComponentType.PlasmaCell]: {
@@ -216,7 +216,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 0.25,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/plasma-cell.png",
+        icon: "/img/icon/plasma-cell.png",
         sellers: [SellerType.PlasmaCellFactory],
     },
     [ComponentType.PowerUnit]: {
@@ -224,7 +224,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/power-unit.png",
+        icon: "/img/icon/power-unit.png",
         sellers: [SellerType.PowerUnitFactory],
     },
     [ComponentType.Rocket]: {
@@ -232,7 +232,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 4,
         illegal: false,
         dangerous: true,
-        icon: "/assets/img/rocket.png",
+        icon: "/img/icon/rocket.png",
         sellers: [SellerType.RocketFactory],
     },
     [ComponentType.Servo]: {
@@ -240,7 +240,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 0.25,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/servo.png",
+        icon: "/img/icon/servo.png",
         sellers: [SellerType.ServoFactory],
     },
     [ComponentType.Steel]: {
@@ -248,7 +248,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/i-beam.png",
+        icon: "/img/icon/i-beam.png",
         sellers: [SellerType.SteelFactory],
     },
     [ComponentType.SteelTube]: {
@@ -256,7 +256,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 3,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/steel-tube.png",
+        icon: "/img/icon/steel-tube.png",
         sellers: [SellerType.SteelTubeFactory],
     },
     [ComponentType.TargetingCard]: {
@@ -264,7 +264,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 0.5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/targeting-card.png",
+        icon: "/img/icon/targeting-card.png",
         sellers: [SellerType.ComputerComponentFactory, SellerType.TargetingCardFactory],
     },
     [ComponentType.Transformator]: {
@@ -272,7 +272,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 0.2,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/grenade.png",
+        icon: "/img/icon/grenade.png",
         sellers: [SellerType.TransformatorFactory],
     },
     [ComponentType.Warhead]: {
@@ -280,7 +280,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 3,
         illegal: false,
         dangerous: true,
-        icon: "/assets/img/warhead.png",
+        icon: "/img/icon/warhead.png",
         sellers: [SellerType.WarheadFactory],
     },
     [ComponentType.Wire]: {
@@ -288,7 +288,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 0.5,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/wire.png",
+        icon: "/img/icon/wire.png",
         sellers: [SellerType.WireManufacturer],
     },
     [ComponentType.Zinc]: {
@@ -296,7 +296,7 @@ export const ComponentsMeta: Record<ComponentType, ComponentMetaType> = {
         volume: 1,
         illegal: false,
         dangerous: false,
-        icon: "/assets/img/zinc.png",
+        icon: "/img/icon/zinc.png",
         sellers: [SellerType.ZincMine],
     },
 }

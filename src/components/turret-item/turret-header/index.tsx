@@ -1,70 +1,65 @@
 import {useContext} from "react";
-import {Close, MoreVert as MoreIcon, RestartAlt} from "@mui/icons-material";
-import {IntlContext} from "@/contexts/intl";
-import {Box, Divider, Dropdown, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
+import {Close, MoreVert as MoreIcon} from "@mui/icons-material";
+import {IntlContext} from "~contexts/intl";
+import {Box, Dropdown, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
 import styles from "./styles.module.css";
 import {useDispatch} from "react-redux";
-import {removeTurret, updateComponent, updateTurret} from "@/reducers/turret";
-import {Turret} from "@/types";
-import {TurretsMeta} from "@/constants/meta/turrets";
-import {checkboxRemove} from "@/reducers/checkbox";
-import {ComponentType} from "@/constants/enums/components";
-import {MIN_COMPONENT_PRICE, MIN_TURRET_PRICE, MIN_TURRET_QUANTITY} from "@/constants/common";
+import {deleteTurret} from "~reducers/turret";
+import {TurretsMeta} from "~constants/meta/turrets";
+import {TurretEntity} from "~types/store/entity.ts";
+import {deleteComponent} from "~reducers/component.ts";
 
-type TurretHeaderProps = {
+type Props = {
     id: string;
-    turret: Turret;
+    entity: TurretEntity;
 }
 
-export function TurretHeader(props: TurretHeaderProps) {
+export function TurretHeader({id, entity}: Props) {
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
 
-    function onRemove() {
-        for (const componentType of Object.keys(props.turret.components)) {
-            dispatch(checkboxRemove(componentType as ComponentType));
-        }
-
-        dispatch(removeTurret(props.id));
+    function handleDeleteTurret() {
+        dispatch(deleteComponent({identity: id}))
+        dispatch(deleteTurret({identity: id}));
     }
 
-    function handleResetFields() {
-        dispatch(updateTurret({
-            id: props.id,
-            data: {
-                ...props.turret,
-                price: MIN_TURRET_PRICE,
-                quantity: MIN_TURRET_QUANTITY,
-            }
-        }))
-
-        for (const componentType of Object.keys(props.turret.components)) {
-            dispatch(updateComponent({
-                type: componentType as ComponentType,
-                turretId: props.id,
-                data: MIN_COMPONENT_PRICE,
-            }));
-        }
-    }
+    // function handleResetFields() {
+    //     dispatch(updateTurret({
+    //         id: id,
+    //         data: {
+    //             ...entity,
+    //             price: MIN_TURRET_PRICE,
+    //             quantity: MIN_TURRET_QUANTITY,
+    //         }
+    //     }))
+    //
+    //     for (const componentType of Object.keys(entity.components)) {
+    //         dispatch(updateComponent({
+    //             type: componentType as ComponentType,
+    //             turretId: id,
+    //             data: MIN_COMPONENT_PRICE,
+    //         }));
+    //     }
+    // }
 
     return (
         <Box>
             <Stack direction="row" justifyContent="space-between">
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <img className={styles.icon} src={TurretsMeta[props.turret.key].icon} alt={props.turret.key}/>
-                    <Typography level="title-md">{intlContext.text("TURRET", props.turret.key)}</Typography>
+                    <img className={styles.icon} src={TurretsMeta[entity.type].icon} alt={entity.type}/>
+                    <Typography level="title-md">{intlContext.text("TURRET", entity.type)}</Typography>
                 </Stack>
                 <Dropdown>
                     <MenuButton variant="plain" sx={{width: "44px", height: "40px"}}><MoreIcon/></MenuButton>
                     <Menu placement="bottom-end" sx={{minWidth: "200px"}}>
-                        <MenuItem onClick={handleResetFields}>
-                            <ListItemDecorator>
-                                <RestartAlt/>
-                            </ListItemDecorator>
-                            {intlContext.text("UI", "reset-components")}
-                        </MenuItem>
-                        <Divider/>
-                        <MenuItem color="danger" onClick={onRemove}>
+                        {/*<MenuItem onClick={handleResetFields}>*/}
+                        {/*    <ListItemDecorator>*/}
+                        {/*        <RestartAlt/>*/}
+                        {/*    </ListItemDecorator>*/}
+                        {/*    {intlContext.text("UI", "reset-components")}*/}
+                        {/*</MenuItem>*/}
+                        {/*<Divider/>*/}
+                        <MenuItem color="danger" onClick={handleDeleteTurret}>
                             <ListItemDecorator>
                                 <Close/>
                             </ListItemDecorator>

@@ -1,28 +1,29 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ComponentType} from "@/constants/enums/components";
-import {CACHE_CHECKBOX} from "@/constants/common";
-
-const persistedState = window.localStorage.getItem(CACHE_CHECKBOX);
-let initialState = {} as Record<ComponentType, boolean>;
-
-if (persistedState) {
-    initialState = JSON.parse(persistedState);
-}
+import {createSlice} from "@reduxjs/toolkit";
+import {CACHE_CHECKBOX} from "~constants/common";
+import {CheckboxComponentStoreState} from "~types/store";
+import {persistedState} from "~utils/persisted-state.ts";
+import {CheckboxCreateAction, CheckboxDeleteAction} from "~types/store/actions/checkbox";
+import {ComponentType} from "~constants/enums/components.ts";
 
 const checkboxSlice = createSlice({
-    initialState,
+    initialState: persistedState<CheckboxComponentStoreState>(CACHE_CHECKBOX, {entities: {} as Record<ComponentType, true>}),
     name: "checkbox",
     reducers: {
-        add: (state, action: PayloadAction<ComponentType>) => {
-            state[action.payload] = true;
+        create(state, action: CheckboxCreateAction) {
+            state.entities[action.payload.type] = true;
         },
-        remove: (state, action: PayloadAction<ComponentType>) => {
-            if (state[action.payload]) {
-                delete state[action.payload];
-            }
+        delete(state, action: CheckboxDeleteAction) {
+            delete state.entities[action.payload.type];
+        },
+        clear() {
+            return {entities: {} as Record<ComponentType, true>}
         }
     }
 });
 
-export const {add: checkboxAdd, remove: checkboxRemove} = checkboxSlice.actions;
+export const {
+    create: createComponentCheckbox,
+    delete: deleteComponentCheckbox,
+    clear: clearComponentsCheckbox
+} = checkboxSlice.actions;
 export default checkboxSlice.reducer;

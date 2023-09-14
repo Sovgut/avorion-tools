@@ -1,6 +1,6 @@
 import {ReactNode} from "react";
 import {Box} from "@mui/joy";
-import {Background} from "@/components/background";
+import {Background} from "~components/background";
 
 type Props = {
     children: ReactNode;

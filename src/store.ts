@@ -1,26 +1,28 @@
 import {configureStore} from "@reduxjs/toolkit";
-import turretReducer from "@/reducers/turret";
-import cargoReducer from "@/reducers/cargo";
-import checkboxReducer from "@/reducers/checkbox";
-import {CACHE_CARGO, CACHE_CHECKBOX, CACHE_TURRETS} from "@/constants/common";
+import turretReducer from "~reducers/turret";
+import cargoReducer from "~reducers/cargo";
+import checkboxReducer from "~reducers/checkbox";
+import componentReducer from "~reducers/component";
+import {debounce} from "lodash";
+import {CACHE_CARGO, CACHE_CHECKBOX, CACHE_COMPONENTS, CACHE_TURRETS} from "~constants/common.ts";
+import {persistState} from "~utils/persisted-state.ts";
 
 export const store = configureStore({
     reducer: {
         turret: turretReducer,
         cargo: cargoReducer,
         checkbox: checkboxReducer,
+        component: componentReducer
     }
 });
 
-store.subscribe(() => {
+store.subscribe(debounce(() => {
     const state = store.getState();
-    const turretStateAsJson = JSON.stringify(state.turret);
-    const cargoStateAsJson = JSON.stringify(state.cargo);
-    const checkboxStateAsJson = JSON.stringify(state.checkbox);
 
-    window.localStorage.setItem(CACHE_TURRETS, turretStateAsJson);
-    window.localStorage.setItem(CACHE_CARGO, cargoStateAsJson);
-    window.localStorage.setItem(CACHE_CHECKBOX, checkboxStateAsJson);
-})
+    persistState(CACHE_TURRETS, state.turret);
+    persistState(CACHE_COMPONENTS, state.component);
+    persistState(CACHE_CARGO, state.cargo);
+    persistState(CACHE_CHECKBOX, state.checkbox);
+}, 1000))
 
 export type RootState = ReturnType<typeof store.getState>;

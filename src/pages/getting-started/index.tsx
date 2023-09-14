@@ -1,25 +1,25 @@
-import React, {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from "react-redux";
-import {RootState} from "@/store";
+import {RootState} from "~store";
 import {Box, Card, Container, Link, Stack, Typography} from "@mui/joy";
-import {GettingStartedLayout} from "@/layouts/getting-started";
+import {GettingStartedLayout} from "~layouts/getting-started";
 import styles from './styles.module.css'
 import {clsx} from "clsx";
-import {IntlContext} from "@/contexts/intl";
-import {TurretPicker} from "@/components/turret-picker";
-import {Header} from "components/header";
-import {Center} from "@/components/center";
+import {IntlContext} from "~contexts/intl";
+import {TurretPicker} from "~components/turret-picker";
+import {Header} from "~components/header";
+import {Center} from "~components/center";
 
 export function GettingStartedPage() {
     const [isClosePage, setClose] = useState(false);
 
     const intlContext = useContext(IntlContext);
     const navigate = useNavigate();
-    const turrets = useSelector((state: RootState) => state.turret);
+    const turretStore = useSelector((state: RootState) => state.turret);
 
     useEffect(() => {
-        if (turrets && Object.keys(turrets).length > 0) {
+        if (Object.keys(turretStore.entities).length > 0) {
             setClose(true);
 
             const timeoutId = setTimeout(() => {
@@ -31,7 +31,7 @@ export function GettingStartedPage() {
                 clearTimeout(timeoutId);
             }
         }
-    }, [navigate, turrets]);
+    }, [navigate, turretStore]);
 
     const componentClasses = clsx({
         [styles.animation]: true,

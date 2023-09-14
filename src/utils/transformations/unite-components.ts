@@ -1,21 +1,21 @@
-import {Turret} from "@/types";
-import {ComponentType} from "@/constants/enums/components";
-import {TurretType} from "@/constants/enums/turrets";
+import {ComponentType} from "~constants/enums/components";
+import {ComponentStoreState, TurretStoreState} from "~types/store";
 
-export function uniteComponents(turrets: Record<string, Turret>): Record<ComponentType, number> {
-    const components: Record<ComponentType | string, number> = {};
+export function uniteComponents(turrets: TurretStoreState, components: ComponentStoreState): Record<ComponentType, number> {
+    const result: Record<ComponentType, number> = {} as Record<ComponentType, number>;
 
-    for (const turretId of Object.keys(turrets)) {
-        for (const componentType of Object.keys(turrets[turretId].components)) {
-            const component = turrets[turretId as TurretType].components[componentType as ComponentType];
+    for (const id of Object.keys(components.entities)) {
 
-            if (typeof components[componentType] === 'number') {
-                components[componentType] += component * turrets[turretId].quantity;
+        for (const type of Object.keys(components.entities[id]) as ComponentType[]) {
+            const quantity = components.entities[id][type];
+
+            if (typeof result[type] === 'number') {
+                result[type] += quantity * turrets.entities[id].quantity;
             } else {
-                components[componentType] = component * turrets[turretId].quantity;
+                result[type] = quantity * turrets.entities[id].quantity;
             }
         }
     }
 
-    return components;
+    return result;
 }

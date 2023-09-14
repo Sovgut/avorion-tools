@@ -1,18 +1,18 @@
 import {Box, Button, Container, Stack} from "@mui/joy";
-import React, {useContext, useEffect, useState} from "react";
-import {Header} from "components/header";
+import {useContext, useEffect, useState} from "react";
+import {Header} from "~components/header";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "@/store";
-import {TurretItem} from "@/components/turret-item";
-import {ComponentsTable} from "@/components/components-table";
-import {CargoTable} from "@/components/cargo-table";
+import {RootState} from "~store";
+import {Turret} from "~components/turret-item";
 import {clsx} from "clsx";
 import styles from './styles.module.css';
-import {TurretPicker} from "@/components/turret-picker";
+import {TurretPicker} from "~components/turret-picker";
 import {ClearAll} from "@mui/icons-material";
-import {resetTurrets} from "@/reducers/turret";
-import {IntlContext} from "@/contexts/intl";
+import {clearTurrets} from "~reducers/turret";
+import {IntlContext} from "~contexts/intl";
+import {ComponentsTable} from "~components/components-table";
+import {CargoTable} from "~components/cargo-table";
 
 export function TurretPlannerPage() {
     const [isClosePage, setClose] = useState(false);
@@ -20,10 +20,10 @@ export function TurretPlannerPage() {
     const intlContext = useContext(IntlContext);
     const navigate = useNavigate();
     const dispatcher = useDispatch();
-    const turrets = useSelector((state: RootState) => state.turret);
+    const turretStore = useSelector((state: RootState) => state.turret);
 
     useEffect(() => {
-        if (!turrets || Object.keys(turrets).length === 0) {
+        if (Object.keys(turretStore.entities).length === 0) {
             setClose(true);
 
             const timeoutId = setTimeout(() => {
@@ -35,7 +35,7 @@ export function TurretPlannerPage() {
                 clearTimeout(timeoutId);
             }
         }
-    }, [navigate, turrets]);
+    }, [navigate, turretStore]);
 
     const animationClasses = clsx({
         [styles.animation]: true,
@@ -43,7 +43,7 @@ export function TurretPlannerPage() {
     });
 
     function handleClearTurrets() {
-        dispatcher(resetTurrets());
+        dispatcher(clearTurrets());
     }
 
     return (
@@ -65,9 +65,9 @@ export function TurretPlannerPage() {
 
                 <Box className={styles.layout}>
                     <Box className={styles.itemsList}>
-                        {Object.keys(turrets).map(id => (
+                        {Object.keys(turretStore.entities).map(id => (
                             <Box key={id} className={styles.item}>
-                                <TurretItem id={id} turret={turrets[id]}/>
+                                <Turret id={id} entity={turretStore.entities[id]}/>
                             </Box>
                         ))}
                     </Box>

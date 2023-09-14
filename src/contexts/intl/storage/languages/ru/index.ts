@@ -1,7 +1,7 @@
-import {ComponentType} from "@/constants/enums/components";
-import {TurretType} from "@/constants/enums/turrets";
-import {SellerType} from "@/constants/enums/sellers";
-import {IntlComponent, IntlSeller, IntlTurret, IntlUI} from "@/contexts/intl/storage/types";
+import {ComponentType} from "~constants/enums/components";
+import {TurretType} from "~constants/enums/turrets";
+import {SellerType} from "~constants/enums/sellers";
+import {IntlComponent, IntlSeller, IntlTurret, IntlUI} from "~contexts/intl/storage/types";
 
 const UI: IntlUI = {
     "lets-add-turret": "Давайте добавим ваш первый рецепт в планировщик турелей!",

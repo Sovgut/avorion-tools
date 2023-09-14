@@ -1,9 +1,9 @@
-import {ComponentType} from "@/constants/enums/components";
+import {useContext} from "react";
 import {Stack, Typography} from "@mui/joy";
+import {ComponentType} from "~constants/enums/components";
+import {ComponentsMeta} from "~constants/meta/components";
+import {IntlContext} from "~contexts/intl";
 import styles from "./styles.module.css";
-import {ComponentsMeta} from "@/constants/meta/components";
-import React, {useContext} from "react";
-import {IntlContext} from "@/contexts/intl";
 
 type Props = {
     type: ComponentType;

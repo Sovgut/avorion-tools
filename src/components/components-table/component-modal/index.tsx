@@ -1,5 +1,5 @@
 import {Modal, ModalDialog} from "@mui/joy";
-import React, {ReactNode} from "react";
+import {ReactNode} from "react";
 
 type Props = {
     open: boolean;

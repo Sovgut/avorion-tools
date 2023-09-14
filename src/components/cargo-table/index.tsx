@@ -1,18 +1,18 @@
-import React, {useContext} from "react";
-import {IntlContext} from "@/contexts/intl";
+import {useContext} from "react";
+import {IntlContext} from "~contexts/intl";
 import {useSelector} from "react-redux";
-import {RootState} from "@/store";
+import {RootState} from "~store";
 import {Card, Divider, Table, Typography} from "@mui/joy";
-import {ComponentType} from "@/constants/enums/components";
-import {CargoItemType} from "@/components/cargo-table/cargo-type";
-import {CargoItemQuantity} from "@/components/cargo-table/cargo-quantity";
-import {CargoItemAction} from "@/components/cargo-table/cargo-action";
+import {ComponentType} from "~constants/enums/components";
+import {CargoItemType} from "~components/cargo-table/cargo-type";
+import {CargoItemQuantity} from "~components/cargo-table/cargo-quantity";
+import {CargoItemAction} from "~components/cargo-table/cargo-action";
 
 export function CargoTable() {
     const intlContext = useContext(IntlContext);
     const cargo = useSelector((state: RootState) => state.cargo);
 
-    if (Object.keys(cargo).length === 0) {
+    if (Object.keys(cargo.entities).length === 0) {
         return null;
     }
 
@@ -38,11 +38,11 @@ export function CargoTable() {
                 </tr>
                 </thead>
                 <tbody>
-                {Object.keys(cargo).sort((a, b) => a.localeCompare(b)).map(type => (
+                {(Object.keys(cargo.entities) as ComponentType[]).sort((a, b) => a.localeCompare(b)).map(type => (
                     <tr key={type}>
-                        <CargoItemType type={type as ComponentType}/>
-                        <CargoItemQuantity value={cargo[type as ComponentType]}/>
-                        <CargoItemAction type={type as ComponentType}/>
+                        <CargoItemType type={type}/>
+                        <CargoItemQuantity value={cargo.entities[type]}/>
+                        <CargoItemAction type={type}/>
                     </tr>
                 ))}
                 </tbody>

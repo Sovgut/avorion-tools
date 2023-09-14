@@ -1,60 +1,32 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {nanoid} from "nanoid";
-import {ComponentPayload, Turret, TurretPayload} from "@/types";
-import {TurretType} from "@/constants/enums/turrets";
-import {TurretsMeta} from "@/constants/meta/turrets";
-import {ComponentType} from "@/constants/enums/components";
-import {CACHE_TURRETS} from "@/constants/common";
-
-const persistedState = window.localStorage.getItem(CACHE_TURRETS);
-let initialState = {} as Record<string, Turret>;
-
-if (persistedState) {
-    initialState = JSON.parse(persistedState);
-}
+import {createSlice} from "@reduxjs/toolkit";
+import {CACHE_TURRETS} from "~constants/common";
+import {persistedState} from "~utils/persisted-state";
+import {TurretStoreState} from "~types/store";
+import {TurretCreateAction, TurretDeleteAction, TurretUpdateAction} from "~types/store/actions/turret";
 
 const turretSlice = createSlice({
-    initialState,
+    initialState: persistedState<TurretStoreState>(CACHE_TURRETS, {entities: {}}),
     name: "turret",
     reducers: {
-        add: (state, action: PayloadAction<TurretType>) => {
-            const components: Record<ComponentType | string, number> = {};
-
-            for (const turretComponent of TurretsMeta[action.payload].components) {
-                components[turretComponent] = 0;
-            }
-
-            state[nanoid()] = {
-                components: components as Record<ComponentType, number>,
-                price: 0.00,
-                quantity: 1,
-                key: action.payload,
-            };
+        create(state, action: TurretCreateAction) {
+            state.entities[action.payload.identity] = action.payload.entity;
         },
-        updateTurret: (state, action: PayloadAction<TurretPayload>) => {
-            if (state[action.payload.id]) {
-                state[action.payload.id] = action.payload.data;
-            }
+        update(state, action: TurretUpdateAction) {
+            state.entities[action.payload.identity] = action.payload.entity;
         },
-        updateComponent: (state, action: PayloadAction<ComponentPayload>) => {
-            if (state[action.payload.turretId]) {
-                state[action.payload.turretId].components[action.payload.type] = action.payload.data;
-            }
+        delete(state, action: TurretDeleteAction) {
+            delete state.entities[action.payload.identity];
         },
-        remove: (state, action: PayloadAction<string>) => {
-            if (state[action.payload]) {
-                delete state[action.payload];
-            }
-        },
-        reset: () => ({}),
+        clear() {
+            return {entities: {}};
+        }
     }
 });
 
 export const {
-    add: addTurret,
-    updateTurret,
-    updateComponent,
-    remove: removeTurret,
-    reset: resetTurrets
+    create: createTurret,
+    update: updateTurret,
+    delete: deleteTurret,
+    clear: clearTurrets,
 } = turretSlice.actions;
 export default turretSlice.reducer;

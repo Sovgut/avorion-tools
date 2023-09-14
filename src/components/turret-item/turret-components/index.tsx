@@ -1,46 +1,49 @@
 import {Stack} from "@mui/joy";
 import {Fragment, useContext} from "react";
-import {IntlContext} from "@/contexts/intl";
-import {Numeric} from "components/numeric";
-import {MAX_COMPONENT_QUANTITY} from "@/constants/common";
-import {Turret} from "@/types";
-import {useDispatch} from "react-redux";
-import {updateComponent} from "@/reducers/turret";
-import {ComponentType} from "@/constants/enums/components";
+import {IntlContext} from "~contexts/intl";
+import {Numeric} from "~components/numeric";
+import {MAX_COMPONENT_QUANTITY} from "~constants/common";
+import {useDispatch, useSelector} from "react-redux";
+import {ComponentType} from "~constants/enums/components";
 import {nanoid} from "nanoid";
+import {RootState} from "~store";
+import {updateComponent} from "~reducers/component.ts";
 
 type Props = {
     id: string;
-    turret: Turret;
 }
 
-export function TurretComponents({id, turret}: Props) {
+export function TurretComponents({id}: Props) {
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
 
-    function onComponentChange(type: string, value: string | null) {
+    const componentStore = useSelector((state: RootState) => state.component);
+
+    function handleComponentChange(type: string, value: string | null) {
         dispatch(updateComponent({
-            type: type as ComponentType,
-            turretId: id,
-            data: Number(value)
+            identity: id,
+            entity: {
+                type: type as ComponentType,
+                quantity: Number(value),
+            }
         }));
     }
 
-    const components = Object.keys(turret.components) as ComponentType[];
+    const list = Object.keys(componentStore.entities[id] ?? {}) as ComponentType[];
 
     return (
         <Stack spacing={2}>
-            {components.map(component => (
+            {list.map(type => (
                 <Numeric
-                    key={component}
-                    id={component}
+                    key={type}
+                    id={type}
                     max={MAX_COMPONENT_QUANTITY}
-                    label={intlContext.text("COMPONENT", component)}
-                    value={turret.components[component]}
-                    onChange={onComponentChange}/>
+                    label={intlContext.text("COMPONENT", type)}
+                    value={componentStore.entities[id][type]}
+                    onChange={handleComponentChange}/>
             ))}
 
-            {components.length === 5 &&
+            {list.length === 5 &&
                 <Fragment>
                     <Numeric
                         id={nanoid()}
@@ -53,7 +56,7 @@ export function TurretComponents({id, turret}: Props) {
                 </Fragment>
             }
 
-            {components.length === 6 &&
+            {list.length === 6 &&
                 <Numeric
                     id={nanoid()}
                     label={String()}

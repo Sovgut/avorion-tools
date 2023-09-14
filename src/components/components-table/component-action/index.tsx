@@ -1,16 +1,16 @@
 import {Box, Button, Link, ModalClose, Stack, Typography} from "@mui/joy";
 import {Add, MoreVert as MoreIcon} from "@mui/icons-material";
-import React, {FormEvent, Fragment, useContext, useState} from "react";
-import {MAX_CARGO_QUANTITY, MIN_CARGO_QUANTITY} from "@/constants/common";
-import {IntlContext} from "@/contexts/intl";
+import {FormEvent, Fragment, useContext, useState} from "react";
+import {MAX_CARGO_QUANTITY, MIN_CARGO_QUANTITY} from "~constants/common";
+import {IntlContext} from "~contexts/intl";
 import {useDispatch} from "react-redux";
-import {cargoComponentAdd} from "@/reducers/cargo";
-import {Numeric} from "components/numeric";
-import {ComponentType} from "@/constants/enums/components";
-import {SellerType} from "@/constants/enums/sellers";
-import {ComponentsMeta} from "@/constants/meta/components";
-import {SellersMeta} from "@/constants/meta/sellers";
-import {ComponentItemModal} from "@/components/components-table/component-modal";
+import {createCargoComponent} from "~reducers/cargo";
+import {Numeric} from "~components/numeric";
+import {ComponentType} from "~constants/enums/components";
+import {SellerType} from "~constants/enums/sellers";
+import {ComponentsMeta} from "~constants/meta/components";
+import {SellersMeta} from "~constants/meta/sellers";
+import {ComponentItemModal} from "~components/components-table/component-modal";
 
 type Props = {
     type: ComponentType;
@@ -23,7 +23,7 @@ export function ComponentItemAction(props: Props) {
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
 
-    function onCargoChange(id: string, value: string | null) {
+    function onCargoChange(_id: string, value: string | null) {
         setCargoInput(Number(value));
     }
 
@@ -40,7 +40,7 @@ export function ComponentItemAction(props: Props) {
         setMenuOpen(false);
 
         if (cargoInput >= MIN_CARGO_QUANTITY) {
-            dispatch(cargoComponentAdd({key: props.type, quantity: cargoInput}));
+            dispatch(createCargoComponent({type: props.type, quantity: cargoInput}));
             setCargoInput(MIN_CARGO_QUANTITY);
         }
     }
@@ -96,7 +96,7 @@ export function ComponentItemAction(props: Props) {
                         <Box>
                             <Typography level="body-lg">{intlContext.text("UI", 'guaranteed-in')}</Typography>
                             <Stack>
-                                {ComponentsMeta[props.type].sellers.map(seller => (
+                                {ComponentsMeta[props.type].sellers.map((seller: SellerType) => (
                                     <Link key={props.type + seller}
                                           href={SellersMeta[seller].link}
                                           color="primary"

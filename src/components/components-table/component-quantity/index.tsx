@@ -1,9 +1,9 @@
 import {Typography} from "@mui/joy";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {useSelector} from "react-redux";
-import {RootState} from "@/store";
-import {computeQuantity} from "@/utils/computations/quantity";
-import {ComponentType} from "@/constants/enums/components";
+import {RootState} from "~store";
+import {computeQuantity} from "~utils/computations/quantity";
+import {ComponentType} from "~constants/enums/components";
 
 type Props = {
     type: ComponentType;
@@ -12,7 +12,7 @@ type Props = {
 
 export function ComponentItemQuantity(props: Props) {
     const cargo = useSelector((state: RootState) => state.cargo);
-    const quantity = useMemo(() => computeQuantity(cargo[props.type], props.value), [cargo, props]);
+    const quantity = useMemo(() => computeQuantity(cargo.entities[props.type], props.value), [cargo, props]);
 
     let color: "warning" | "primary" = "primary";
     if (quantity !== props.value) {
