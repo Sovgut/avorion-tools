@@ -71,29 +71,33 @@ export function ComponentsTable() {
                 ))}
                 </tbody>
             </Table>
-            <CardOverflow variant="soft" color="neutral" sx={{borderRadius: 0}}>
-                <Divider inset="context" sx={{mt: 0}}/>
-                <Stack>
-                    <Stack direction="row" justifyContent="space-between" sx={{p: 1}}>
-                        <Typography fontSize={fontSize}
-                                    level="body-sm">{intlContext.text("UI", "estimated-price")}</Typography>
-                        <Stack direction="row">
-                            {computations.avg > 0 && (
-                                <Typography fontSize={fontSize} level="body-sm">~</Typography>
-                            )}
+            {(computations.avg > 0 || computations.volume > 0) && (
+                <CardOverflow variant="soft" color="neutral" sx={{borderRadius: 0}}>
+                    <Divider inset="context" sx={{mt: 0}}/>
+                    <Stack>
+                        <Stack direction="row" justifyContent="space-between" sx={{p: 1}}>
                             <Typography fontSize={fontSize}
-                                        level="body-sm">{computations.avg.toLocaleString()}</Typography>
+                                        level="body-sm">{intlContext.text("UI", "estimated-price")}</Typography>
+                            <Stack direction="row">
+                                {computations.avg > 0 && (
+                                    <Typography fontSize={fontSize} level="body-sm">~</Typography>
+                                )}
+                                <Typography fontSize={fontSize}
+                                            level="body-sm">{computations.avg.toLocaleString()}</Typography>
+                            </Stack>
+                        </Stack>
+                        <Divider/>
+                        <Stack direction="row" justifyContent="space-between" sx={{p: 1}}>
+                            <Typography fontSize={fontSize}
+                                        level="body-sm">{intlContext.text("UI", "estimated-volume")}</Typography>
+                            <Typography fontSize={fontSize}
+                                        level="body-sm">{computations.volume.toLocaleString()}</Typography>
                         </Stack>
                     </Stack>
-                    <Divider/>
-                    <Stack direction="row" justifyContent="space-between" sx={{p: 1}}>
-                        <Typography fontSize={fontSize}
-                                    level="body-sm">{intlContext.text("UI", "estimated-volume")}</Typography>
-                        <Typography fontSize={fontSize}
-                                    level="body-sm">{computations.volume.toLocaleString()}</Typography>
-                    </Stack>
-                </Stack>
-            </CardOverflow>
+                </CardOverflow>
+            )}
+
+            <Divider/>
             <Box sx={{p: 1}}>
                 <Typography level="body-sm">
                     <b>Avorion Tools</b> is a community work, and not officially created or maintained by <Link
