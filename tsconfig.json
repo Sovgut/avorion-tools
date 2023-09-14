@@ -39,6 +39,9 @@
       "~pages/*": [
         "src/pages/*"
       ],
+      "~hooks/*": [
+        "src/hooks/*"
+      ],
       "~reducers/*": [
         "src/reducers/*"
       ],

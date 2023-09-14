@@ -13,7 +13,7 @@ export function Header() {
     }
 
     return (
-        <Container maxWidth={false} disableGutters>
+        <Container maxWidth={false} sx={{height: 90}}>
             <Stack direction="row" spacing={2} sx={{pt: 3, pb: 3}} justifyContent="space-between">
                 <Stack direction="row" spacing={4}>
                     <Stack justifyItems="center" spacing={-1}
