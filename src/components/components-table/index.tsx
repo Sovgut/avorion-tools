@@ -62,19 +62,6 @@ export function ComponentsTable() {
             </Typography>
             <Divider sx={{mt: 2}}/>
             <Table>
-                <thead>
-                <tr>
-                    <th style={{paddingLeft: 8, paddingRight: 0, height: "max-content"}}>
-                        <Typography>{intlContext.text("UI", "component")}</Typography>
-                    </th>
-                    <th style={{
-                        textAlign: "right",
-                        paddingLeft: 0,
-                        paddingRight: 8,
-                        height: "max-content"
-                    }}>{intlContext.text("UI", "quantity")}</th>
-                </tr>
-                </thead>
                 <tbody>
                 {(Object.keys(components) as ComponentType[]).sort((a, b) => a.localeCompare(b)).map(type => (
                     <tr key={type}>
@@ -91,7 +78,9 @@ export function ComponentsTable() {
                         <Typography fontSize={fontSize}
                                     level="body-sm">{intlContext.text("UI", "estimated-price")}</Typography>
                         <Stack direction="row">
-                            <Typography fontSize={fontSize} level="body-sm">~¢</Typography>
+                            {computations.avg > 0 && (
+                                <Typography fontSize={fontSize} level="body-sm">~</Typography>
+                            )}
                             <Typography fontSize={fontSize}
                                         level="body-sm">{computations.avg.toLocaleString()}</Typography>
                         </Stack>

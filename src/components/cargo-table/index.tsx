@@ -34,19 +34,6 @@ export function CargoTable() {
             </Stack>
             <Divider sx={{mt: 2}}/>
             <Table>
-                <thead>
-                <tr>
-                    <th style={{paddingLeft: 8, paddingRight: 0, height: "max-content"}}>
-                        <Typography>{intlContext.text("UI", "component")}</Typography>
-                    </th>
-                    <th style={{
-                        textAlign: "right",
-                        paddingLeft: 0,
-                        paddingRight: 8,
-                        height: "max-content"
-                    }}>{intlContext.text("UI", "quantity")}</th>
-                </tr>
-                </thead>
                 <tbody>
                 {(Object.keys(cargo.entities) as ComponentType[]).sort((a, b) => a.localeCompare(b)).map(type => (
                     <tr key={type}>
