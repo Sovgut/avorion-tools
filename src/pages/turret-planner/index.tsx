@@ -1,4 +1,4 @@
-import {Box, Button, Container, Stack} from "@mui/joy";
+import {Box, Container, IconButton, Stack} from "@mui/joy";
 import {useContext, useEffect, useState} from "react";
 import {Header} from "~components/header";
 import {useNavigate} from "react-router-dom";
@@ -57,12 +57,12 @@ export function TurretPlannerPage() {
                     <Box sx={{width: "100%"}}>
                         <TurretPicker/>
                     </Box>
-                    <Button color="danger"
-                            variant="soft"
-                            title={intlContext.text("UI", "clear-turrets")}
-                            onClick={handleClearTurrets}>
+                    <IconButton color="danger"
+                                variant="soft"
+                                title={intlContext.text("UI", "clear-turrets")}
+                                onClick={handleClearTurrets}>
                         <ClearAll/>
-                    </Button>
+                    </IconButton>
                 </Stack>
 
                 <Box className={styles.layout}>
