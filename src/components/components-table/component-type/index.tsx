@@ -68,7 +68,7 @@ export function ComponentItemType(props: Props) {
                 <Box sx={{opacity: checkbox.entities[props.type] ? '.5' : '1'}}>
                     <ComponentIcon type={props.type}/>
                 </Box>
-                <Typography fontSize={fontSize} color={color} sx={sx}>
+                <Typography fontSize={fontSize} color={color} sx={sx} width="max-content">
                     {intlContext.text("COMPONENT", props.type)}
                 </Typography>
                 {!isSmallScreen && (
