@@ -6,12 +6,12 @@ import {Box, Card, CardOverflow, Divider, Link, Stack, Table, Typography} from "
 import {ComponentType} from "~constants/enums/components";
 import {ComponentItemType} from "~components/components-table/component-type";
 import {ComponentItemQuantity} from "~components/components-table/component-quantity";
-import {ComponentItemAction} from "~components/components-table/component-action";
 import {computationWorker} from "~workers";
 import {clearTurrets} from "~reducers/turret.ts";
 import {clearComponents} from "~reducers/component.ts";
 import {clearCargoComponents} from "~reducers/cargo.ts";
 import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
+import styles from './styles.module.css';
 
 export function ComponentsTable() {
     const [components, setComponents] = useState<Record<ComponentType, number>>({} as Record<ComponentType, number>)
@@ -48,7 +48,7 @@ export function ComponentsTable() {
     }
 
     return (
-        <Card variant="outlined" sx={{p: 0, gap: 0, boxShadow: "sm"}}>
+        <Card className={styles.animation} variant="outlined" sx={{p: 0, gap: 0, boxShadow: "sm"}}>
             <Typography level="body-lg" fontWeight="bold" textColor="white" sx={{p: 2, pb: 1, pt: 3}}>
                 {intlContext.text("UI", "cargo-required")}
             </Typography>
@@ -56,17 +56,15 @@ export function ComponentsTable() {
             <Table>
                 <thead>
                 <tr>
-                    <th style={{width: "32px", height: "max-content"}}/>
-                    <th style={{paddingLeft: 0, paddingRight: 0, height: "max-content"}}>
+                    <th style={{paddingLeft: 8, paddingRight: 0, height: "max-content"}}>
                         <Typography>{intlContext.text("UI", "component")}</Typography>
                     </th>
                     <th style={{
                         textAlign: "right",
                         paddingLeft: 0,
-                        paddingRight: 0,
+                        paddingRight: 8,
                         height: "max-content"
                     }}>{intlContext.text("UI", "quantity")}</th>
-                    <th style={{width: "40px", height: "max-content"}}></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -74,7 +72,6 @@ export function ComponentsTable() {
                     <tr key={type}>
                         <ComponentItemType type={type}/>
                         <ComponentItemQuantity type={type} value={components[type]}/>
-                        <ComponentItemAction type={type}/>
                     </tr>
                 ))}
                 </tbody>

@@ -1,5 +1,5 @@
 import {ComponentType} from "~constants/enums/components";
-import {Fragment, useContext} from "react";
+import {useContext} from "react";
 import {Box, Checkbox, Stack, Typography} from "@mui/joy";
 import styles from "./styles.module.css";
 import {ComponentsMeta} from "~constants/meta/components";
@@ -43,13 +43,12 @@ export function ComponentItemType(props: Props) {
     }
 
     return (
-        <Fragment>
-            <td onClick={handleCheckbox}>
-                <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <td onClick={handleCheckbox} style={{paddingLeft: 8, paddingRight: 0, cursor: "pointer", userSelect: "none"}}>
+            <Stack direction="row" spacing={1}>
+                <Box onClick={handleCheckbox}
+                     sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Checkbox size="sm" onChange={handleCheckbox} checked={!!checkbox.entities[props.type]}/>
                 </Box>
-            </td>
-            <td onClick={handleCheckbox} style={{paddingLeft: 0, paddingRight: 0}}>
                 <Stack direction="row" spacing={1} alignItems="center">
                     <img className={styles.icon}
                          src={ComponentsMeta[props.type].icon}
@@ -58,7 +57,7 @@ export function ComponentItemType(props: Props) {
                         {intlContext.text("COMPONENT", props.type)}
                     </Typography>
                 </Stack>
-            </td>
-        </Fragment>
+            </Stack>
+        </td>
     )
 }

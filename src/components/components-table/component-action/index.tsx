@@ -1,4 +1,4 @@
-import {Box, Button, Link, ModalClose, Stack, Typography} from "@mui/joy";
+import {Box, Button, IconButton, Link, ModalClose, Stack, Typography} from "@mui/joy";
 import {Add, MoreVert as MoreIcon} from "@mui/icons-material";
 import {FormEvent, Fragment, useContext, useState} from "react";
 import {MAX_CARGO_QUANTITY, MIN_CARGO_QUANTITY} from "~constants/common";
@@ -63,69 +63,67 @@ export function ComponentItemAction(props: Props) {
     }
 
     return (
-        <td>
-            <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <Button size='sm' sx={{width: 24}} variant="plain" color="neutral" onClick={onModalToggle}>
-                    <MoreIcon fontSize="small"/>
-                </Button>
+        <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <IconButton size='sm' variant="plain" color="neutral" onClick={onModalToggle}>
+                <MoreIcon fontSize="small"/>
+            </IconButton>
 
-                <ComponentItemModal open={menuOpen} onClose={onModalClose}>
-                    <Stack spacing={2}>
-                        <ModalClose onClick={onModalClose}/>
-                        <Stack>
-                            <Typography level="h4">{intlContext.text("COMPONENT", props.type)}</Typography>
-                            <Fragment>{illegal}</Fragment>
-                            <Fragment>{dangerous}</Fragment>
-                        </Stack>
-
-                        <Box>
-                            <Typography level="body-lg">{intlContext.text("UI", 'can-be-found-in')}</Typography>
-                            <Stack>
-                                {[SellerType.TurretFactory, SellerType.TurretFactorySupplier].map(seller => (
-                                    <Link key={props.type + seller}
-                                          href={SellersMeta[seller].link}
-                                          color="primary"
-                                          target="_blank"
-                                          sx={{width: "max-content"}}>
-                                        {intlContext.text("SELLER", seller)}
-                                    </Link>
-                                ))}
-                            </Stack>
-                        </Box>
-
-                        <Box>
-                            <Typography level="body-lg">{intlContext.text("UI", 'guaranteed-in')}</Typography>
-                            <Stack>
-                                {ComponentsMeta[props.type].sellers.map((seller: SellerType) => (
-                                    <Link key={props.type + seller}
-                                          href={SellersMeta[seller].link}
-                                          color="primary"
-                                          target="_blank"
-                                          sx={{width: "max-content"}}>
-                                        {intlContext.text("SELLER", seller)}
-                                    </Link>
-                                ))}
-                            </Stack>
-                        </Box>
-
-                        <Stack spacing={1}>
-                            <Typography level="body-lg"
-                                        fontWeight="bold">{intlContext.text("UI", 'cargo-offset')}</Typography>
-                            <form onSubmit={onCargoSubmit}>
-                                <Stack spacing={2}>
-                                    <Numeric id={props.type}
-                                             label={intlContext.text("UI", "cargo-field-label")}
-                                             max={MAX_CARGO_QUANTITY}
-                                             min={MIN_CARGO_QUANTITY}
-                                             value={cargoInput}
-                                             onChange={onCargoChange}/>
-                                    <Button onClick={onModalSubmit}><Add/></Button>
-                                </Stack>
-                            </form>
-                        </Stack>
+            <ComponentItemModal open={menuOpen} onClose={onModalClose}>
+                <Stack spacing={2}>
+                    <ModalClose onClick={onModalClose}/>
+                    <Stack>
+                        <Typography level="h4">{intlContext.text("COMPONENT", props.type)}</Typography>
+                        <Fragment>{illegal}</Fragment>
+                        <Fragment>{dangerous}</Fragment>
                     </Stack>
-                </ComponentItemModal>
-            </Box>
-        </td>
+
+                    <Box>
+                        <Typography level="body-lg">{intlContext.text("UI", 'can-be-found-in')}</Typography>
+                        <Stack>
+                            {[SellerType.TurretFactory, SellerType.TurretFactorySupplier].map(seller => (
+                                <Link key={props.type + seller}
+                                      href={SellersMeta[seller].link}
+                                      color="primary"
+                                      target="_blank"
+                                      sx={{width: "max-content"}}>
+                                    {intlContext.text("SELLER", seller)}
+                                </Link>
+                            ))}
+                        </Stack>
+                    </Box>
+
+                    <Box>
+                        <Typography level="body-lg">{intlContext.text("UI", 'guaranteed-in')}</Typography>
+                        <Stack>
+                            {ComponentsMeta[props.type].sellers.map((seller: SellerType) => (
+                                <Link key={props.type + seller}
+                                      href={SellersMeta[seller].link}
+                                      color="primary"
+                                      target="_blank"
+                                      sx={{width: "max-content"}}>
+                                    {intlContext.text("SELLER", seller)}
+                                </Link>
+                            ))}
+                        </Stack>
+                    </Box>
+
+                    <Stack spacing={1}>
+                        <Typography level="body-lg"
+                                    fontWeight="bold">{intlContext.text("UI", 'cargo-offset')}</Typography>
+                        <form onSubmit={onCargoSubmit}>
+                            <Stack spacing={2}>
+                                <Numeric id={props.type}
+                                         label={intlContext.text("UI", "cargo-field-label")}
+                                         max={MAX_CARGO_QUANTITY}
+                                         min={MIN_CARGO_QUANTITY}
+                                         value={cargoInput}
+                                         onChange={onCargoChange}/>
+                                <Button onClick={onModalSubmit}><Add/></Button>
+                            </Stack>
+                        </form>
+                    </Stack>
+                </Stack>
+            </ComponentItemModal>
+        </Box>
     )
 }

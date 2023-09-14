@@ -1,5 +1,5 @@
 import {Close} from "@mui/icons-material";
-import {Button} from "@mui/joy";
+import {IconButton} from "@mui/joy";
 import {ComponentType} from "~constants/enums/components";
 import {deleteCargoComponent} from "~reducers/cargo";
 import {useDispatch} from "react-redux";
@@ -16,10 +16,8 @@ export function CargoItemAction(props: Props) {
     }
 
     return (
-        <td>
-            <Button size='sm' sx={{width: 24}} variant="plain" color="neutral" onClick={handleRemove}>
-                <Close fontSize="small"/>
-            </Button>
-        </td>
+        <IconButton size='sm' variant="plain" color="neutral" onClick={handleRemove}>
+            <Close fontSize="small"/>
+        </IconButton>
     )
 }

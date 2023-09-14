@@ -6,7 +6,6 @@ import {Card, Divider, IconButton, Stack, Table, Typography} from "@mui/joy";
 import {ComponentType} from "~constants/enums/components";
 import {CargoItemType} from "~components/cargo-table/cargo-type";
 import {CargoItemQuantity} from "~components/cargo-table/cargo-quantity";
-import {CargoItemAction} from "~components/cargo-table/cargo-action";
 import {ClearAll} from "@mui/icons-material";
 import {clearCargoComponents} from "~reducers/cargo.ts";
 
@@ -37,24 +36,22 @@ export function CargoTable() {
             <Table>
                 <thead>
                 <tr>
-                    <th style={{paddingRight: 0, height: "max-content"}}>
+                    <th style={{paddingLeft: 8, paddingRight: 0, height: "max-content"}}>
                         <Typography>{intlContext.text("UI", "component")}</Typography>
                     </th>
                     <th style={{
                         textAlign: "right",
                         paddingLeft: 0,
-                        paddingRight: 0,
+                        paddingRight: 8,
                         height: "max-content"
                     }}>{intlContext.text("UI", "quantity")}</th>
-                    <th style={{width: "40px", height: "max-content"}}></th>
                 </tr>
                 </thead>
                 <tbody>
                 {(Object.keys(cargo.entities) as ComponentType[]).sort((a, b) => a.localeCompare(b)).map(type => (
                     <tr key={type}>
                         <CargoItemType type={type}/>
-                        <CargoItemQuantity value={cargo.entities[type]}/>
-                        <CargoItemAction type={type}/>
+                        <CargoItemQuantity type={type} value={cargo.entities[type]}/>
                     </tr>
                 ))}
                 </tbody>
