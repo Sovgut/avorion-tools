@@ -1,13 +1,16 @@
 import {useContext} from "react";
-import {Close, MoreVert as MoreIcon} from "@mui/icons-material";
+import {Close, MoreVert as MoreIcon, RestartAlt} from "@mui/icons-material";
 import {IntlContext} from "~contexts/intl";
-import {Box, Dropdown, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
+import {Box, Divider, Dropdown, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
 import styles from "./styles.module.css";
-import {useDispatch} from "react-redux";
-import {deleteTurret} from "~reducers/turret";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteTurret, updateTurret} from "~reducers/turret";
 import {TurretsMeta} from "~constants/meta/turrets";
 import {TurretEntity} from "~types/store/entity.ts";
-import {deleteComponent} from "~reducers/component.ts";
+import {deleteComponent, updateComponent} from "~reducers/component.ts";
+import {RootState} from "~store";
+import {ComponentType} from "~constants/enums/components.ts";
+import {MIN_COMPONENT_QUANTITY, MIN_TURRET_PRICE, MIN_TURRET_QUANTITY} from "~constants/common.ts";
 
 type Props = {
     id: string;
@@ -15,6 +18,8 @@ type Props = {
 }
 
 export function TurretHeader({id, entity}: Props) {
+    const componentStore = useSelector((state: RootState) => state.component);
+
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
 
@@ -23,24 +28,26 @@ export function TurretHeader({id, entity}: Props) {
         dispatch(deleteTurret({identity: id}));
     }
 
-    // function handleResetFields() {
-    //     dispatch(updateTurret({
-    //         id: id,
-    //         data: {
-    //             ...entity,
-    //             price: MIN_TURRET_PRICE,
-    //             quantity: MIN_TURRET_QUANTITY,
-    //         }
-    //     }))
-    //
-    //     for (const componentType of Object.keys(entity.components)) {
-    //         dispatch(updateComponent({
-    //             type: componentType as ComponentType,
-    //             turretId: id,
-    //             data: MIN_COMPONENT_PRICE,
-    //         }));
-    //     }
-    // }
+    function handleResetFields() {
+        dispatch(updateTurret({
+            identity: id,
+            entity: {
+                ...entity,
+                quantity: MIN_TURRET_QUANTITY,
+                price: MIN_TURRET_PRICE,
+            }
+        }))
+
+        for (const type of Object.keys(componentStore.entities[id]) as ComponentType[]) {
+            dispatch(updateComponent({
+                identity: id,
+                entity: {
+                    type,
+                    quantity: MIN_COMPONENT_QUANTITY,
+                }
+            }))
+        }
+    }
 
     return (
         <Box>
@@ -52,13 +59,13 @@ export function TurretHeader({id, entity}: Props) {
                 <Dropdown>
                     <MenuButton variant="plain" sx={{width: "44px", height: "40px"}}><MoreIcon/></MenuButton>
                     <Menu placement="bottom-end" sx={{minWidth: "200px"}}>
-                        {/*<MenuItem onClick={handleResetFields}>*/}
-                        {/*    <ListItemDecorator>*/}
-                        {/*        <RestartAlt/>*/}
-                        {/*    </ListItemDecorator>*/}
-                        {/*    {intlContext.text("UI", "reset-components")}*/}
-                        {/*</MenuItem>*/}
-                        {/*<Divider/>*/}
+                        <MenuItem onClick={handleResetFields}>
+                            <ListItemDecorator>
+                                <RestartAlt/>
+                            </ListItemDecorator>
+                            {intlContext.text("UI", "reset-components")}
+                        </MenuItem>
+                        <Divider/>
                         <MenuItem color="danger" onClick={handleDeleteTurret}>
                             <ListItemDecorator>
                                 <Close/>
