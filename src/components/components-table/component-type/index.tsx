@@ -1,6 +1,6 @@
 import { ComponentType } from "~constants/enums/components";
 import { MouseEvent, useContext } from "react";
-import { Grid, IconButton, Stack, Typography } from "@mui/joy";
+import { IconButton, Typography } from "@mui/joy";
 import { ComponentsMeta } from "~constants/meta/components";
 import { IntlContext } from "~contexts/intl";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,9 +27,6 @@ export function ComponentItemType({ type }: Props) {
   const dispatch = useDispatch();
   const isSmallScreen = useMediaQuery({
     query: `(max-width: ${theme.breakpoints.values.sm}px)`,
-  });
-  const isTabletScreen = useMediaQuery({
-    query: `(max-width: ${theme.breakpoints.values.md}px)`,
   });
 
   function handleCheckbox() {
