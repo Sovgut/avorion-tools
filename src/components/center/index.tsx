@@ -10,7 +10,7 @@ type Props = {
 }
 
 export function Center({horizontal, vertical, sx, children}: Props) {
-    const sxProps: SxProps = {
+    const initial: SxProps = {
         display: "flex",
         height: "100%",
         width: "100%",
@@ -29,8 +29,17 @@ export function Center({horizontal, vertical, sx, children}: Props) {
         alignment.alignItems = "center";
     }
 
+    let sxProps: SxProps = {
+        ...initial,
+        ...alignment,
+    }
+
+    if (sx) {
+        sxProps = {...sxProps, ...sx};
+    }
+
     return (
-        <Box sx={{...sxProps, ...(sx ?? {}) as any, ...alignment}}>
+        <Box sx={sxProps}>
             {children}
         </Box>
     )

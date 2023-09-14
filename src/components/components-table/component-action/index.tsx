@@ -1,6 +1,6 @@
 import {Box, Button, IconButton, Link, ModalClose, Stack, Typography} from "@mui/joy";
-import {Add, MoreVert as MoreIcon} from "@mui/icons-material";
-import {FormEvent, Fragment, useContext, useState} from "react";
+import {Add, CopyAll, MoreVert as MoreIcon} from "@mui/icons-material";
+import {FormEvent, Fragment, MouseEvent, useContext, useState} from "react";
 import {MAX_CARGO_QUANTITY, MIN_CARGO_QUANTITY} from "~constants/common";
 import {IntlContext} from "~contexts/intl";
 import {useDispatch} from "react-redux";
@@ -11,6 +11,8 @@ import {SellerType} from "~constants/enums/sellers";
 import {ComponentsMeta} from "~constants/meta/components";
 import {SellersMeta} from "~constants/meta/sellers";
 import {ComponentItemModal} from "~components/components-table/component-modal";
+import {useTheme} from "@mui/joy/styles";
+import {useMediaQuery} from "react-responsive";
 
 type Props = {
     type: ComponentType;
@@ -20,8 +22,12 @@ export function ComponentItemAction(props: Props) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [cargoInput, setCargoInput] = useState(MIN_CARGO_QUANTITY);
 
+    const theme = useTheme();
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
+    const isSmallScreen = useMediaQuery({
+        query: `(max-width: ${theme.breakpoints.values.sm}px)`
+    });
 
     function onCargoChange(_id: string, value: string | null) {
         setCargoInput(Number(value));
@@ -62,6 +68,14 @@ export function ComponentItemAction(props: Props) {
         dangerous = <Typography color="danger">{intlContext.text("UI", 'dangerous-cargo')}</Typography>;
     }
 
+    function handleCopyText(seller: string) {
+        return function $handleSellerCopyText(e: MouseEvent<HTMLButtonElement>) {
+            e.stopPropagation();
+
+            window.navigator.clipboard.writeText(seller).then();
+        }
+    }
+
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <IconButton size='sm' variant="plain" color="neutral" onClick={onModalToggle}>
@@ -81,13 +95,21 @@ export function ComponentItemAction(props: Props) {
                         <Typography level="body-lg">{intlContext.text("UI", 'can-be-found-in')}</Typography>
                         <Stack>
                             {[SellerType.TurretFactory, SellerType.TurretFactorySupplier].map(seller => (
-                                <Link key={props.type + seller}
-                                      href={SellersMeta[seller].link}
-                                      color="primary"
-                                      target="_blank"
-                                      sx={{width: "max-content"}}>
-                                    {intlContext.text("SELLER", seller)}
-                                </Link>
+                                <Stack key={props.type + seller} direction="row" spacing={.5} alignItems="center">
+                                    <Link href={SellersMeta[seller].link}
+                                          color="primary"
+                                          target="_blank"
+                                          sx={{width: "max-content"}}>
+                                        {intlContext.text("SELLER", seller)}
+                                    </Link>
+                                    {!isSmallScreen && (
+                                        <IconButton size="sm"
+                                                    title={intlContext.text("UI", 'copy')}
+                                                    onClick={handleCopyText(intlContext.text("SELLER", seller))}>
+                                            <CopyAll/>
+                                        </IconButton>
+                                    )}
+                                </Stack>
                             ))}
                         </Stack>
                     </Box>
@@ -96,13 +118,21 @@ export function ComponentItemAction(props: Props) {
                         <Typography level="body-lg">{intlContext.text("UI", 'guaranteed-in')}</Typography>
                         <Stack>
                             {ComponentsMeta[props.type].sellers.map((seller: SellerType) => (
-                                <Link key={props.type + seller}
-                                      href={SellersMeta[seller].link}
-                                      color="primary"
-                                      target="_blank"
-                                      sx={{width: "max-content"}}>
-                                    {intlContext.text("SELLER", seller)}
-                                </Link>
+                                <Stack key={props.type + seller} direction="row" spacing={.5} alignItems="center">
+                                    <Link href={SellersMeta[seller].link}
+                                          color="primary"
+                                          target="_blank"
+                                          sx={{width: "max-content"}}>
+                                        {intlContext.text("SELLER", seller)}
+                                    </Link>
+                                    {!isSmallScreen && (
+                                        <IconButton size="sm"
+                                                    title={intlContext.text("UI", 'copy')}
+                                                    onClick={handleCopyText(intlContext.text("SELLER", seller))}>
+                                            <CopyAll/>
+                                        </IconButton>
+                                    )}
+                                </Stack>
                             ))}
                         </Stack>
                     </Box>

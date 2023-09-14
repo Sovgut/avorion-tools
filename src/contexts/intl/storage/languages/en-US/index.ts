@@ -4,6 +4,8 @@ import {SellerType} from "~constants/enums/sellers";
 import {IntlComponent, IntlSeller, IntlTurret, IntlUI} from "~contexts/intl/storage/types";
 
 const UI: IntlUI = {
+    'copy': "Copy",
+    'copied': 'Copied!',
     "lets-add-turret": "Let's add your first recipe to Turret planner!",
     "cargo-offset": "Cargo offset",
     "guaranteed-in": "Guaranteed in",
@@ -11,7 +13,7 @@ const UI: IntlUI = {
     "quantity": "Quantity",
     "component": "Component",
     "components": "Components",
-    "estimated-price": "Turret price + Estimated price",
+    "estimated-price": "Estimated price",
     "estimated-volume": "Estimated volume",
     "estimated-price-info": "Price of all components (based on min price and max price)",
     "component-source-info": '"Turret Factory", "Turret Factory Supplier" and "Trading Post" can contain any of these components',
