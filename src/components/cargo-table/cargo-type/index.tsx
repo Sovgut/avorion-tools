@@ -4,15 +4,26 @@ import {ComponentType} from "~constants/enums/components";
 import {ComponentsMeta} from "~constants/meta/components";
 import {IntlContext} from "~contexts/intl";
 import styles from "./styles.module.css";
+import {useTheme} from "@mui/joy/styles";
+import {useMediaQuery} from 'react-responsive';
 
 type Props = {
     type: ComponentType;
 }
 
 export function CargoItemType(props: Props) {
+    const theme = useTheme();
     const intlContext = useContext(IntlContext);
+    const isSmallScreen = useMediaQuery({
+        query: `(max-width: ${theme.breakpoints.values.sm}px)`
+    });
 
+    let fontSize: 'md' | number = 'md';
     let color: "danger" | "warning" | undefined;
+
+    if (isSmallScreen) {
+        fontSize = 12;
+    }
 
     if (ComponentsMeta[props.type].dangerous) {
         color = "danger";
@@ -28,7 +39,7 @@ export function CargoItemType(props: Props) {
                 <img className={styles.icon}
                      src={ComponentsMeta[props.type].icon}
                      alt={intlContext.text("COMPONENT", props.type)}/>
-                <Typography key={props.type} color={color}>
+                <Typography fontSize={fontSize} color={color}>
                     {intlContext.text("COMPONENT", props.type)}
                 </Typography>
             </Stack>
