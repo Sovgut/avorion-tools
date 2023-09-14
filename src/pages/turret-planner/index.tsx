@@ -1,5 +1,5 @@
 import { Box, Container, IconButton, Stack } from "@mui/joy";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Header } from "~components/header";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,14 +15,14 @@ import { ComponentsTable } from "~components/components-table";
 import { CargoTable } from "~components/cargo-table";
 import { clearComponents } from "~reducers/component.ts";
 import { clearComponentsCheckbox } from "~reducers/checkbox.ts";
+import { startPageAnimation } from "~reducers/page-animation";
 
 export function TurretPlannerPage() {
-  const [isClosePage, setClose] = useState(false);
-
   const intlContext = useContext(IntlContext);
   const navigate = useNavigate();
   const dispatcher = useDispatch();
   const turretStore = useSelector((state: RootState) => state.turret);
+  const animationStore = useSelector((state: RootState) => state.animationPage);
 
   useEffect(() => {
     if (Object.keys(turretStore.entities).length === 0) {
@@ -33,11 +33,11 @@ export function TurretPlannerPage() {
 
   const animationClasses = clsx({
     [styles.animation]: true,
-    [styles.close]: isClosePage,
+    [styles.close]: !!animationStore["/turret-planner"],
   });
 
   function handleClearTurrets() {
-    setClose(true);
+    dispatcher(startPageAnimation({ page: "/turret-planner", delay: 150 }));
 
     setTimeout(() => {
       dispatcher(clearTurrets());
