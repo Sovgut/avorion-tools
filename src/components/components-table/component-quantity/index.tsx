@@ -13,10 +13,10 @@ type Props = {
     value: number;
 }
 
-export function ComponentItemQuantity(props: Props) {
+export function ComponentItemQuantity({type, value}: Props) {
     const theme = useTheme();
     const cargo = useSelector((state: RootState) => state.cargo);
-    const quantity = useMemo(() => computeQuantity(cargo.entities[props.type], props.value), [cargo, props]);
+    const quantity = useMemo(() => computeQuantity(cargo.entities[type], value), [cargo, type, value]);
     const isSmallScreen = useMediaQuery({
         query: `(max-width: ${theme.breakpoints.values.sm}px)`
     });
@@ -28,7 +28,7 @@ export function ComponentItemQuantity(props: Props) {
         fontSize = 12;
     }
 
-    if (quantity !== props.value) {
+    if (quantity !== value) {
         color = "warning";
     }
 
@@ -38,7 +38,7 @@ export function ComponentItemQuantity(props: Props) {
                 <Typography fontSize={fontSize} color={color} fontFamily="monospace">
                     {quantity.toLocaleString()}
                 </Typography>
-                <ComponentItemAction type={props.type}/>
+                <ComponentItemAction type={type}/>
             </Stack>
         </td>
     )

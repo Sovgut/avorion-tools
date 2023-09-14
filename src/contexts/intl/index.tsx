@@ -3,26 +3,23 @@ import {CACHE_LANG} from "~constants/common";
 import {IntlStorage, IntlStorageLabel, LanguageType} from "~contexts/intl/storage/types";
 import {INTL_STORAGE} from "~contexts/intl/storage";
 
-interface IntlContextProps {
+type Context = {
     language: string;
-
     text(scope: keyof IntlStorage, label: keyof IntlStorageLabel): string;
-
     selectLanguage(language: string): void;
 }
 
-interface IntlContextProviderProps {
+type Props = {
     children: ReactNode;
 }
 
-export const IntlContext = createContext<IntlContextProps>({
+export const IntlContext = createContext<Context>({
     language: "en-US",
-
     text: () => String(),
     selectLanguage: () => undefined,
 });
 
-export function IntlContextProvider(props: IntlContextProviderProps) {
+export function IntlContextProvider({children}: Props) {
     const [language, setLanguage] = useState<LanguageType>((localStorage.getItem(CACHE_LANG) ?? window.navigator.language ?? "en-US") as LanguageType);
 
     function selectLanguage(language: LanguageType) {
@@ -40,6 +37,6 @@ export function IntlContextProvider(props: IntlContextProviderProps) {
     }
 
     return <IntlContext.Provider value={{language, selectLanguage, text}}>
-        {props.children}
+        {children}
     </IntlContext.Provider>
 }

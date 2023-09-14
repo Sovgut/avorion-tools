@@ -14,26 +14,26 @@ type NumericProps = {
     focus?: boolean
     min?: number;
     max?: number;
-    hidden?: boolean;
+    disabled?: boolean;
 
     onChange?(id: string, value: string | null): void;
 }
 
-export function Numeric(props: NumericProps) {
+export function Numeric({id, label, value, focus, min, max, disabled, onChange}: NumericProps) {
     const theme = useTheme();
     const ref = useRef<HTMLInputElement>(null);
 
     const decorator = (
         <Typography className={styles.label} level="body-sm">
-            {props.label}
+            {label}
         </Typography>
     );
 
     useEffect(() => {
-        if (props.focus && ref.current) {
+        if (focus && ref.current) {
             handleFocus();
         }
-    }, [props.focus]);
+    }, [focus]);
 
     function handleClick(): void {
         if (ref.current) {
@@ -49,15 +49,15 @@ export function Numeric(props: NumericProps) {
 
     function handleChange(e: ChangeEvent<HTMLInputElement>): void {
         const value = e.target.value;
-        const min = Number(props.min) ?? 0;
-        const max = Number(props.max) ?? Number.MAX_SAFE_INTEGER;
-        let parsed = Number(value ?? min);
+        const initialMin = Number(min) ?? 0;
+        const initialMax = Number(max) ?? Number.MAX_SAFE_INTEGER;
+        let parsed = Number(value ?? initialMin);
 
-        parsed = preventNaN(parsed, min);
-        parsed = preventOverMin(parsed, min);
-        parsed = preventOverMax(parsed, max);
+        parsed = preventNaN(parsed, initialMin);
+        parsed = preventOverMin(parsed, initialMin);
+        parsed = preventOverMax(parsed, initialMax);
 
-        props.onChange?.(props.id, parsed.toString() || null);
+        onChange?.(id, parsed.toString() || null);
     }
 
     return (
@@ -74,16 +74,16 @@ export function Numeric(props: NumericProps) {
                         fontSize: theme.fontSize.sm,
                         fontFamily: "monospace",
                     },
-                    max: props.max,
+                    max: max,
                     ref,
                 }
             }}
-            sx={{opacity: props.hidden ? '0.75' : '1'}}
-            disabled={props.hidden}
+            sx={{opacity: disabled ? '0.75' : '1'}}
+            disabled={disabled}
             onChange={handleChange}
             onClick={handleClick}
             type="number"
-            value={String(props.value ?? String())}
+            value={String(value ?? String())}
         />
     )
 }

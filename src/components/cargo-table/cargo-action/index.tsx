@@ -8,11 +8,11 @@ type Props = {
     type: ComponentType;
 }
 
-export function CargoItemAction(props: Props) {
+export function CargoItemAction({type}: Props) {
     const dispatch = useDispatch();
 
     function handleRemove() {
-        dispatch(deleteCargoComponent(props.type))
+        dispatch(deleteCargoComponent(type))
     }
 
     return (

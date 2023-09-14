@@ -18,7 +18,7 @@ type Props = {
     type: ComponentType;
 }
 
-export function ComponentItemAction(props: Props) {
+export function ComponentItemAction({type}: Props) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [cargoInput, setCargoInput] = useState(MIN_CARGO_QUANTITY);
 
@@ -46,7 +46,7 @@ export function ComponentItemAction(props: Props) {
         setMenuOpen(false);
 
         if (cargoInput >= MIN_CARGO_QUANTITY) {
-            dispatch(createCargoComponent({type: props.type, quantity: cargoInput}));
+            dispatch(createCargoComponent({type: type, quantity: cargoInput}));
             setCargoInput(MIN_CARGO_QUANTITY);
         }
     }
@@ -60,11 +60,11 @@ export function ComponentItemAction(props: Props) {
     let dangerous = null;
     let illegal = null;
 
-    if (ComponentsMeta[props.type].illegal) {
+    if (ComponentsMeta[type].illegal) {
         illegal = <Typography color="warning">{intlContext.text("UI", 'illegal-cargo')}</Typography>;
     }
 
-    if (ComponentsMeta[props.type].dangerous) {
+    if (ComponentsMeta[type].dangerous) {
         dangerous = <Typography color="danger">{intlContext.text("UI", 'dangerous-cargo')}</Typography>;
     }
 
@@ -86,7 +86,7 @@ export function ComponentItemAction(props: Props) {
                 <Stack spacing={2}>
                     <ModalClose onClick={onModalClose}/>
                     <Stack>
-                        <Typography level="h4">{intlContext.text("COMPONENT", props.type)}</Typography>
+                        <Typography level="h4">{intlContext.text("COMPONENT", type)}</Typography>
                         <Fragment>{illegal}</Fragment>
                         <Fragment>{dangerous}</Fragment>
                     </Stack>
@@ -95,7 +95,7 @@ export function ComponentItemAction(props: Props) {
                         <Typography level="body-lg">{intlContext.text("UI", 'can-be-found-in')}</Typography>
                         <Stack>
                             {[SellerType.TurretFactory, SellerType.TurretFactorySupplier].map(seller => (
-                                <Stack key={props.type + seller} direction="row" spacing={.5} alignItems="center">
+                                <Stack key={type + seller} direction="row" spacing={.5} alignItems="center">
                                     <Link href={SellersMeta[seller].link}
                                           color="primary"
                                           target="_blank"
@@ -117,8 +117,8 @@ export function ComponentItemAction(props: Props) {
                     <Box>
                         <Typography level="body-lg">{intlContext.text("UI", 'guaranteed-in')}</Typography>
                         <Stack>
-                            {ComponentsMeta[props.type].sellers.map((seller: SellerType) => (
-                                <Stack key={props.type + seller} direction="row" spacing={.5} alignItems="center">
+                            {ComponentsMeta[type].sellers.map((seller: SellerType) => (
+                                <Stack key={type + seller} direction="row" spacing={.5} alignItems="center">
                                     <Link href={SellersMeta[seller].link}
                                           color="primary"
                                           target="_blank"
@@ -142,7 +142,7 @@ export function ComponentItemAction(props: Props) {
                                     fontWeight="bold">{intlContext.text("UI", 'cargo-offset')}</Typography>
                         <form onSubmit={onCargoSubmit}>
                             <Stack spacing={2}>
-                                <Numeric id={props.type}
+                                <Numeric id={type}
                                          label={intlContext.text("UI", "cargo-field-label")}
                                          max={MAX_CARGO_QUANTITY}
                                          min={MIN_CARGO_QUANTITY}

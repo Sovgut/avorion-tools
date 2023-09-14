@@ -11,7 +11,7 @@ type Props = {
     type: ComponentType;
 }
 
-export function CargoItemType(props: Props) {
+export function CargoItemType({type}: Props) {
     const theme = useTheme();
     const intlContext = useContext(IntlContext);
     const isSmallScreen = useMediaQuery({
@@ -25,20 +25,20 @@ export function CargoItemType(props: Props) {
         fontSize = 12;
     }
 
-    if (ComponentsMeta[props.type].dangerous) {
+    if (ComponentsMeta[type].dangerous) {
         color = "danger";
     }
 
-    if (ComponentsMeta[props.type].illegal) {
+    if (ComponentsMeta[type].illegal) {
         color = "warning";
     }
 
     return (
         <td style={{paddingRight: 0, userSelect: "none"}}>
             <Stack direction="row" spacing={1} alignItems="center">
-                <ComponentIcon type={props.type}/>
+                <ComponentIcon type={type}/>
                 <Typography fontSize={fontSize} color={color}>
-                    {intlContext.text("COMPONENT", props.type)}
+                    {intlContext.text("COMPONENT", type)}
                 </Typography>
             </Stack>
         </td>

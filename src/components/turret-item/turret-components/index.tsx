@@ -48,11 +48,11 @@ export function TurretComponents({id}: Props) {
                     <Numeric
                         id={nanoid()}
                         label={String()}
-                        hidden/>
+                        disabled/>
                     <Numeric
                         id={nanoid()}
                         label={String()}
-                        hidden/>
+                        disabled/>
                 </Fragment>
             }
 
@@ -60,7 +60,7 @@ export function TurretComponents({id}: Props) {
                 <Numeric
                     id={nanoid()}
                     label={String()}
-                    hidden/>
+                    disabled/>
             }
         </Stack>
     )
