@@ -13,6 +13,8 @@ import {inject as VercelAnalytics} from '@vercel/analytics';
 import {store} from "~store";
 import {reportVercelAnalytics} from "./vitals";
 import {reportWebVitals} from "./reportWebVitals";
+import {AnimatePresence} from "framer-motion";
+import {AnimationControlContextProvider} from "~contexts/animation-control";
 
 const theme = extendTheme({
     "colorSchemes": {
@@ -35,11 +37,11 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <TurretPlannerPage/>
+                element: <AnimatePresence mode="wait"><TurretPlannerPage/></AnimatePresence>
             },
             {
                 path: "getting-started",
-                element: <GettingStartedPage/>
+                element: <AnimatePresence mode="wait"><GettingStartedPage/></AnimatePresence>
             },
         ],
     },
@@ -56,9 +58,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
             <Provider store={store}>
                 <IntlContextProvider>
-                    <App>
-                        <RouterProvider router={router}/>
-                    </App>
+                    <AnimationControlContextProvider>
+                        <App>
+                            <RouterProvider router={router}/>
+                        </App>
+                    </AnimationControlContextProvider>
                 </IntlContextProvider>
             </Provider>
         </CssVarsProvider>

@@ -9,25 +9,9 @@
     }
 }
 
-@keyframes ClosePage {
-    to {
-        opacity: 0;
-        transform: scale(95%);
-    }
-    from {
-        opacity: 1;
-        transform: scale(100%);
-    }
-}
-
 .animation {
     animation: OpenPage;
     animation-duration: 150ms;
 
     height: 100%;
-}
-
-.animation.close {
-    animation: ClosePage;
-    animation-duration: 150ms;
 }

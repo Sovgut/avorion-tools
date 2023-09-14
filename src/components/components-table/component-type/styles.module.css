@@ -1,28 +1,28 @@
 .icon {
-  mix-blend-mode: difference;
-  width: 24px;
-  height: 24px;
+    mix-blend-mode: difference;
+    width: 24px;
+    height: 24px;
 }
 
 .component {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  grid-template-areas: "icon button text";
-  gap: 4px;
-  align-items: center;
-  justify-content: start;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-areas: "icon button text";
+    gap: 4px;
+    align-items: center;
+    justify-content: start;
 }
 
 .component p {
-  grid-area: text;
-  text-align: left;
-  word-break: break-word;
+    grid-area: text;
+    text-align: left;
+    word-break: break-word;
 }
 
 .component img {
-  grid-area: icon;
+    grid-area: icon;
 }
 
 .component button {
-  grid-area: button;
+    grid-area: button;
 }
