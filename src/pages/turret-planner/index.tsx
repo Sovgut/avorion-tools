@@ -14,6 +14,7 @@ import {IntlContext} from "~contexts/intl";
 import {ComponentsTable} from "~components/components-table";
 import {CargoTable} from "~components/cargo-table";
 import {clearComponents} from "~reducers/component.ts";
+import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
 
 export function TurretPlannerPage() {
     const [isClosePage, setClose] = useState(false);
@@ -46,6 +47,7 @@ export function TurretPlannerPage() {
     function handleClearTurrets() {
         dispatcher(clearTurrets());
         dispatcher(clearComponents());
+        dispatcher(clearComponentsCheckbox());
     }
 
     return (

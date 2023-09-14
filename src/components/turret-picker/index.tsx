@@ -2,12 +2,13 @@ import {useContext} from "react";
 import {IntlContext} from "~contexts/intl";
 import {useDispatch} from "react-redux";
 import {TurretType} from "~constants/enums/turrets";
-import {Option, Select} from "@mui/joy";
+import {ListItemDecorator, Option, Select} from "@mui/joy";
 import {createTurret} from "~reducers/turret.ts";
 import {MIN_COMPONENT_QUANTITY, MIN_TURRET_PRICE, MIN_TURRET_QUANTITY} from "~constants/common.ts";
 import {nanoid} from "nanoid";
 import {createComponent} from "~reducers/component.ts";
 import {TurretsMeta} from "~constants/meta/turrets.ts";
+import {TurretIcon} from "~components/turret-icon";
 
 export function TurretPicker() {
     const intlContext = useContext(IntlContext);
@@ -50,7 +51,14 @@ export function TurretPicker() {
                 }
             }}
         >
-            {turrets.map(turret => <Option key={turret} value={turret}>{intlContext.text("TURRET", turret)}</Option>)}
+            {turrets.map(turret => (
+                <Option key={turret} value={turret}>
+                    <ListItemDecorator>
+                        <TurretIcon type={turret}/>
+                    </ListItemDecorator>
+                    {intlContext.text("TURRET", turret)}
+                </Option>
+            ))}
         </Select>
     )
 }

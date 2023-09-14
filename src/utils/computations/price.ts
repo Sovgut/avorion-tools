@@ -4,11 +4,15 @@ import {MAX_PRICE_PERCENTAGE} from "~constants/common";
 import {CargoStoreState, ComponentStoreState, TurretStoreState} from "~types/store";
 import {TurretEntity} from "~types/store/entity.ts";
 
+export const initialComputationComponents = {
+    min: 0,
+    max: 0,
+    avg: 0,
+    volume: 0
+};
+
 export function computeComponents(cargoStore: CargoStoreState, turretStore: TurretStoreState, componentStore: ComponentStoreState) {
-    let min = 0;
-    let max = 0;
-    let avg = 0;
-    let volume = 0;
+    const result = {...initialComputationComponents};
 
     for (const id of Object.keys(componentStore.entities)) {
         const turret: TurretEntity = turretStore.entities[id];
@@ -31,18 +35,18 @@ export function computeComponents(cargoStore: CargoStoreState, turretStore: Turr
                 volumeValue = ComponentsMeta[type].volume * componentQuantity * turret.quantity;
             }
 
-            min += priceValue;
-            max += priceValue + (priceValue * MAX_PRICE_PERCENTAGE);
-            avg = (min + max) / 2;
-            volume += volumeValue;
+            result.min += priceValue;
+            result.max += priceValue + (priceValue * MAX_PRICE_PERCENTAGE);
+            result.avg = (result.min + result.max) / 2;
+            result.volume += volumeValue;
         }
     }
 
     for (const id of Object.keys(turretStore.entities)) {
-        min += turretStore.entities[id].price * turretStore.entities[id].quantity;
-        max += turretStore.entities[id].price * turretStore.entities[id].quantity;
-        avg += turretStore.entities[id].price * turretStore.entities[id].quantity;
+        result.min += turretStore.entities[id].price * turretStore.entities[id].quantity;
+        result.max += turretStore.entities[id].price * turretStore.entities[id].quantity;
+        result.avg += turretStore.entities[id].price * turretStore.entities[id].quantity;
     }
 
-    return {min, max, avg, volume};
+    return result;
 }

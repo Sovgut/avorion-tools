@@ -23,9 +23,9 @@ export function Header(props: HeaderProps) {
                 <Stack direction="row" spacing={4}>
                     <Stack justifyItems="center" spacing={-1}
                            sx={{opacity: .5, userSelect: "none", pointerEvents: "none"}}>
-                        <Typography fontWeight="bolder" fontSize={18} textColor={props.fontColor}>Avorion</Typography>
-                        <Typography letterSpacing={4.8} fontSize={16} textTransform="uppercase"
-                                    textColor={props.fontColor}>Tools</Typography>
+                        <Typography fontWeight="bolder" fontSize={18}>Avorion</Typography>
+                        <Typography letterSpacing={2.4} fontSize={16} textTransform="uppercase"
+                                    color="primary">Tools</Typography>
                     </Stack>
                     <Stack direction="row" spacing={2}>
                         {/*  navigation links...  */}

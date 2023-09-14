@@ -2,15 +2,15 @@ import {useContext} from "react";
 import {Close, MoreVert as MoreIcon, RestartAlt} from "@mui/icons-material";
 import {IntlContext} from "~contexts/intl";
 import {Box, Divider, Dropdown, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
-import styles from "./styles.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteTurret, updateTurret} from "~reducers/turret";
-import {TurretsMeta} from "~constants/meta/turrets";
 import {TurretEntity} from "~types/store/entity.ts";
 import {deleteComponent, updateComponent} from "~reducers/component.ts";
 import {RootState} from "~store";
 import {ComponentType} from "~constants/enums/components.ts";
 import {MIN_COMPONENT_QUANTITY, MIN_TURRET_PRICE, MIN_TURRET_QUANTITY} from "~constants/common.ts";
+import {deleteComponentCheckbox} from "~reducers/checkbox.ts";
+import {TurretIcon} from "~components/turret-icon";
 
 type Props = {
     id: string;
@@ -24,6 +24,10 @@ export function TurretHeader({id, entity}: Props) {
     const dispatch = useDispatch();
 
     function handleDeleteTurret() {
+        for (const type of Object.keys(componentStore.entities[id]) as ComponentType[]) {
+            dispatch(deleteComponentCheckbox({type}));
+        }
+
         dispatch(deleteComponent({identity: id}))
         dispatch(deleteTurret({identity: id}));
     }
@@ -53,7 +57,7 @@ export function TurretHeader({id, entity}: Props) {
         <Box>
             <Stack direction="row" justifyContent="space-between">
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <img className={styles.icon} src={TurretsMeta[entity.type].icon} alt={entity.type}/>
+                    <TurretIcon type={entity.type}/>
                     <Typography level="title-md">{intlContext.text("TURRET", entity.type)}</Typography>
                 </Stack>
                 <Dropdown>

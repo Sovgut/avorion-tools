@@ -14,15 +14,11 @@ import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
 import styles from './styles.module.css';
 import {useTheme} from "@mui/joy/styles";
 import {useMediaQuery} from "react-responsive";
+import {computeComponents, initialComputationComponents} from "~utils/computations/price.ts";
 
 export function ComponentsTable() {
     const [components, setComponents] = useState<Record<ComponentType, number>>({} as Record<ComponentType, number>)
-    const [computations, setComputations] = useState<{ min: number, max: number, avg: number, volume: number }>({
-        min: 0,
-        max: 0,
-        avg: 0,
-        volume: 0
-    })
+    const [computations, setComputations] = useState<ReturnType<typeof computeComponents>>(initialComputationComponents);
 
     const theme = useTheme();
     const intlContext = useContext(IntlContext);

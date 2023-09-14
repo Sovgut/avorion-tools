@@ -3,9 +3,9 @@ import {Stack, Typography} from "@mui/joy";
 import {ComponentType} from "~constants/enums/components";
 import {ComponentsMeta} from "~constants/meta/components";
 import {IntlContext} from "~contexts/intl";
-import styles from "./styles.module.css";
 import {useTheme} from "@mui/joy/styles";
 import {useMediaQuery} from 'react-responsive';
+import {ComponentIcon} from "~components/component-icon";
 
 type Props = {
     type: ComponentType;
@@ -36,9 +36,7 @@ export function CargoItemType(props: Props) {
     return (
         <td style={{paddingRight: 0, userSelect: "none"}}>
             <Stack direction="row" spacing={1} alignItems="center">
-                <img className={styles.icon}
-                     src={ComponentsMeta[props.type].icon}
-                     alt={intlContext.text("COMPONENT", props.type)}/>
+                <ComponentIcon type={props.type}/>
                 <Typography fontSize={fontSize} color={color}>
                     {intlContext.text("COMPONENT", props.type)}
                 </Typography>
