@@ -33,7 +33,7 @@ export function ComponentItemQuantity({type, value}: Props) {
     }
 
     return (
-        <td align="right" style={{paddingLeft: 0, paddingRight: 8}}>
+        <td align="right" style={{paddingLeft: 0, paddingRight: 16}}>
             <Stack direction="row" spacing={1} justifyContent="flex-end" alignItems="center">
                 <Typography fontSize={fontSize} color={color} fontFamily="monospace">
                     {quantity.toLocaleString()}

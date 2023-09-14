@@ -34,7 +34,7 @@ export function CargoItemType({type}: Props) {
     }
 
     return (
-        <td style={{paddingRight: 0, userSelect: "none"}}>
+        <td style={{paddingLeft: 16, paddingRight: 0, userSelect: "none"}}>
             <Stack direction="row" spacing={1} alignItems="center">
                 <ComponentIcon type={type}/>
                 <Typography fontSize={fontSize} color={color}>

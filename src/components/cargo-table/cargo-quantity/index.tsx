@@ -24,7 +24,7 @@ export function CargoItemQuantity({value, type}: Props) {
     }
 
     return (
-        <td className={styles.row} align="right">
+        <td className={styles.row} style={{paddingRight: 16}} align="right">
             <Stack direction="row" spacing={1} justifyContent="flex-end" alignItems="center">
                 <Typography fontSize={fontSize} color="primary" fontFamily="monospace">
                     {initialValue.toLocaleString()}
