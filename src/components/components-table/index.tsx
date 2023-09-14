@@ -1,22 +1,37 @@
-import React, {useContext, useMemo} from "react";
-import {IntlContext} from "@/contexts/intl";
+import {useContext, useEffect, useMemo, useState} from "react";
+import {IntlContext} from "~contexts/intl";
 import {useSelector} from "react-redux";
-import {RootState} from "@/store";
-import {uniteComponents} from "@/utils/transformations/unite-components";
-import {computeComponents} from "@/utils/computations/price";
+import {RootState} from "~store";
 import {Box, Card, CardOverflow, Divider, Link, Stack, Table, Typography} from "@mui/joy";
-import {ComponentType} from "@/constants/enums/components";
-import {ComponentItemType} from "@/components/components-table/component-type";
-import {ComponentItemQuantity} from "@/components/components-table/component-quantity";
-import {ComponentItemAction} from "@/components/components-table/component-action";
+import {ComponentType} from "~constants/enums/components";
+import {ComponentItemType} from "~components/components-table/component-type";
+import {ComponentItemQuantity} from "~components/components-table/component-quantity";
+import {ComponentItemAction} from "~components/components-table/component-action";
+import {computationWorker} from "~workers";
 
 export function ComponentsTable() {
-    const intlContext = useContext(IntlContext);
+    const [components, setComponents] = useState<Record<ComponentType, number>>({} as Record<ComponentType, number>)
+    const [computations, setComputations] = useState<{ min: number, max: number, avg: number, volume: number }>({
+        min: 0,
+        max: 0,
+        avg: 0,
+        volume: 0
+    })
 
-    const turrets = useSelector((state: RootState) => state.turret);
-    const cargo = useSelector((state: RootState) => state.cargo);
-    const components = useMemo(() => uniteComponents(turrets), [turrets]);
-    const computations = useMemo(() => computeComponents(cargo, turrets), [cargo, turrets]);
+    const intlContext = useContext(IntlContext);
+    const componentStore = useSelector((state: RootState) => state.component);
+    const turretStore = useSelector((state: RootState) => state.turret);
+    const cargoStore = useSelector((state: RootState) => state.cargo);
+    const worker = useMemo(() => computationWorker, []);
+
+    useEffect(() => {
+        async function performComputation() {
+            setComponents(await worker.uniteComponents(turretStore, componentStore));
+            setComputations(await worker.computeComponents(cargoStore, turretStore, componentStore));
+        }
+
+        performComputation().then();
+    }, [cargoStore, componentStore, turretStore, worker]);
 
     if (Object.keys(components).length === 0) {
         return null;
@@ -45,11 +60,11 @@ export function ComponentsTable() {
                 </tr>
                 </thead>
                 <tbody>
-                {Object.keys(components).sort((a, b) => a.localeCompare(b)).map(type => (
+                {(Object.keys(components) as ComponentType[]).sort((a, b) => a.localeCompare(b)).map(type => (
                     <tr key={type}>
-                        <ComponentItemType type={type as ComponentType}/>
-                        <ComponentItemQuantity type={type as ComponentType} value={components[type as ComponentType]}/>
-                        <ComponentItemAction type={type as ComponentType}/>
+                        <ComponentItemType type={type}/>
+                        <ComponentItemQuantity type={type} value={components[type]}/>
+                        <ComponentItemAction type={type}/>
                     </tr>
                 ))}
                 </tbody>

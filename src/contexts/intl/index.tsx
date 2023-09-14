@@ -1,7 +1,7 @@
 import {createContext, ReactNode, useState} from "react";
-import {CACHE_LANG} from "@/constants/common";
-import {IntlStorage, IntlStorageLabel, LanguageType} from "@/contexts/intl/storage/types";
-import {INTL_STORAGE} from "@/contexts/intl/storage";
+import {CACHE_LANG} from "~constants/common";
+import {IntlStorage, IntlStorageLabel, LanguageType} from "~contexts/intl/storage/types";
+import {INTL_STORAGE} from "~contexts/intl/storage";
 
 interface IntlContextProps {
     language: string;

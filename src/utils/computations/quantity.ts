@@ -1,6 +1,15 @@
-export function computeQuantity(cargoQuantity: number, componentQuantity: number): number {
-    if (!cargoQuantity) return componentQuantity;
+export function computeQuantity(cargoQuantity: number | undefined, componentQuantity: number): number {
+    if (typeof cargoQuantity !== 'number') {
+        return componentQuantity;
+    }
 
-    const value = componentQuantity - cargoQuantity;
-    return value > 0 ? value : 0;
+    if (cargoQuantity === 0) {
+        return componentQuantity;
+    }
+
+    if (componentQuantity - cargoQuantity < 0) {
+        return 0;
+    }
+
+    return componentQuantity - cargoQuantity;
 }

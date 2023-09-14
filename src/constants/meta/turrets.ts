@@ -1,10 +1,10 @@
-import {TurretType} from "@/constants/enums/turrets";
-import {ComponentType} from "@/constants/enums/components";
-import {TurretMetaType} from "@/types";
+import {TurretType} from "~constants/enums/turrets";
+import {ComponentType} from "~constants/enums/components";
+import {TurretMetaType} from "~types";
 
 export const TurretsMeta: Record<TurretType, TurretMetaType> = {
     [TurretType.Chaingun]: {
-        icon: "/assets/img/chaingun.png",
+        icon: "/img/icon/chaingun.png",
         components: [
             ComponentType.Servo,
             ComponentType.SteelTube,
@@ -15,7 +15,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.Bolter]: {
-        icon: "/assets/img/bolter.png",
+        icon: "/img/icon/bolter.png",
         components: [
             ComponentType.Servo,
             ComponentType.HighPressureTube,
@@ -26,7 +26,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.Laser]: {
-        icon: "/assets/img/laser-gun.png",
+        icon: "/img/icon/laser-gun.png",
         components: [
             ComponentType.LaserHead,
             ComponentType.LaserCompressor,
@@ -38,7 +38,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.PlasmaGun]: {
-        icon: "/assets/img/plasma-gun.png",
+        icon: "/img/icon/plasma-gun.png",
         components: [
             ComponentType.PlasmaCell,
             ComponentType.EnergyTube,
@@ -50,7 +50,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.Cannon]: {
-        icon: "/assets/img/cannon.png",
+        icon: "/img/icon/cannon.png",
         components: [
             ComponentType.Servo,
             ComponentType.Warhead,
@@ -61,7 +61,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.RocketLauncher]: {
-        icon: "/assets/img/rocket-launcher.png",
+        icon: "/img/icon/rocket-launcher.png",
         components: [
             ComponentType.Servo,
             ComponentType.Rocket,
@@ -73,7 +73,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.Railgun]: {
-        icon: "/assets/img/rail-gun.png",
+        icon: "/img/icon/rail-gun.png",
         components: [
             ComponentType.Servo,
             ComponentType.ElectromagneticCharge,
@@ -85,7 +85,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.Repair]: {
-        icon: "/assets/img/repair-beam.png",
+        icon: "/img/icon/repair-beam.png",
         components: [
             ComponentType.Nanobot,
             ComponentType.Transformator,
@@ -96,7 +96,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.MiningLaser]: {
-        icon: "/assets/img/mining-laser.png",
+        icon: "/img/icon/mining-laser.png",
         components: [
             ComponentType.LaserCompressor,
             ComponentType.LaserModulator,
@@ -106,7 +106,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.RawMiningLaser]: {
-        icon: "/assets/img/r-mining-laser.png",
+        icon: "/img/icon/r-mining-laser.png",
         components: [
             ComponentType.LaserCompressor,
             ComponentType.LaserModulator,
@@ -116,7 +116,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.SalvagingLaser]: {
-        icon: "/assets/img/salvage-laser.png",
+        icon: "/img/icon/salvage-laser.png",
         components: [
             ComponentType.LaserCompressor,
             ComponentType.LaserModulator,
@@ -126,7 +126,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.RawSalvagingLaser]: {
-        icon: "/assets/img/r-salvaging-laser.png",
+        icon: "/img/icon/r-salvaging-laser.png",
         components: [
             ComponentType.LaserCompressor,
             ComponentType.LaserModulator,
@@ -136,7 +136,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.ForceGun]: {
-        icon: "/assets/img/force-gun.png",
+        icon: "/img/icon/force-gun.png",
         components: [
             ComponentType.ForceGenerator,
             ComponentType.EnergyTube,
@@ -146,7 +146,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.TeslaGun]: {
-        icon: "/assets/img/tesla-gun.png",
+        icon: "/img/icon/tesla-gun.png",
         components: [
             ComponentType.IndustrialTeslaCoil,
             ComponentType.ElectromagneticCharge,
@@ -158,7 +158,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.LightningGun]: {
-        icon: "/assets/img/lightning-gun.png",
+        icon: "/img/icon/lightning-gun.png",
         components: [
             ComponentType.MilitaryTeslaCoil,
             ComponentType.HighCapacityLens,
@@ -170,7 +170,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.PulseCannon]: {
-        icon: "/assets/img/pulsecannon.png",
+        icon: "/img/icon/pulsecannon.png",
         components: [
             ComponentType.Servo,
             ComponentType.SteelTube,
@@ -181,7 +181,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.PointDefenseCannon]: {
-        icon: "/assets/img/point-defense-chaingun.png",
+        icon: "/img/icon/point-defense-chaingun.png",
         components: [
             ComponentType.Servo,
             ComponentType.SteelTube,
@@ -192,7 +192,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.PointDefenseLaser]: {
-        icon: "/assets/img/point-defense-laser.png",
+        icon: "/img/icon/point-defense-laser.png",
         components: [
             ComponentType.Servo,
             ComponentType.LaserHead,
@@ -204,7 +204,7 @@ export const TurretsMeta: Record<TurretType, TurretMetaType> = {
         ]
     },
     [TurretType.AntiFighter]: {
-        icon: "/assets/img/anti-fighter-gun.png",
+        icon: "/img/icon/anti-fighter-gun.png",
         components: [
             ComponentType.Servo,
             ComponentType.HighPressureTube,

@@ -1,6 +1,6 @@
-import {SellerType} from "@/constants/enums/sellers";
-import {TurretType} from "@/constants/enums/turrets";
-import {ComponentType} from "@/constants/enums/components";
+import {SellerType} from "~constants/enums/sellers";
+import {TurretType} from "~constants/enums/turrets";
+import {ComponentType} from "~constants/enums/components";
 
 export type LanguageType = "en-US" | "ru";
 

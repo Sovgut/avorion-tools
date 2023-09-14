@@ -1,5 +1,5 @@
-import {SellerMetaType} from "@/types";
-import {SellerType} from "@/constants/enums/sellers";
+import {SellerMetaType} from "~types";
+import {SellerType} from "~constants/enums/sellers";
 
 export const SellersMeta: Record<SellerType, SellerMetaType> = {
     [SellerType.TurretFactorySupplier]: {

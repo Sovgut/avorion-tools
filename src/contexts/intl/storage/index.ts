@@ -1,6 +1,6 @@
 import {IntlStorage} from "./types";
-import {English} from "@/contexts/intl/storage/languages/en-US";
-import {Russian} from "@/contexts/intl/storage/languages/ru";
+import {English} from "~contexts/intl/storage/languages/en-US";
+import {Russian} from "~contexts/intl/storage/languages/ru";
 
 export const INTL_STORAGE: IntlStorage = {
     COMPONENT: {"en-US": English.COMPONENT, ru: Russian.COMPONENT},

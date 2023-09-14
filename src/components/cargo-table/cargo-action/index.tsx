@@ -1,8 +1,7 @@
 import {Close} from "@mui/icons-material";
 import {Button} from "@mui/joy";
-import React from "react";
-import {ComponentType} from "@/constants/enums/components";
-import {cargoComponentRemove} from "@/reducers/cargo";
+import {ComponentType} from "~constants/enums/components";
+import {deleteCargoComponent} from "~reducers/cargo";
 import {useDispatch} from "react-redux";
 
 type Props = {
@@ -13,7 +12,7 @@ export function CargoItemAction(props: Props) {
     const dispatch = useDispatch();
 
     function handleRemove() {
-        dispatch(cargoComponentRemove(props.type))
+        dispatch(deleteCargoComponent(props.type))
     }
 
     return (

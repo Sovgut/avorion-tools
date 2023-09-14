@@ -1,36 +1,33 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Component} from "@/types";
-import {ComponentType} from "@/constants/enums/components";
-import {CACHE_CARGO} from "@/constants/common";
-
-const persistedState = window.localStorage.getItem(CACHE_CARGO);
-let initialState = {} as Record<ComponentType, number>;
-
-if (persistedState) {
-    initialState = JSON.parse(persistedState);
-}
+import {createSlice} from "@reduxjs/toolkit";
+import {CACHE_CARGO} from "~constants/common";
+import {persistedState} from "~utils/persisted-state.ts";
+import {CargoStoreState} from "~types/store";
+import {CargoCreateAction, CargoDeleteAction} from "~types/store/actions/cargo";
+import {ComponentType} from "~constants/enums/components.ts";
 
 const cargoSlice = createSlice({
-    initialState,
+    initialState: persistedState<CargoStoreState>(CACHE_CARGO, {entities: {} as Record<ComponentType, number>}),
     name: "cargo",
     reducers: {
-        add: (state, action: PayloadAction<Component>) => {
-            if (state[action.payload.key]) {
-                state[action.payload.key] += action.payload.quantity;
+        create(state, action: CargoCreateAction) {
+            if (typeof state.entities[action.payload.type] === 'number') {
+                state.entities[action.payload.type] += action.payload.quantity;
             } else {
-                state[action.payload.key] = action.payload.quantity;
+                state.entities[action.payload.type] = action.payload.quantity;
             }
         },
-        remove: (state, action: PayloadAction<ComponentType>) => {
-            if (state[action.payload]) {
-                delete state[action.payload];
-            }
+        delete(state, action: CargoDeleteAction) {
+            delete state.entities[action.payload];
         },
+        clear() {
+            return {entities: {} as Record<ComponentType, number>};
+        }
     }
 });
 
 export const {
-    add: cargoComponentAdd,
-    remove: cargoComponentRemove,
+    create: createCargoComponent,
+    delete: deleteCargoComponent,
+    clear: clearCargoComponents,
 } = cargoSlice.actions;
 export default cargoSlice.reducer;
