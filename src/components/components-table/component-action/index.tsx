@@ -1,4 +1,4 @@
-import {Box, Button, Link, ModalClose, Stack, Typography} from "@mui/joy";
+import {Box, Button, IconButton, Link, ModalClose, Stack, Typography} from "@mui/joy";
 import {Add, MoreVert as MoreIcon} from "@mui/icons-material";
 import {FormEvent, Fragment, useContext, useState} from "react";
 import {MAX_CARGO_QUANTITY, MIN_CARGO_QUANTITY} from "~constants/common";
@@ -64,9 +64,9 @@ export function ComponentItemAction(props: Props) {
 
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <Button size='sm' sx={{width: 24}} variant="plain" color="neutral" onClick={onModalToggle}>
+            <IconButton size='sm' variant="plain" color="neutral" onClick={onModalToggle}>
                 <MoreIcon fontSize="small"/>
-            </Button>
+            </IconButton>
 
             <ComponentItemModal open={menuOpen} onClose={onModalClose}>
                 <Stack spacing={2}>
