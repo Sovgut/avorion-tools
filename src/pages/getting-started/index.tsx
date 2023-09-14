@@ -11,6 +11,7 @@ import {TurretPicker} from "~components/turret-picker";
 import {Center} from "~components/center";
 import {AnimationControlContext} from "~contexts/animation-control";
 import {motion} from "framer-motion";
+import {PAGE_ANIMATION_CONTROLS, PAGE_ANIMATION_EXIT, PAGE_ANIMATION_INITIAL} from "~constants/common.ts";
 
 export function GettingStartedPage() {
     const intlContext = useContext(IntlContext);
@@ -20,14 +21,10 @@ export function GettingStartedPage() {
 
     useEffect(() => {
         if (Object.keys(turretStore.entities).length > 0) {
-            controls?.start({
-                opacity: 0,
-                transition: {duration: .150}
+            controls?.start(PAGE_ANIMATION_CONTROLS).then(() => {
+                window.scrollTo(0, 0);
+                navigate("/turret-planner", {replace: true});
             })
-                .then(() => {
-                    window.scrollTo(0, 0);
-                    navigate("/turret-planner", {replace: true});
-                })
         }
     }, [controls, navigate, turretStore]);
 
@@ -38,8 +35,8 @@ export function GettingStartedPage() {
     return (
         <motion.div
             animate={controls}
-            initial={{opacity: 1}}
-            exit={{opacity: 0}}
+            initial={PAGE_ANIMATION_INITIAL}
+            exit={PAGE_ANIMATION_EXIT}
             style={{height: 'calc(100vh - 90px)', overflow: 'hidden'}}
         >
             <Box className={componentClasses}>

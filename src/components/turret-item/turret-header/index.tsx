@@ -8,7 +8,12 @@ import {TurretEntity} from "~types/store/entity.ts";
 import {deleteComponent, updateComponent} from "~reducers/component.ts";
 import {RootState} from "~store";
 import {ComponentType} from "~constants/enums/components.ts";
-import {MIN_COMPONENT_QUANTITY, MIN_TURRET_PRICE, MIN_TURRET_QUANTITY,} from "~constants/common.ts";
+import {
+    MIN_COMPONENT_QUANTITY,
+    MIN_TURRET_PRICE,
+    MIN_TURRET_QUANTITY,
+    PAGE_ANIMATION_CONTROLS,
+} from "~constants/common.ts";
 import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
 import {TurretIcon} from "~components/turret-icon";
 import {AnimationControlContext} from "~contexts/animation-control";
@@ -27,18 +32,11 @@ export function TurretHeader({id, entity}: Props) {
 
     function handleDeleteTurret() {
         if (Object.keys(turretStore.entities).length === 1) {
-            if (controls) {
-                controls
-                    .start({
-                        opacity: 0,
-                        transition: {duration: .150}
-                    })
-                    .then(() => {
-                        dispatch(clearComponentsCheckbox());
-                        dispatch(deleteComponent({identity: id}));
-                        dispatch(deleteTurret({identity: id}));
-                    });
-            }
+            controls?.start(PAGE_ANIMATION_CONTROLS).then(() => {
+                dispatch(clearComponentsCheckbox());
+                dispatch(deleteComponent({identity: id}));
+                dispatch(deleteTurret({identity: id}));
+            });
         } else {
             clearTurretState();
         }
