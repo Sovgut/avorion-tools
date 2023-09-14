@@ -12,6 +12,8 @@ import {clearComponents} from "~reducers/component.ts";
 import {clearCargoComponents} from "~reducers/cargo.ts";
 import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
 import styles from './styles.module.css';
+import {useTheme} from "@mui/joy/styles";
+import {useMediaQuery} from "react-responsive";
 
 export function ComponentsTable() {
     const [components, setComponents] = useState<Record<ComponentType, number>>({} as Record<ComponentType, number>)
@@ -22,12 +24,16 @@ export function ComponentsTable() {
         volume: 0
     })
 
+    const theme = useTheme();
     const intlContext = useContext(IntlContext);
     const componentStore = useSelector((state: RootState) => state.component);
     const turretStore = useSelector((state: RootState) => state.turret);
     const cargoStore = useSelector((state: RootState) => state.cargo);
     const worker = useMemo(() => computationWorker, []);
     const dispatch = useDispatch();
+    const isSmallScreen = useMediaQuery({
+        query: `(max-width: ${theme.breakpoints.values.sm}px)`
+    });
 
     useEffect(() => {
         async function performComputation() {
@@ -45,6 +51,12 @@ export function ComponentsTable() {
 
     if (Object.keys(components).length === 0) {
         return null;
+    }
+
+    let fontSize: 'md' | number = 'md';
+
+    if (isSmallScreen) {
+        fontSize = 12;
     }
 
     return (
@@ -80,16 +92,20 @@ export function ComponentsTable() {
                 <Divider inset="context" sx={{mt: 0}}/>
                 <Stack>
                     <Stack direction="row" justifyContent="space-between" sx={{p: 1}}>
-                        <Typography level="body-sm">{intlContext.text("UI", "estimated-price")}</Typography>
+                        <Typography fontSize={fontSize}
+                                    level="body-sm">{intlContext.text("UI", "estimated-price")}</Typography>
                         <Stack direction="row">
-                            <Typography level="body-sm">~¢</Typography>
-                            <Typography level="body-sm">{computations.avg.toLocaleString()}</Typography>
+                            <Typography fontSize={fontSize} level="body-sm">~¢</Typography>
+                            <Typography fontSize={fontSize}
+                                        level="body-sm">{computations.avg.toLocaleString()}</Typography>
                         </Stack>
                     </Stack>
                     <Divider/>
                     <Stack direction="row" justifyContent="space-between" sx={{p: 1}}>
-                        <Typography level="body-sm">{intlContext.text("UI", "estimated-volume")}</Typography>
-                        <Typography level="body-sm">{computations.volume.toLocaleString()}</Typography>
+                        <Typography fontSize={fontSize}
+                                    level="body-sm">{intlContext.text("UI", "estimated-volume")}</Typography>
+                        <Typography fontSize={fontSize}
+                                    level="body-sm">{computations.volume.toLocaleString()}</Typography>
                     </Stack>
                 </Stack>
             </CardOverflow>

@@ -8,15 +8,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "~store";
 import {SxProps} from "@mui/joy/styles/types";
 import {createComponentCheckbox, deleteComponentCheckbox} from "~reducers/checkbox.ts";
+import {useTheme} from "@mui/joy/styles";
+import {useMediaQuery} from "react-responsive";
 
 type Props = {
     type: ComponentType,
 }
 
 export function ComponentItemType(props: Props) {
+    const theme = useTheme();
     const intlContext = useContext(IntlContext);
     const checkbox = useSelector((state: RootState) => state.checkbox);
     const dispatch = useDispatch();
+    const isSmallScreen = useMediaQuery({
+        query: `(max-width: ${theme.breakpoints.values.sm}px)`
+    });
 
     function handleCheckbox() {
         if (checkbox.entities[props.type]) {
@@ -26,8 +32,13 @@ export function ComponentItemType(props: Props) {
         }
     }
 
-    const sx: SxProps = {textDecoration: "none", opacity: 1}
+    const sx: SxProps = {textDecoration: "none", opacity: 1};
+    let fontSize: 'md' | number = 'md';
     let color: "danger" | "warning" | undefined;
+
+    if (isSmallScreen) {
+        fontSize = 12;
+    }
 
     if (ComponentsMeta[props.type].dangerous) {
         color = "danger";
@@ -53,7 +64,7 @@ export function ComponentItemType(props: Props) {
                     <img className={styles.icon}
                          src={ComponentsMeta[props.type].icon}
                          alt={intlContext.text("COMPONENT", props.type)}/>
-                    <Typography key={props.type} color={color} sx={sx}>
+                    <Typography fontSize={fontSize} color={color} sx={sx}>
                         {intlContext.text("COMPONENT", props.type)}
                     </Typography>
                 </Stack>
