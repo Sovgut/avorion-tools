@@ -40,9 +40,9 @@ export function GettingStartedPage() {
 
     return (
         <Box>
-            <Box sx={{position: "fixed", width: "100%", zIndex: 2}}>
+            <Container maxWidth={false} sx={{position: "fixed", width: "100%", zIndex: 2}}>
                 <Header/>
-            </Box>
+            </Container>
 
             <Box className={componentClasses}>
                 <GettingStartedLayout>

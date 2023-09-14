@@ -9,9 +9,9 @@ type Props = {
     type: ComponentType;
 }
 
-export function CargoItemQuantity(props: Props) {
+export function CargoItemQuantity({value, type}: Props) {
     const theme = useTheme();
-    const value = props.value ?? 0;
+    const initialValue = value ?? 0;
     const isSmallScreen = useMediaQuery({
         query: `(max-width: ${theme.breakpoints.values.sm}px)`
     });
@@ -26,9 +26,9 @@ export function CargoItemQuantity(props: Props) {
         <td align="right" style={{paddingLeft: 0, paddingRight: 8}}>
             <Stack direction="row" spacing={1} justifyContent="flex-end" alignItems="center">
                 <Typography fontSize={fontSize} color="primary" fontFamily="monospace">
-                    {value.toLocaleString()}
+                    {initialValue.toLocaleString()}
                 </Typography>
-                <CargoItemAction type={props.type}/>
+                <CargoItemAction type={type}/>
             </Stack>
         </td>
     )

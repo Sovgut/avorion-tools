@@ -16,7 +16,7 @@ type Props = {
     type: ComponentType,
 }
 
-export function ComponentItemType(props: Props) {
+export function ComponentItemType({type}: Props) {
     const theme = useTheme();
     const intlContext = useContext(IntlContext);
     const checkbox = useSelector((state: RootState) => state.checkbox);
@@ -26,10 +26,10 @@ export function ComponentItemType(props: Props) {
     });
 
     function handleCheckbox() {
-        if (checkbox.entities[props.type]) {
-            dispatch(deleteComponentCheckbox({type: props.type}));
+        if (checkbox.entities[type]) {
+            dispatch(deleteComponentCheckbox({type: type}));
         } else {
-            dispatch(createComponentCheckbox({type: props.type}));
+            dispatch(createComponentCheckbox({type: type}));
         }
     }
 
@@ -41,15 +41,15 @@ export function ComponentItemType(props: Props) {
         fontSize = 12;
     }
 
-    if (ComponentsMeta[props.type].dangerous) {
+    if (ComponentsMeta[type].dangerous) {
         color = "danger";
     }
 
-    if (ComponentsMeta[props.type].illegal) {
+    if (ComponentsMeta[type].illegal) {
         color = "warning";
     }
 
-    if (checkbox.entities[props.type]) {
+    if (checkbox.entities[type]) {
         sx.textDecoration = "line-through";
         sx.opacity = .5;
     }
@@ -65,14 +65,14 @@ export function ComponentItemType(props: Props) {
     return (
         <td onClick={handleCheckbox} style={{paddingLeft: 8, paddingRight: 0, cursor: "pointer", userSelect: "none"}}>
             <Stack direction="row" alignItems="center" spacing={.5}>
-                <ComponentIcon type={props.type}/>
+                <ComponentIcon type={type}/>
                 <Typography fontSize={fontSize} color={color} sx={sx} width="max-content">
-                    {intlContext.text("COMPONENT", props.type)}
+                    {intlContext.text("COMPONENT", type)}
                 </Typography>
                 {!isSmallScreen && (
                     <IconButton size="sm"
                                 title={intlContext.text("UI", 'copy')}
-                                onClick={handleCopyText(intlContext.text("COMPONENT", props.type))}>
+                                onClick={handleCopyText(intlContext.text("COMPONENT", type))}>
                         <CopyAll/>
                     </IconButton>
                 )}

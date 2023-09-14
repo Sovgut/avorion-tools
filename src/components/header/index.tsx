@@ -3,12 +3,7 @@ import {useContext} from "react";
 import {IntlContext} from "~contexts/intl";
 import {GitHub, Translate} from "@mui/icons-material";
 
-type HeaderProps = {
-    fontColor?: "black" | "white";
-    disableGutters?: boolean;
-}
-
-export function Header(props: HeaderProps) {
+export function Header() {
     const intlContext = useContext(IntlContext);
 
     function handleLanguageChange(value: string) {
@@ -18,7 +13,7 @@ export function Header(props: HeaderProps) {
     }
 
     return (
-        <Container maxWidth={false} disableGutters={props.disableGutters}>
+        <Container maxWidth={false} disableGutters>
             <Stack direction="row" spacing={2} sx={{pt: 3, pb: 3}} justifyContent="space-between">
                 <Stack direction="row" spacing={4}>
                     <Stack justifyItems="center" spacing={-1}
