@@ -16,7 +16,7 @@ export function CargoItemAction(props: Props) {
     }
 
     return (
-        <IconButton size='sm' sx={{width: 24}} variant="plain" color="neutral" onClick={handleRemove}>
+        <IconButton size='sm' variant="plain" color="neutral" onClick={handleRemove}>
             <Close fontSize="small"/>
         </IconButton>
     )
