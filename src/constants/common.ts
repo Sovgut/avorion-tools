@@ -14,3 +14,10 @@ export const CACHE_LANG = "cache:v3:lang";
 export const CACHE_TURRETS = "cache:v3:turrets";
 export const CACHE_COMPONENTS = "cache:v3:components";
 export const CACHE_THEME = "cache:v3:theme";
+
+export const PAGE_ANIMATION_CONTROLS = {
+    opacity: 0,
+    transition: {duration: .150}
+}
+export const PAGE_ANIMATION_INITIAL = {opacity: 1}
+export const PAGE_ANIMATION_EXIT = {opacity: 0}

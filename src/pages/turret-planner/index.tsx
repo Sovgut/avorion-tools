@@ -16,6 +16,7 @@ import {clearComponents} from "~reducers/component.ts";
 import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
 import {motion} from "framer-motion";
 import {AnimationControlContext} from "~contexts/animation-control";
+import {PAGE_ANIMATION_CONTROLS, PAGE_ANIMATION_EXIT, PAGE_ANIMATION_INITIAL} from "~constants/common.ts";
 
 export function TurretPlannerPage() {
     const intlContext = useContext(IntlContext);
@@ -32,14 +33,7 @@ export function TurretPlannerPage() {
     }, [navigate, turretStore]);
 
     function handleExitAnimation() {
-        if (controls) {
-            controls
-                .start({
-                    opacity: 0,
-                    transition: {duration: .150}
-                })
-                .then(handleClearTurrets);
-        }
+        controls?.start(PAGE_ANIMATION_CONTROLS).then(handleClearTurrets);
     }
 
     function handleClearTurrets() {
@@ -55,8 +49,8 @@ export function TurretPlannerPage() {
     return (
         <motion.div
             animate={controls}
-            initial={{opacity: 1}}
-            exit={{opacity: 0}}
+            initial={PAGE_ANIMATION_INITIAL}
+            exit={PAGE_ANIMATION_EXIT}
         >
             <Container maxWidth={false} sx={{pb: 2}} className={styles.component}>
                 <Box className={animationClasses}>
