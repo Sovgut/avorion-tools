@@ -1,6 +1,6 @@
 import {useContext, useEffect, useMemo, useState} from "react";
 import {IntlContext} from "~contexts/intl";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "~store";
 import {Box, Card, CardOverflow, Divider, Link, Stack, Table, Typography} from "@mui/joy";
 import {ComponentType} from "~constants/enums/components";
@@ -8,6 +8,10 @@ import {ComponentItemType} from "~components/components-table/component-type";
 import {ComponentItemQuantity} from "~components/components-table/component-quantity";
 import {ComponentItemAction} from "~components/components-table/component-action";
 import {computationWorker} from "~workers";
+import {clearTurrets} from "~reducers/turret.ts";
+import {clearComponents} from "~reducers/component.ts";
+import {clearCargoComponents} from "~reducers/cargo.ts";
+import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
 
 export function ComponentsTable() {
     const [components, setComponents] = useState<Record<ComponentType, number>>({} as Record<ComponentType, number>)
@@ -23,6 +27,7 @@ export function ComponentsTable() {
     const turretStore = useSelector((state: RootState) => state.turret);
     const cargoStore = useSelector((state: RootState) => state.cargo);
     const worker = useMemo(() => computationWorker, []);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         async function performComputation() {
@@ -30,8 +35,13 @@ export function ComponentsTable() {
             setComputations(await worker.computeComponents(cargoStore, turretStore, componentStore));
         }
 
-        performComputation().then();
-    }, [cargoStore, componentStore, turretStore, worker]);
+        performComputation().catch(() => {
+            dispatch(clearTurrets());
+            dispatch(clearComponents());
+            dispatch(clearCargoComponents());
+            dispatch(clearComponentsCheckbox());
+        });
+    }, [cargoStore, componentStore, turretStore, worker, dispatch]);
 
     if (Object.keys(components).length === 0) {
         return null;
