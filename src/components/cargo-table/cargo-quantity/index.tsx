@@ -3,6 +3,7 @@ import {CargoItemAction} from "~components/cargo-table/cargo-action";
 import {ComponentType} from "~constants/enums/components.ts";
 import {useTheme} from "@mui/joy/styles";
 import {useMediaQuery} from "react-responsive";
+import styles from './styles.module.css';
 
 type Props = {
     value: number;
@@ -23,7 +24,7 @@ export function CargoItemQuantity({value, type}: Props) {
     }
 
     return (
-        <td align="right" style={{paddingLeft: 0, paddingRight: 8}}>
+        <td className={styles.row} align="right">
             <Stack direction="row" spacing={1} justifyContent="flex-end" alignItems="center">
                 <Typography fontSize={fontSize} color="primary" fontFamily="monospace">
                     {initialValue.toLocaleString()}

@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {CACHE_CARGO} from "~constants/common";
+import {CACHE_CARGO, MAX_COMPONENT_QUANTITY} from "~constants/common";
 import {persistedState} from "~utils/persisted-state.ts";
 import {CargoStoreState} from "~types/store";
 import {CargoCreateAction, CargoDeleteAction} from "~types/store/actions/cargo";
@@ -11,7 +11,11 @@ const cargoSlice = createSlice({
     reducers: {
         create(state, action: CargoCreateAction) {
             if (typeof state.entities[action.payload.type] === 'number') {
-                state.entities[action.payload.type] += action.payload.quantity;
+                if (state.entities[action.payload.type] + action.payload.quantity > MAX_COMPONENT_QUANTITY) {
+                    state.entities[action.payload.type] = MAX_COMPONENT_QUANTITY;
+                } else {
+                    state.entities[action.payload.type] += action.payload.quantity;
+                }
             } else {
                 state.entities[action.payload.type] = action.payload.quantity;
             }
