@@ -1,6 +1,6 @@
 import {ComponentType} from "~constants/enums/components";
 import {MouseEvent, useContext} from "react";
-import {Box, IconButton, Stack, Typography} from "@mui/joy";
+import {IconButton, Stack, Typography} from "@mui/joy";
 import {ComponentsMeta} from "~constants/meta/components";
 import {IntlContext} from "~contexts/intl";
 import {useDispatch, useSelector} from "react-redux";
@@ -65,9 +65,7 @@ export function ComponentItemType(props: Props) {
     return (
         <td onClick={handleCheckbox} style={{paddingLeft: 8, paddingRight: 0, cursor: "pointer", userSelect: "none"}}>
             <Stack direction="row" alignItems="center" spacing={.5}>
-                <Box sx={{opacity: checkbox.entities[props.type] ? '.5' : '1'}}>
-                    <ComponentIcon type={props.type}/>
-                </Box>
+                <ComponentIcon type={props.type}/>
                 <Typography fontSize={fontSize} color={color} sx={sx} width="max-content">
                     {intlContext.text("COMPONENT", props.type)}
                 </Typography>
