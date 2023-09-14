@@ -23,7 +23,7 @@ export function CargoItemType(props: Props) {
     }
 
     return (
-        <td style={{paddingRight: 0}}>
+        <td style={{paddingRight: 0, userSelect: "none"}}>
             <Stack direction="row" spacing={1} alignItems="center">
                 <img className={styles.icon}
                      src={ComponentsMeta[props.type].icon}
