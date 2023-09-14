@@ -63,7 +63,7 @@ export function ComponentItemType({type}: Props) {
     }
 
     return (
-        <td onClick={handleCheckbox} style={{paddingLeft: 8, paddingRight: 0, cursor: "pointer", userSelect: "none"}}>
+        <td onClick={handleCheckbox} style={{paddingLeft: 16, paddingRight: 0, cursor: "pointer", userSelect: "none"}}>
             <Stack direction="row" alignItems="center" spacing={.5}>
                 <ComponentIcon type={type}/>
                 <Typography fontSize={fontSize} color={color} sx={sx} width="max-content">

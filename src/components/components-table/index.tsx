@@ -75,19 +75,17 @@ export function ComponentsTable() {
                 <CardOverflow variant="soft" color="neutral" sx={{borderRadius: 0}}>
                     <Divider inset="context" sx={{mt: 0}}/>
                     <Stack>
-                        <Stack direction="row" justifyContent="space-between" sx={{p: 1}}>
+                        <Stack direction="row" justifyContent="space-between" sx={{p: 2, pt: 1, pb: 1}}>
                             <Typography fontSize={fontSize}
                                         level="body-sm">{intlContext.text("UI", "estimated-price")}</Typography>
                             <Stack direction="row">
-                                {computations.avg > 0 && (
-                                    <Typography fontSize={fontSize} level="body-sm">~</Typography>
-                                )}
+                                <Typography fontSize={fontSize} level="body-sm">~</Typography>
                                 <Typography fontSize={fontSize}
                                             level="body-sm">{computations.avg.toLocaleString()}</Typography>
                             </Stack>
                         </Stack>
                         <Divider/>
-                        <Stack direction="row" justifyContent="space-between" sx={{p: 1}}>
+                        <Stack direction="row" justifyContent="space-between" sx={{p: 2, pt: 1, pb: 1}}>
                             <Typography fontSize={fontSize}
                                         level="body-sm">{intlContext.text("UI", "estimated-volume")}</Typography>
                             <Typography fontSize={fontSize}
@@ -98,7 +96,7 @@ export function ComponentsTable() {
             )}
 
             <Divider/>
-            <Box sx={{p: 1}}>
+            <Box sx={{p: 2}}>
                 <Typography level="body-sm">
                     <b>Avorion Tools</b> is a community work, and not officially created or maintained by <Link
                     href="https://boxelware.de/" target="_blank">Boxelware</Link>.
