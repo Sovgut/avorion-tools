@@ -1,9 +1,3 @@
-.icon {
-    mix-blend-mode: difference;
-    width: 24px;
-    height: 24px;
-}
-
 .component {
     display: grid;
     grid-template-columns: repeat(3, auto);
