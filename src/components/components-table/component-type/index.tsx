@@ -1,6 +1,6 @@
 import {ComponentType} from "~constants/enums/components";
 import {MouseEvent, useContext} from "react";
-import {IconButton, Typography} from "@mui/joy";
+import {Box, IconButton, Typography} from "@mui/joy";
 import {ComponentsMeta} from "~constants/meta/components";
 import {IntlContext} from "~contexts/intl";
 import {useDispatch, useSelector} from "react-redux";
@@ -73,7 +73,7 @@ export function ComponentItemType({type}: Props) {
                 userSelect: "none",
             }}
         >
-            <div className={styles.component}>
+            <Box className={styles.component} sx={sx}>
                 <ComponentIcon type={type}/>
 
                 <Typography fontSize={fontSize} color={color} sx={sx}>
@@ -82,6 +82,7 @@ export function ComponentItemType({type}: Props) {
 
                 {!isSmallScreen && (
                     <IconButton
+                        disabled={!!checkbox.entities[type]}
                         size="sm"
                         title={intlContext.text("UI", "copy")}
                         onClick={handleCopyText(intlContext.text("COMPONENT", type))}
@@ -89,7 +90,7 @@ export function ComponentItemType({type}: Props) {
                         <CopyAll/>
                     </IconButton>
                 )}
-            </div>
+            </Box>
         </td>
     );
 }
