@@ -12,4 +12,6 @@
 .animation {
     animation: Open;
     animation-duration: 150ms;
+
+    overflow: hidden;
 }
