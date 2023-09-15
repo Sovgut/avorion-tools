@@ -30,49 +30,31 @@ export function TurretHeader({id, entity}: Props) {
     const componentStore = useSelector((state: RootState) => state.component);
     const controls = useContext(AnimationControlContext);
 
-    function handleDeleteTurret() {
+    function removeTurretAndCleanState() {
         if (Object.keys(turretStore.entities).length === 1) {
-            controls?.start(PAGE_ANIMATION_CONTROLS).then(() => {
-                dispatch(clearComponentsCheckbox());
-                dispatch(deleteComponent({identity: id}));
-                dispatch(deleteTurret({identity: id}));
-            });
+            controls?.start(PAGE_ANIMATION_CONTROLS).then(performStateCleanup);
         } else {
-            clearTurretState();
+            performStateCleanup();
         }
     }
 
-    function clearTurretState() {
+    function performStateCleanup() {
         dispatch(clearComponentsCheckbox());
         dispatch(deleteComponent({identity: id}));
         dispatch(deleteTurret({identity: id}));
     }
 
-    function handleResetFields() {
-        dispatch(
-            updateTurret({
-                identity: id,
-                entity: {
-                    ...entity,
-                    quantity: MIN_TURRET_QUANTITY,
-                    price: MIN_TURRET_PRICE,
-                },
-            })
-        );
+    function resetToDefaultValues() {
+        dispatch(updateTurret({
+            identity: id,
+            entity: {...entity, quantity: MIN_TURRET_QUANTITY, price: MIN_TURRET_PRICE}
+        }));
 
-        for (const type of Object.keys(
-            componentStore.entities[id]
-        ) as ComponentType[]) {
-            dispatch(
-                updateComponent({
-                    identity: id,
-                    entity: {
-                        type,
-                        quantity: MIN_COMPONENT_QUANTITY,
-                    },
-                })
-            );
-        }
+        (Object.keys(componentStore.entities[id]) as ComponentType[])
+            .forEach(type => dispatch(updateComponent({
+                identity: id,
+                entity: {type, quantity: MIN_COMPONENT_QUANTITY}
+            })));
     }
 
     return (
@@ -89,14 +71,14 @@ export function TurretHeader({id, entity}: Props) {
                         <MoreIcon/>
                     </MenuButton>
                     <Menu placement="bottom-end" sx={{minWidth: "200px"}}>
-                        <MenuItem onClick={handleResetFields}>
+                        <MenuItem onClick={resetToDefaultValues}>
                             <ListItemDecorator>
                                 <RestartAlt/>
                             </ListItemDecorator>
                             {intlContext.text("UI", "reset-components")}
                         </MenuItem>
                         <Divider/>
-                        <MenuItem color="danger" onClick={handleDeleteTurret}>
+                        <MenuItem color="danger" onClick={removeTurretAndCleanState}>
                             <ListItemDecorator>
                                 <Close/>
                             </ListItemDecorator>

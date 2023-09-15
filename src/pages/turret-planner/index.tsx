@@ -14,7 +14,7 @@ import {ComponentsTable} from "~components/components-table";
 import {CargoTable} from "~components/cargo-table";
 import {clearComponents} from "~reducers/component.ts";
 import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
-import {motion} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {AnimationControlContext} from "~contexts/animation-control";
 import {PAGE_ANIMATION_CONTROLS, PAGE_ANIMATION_EXIT, PAGE_ANIMATION_INITIAL} from "~constants/common.ts";
 
@@ -70,11 +70,20 @@ export function TurretPlannerPage() {
 
                     <Box className={styles.layout}>
                         <Box className={styles.itemsList}>
-                            {Object.keys(turretStore.entities).map((id) => (
-                                <Box key={id} className={styles.item}>
-                                    <Turret id={id} entity={turretStore.entities[id]}/>
-                                </Box>
-                            ))}
+                            <AnimatePresence>
+                                {Object.keys(turretStore.entities).map((id) => (
+                                    <motion.div
+                                        key={id}
+                                        initial={{opacity: 0, scale: .7}}
+                                        animate={{opacity: 1, scale: 1}}
+                                        exit={{opacity: 0, scale: .7}}
+                                        className={styles.item}
+                                        layout
+                                    >
+                                        <Turret id={id} entity={turretStore.entities[id]}/>
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
                         </Box>
                         <Box className={styles.tableList}>
                             <Box className={styles.table}>
