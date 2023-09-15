@@ -8,8 +8,8 @@ import {preventOverMin} from "~components/numeric/utils/prevent-over-min";
 import {preventOverMax} from "~components/numeric/utils/prevent-over-max";
 
 type NumericProps = {
-    id: string;
-    label: string;
+    id?: string;
+    label?: string;
     value?: string | number;
     focus?: boolean
     min?: number;
@@ -57,7 +57,7 @@ export function Numeric({id, label, value, focus, min, max, disabled, onChange}:
         parsed = preventOverMin(parsed, initialMin);
         parsed = preventOverMax(parsed, initialMax);
 
-        onChange?.(id, parsed.toString() || null);
+        onChange?.(id || String(), parsed.toString() || null);
     }
 
     return (

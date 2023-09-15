@@ -11,7 +11,8 @@ type Props = {
 
 export function Turret({id, entity}: Props) {
     return (
-        <Card sx={{height: "100%", width: '100%', flexShrink: 0, boxShadow: "sm", p: 0}} variant="outlined">
+        <Card sx={{height: "100%", width: '100%', flexShrink: 0, boxShadow: "sm", p: 0}}
+              variant="outlined">
             <TurretHeader entity={entity} id={id}/>
 
             <Divider/>

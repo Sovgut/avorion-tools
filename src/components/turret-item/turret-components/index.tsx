@@ -1,5 +1,5 @@
 import {Stack} from "@mui/joy";
-import {Fragment, useContext} from "react";
+import {Fragment, useContext, useState} from "react";
 import {IntlContext} from "~contexts/intl";
 import {Numeric} from "~components/numeric";
 import {MAX_COMPONENT_QUANTITY} from "~constants/common";
@@ -14,6 +14,8 @@ type Props = {
 }
 
 export function TurretComponents({id}: Props) {
+    const [fallbackComponents] = useState<string[]>(new Array(7).fill(null).map(() => nanoid()))
+
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
 
@@ -31,6 +33,17 @@ export function TurretComponents({id}: Props) {
 
     const list = Object.keys(componentStore.entities[id] ?? {}) as ComponentType[];
 
+
+    if (list.length === 0) {
+        return (
+            <Stack spacing={2} sx={{p: 2, pt: 0}}>
+                {fallbackComponents.map((key) => (
+                    <Numeric key={key} disabled/>
+                ))}
+            </Stack>
+        )
+    }
+
     return (
         <Stack spacing={2} sx={{p: 2, pt: 0}}>
             {list.map(type => (
@@ -45,22 +58,13 @@ export function TurretComponents({id}: Props) {
 
             {list.length === 5 &&
                 <Fragment>
-                    <Numeric
-                        id={nanoid()}
-                        label={String()}
-                        disabled/>
-                    <Numeric
-                        id={nanoid()}
-                        label={String()}
-                        disabled/>
+                    <Numeric disabled/>
+                    <Numeric disabled/>
                 </Fragment>
             }
 
             {list.length === 6 &&
-                <Numeric
-                    id={nanoid()}
-                    label={String()}
-                    disabled/>
+                <Numeric disabled/>
             }
         </Stack>
     )
