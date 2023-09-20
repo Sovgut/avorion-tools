@@ -6,25 +6,21 @@ import {IntlContext} from "~contexts/intl";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "~store";
 import {SxProps} from "@mui/joy/styles/types";
-import {createComponentCheckbox, deleteComponentCheckbox,} from "~reducers/checkbox.ts";
-import {useTheme} from "@mui/joy/styles";
-import {useMediaQuery} from "react-responsive";
+import {createComponentCheckbox, deleteComponentCheckbox} from "~reducers/checkbox.ts";
 import {CopyAll} from "@mui/icons-material";
 import {ComponentIcon} from "~components/component-icon";
 import styles from "./styles.module.css";
+import {useBreakpoint} from "~hooks/breakpoints";
 
 type Props = {
     type: ComponentType;
 };
 
 export function ComponentItemType({type}: Props) {
-    const theme = useTheme();
     const intlContext = useContext(IntlContext);
     const checkbox = useSelector((state: RootState) => state.checkbox);
     const dispatch = useDispatch();
-    const isSmallScreen = useMediaQuery({
-        query: `(max-width: ${theme.breakpoints.values.sm}px)`,
-    });
+    const breakpoint = useBreakpoint();
 
     function handleCheckbox() {
         if (checkbox.entities[type]) {
@@ -38,7 +34,7 @@ export function ComponentItemType({type}: Props) {
     let fontSize: "md" | number = "md";
     let color: "danger" | "warning" | undefined;
 
-    if (isSmallScreen) {
+    if (breakpoint.sm) {
         fontSize = 12;
     }
 
@@ -80,7 +76,7 @@ export function ComponentItemType({type}: Props) {
                     {intlContext.text("COMPONENT", type)}
                 </Typography>
 
-                {!isSmallScreen && (
+                {!breakpoint.sm && (
                     <IconButton
                         disabled={!!checkbox.entities[type]}
                         size="sm"

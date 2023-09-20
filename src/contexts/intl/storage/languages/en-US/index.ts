@@ -4,9 +4,9 @@ import {SellerType} from "~constants/enums/sellers";
 import {IntlComponent, IntlSeller, IntlTurret, IntlUI} from "~contexts/intl/storage/types";
 
 const UI: IntlUI = {
-    'copy': "Copy",
-    'copied': 'Copied!',
-    "lets-add-turret": "Let's add your first recipe to Turret planner!",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "lets-add-turret": "Let's add your first recipe to the Turret planner!",
     "cargo-offset": "Cargo offset",
     "guaranteed-in": "Guaranteed in",
     "can-be-found-in": "Can be found in",
@@ -16,7 +16,7 @@ const UI: IntlUI = {
     "estimated-price": "Estimated price",
     "estimated-volume": "Estimated volume",
     "estimated-price-info": "Price of all components (based on min price and max price)",
-    "component-source-info": '"Turret Factory", "Turret Factory Supplier" and "Trading Post" can contain any of these components',
+    "component-source-info": "\"Turret Factory\", \"Turret Factory Supplier\" and \"Trading Post\" can contain any of these components",
     "dangerous-cargo": "Dangerous cargo",
     "illegal-cargo": "Illegal cargo",
     "please-note": "Please note",
@@ -45,7 +45,7 @@ const UI: IntlUI = {
     "getting-started-2": "Ready to upgrade your Avorion ship's defense system but don't want calculate components in Excel? So, you're not alone. That's why you should try to use this application. Turret Planner can guide you through the process of crafting a new turret from Turret Factory! Not only provide detailed recipes for constructing the turret, but also offer a comprehensive rundown of the components which used in recipe. You just need to fill amount of resources needed for your new turret and amount of turrets.",
     "getting-started-3": "Estimations",
     "getting-started-4": "To ensure you stay within budget, application will calculate a price estimate for your proposed turrets. Moreover, to ensure a perfect cargo fit, it also provide volume estimations.",
-    "turret-planner": "Turret planner"
+    "turret-planner": "Turret planner",
 };
 
 const COMPONENT: IntlComponent = {
@@ -86,7 +86,7 @@ const COMPONENT: IntlComponent = {
     [ComponentType.Warhead]: "Warhead",
     [ComponentType.ExplosiveCharge]: "Explosive Charge",
     [ComponentType.AmmunitionM]: "Ammunition M",
-}
+};
 
 const TURRET: IntlTurret = {
     [TurretType.Chaingun]: "Chaingun",
@@ -108,7 +108,7 @@ const TURRET: IntlTurret = {
     [TurretType.PointDefenseCannon]: "Point Defense Cannon",
     [TurretType.PointDefenseLaser]: "Point Defense Laser",
     [TurretType.AntiFighter]: "Anti Fighter",
-}
+};
 
 const SELLER: IntlSeller = {
     [SellerType.TurretFactorySupplier]: "Turret Factory Supplier",
@@ -150,6 +150,6 @@ const SELLER: IntlSeller = {
     [SellerType.WarheadFactory]: "Warhead Factory",
     [SellerType.WireManufacturer]: "Wire Manufacturer",
     [SellerType.ZincMine]: "Zinc Mine",
-}
+};
 
-export const English = {UI, TURRET, COMPONENT, SELLER}
+export const English = {UI, TURRET, COMPONENT, SELLER};

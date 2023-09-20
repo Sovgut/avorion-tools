@@ -1,4 +1,4 @@
-import {Box, Button, IconButton, Link, ModalClose, Stack, Typography} from "@mui/joy";
+import {Box, Button, IconButton, Link, Stack, Typography} from "@mui/joy";
 import {Add, CopyAll, MoreVert as MoreIcon} from "@mui/icons-material";
 import {FormEvent, Fragment, MouseEvent, useContext, useState} from "react";
 import {MAX_CARGO_QUANTITY, MIN_CARGO_QUANTITY} from "~constants/common";
@@ -11,8 +11,7 @@ import {SellerType} from "~constants/enums/sellers";
 import {ComponentsMeta} from "~constants/meta/components";
 import {SellersMeta} from "~constants/meta/sellers";
 import {ComponentItemModal} from "~components/components-table/component-modal";
-import {useTheme} from "@mui/joy/styles";
-import {useMediaQuery} from "react-responsive";
+import {useBreakpoint} from "~hooks/breakpoints";
 
 type Props = {
     type: ComponentType;
@@ -22,12 +21,9 @@ export function ComponentItemAction({type}: Props) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [cargoInput, setCargoInput] = useState(MIN_CARGO_QUANTITY);
 
-    const theme = useTheme();
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
-    const isSmallScreen = useMediaQuery({
-        query: `(max-width: ${theme.breakpoints.values.sm}px)`
-    });
+    const breakpoint = useBreakpoint();
 
     function onCargoChange(_id: string, value: string | null) {
         setCargoInput(Number(value));
@@ -61,11 +57,11 @@ export function ComponentItemAction({type}: Props) {
     let illegal = null;
 
     if (ComponentsMeta[type].illegal) {
-        illegal = <Typography color="warning">{intlContext.text("UI", 'illegal-cargo')}</Typography>;
+        illegal = <Typography color="warning">{intlContext.text("UI", "illegal-cargo")}</Typography>;
     }
 
     if (ComponentsMeta[type].dangerous) {
-        dangerous = <Typography color="danger">{intlContext.text("UI", 'dangerous-cargo')}</Typography>;
+        dangerous = <Typography color="danger">{intlContext.text("UI", "dangerous-cargo")}</Typography>;
     }
 
     function handleCopyText(seller: string) {
@@ -73,26 +69,24 @@ export function ComponentItemAction({type}: Props) {
             e.stopPropagation();
 
             window.navigator.clipboard.writeText(seller).then();
-        }
+        };
     }
 
     return (
-        <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <IconButton size='sm' variant="plain" color="neutral" onClick={onModalToggle}>
+        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <IconButton size="sm" variant="plain" color="neutral" onClick={onModalToggle}>
                 <MoreIcon fontSize="small"/>
             </IconButton>
 
-            <ComponentItemModal open={menuOpen} onClose={onModalClose}>
+            <ComponentItemModal open={menuOpen} onClose={onModalClose} title={intlContext.text("COMPONENT", type)}>
                 <Stack spacing={2}>
-                    <ModalClose onClick={onModalClose}/>
                     <Stack>
-                        <Typography level="h4">{intlContext.text("COMPONENT", type)}</Typography>
                         <Fragment>{illegal}</Fragment>
                         <Fragment>{dangerous}</Fragment>
                     </Stack>
 
                     <Box>
-                        <Typography level="body-lg">{intlContext.text("UI", 'can-be-found-in')}</Typography>
+                        <Typography level="title-md">{intlContext.text("UI", "can-be-found-in")}</Typography>
                         <Stack>
                             {[SellerType.TurretFactory, SellerType.TurretFactorySupplier].map(seller => (
                                 <Stack key={type + seller} direction="row" spacing={.5} alignItems="center">
@@ -102,9 +96,9 @@ export function ComponentItemAction({type}: Props) {
                                           sx={{width: "max-content"}}>
                                         {intlContext.text("SELLER", seller)}
                                     </Link>
-                                    {!isSmallScreen && (
+                                    {!breakpoint.sm && (
                                         <IconButton size="sm"
-                                                    title={intlContext.text("UI", 'copy')}
+                                                    title={intlContext.text("UI", "copy")}
                                                     onClick={handleCopyText(intlContext.text("SELLER", seller))}>
                                             <CopyAll/>
                                         </IconButton>
@@ -115,7 +109,7 @@ export function ComponentItemAction({type}: Props) {
                     </Box>
 
                     <Box>
-                        <Typography level="body-lg">{intlContext.text("UI", 'guaranteed-in')}</Typography>
+                        <Typography level="title-md">{intlContext.text("UI", "guaranteed-in")}</Typography>
                         <Stack>
                             {ComponentsMeta[type].sellers.map((seller: SellerType) => (
                                 <Stack key={type + seller} direction="row" spacing={.5} alignItems="center">
@@ -125,9 +119,9 @@ export function ComponentItemAction({type}: Props) {
                                           sx={{width: "max-content"}}>
                                         {intlContext.text("SELLER", seller)}
                                     </Link>
-                                    {!isSmallScreen && (
+                                    {!breakpoint.sm && (
                                         <IconButton size="sm"
-                                                    title={intlContext.text("UI", 'copy')}
+                                                    title={intlContext.text("UI", "copy")}
                                                     onClick={handleCopyText(intlContext.text("SELLER", seller))}>
                                             <CopyAll/>
                                         </IconButton>
@@ -138,8 +132,7 @@ export function ComponentItemAction({type}: Props) {
                     </Box>
 
                     <Stack spacing={1}>
-                        <Typography level="body-lg"
-                                    fontWeight="bold">{intlContext.text("UI", 'cargo-offset')}</Typography>
+                        <Typography level="title-md">{intlContext.text("UI", "cargo-offset")}</Typography>
                         <form onSubmit={onCargoSubmit}>
                             <Stack spacing={2}>
                                 <Numeric id={type}
@@ -155,5 +148,5 @@ export function ComponentItemAction({type}: Props) {
                 </Stack>
             </ComponentItemModal>
         </Box>
-    )
+    );
 }
