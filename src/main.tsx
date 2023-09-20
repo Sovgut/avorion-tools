@@ -1,18 +1,15 @@
-import '@fontsource/inter'
-import ReactDOM from 'react-dom/client';
+import "@fontsource/inter";
+import ReactDOM from "react-dom/client";
 import {StrictMode} from "react";
 import {CssBaseline, CssVarsProvider, extendTheme} from "@mui/joy";
-import {createBrowserRouter, Navigate, RouterProvider,} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import {Provider} from "react-redux";
 import {TurretPlannerPage} from "~pages/turret-planner";
 import {GettingStartedPage} from "~pages/getting-started";
 import {IntlContextProvider} from "~contexts/intl";
 import {CACHE_THEME} from "~constants/common";
 import {App} from "~layouts/app";
-import {inject as VercelAnalytics} from '@vercel/analytics';
 import {store} from "~store";
-import {reportVercelAnalytics} from "./vitals";
-import {reportWebVitals} from "./reportWebVitals";
 import {AnimatePresence} from "framer-motion";
 import {AnimationControlContextProvider} from "~contexts/animation-control";
 
@@ -21,14 +18,14 @@ const theme = extendTheme({
         "light": {
             "palette": {
                 "background": {
-                    "body": "var(--joy-palette-background-level1)"
-                }
-            }
+                    "body": "var(--joy-palette-background-level1)",
+                },
+            },
         },
         "dark": {
-            "palette": {}
-        }
-    }
+            "palette": {},
+        },
+    },
 });
 
 const router = createBrowserRouter([
@@ -37,21 +34,21 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <AnimatePresence mode="wait"><TurretPlannerPage/></AnimatePresence>
+                element: <AnimatePresence mode="wait"><TurretPlannerPage/></AnimatePresence>,
             },
             {
                 path: "getting-started",
-                element: <AnimatePresence mode="wait"><GettingStartedPage/></AnimatePresence>
+                element: <AnimatePresence mode="wait"><GettingStartedPage/></AnimatePresence>,
             },
         ],
     },
     {
         path: "*",
-        element: <Navigate to="/turret-planner" replace/>
-    }
+        element: <Navigate to="/turret-planner" replace/>,
+    },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <CssVarsProvider theme={theme} defaultMode="dark" modeStorageKey={CACHE_THEME} disableNestedContext>
             <CssBaseline/>
@@ -67,7 +64,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             </Provider>
         </CssVarsProvider>
     </StrictMode>,
-)
+);
 
-VercelAnalytics();
-reportWebVitals(reportVercelAnalytics);
+if (import.meta.env.MODE === "production") {
+    const {inject: VercelAnalytics} = await import("@vercel/analytics");
+    const {reportVercelAnalytics} = await import("./vitals");
+    const {reportWebVitals} = await import("./reportWebVitals");
+
+    VercelAnalytics();
+    reportWebVitals(reportVercelAnalytics);
+}
