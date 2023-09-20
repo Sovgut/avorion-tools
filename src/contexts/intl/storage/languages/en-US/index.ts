@@ -8,6 +8,7 @@ const UI: IntlUI = {
     "copied": "Copied!",
     "lets-add-turret": "Let's add your first recipe to the Turret planner!",
     "cargo-offset": "Cargo offset",
+    "threats": "Threats",
     "guaranteed-in": "Guaranteed in",
     "can-be-found-in": "Can be found in",
     "quantity": "Quantity",

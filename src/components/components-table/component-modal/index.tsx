@@ -15,12 +15,9 @@ export function ComponentItemModal({open, title, children, onClose}: Props) {
 
     return (
         <Modal open={open} onClose={onClose}>
-            <ModalDialog sx={{minWidth: breakpoint.sm ? "auto" : 500}}>
-                <DialogTitle sx={{p: 0}}>
-                    {title}
-                </DialogTitle>
+            <ModalDialog sx={{minWidth: breakpoint.sm ? "auto" : 500, pt: 1.5}}>
+                <DialogTitle>{title}</DialogTitle>
                 <ModalClose onClick={onClose}/>
-
                 {children}
             </ModalDialog>
         </Modal>

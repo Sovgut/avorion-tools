@@ -4,11 +4,12 @@ import {SellerType} from "~constants/enums/sellers";
 import {IntlComponent, IntlSeller, IntlTurret, IntlUI} from "~contexts/intl/storage/types";
 
 const UI: IntlUI = {
-    'copy': "Скопировать",
-    'copied': 'Скопировано!',
+    "copy": "Скопировать",
+    "copied": "Скопировано!",
     "lets-add-turret": "Давайте добавим ваш первый рецепт в планировщик турелей!",
     "cargo-offset": "Наличие в трюме",
     "guaranteed-in": "Гарантировано содержится в",
+    "threats": "Угрозы",
     "can-be-found-in": "Может содержаться в",
     "quantity": "Количество",
     "component": "Компонент",
@@ -16,7 +17,7 @@ const UI: IntlUI = {
     "estimated-price": "Ожидаемая цена",
     "estimated-volume": "Ожидаемый объем",
     "estimated-price-info": "Цена за все компоненты на основе базовой цены каждого компонента и максимально возможной",
-    "component-source-info": '"Фабрика турелей", "Поставщик фабрики турелей" и "Торговая фактория" может содержать любой из компонентов',
+    "component-source-info": "\"Фабрика турелей\", \"Поставщик фабрики турелей\" и \"Торговая фактория\" может содержать любой из компонентов",
     "dangerous-cargo": "Опасный груз",
     "illegal-cargo": "Нелегальный груз",
     "please-note": "Обратите внимание",
@@ -45,7 +46,7 @@ const UI: IntlUI = {
     "getting-started-2": "Готовы модернизировать систему обороны вашего корабля Avorion, но не хотите считать компоненты в Excel? Вы не одиноки. Вот почему вам стоит попробовать использовать это приложение. Планировщик турелей поможет вам в процессе создания новой турели на Фабрике турелей! Он не только предоставит детальные рецепты для построения турели, но и предложит подробный обзор компонентов, используемых в рецепте. Вам достаточно указать количество ресурсов, необходимых для вашей новой турели, и количество турелей.",
     "getting-started-3": "Оценки",
     "getting-started-4": "Чтобы гарантировать, что вы останетесь в рамках бюджета, приложение рассчитает ориентировочную стоимость ваших предполагаемых турелей. Кроме того, для обеспечения идеальной загрузки грузового отсека, оно также предоставит оценку объема.",
-    "turret-planner": "Планировщик турелей"
+    "turret-planner": "Планировщик турелей",
 };
 
 const COMPONENT: IntlComponent = {
@@ -86,7 +87,7 @@ const COMPONENT: IntlComponent = {
     [ComponentType.Warhead]: "Боеголовка",
     [ComponentType.ExplosiveCharge]: "Заряд взрывчатого вещества",
     [ComponentType.AmmunitionM]: "Боеприпасы M",
-}
+};
 
 const TURRET: IntlTurret = {
     [TurretType.Chaingun]: "Автоматическая пушка",
@@ -108,7 +109,7 @@ const TURRET: IntlTurret = {
     [TurretType.ForceGun]: "Силовая пушка",
     [TurretType.PulseCannon]: "Импульсное орудие",
     [TurretType.AntiFighter]: "Против истребителей",
-}
+};
 
 const SELLER: IntlSeller = {
     [SellerType.TurretFactory]: "Фабрика турелей",
@@ -150,6 +151,6 @@ const SELLER: IntlSeller = {
     [SellerType.TargetingCardFactory]: "Фабрика Карта наведения",
     [SellerType.TransformatorFactory]: "Фабрика Трансформатор",
     [SellerType.WarheadFactory]: "Фабрика Боеголовка",
-}
+};
 
-export const Russian = {UI, TURRET, COMPONENT, SELLER}
+export const Russian = {UI, TURRET, COMPONENT, SELLER};

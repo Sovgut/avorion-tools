@@ -109,11 +109,12 @@ export interface IntlComponent {
 }
 
 export interface IntlUI {
-    'copy': string;
-    'copied': string;
+    "copy": string;
+    "copied": string;
     "lets-add-turret": string;
     "cargo-offset": string;
     "guaranteed-in": string;
+    "threats": string;
     "can-be-found-in": string;
     "quantity": string;
     "component": string;

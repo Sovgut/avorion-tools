@@ -80,10 +80,13 @@ export function ComponentItemAction({type}: Props) {
 
             <ComponentItemModal open={menuOpen} onClose={onModalClose} title={intlContext.text("COMPONENT", type)}>
                 <Stack spacing={2}>
-                    <Stack>
-                        <Fragment>{illegal}</Fragment>
-                        <Fragment>{dangerous}</Fragment>
-                    </Stack>
+                    <Box>
+                        <Typography level="title-md">{intlContext.text("UI", "threats")}</Typography>
+                        <Stack>
+                            <Fragment>{illegal}</Fragment>
+                            <Fragment>{dangerous}</Fragment>
+                        </Stack>
+                    </Box>
 
                     <Box>
                         <Typography level="title-md">{intlContext.text("UI", "can-be-found-in")}</Typography>
