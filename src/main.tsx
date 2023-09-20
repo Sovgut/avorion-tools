@@ -67,10 +67,16 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 );
 
 if (import.meta.env.MODE === "production") {
-    const {inject: VercelAnalytics} = await import("@vercel/analytics");
-    const {reportVercelAnalytics} = await import("./vitals");
-    const {reportWebVitals} = await import("./reportWebVitals");
 
-    VercelAnalytics();
-    reportWebVitals(reportVercelAnalytics);
+    // This anonymous function is required for load asynchronous modules.
+    // That modules are blocked by browser extensions like `adguard`
+    // and others related to the same functionality extensions.
+    (async () => {
+        const {inject: VercelAnalytics} = await import("@vercel/analytics");
+        const {reportVercelAnalytics} = await import("./vitals");
+        const {reportWebVitals} = await import("./reportWebVitals");
+
+        VercelAnalytics();
+        reportWebVitals(reportVercelAnalytics);
+    })();
 }
