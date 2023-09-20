@@ -5,8 +5,7 @@ import {RootState} from "~store";
 import {computeQuantity} from "~utils/computations/quantity";
 import {ComponentType} from "~constants/enums/components";
 import {ComponentItemAction} from "~components/components-table/component-action";
-import {useTheme} from "@mui/joy/styles";
-import {useMediaQuery} from "react-responsive";
+import {useBreakpoint} from "~hooks/breakpoints";
 
 type Props = {
     type: ComponentType;
@@ -14,17 +13,14 @@ type Props = {
 }
 
 export function ComponentItemQuantity({type, value}: Props) {
-    const theme = useTheme();
     const cargo = useSelector((state: RootState) => state.cargo);
     const quantity = useMemo(() => computeQuantity(cargo.entities[type], value), [cargo, type, value]);
-    const isSmallScreen = useMediaQuery({
-        query: `(max-width: ${theme.breakpoints.values.sm}px)`
-    });
+    const breakpoint = useBreakpoint();
 
-    let fontSize: 'md' | number = 'md';
+    let fontSize: "md" | number = "md";
     let color: "warning" | "primary" = "primary";
 
-    if (isSmallScreen) {
+    if (breakpoint.sm) {
         fontSize = 12;
     }
 
@@ -41,5 +37,5 @@ export function ComponentItemQuantity({type, value}: Props) {
                 <ComponentItemAction type={type}/>
             </Stack>
         </td>
-    )
+    );
 }

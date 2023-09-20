@@ -11,25 +11,21 @@ import {clearTurrets} from "~reducers/turret.ts";
 import {clearComponents} from "~reducers/component.ts";
 import {clearCargoComponents} from "~reducers/cargo.ts";
 import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
-import {useTheme} from "@mui/joy/styles";
-import {useMediaQuery} from "react-responsive";
 import {computeComponents, initialComputationComponents} from "~utils/computations/price.ts";
 import {AnimatePresence, motion} from "framer-motion";
+import {useBreakpoint} from "~hooks/breakpoints";
 
 export function ComponentsTable() {
-    const [components, setComponents] = useState<Record<ComponentType, number>>({} as Record<ComponentType, number>)
+    const [components, setComponents] = useState<Record<ComponentType, number>>({} as Record<ComponentType, number>);
     const [computations, setComputations] = useState<ReturnType<typeof computeComponents>>(initialComputationComponents);
 
-    const theme = useTheme();
     const intlContext = useContext(IntlContext);
     const componentStore = useSelector((state: RootState) => state.component);
     const turretStore = useSelector((state: RootState) => state.turret);
     const cargoStore = useSelector((state: RootState) => state.cargo);
     const worker = useMemo(() => computationWorker, []);
     const dispatch = useDispatch();
-    const isSmallScreen = useMediaQuery({
-        query: `(max-width: ${theme.breakpoints.values.sm}px)`
-    });
+    const breakpoint = useBreakpoint();
 
     useEffect(() => {
         async function performComputation() {
@@ -49,9 +45,9 @@ export function ComponentsTable() {
         return null;
     }
 
-    let fontSize: 'md' | number = 'md';
+    let fontSize: "md" | number = "md";
 
-    if (isSmallScreen) {
+    if (breakpoint.sm) {
         fontSize = 12;
     }
 
@@ -132,5 +128,5 @@ export function ComponentsTable() {
                 </Typography>
             </Box>
         </Card>
-    )
+    );
 }

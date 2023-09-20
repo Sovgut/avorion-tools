@@ -3,25 +3,21 @@ import {Stack, Typography} from "@mui/joy";
 import {ComponentType} from "~constants/enums/components";
 import {ComponentsMeta} from "~constants/meta/components";
 import {IntlContext} from "~contexts/intl";
-import {useTheme} from "@mui/joy/styles";
-import {useMediaQuery} from 'react-responsive';
 import {ComponentIcon} from "~components/component-icon";
+import {useBreakpoint} from "~hooks/breakpoints";
 
 type Props = {
     type: ComponentType;
 }
 
 export function CargoItemType({type}: Props) {
-    const theme = useTheme();
     const intlContext = useContext(IntlContext);
-    const isSmallScreen = useMediaQuery({
-        query: `(max-width: ${theme.breakpoints.values.sm}px)`
-    });
+    const breakpoint = useBreakpoint();
 
-    let fontSize: 'md' | number = 'md';
+    let fontSize: "md" | number = "md";
     let color: "danger" | "warning" | undefined;
 
-    if (isSmallScreen) {
+    if (breakpoint.sm) {
         fontSize = 12;
     }
 
@@ -42,5 +38,5 @@ export function CargoItemType({type}: Props) {
                 </Typography>
             </Stack>
         </td>
-    )
+    );
 }

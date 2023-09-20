@@ -1,9 +1,8 @@
 import {Stack, Typography} from "@mui/joy";
 import {CargoItemAction} from "~components/cargo-table/cargo-action";
 import {ComponentType} from "~constants/enums/components.ts";
-import {useTheme} from "@mui/joy/styles";
-import {useMediaQuery} from "react-responsive";
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
+import {useBreakpoint} from "~hooks/breakpoints";
 
 type Props = {
     value: number;
@@ -11,15 +10,12 @@ type Props = {
 }
 
 export function CargoItemQuantity({value, type}: Props) {
-    const theme = useTheme();
     const initialValue = value ?? 0;
-    const isSmallScreen = useMediaQuery({
-        query: `(max-width: ${theme.breakpoints.values.sm}px)`
-    });
+    const breakpoint = useBreakpoint();
 
-    let fontSize: 'md' | number = 'md';
+    let fontSize: "md" | number = "md";
 
-    if (isSmallScreen) {
+    if (breakpoint.sm) {
         fontSize = 12;
     }
 
@@ -32,5 +28,5 @@ export function CargoItemQuantity({value, type}: Props) {
                 <CargoItemAction type={type}/>
             </Stack>
         </td>
-    )
+    );
 }
