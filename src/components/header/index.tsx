@@ -1,4 +1,4 @@
-import {Container, Dropdown, IconButton, Link, Menu, MenuButton, MenuItem, Stack, Typography} from "@mui/joy";
+import {Container, Dropdown, IconButton, Link, Menu, MenuButton, MenuItem, Stack} from "@mui/joy";
 import {useContext} from "react";
 import {IntlContext} from "~contexts/intl";
 import {GitHub, Translate} from "@mui/icons-material";
