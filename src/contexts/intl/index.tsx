@@ -4,7 +4,7 @@ import {IntlStorage, IntlStorageLabel, LanguageType} from "~contexts/intl/storag
 import {INTL_STORAGE} from "~contexts/intl/storage";
 
 type Context = {
-    language: string;
+    language: LanguageType;
     text(scope: keyof IntlStorage, label: keyof IntlStorageLabel): string;
     selectLanguage(language: string): void;
 }

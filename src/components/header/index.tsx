@@ -2,6 +2,7 @@ import {Container, Dropdown, IconButton, Link, Menu, MenuButton, MenuItem, Stack
 import {useContext} from "react";
 import {IntlContext} from "~contexts/intl";
 import {GitHub, Translate} from "@mui/icons-material";
+import { GlobalSearch } from "~components/search";
 
 export function Header() {
     const intlContext = useContext(IntlContext);
@@ -16,26 +17,20 @@ export function Header() {
         <Container maxWidth={false} sx={{height: 90}}>
             <Stack direction="row" spacing={2} sx={{pt: 3, pb: 3}} justifyContent="space-between">
                 <Stack direction="row" spacing={4}>
-                    <Stack justifyItems="center" spacing={-1}
-                           sx={{opacity: .5, userSelect: "none", pointerEvents: "none"}}>
-                        <Typography fontWeight="bolder" fontSize={18}>Avorion</Typography>
-                        <Typography letterSpacing={2.4} fontSize={16} textTransform="uppercase"
-                                    color="primary">Tools</Typography>
-                    </Stack>
-                    <Stack direction="row" spacing={2}>
-                        {/*  navigation links...  */}
+                    <Stack direction="row" spacing={2} alignItems="center">
+                        <GlobalSearch />
                     </Stack>
                 </Stack>
-                <Stack direction="row" spacing={1}>
+                <Stack direction="row" spacing={1} alignItems="center">
                     <Link href="https://github.com/Sovgut/avorion-tools" target="_blank">
-                        <IconButton>
+                        <IconButton sx={{width: 32, height: 32}}>
                             <GitHub/>
                         </IconButton>
                     </Link>
                     <Dropdown>
                         <MenuButton
                             slots={{root: IconButton}}
-                            slotProps={{root: {variant: 'plain', color: 'neutral'}}}
+                            slotProps={{root: {variant: 'plain', color: 'neutral', sx: {width: 32, height: 32}}}}
                         >
                             <Translate/>
                         </MenuButton>
