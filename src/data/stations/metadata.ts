@@ -4,6 +4,49 @@ import { Station } from "./enums";
 import { IStationMetadata } from "./types";
 
 export const StationMetadata: Record<Station, IStationMetadata> = {
+    [Station.MiningRobotFactory]: {
+        link: "https://avorion.fandom.com/wiki/Mining_Robot_Factory",
+        variations: [
+            {
+                cost: 148474500,
+                ingredients: [
+                    [Commodity.PowerUnit, 1],
+                    [Commodity.Processor, 1],
+                    [Commodity.Display, 1],
+                    [Commodity.Nanobot, 5],
+                    [Commodity.Drill, 2],
+                    [Commodity.Coolant, 1],
+                    [Commodity.Teleporter, 1],
+                ],
+                results: [
+                    [Commodity.MiningRobot, 1],
+                    [Commodity.ScrapMetal, 1, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 9315,
+                profitPerCycle: 41732,
+                ROICycles: 3558
+            },
+        ]
+    },
+    [Station.MicrochipFactory]: {
+        link: "https://avorion.fandom.com/wiki/Microchip_Factory",
+        variations: [
+            {
+                cost: 4460000,
+                ingredients: [
+                    [Commodity.Wire, 4],
+                    [Commodity.SemiConductor, 12],
+                    [Commodity.EnergyCell, 4, STATION_OPTIONAL_COMMODITY],
+                ],
+                results: [
+                    [Commodity.Microchip, 3],
+                ],
+                requiredPC: 171,
+                profitPerCycle: 760,
+                ROICycles: 5869
+            },
+        ]
+    },
     [Station.MetalPlateFactory]: {
         link: "https://avorion.fandom.com/wiki/Metal_Plate_Factory",
         variations: [
