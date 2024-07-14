@@ -4,23 +4,111 @@ import { Station } from "./enums";
 import { IStationMetadata } from "./types";
 
 export const StationMetadata: Record<Station, IStationMetadata> = {
-    [Station.GasCollector]: {
-        link: "https://avorion.fandom.com/wiki/Fusion_Generator_Factory",
+    [Station.MeatFactory]: {
+        link: "https://avorion.fandom.com/wiki/Meat_Factory",
         variations: [
             {
-                cost: 42032500,
+                cost: 5912500,
                 ingredients: [
-                    [Commodity.FusionCore, 4],
-                    [Commodity.Steel, 10],
-                    [Commodity.PlasmaCell, 15],
-                    [Commodity.PowerUnit, 2],
+                    [Commodity.Cattle, 10],
                 ],
                 results: [
-                    [Commodity.FusionGenerator, 1],
+                    [Commodity.Meat, 85],
+                    [Commodity.Leather, 10],
                 ],
-                requiredPC: 2465,
-                profitPerCycle: 11295,
-                ROICycles: 3722
+                requiredPC: 228,
+                profitPerCycle: 975,
+                ROICycles: 6065
+            },
+        ]
+    },
+    [Station.LuxuryFoodFactory]: {
+        link: "https://avorion.fandom.com/wiki/Luxury_Food_Factory",
+        variations: [
+            {
+                cost: 8835000,
+                ingredients: [
+                    [Commodity.EnergyCell, 1, STATION_OPTIONAL_COMMODITY],
+                    [Commodity.Wheat, 50],
+                    [Commodity.Fruit, 10],
+                    [Commodity.Spices, 6],
+                    [Commodity.Wine, 7],
+                ],
+                results: [
+                    [Commodity.LuxuryFood, 1],
+                ],
+                requiredPC: 406,
+                profitPerCycle: 1860,
+                ROICycles: 4750
+            },
+        ]
+    },
+    [Station.JewelryManufacturer]: {
+        link: "https://avorion.fandom.com/wiki/Jewelry_Manufacturer",
+        variations: [
+            {
+                cost: 7890000,
+                ingredients: [
+                    [Commodity.Platinum, 2],
+                    [Commodity.Gem, 5],
+                ],
+                results: [
+                    [Commodity.Jewelry, 4],
+                ],
+                requiredPC: 333,
+                profitPerCycle: 1540,
+                ROICycles: 5124
+            },
+            {
+                cost: 7540000,
+                ingredients: [
+                    [Commodity.Gold, 1],
+                    [Commodity.Diamond, 4],
+                ],
+                results: [
+                    [Commodity.Jewelry, 4],
+                ],
+                requiredPC: 333,
+                profitPerCycle: 1440,
+                ROICycles: 5237
+            },
+        ]
+    },
+    [Station.GunFactory]: {
+        link: "https://avorion.fandom.com/wiki/Gun_Factory",
+        variations: [
+            {
+                cost: 8660000,
+                ingredients: [
+                    [Commodity.Steel, 1],
+                    [Commodity.Ammunition, 1],
+                    [Commodity.Aluminum, 1],
+                    [Commodity.Plastic, 1],
+                ],
+                results: [
+                    [Commodity.Gun, 5],
+                ],
+                requiredPC: 388,
+                profitPerCycle: 1760,
+                ROICycles: 4921
+            },
+        ]
+    },
+    [Station.GlassManufacturer]: {
+        link: "https://avorion.fandom.com/wiki/Glass_Manufacturer",
+        variations: [
+            {
+                cost: 3956000,
+                ingredients: [
+                    [Commodity.Ore, 4],
+                    [Commodity.Crystal, 4],
+                ],
+                results: [
+                    [Commodity.Glass, 8],
+                ],
+                requiredPC: 97,
+                profitPerCycle: 416,
+                ROICycles: 9510
             },
         ]
     },
