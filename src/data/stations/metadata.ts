@@ -4,6 +4,28 @@ import { Station } from "./enums";
 import { IStationMetadata } from "./types";
 
 export const StationMetadata: Record<Station, IStationMetadata> = {
+    [Station.PaintManufacturer]: {
+        link: "https://avorion.fandom.com/wiki/Paint_Manufacturer",
+        variations: [
+            {
+                cost: 4911500,
+                ingredients: [
+                    [Commodity.Oil, 1],
+                    [Commodity.Water, 1],
+                    [Commodity.Chemicals, 1],
+                    [Commodity.Solvent, 1],
+                    [Commodity.Acid, 1],
+                ],
+                results: [
+                    [Commodity.Paint, 5],
+                    [Commodity.ToxicWaste, 1, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 159,
+                profitPerCycle: 689,
+                ROICycles: 7129
+            },
+        ]
+    },
     [Station.MiningRobotFactory]: {
         link: "https://avorion.fandom.com/wiki/Mining_Robot_Factory",
         variations: [
