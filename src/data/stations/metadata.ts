@@ -4,6 +4,24 @@ import { Station } from "./enums";
 import { IStationMetadata } from "./types";
 
 export const StationMetadata: Record<Station, IStationMetadata> = {
+    [Station.MetalPlateFactory]: {
+        link: "https://avorion.fandom.com/wiki/Metal_Plate_Factory",
+        variations: [
+            {
+                cost: 4085500,
+                ingredients: [
+                    [Commodity.Steel, 3],
+                    [Commodity.Silver, 1],
+                ],
+                results: [
+                    [Commodity.MetalPlate, 2],
+                ],
+                requiredPC: 102,
+                profitPerCycle: 453,
+                ROICycles: 9019
+            },
+        ]
+    },
     [Station.MedicalSuppliesFactory]: {
         link: "https://avorion.fandom.com/wiki/Medical_Supplies_Factory",
         variations: [
