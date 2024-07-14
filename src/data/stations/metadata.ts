@@ -4,6 +4,21 @@ import { Station } from "./enums";
 import { IStationMetadata } from "./types";
 
 export const StationMetadata: Record<Station, IStationMetadata> = {
+    [Station.PlanktonCollector]: {
+        link: "https://avorion.fandom.com/wiki/Plankton_Collector",
+        variations: [
+            {
+                cost: 8625000,
+                ingredients: [],
+                results: [
+                    [Commodity.Plankton, 35],
+                ],
+                requiredPC: 117,
+                profitPerCycle: 1750,
+                ROICycles: 4929 
+            },
+        ]
+    },
     [Station.PaperFactory]: {
         link: "https://avorion.fandom.com/wiki/Paper_Factory",
         variations: [
