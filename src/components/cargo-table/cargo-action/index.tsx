@@ -1,11 +1,11 @@
 import {Close} from "@mui/icons-material";
 import {IconButton} from "@mui/joy";
-import {ComponentType} from "~constants/enums/components";
 import {deleteCargoComponent} from "~reducers/cargo";
 import {useDispatch} from "react-redux";
+import { Commodity } from "src/data/commodities/enums";
 
 type Props = {
-    type: ComponentType;
+    type: Commodity;
 }
 
 export function CargoItemAction({type}: Props) {

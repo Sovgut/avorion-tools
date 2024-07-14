@@ -4,6 +4,356 @@ import { Station } from "./enums";
 import { IStationMetadata } from "./types";
 
 export const StationMetadata: Record<Station, IStationMetadata> = {
+    [Station.Sector]: {
+        link: "https://avorion.fandom.com/wiki/Sector",
+        variations: []
+    },
+    [Station.Rift]: {
+        link: "https://avorion.fandom.com/wiki/Rifts",
+        variations: []
+    },
+    [Station.Hideout]: {
+        link: "https://avorion.fandom.com/wiki/Station",
+        variations: []
+    },
+    [Station.WoodFarm]: {
+        link: "https://avorion.fandom.com/wiki/Wood_Farm",
+        variations: [
+            {
+                cost: 4075000,
+                ingredients: [
+                    [Commodity.EnergyCell, 3, STATION_OPTIONAL_COMMODITY],
+                    [Commodity.Water, 75],
+                ],
+                results: [
+                    [Commodity.Wood, 6],
+                    [Commodity.Oxygen, 3, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 156,
+                profitPerCycle: 840,
+                ROICycles: 4852
+            },
+        ]
+    },
+    [Station.WineFactory]: {
+        link: "https://avorion.fandom.com/wiki/Wine_Factory",
+        variations: [
+            {
+                cost: 7015000,
+                ingredients: [
+                    [Commodity.Fruit, 50],
+                    [Commodity.Fungus, 10],
+                ],
+                results: [
+                    [Commodity.Wine, 25],
+                ],
+                requiredPC: 292,
+                profitPerCycle: 1290,
+                ROICycles: 5438
+            },
+        ]
+    },
+    [Station.WheatFarm]: {
+        link: "https://avorion.fandom.com/wiki/Wheat_Farm",
+        variations: [
+            {
+                cost: 2864000,
+                ingredients: [
+                    [Commodity.EnergyCell, 4, STATION_OPTIONAL_COMMODITY],
+                    [Commodity.Water, 40],
+                ],
+                results: [
+                    [Commodity.Wheat, 48],
+                    [Commodity.Oxygen, 4, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 95,
+                profitPerCycle: 624,
+                ROICycles: 4590
+            },
+        ]
+    },
+    [Station.WaterCollector]: {
+        link: "https://avorion.fandom.com/wiki/Water_Collector",
+        variations: [
+            {
+                cost: 7750000,
+                ingredients: [],
+                results: [
+                    [Commodity.Water, 75],
+                ],
+                requiredPC: 100,
+                profitPerCycle: 1500,
+                ROICycles: 5167
+            },
+        ]
+    },
+    [Station.WarRobotFactory]: {
+        link: "https://avorion.fandom.com/wiki/War_Robot_Factory",
+        variations: [
+            {
+                cost: 94683000,
+                ingredients: [
+                    [Commodity.PowerUnit, 1],
+                    [Commodity.Processor, 1],
+                    [Commodity.Display, 1],
+                    [Commodity.Nanobot, 5],
+                    [Commodity.Gun, 2],
+                    [Commodity.Teleporter, 1],
+                    [Commodity.Coolant, 1],
+                ],
+                results: [
+                    [Commodity.WarRobot, 1],
+                    [Commodity.ScrapMetal, 1, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 5883,
+                profitPerCycle: 26363,
+                ROICycles: 3592
+            },
+        ]
+    },
+    [Station.VehicleFactory]: {
+        link: "https://avorion.fandom.com/wiki/Vehicle_Factory",
+        variations: [
+            {
+                cost: 79584000,
+                ingredients: [
+                    [Commodity.Rubber, 1],
+                    [Commodity.PowerUnit, 1],
+                    [Commodity.EnergyGenerator, 1],
+                    [Commodity.MetalPlate, 5],
+                    [Commodity.AntigravUnit, 1],
+                    [Commodity.Display, 1],
+                ],
+                results: [
+                    [Commodity.Vehicle, 1],
+                    [Commodity.ScrapMetal, 1, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 4944,
+                profitPerCycle: 22049,
+                ROICycles: 3610
+            },
+        ]
+    },
+    [Station.VegetableFarm]: {
+        link: "https://avorion.fandom.com/wiki/Vegetable_Farm",
+        variations: [
+            {
+                cost: 2920000,
+                ingredients: [
+                    [Commodity.EnergyCell, 4, STATION_OPTIONAL_COMMODITY],
+                    [Commodity.Water, 40],
+                ],
+                results: [
+                    [Commodity.Vegetable, 35],
+                    [Commodity.Oxygen, 4],
+                ],
+                requiredPC: 96,
+                profitPerCycle: 640,
+                ROICycles: 4563
+            },
+        ]
+    },
+    [Station.TurbineFactory]: {
+        link: "https://avorion.fandom.com/wiki/Turbine_Factory",
+        variations: [
+            {
+                cost: 19240500,
+                ingredients: [
+                    [Commodity.Servo, 4],
+                    [Commodity.Steel, 10],
+                    [Commodity.Coolant, 3],
+                    [Commodity.PowerUnit, 2],
+                ],
+                results: [
+                    [Commodity.Turbine, 1],
+                ],
+                requiredPC: 1053,
+                profitPerCycle: 4783,
+                ROICycles: 4023
+            },
+        ]
+    },
+    [Station.TeleporterFactory]: {
+        link: "https://avorion.fandom.com/wiki/Teleporter_Factory",
+        variations: [
+            {
+                cost: 41861000,
+                ingredients: [
+                    [Commodity.MetalPlate, 1],
+                    [Commodity.PowerUnit, 1],
+                    [Commodity.AntigravUnit, 1],
+                    [Commodity.PlasmaCell, 2],
+                    [Commodity.Conductor, 1],
+                    [Commodity.Transformator, 1],
+                ],
+                results: [
+                    [Commodity.Teleporter, 1],
+                    [Commodity.ScrapMetal, 1, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 2525,
+                profitPerCycle: 11271,
+                ROICycles: 3715
+            },
+        ]
+    },
+    [Station.TeaFarm]: {
+        link: "https://avorion.fandom.com/wiki/Tea_Farm",
+        variations: [
+            {
+                cost: 4512500,
+                ingredients: [
+                    [Commodity.EnergyCell, 4, STATION_OPTIONAL_COMMODITY],
+                    [Commodity.Water, 100],
+                ],
+                results: [
+                    [Commodity.Tea, 75],
+                    [Commodity.Oxygen, 4, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 206,
+                profitPerCycle: 1095,
+                ROICycles: 4122
+            },
+        ]
+    },
+    [Station.TargetingSystemFactory]: {
+        link: "https://avorion.fandom.com/wiki/Targeting_System_Factory",
+        variations: [
+            {
+                cost: 32173000,
+                ingredients: [
+                    [Commodity.TargetingCard, 1],
+                    [Commodity.Processor, 1],
+                    [Commodity.EnergyCell, 3],
+                    [Commodity.Conductor, 5],
+                    [Commodity.Wire, 5],
+                ],
+                results: [
+                    [Commodity.TargetingSystem, 1],
+                ],
+                requiredPC: 1832,
+                profitPerCycle: 8478,
+                ROICycles: 3795
+            },
+        ]
+    },
+    [Station.SpicesFarm]: {
+        link: "https://avorion.fandom.com/wiki/Spices_Farm",
+        variations: [
+            {
+                cost: 5548500,
+                ingredients: [
+                    [Commodity.EnergyCell, 1, STATION_OPTIONAL_COMMODITY],
+                    [Commodity.Water, 35],
+                    [Commodity.Fertilizer, 5],
+                ],
+                results: [
+                    [Commodity.Spices, 12],
+                    [Commodity.Oxygen, 1, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 215,
+                profitPerCycle: 1001,
+                ROICycles: 5543
+            },
+        ]
+    },
+    [Station.SolarPanelFactory]: {
+        link: "https://avorion.fandom.com/wiki/Solar_Panel_Factory",
+        variations: [
+            {
+                cost: 9356500,
+                ingredients: [
+                    [Commodity.SolarCell, 10],
+                    [Commodity.Transformator, 1],
+                ],
+                results: [
+                    [Commodity.SolarPanel, 1],
+                ],
+                requiredPC: 436,
+                profitPerCycle: 1959,
+                ROICycles: 4777 
+            },
+        ]
+    },
+    [Station.SheepRanch]: {
+        link: "https://avorion.fandom.com/wiki/Sheep_Ranch",
+        variations: [
+            {
+                cost: 4631500,
+                ingredients: [
+                    [Commodity.EnergyCell, 2, STATION_OPTIONAL_COMMODITY],
+                    [Commodity.Oxygen, 10],
+                    [Commodity.Wheat, 18],
+                    [Commodity.Water, 12],
+                ],
+                results: [
+                    [Commodity.Sheep, 15],
+                    [Commodity.BioGas, 1],
+                    [Commodity.Fabric, 2, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 153,
+                profitPerCycle: 891,
+                ROICycles: 5199 
+            },
+            {
+                cost: 4715500,
+                ingredients: [
+                    [Commodity.EnergyCell, 1, STATION_OPTIONAL_COMMODITY],
+                    [Commodity.Corn, 10],
+                    [Commodity.Oxygen, 10],
+                    [Commodity.Water, 20],
+                ],
+                results: [
+                    [Commodity.Sheep, 15],
+                    [Commodity.BioGas, 1],
+                    [Commodity.Fabric, 2, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 153,
+                profitPerCycle: 865,
+                ROICycles: 5452 
+            },
+        ]
+    },
+    [Station.SatelliteFactory]: {
+        link: "https://avorion.fandom.com/wiki/Satellite_Factory",
+        variations: [
+            {
+                cost: 68212500,
+                ingredients: [
+                    [Commodity.SolarPanel, 2],
+                    [Commodity.Processor, 2],
+                    [Commodity.Display, 2],
+                    [Commodity.EnergyContainer, 1],
+                    [Commodity.SteelTube, 1],
+                ],
+                results: [
+                    [Commodity.Satellite, 1],
+                    [Commodity.ScrapMetal, 1, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 4235,
+                profitPerCycle: 18800,
+                ROICycles: 3629 
+            },
+        ]
+    },
+    [Station.RiceFarm]: {
+        link: "https://avorion.fandom.com/wiki/Rice_Farm",
+        variations: [
+            {
+                cost: 2990000,
+                ingredients: [
+                    [Commodity.EnergyCell, 4, STATION_OPTIONAL_COMMODITY],
+                    [Commodity.Water, 40],
+                ],
+                results: [
+                    [Commodity.Rice, 76],
+                    [Commodity.Oxygen, 4, STATION_OPTIONAL_COMMODITY],
+                ],
+                requiredPC: 97,
+                profitPerCycle: 660,
+                ROICycles: 4531 
+            },
+        ]
+    },
     [Station.ProteinFactory]: {
         link: "https://avorion.fandom.com/wiki/Protein_Factory",
         variations: [

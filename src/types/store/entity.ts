@@ -1,13 +1,13 @@
-import {TurretType} from "~constants/enums/turrets.ts";
-import {ComponentType} from "~constants/enums/components.ts";
+import { Turret } from "src/data/turrets/enums";
+import { Commodity } from "src/data/commodities/enums";
 
 export interface TurretEntity {
-    type: TurretType;
+    type: Turret;
     price: number;
     quantity: number;
 }
 
-export interface ComponentEntity {
-    type: ComponentType;
+export interface CommodityEntity {
+    type: Commodity;
     quantity: number;
 }

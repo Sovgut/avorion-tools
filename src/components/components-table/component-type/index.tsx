@@ -1,7 +1,5 @@
-import {ComponentType} from "~constants/enums/components";
 import {MouseEvent, useContext} from "react";
 import {Box, IconButton, Typography} from "@mui/joy";
-import {ComponentsMeta} from "~constants/meta/components";
 import {IntlContext} from "~contexts/intl";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "~store";
@@ -11,9 +9,11 @@ import {CopyAll} from "@mui/icons-material";
 import {ComponentIcon} from "~components/component-icon";
 import styles from "./styles.module.css";
 import {useBreakpoint} from "~hooks/breakpoints";
+import { Commodity } from "src/data/commodities/enums";
+import { CommodityMetadata } from "src/data/commodities/metadata";
 
 type Props = {
-    type: ComponentType;
+    type: Commodity;
 };
 
 export function ComponentItemType({type}: Props) {
@@ -38,11 +38,11 @@ export function ComponentItemType({type}: Props) {
         fontSize = 12;
     }
 
-    if (ComponentsMeta[type].dangerous) {
+    if (CommodityMetadata[type].dangerous) {
         color = "danger";
     }
 
-    if (ComponentsMeta[type].illegal) {
+    if (CommodityMetadata[type].illegal) {
         color = "warning";
     }
 
@@ -73,7 +73,7 @@ export function ComponentItemType({type}: Props) {
                 <ComponentIcon type={type}/>
 
                 <Typography fontSize={fontSize} color={color} sx={sx}>
-                    {intlContext.text("COMPONENT", type)}
+                    {intlContext.text("COMMODITY", type)}
                 </Typography>
 
                 {!breakpoint.sm && (
@@ -81,7 +81,7 @@ export function ComponentItemType({type}: Props) {
                         disabled={!!checkbox.entities[type]}
                         size="sm"
                         title={intlContext.text("UI", "copy")}
-                        onClick={handleCopyText(intlContext.text("COMPONENT", type))}
+                        onClick={handleCopyText(intlContext.text("COMMODITY", type))}
                     >
                         <CopyAll/>
                     </IconButton>

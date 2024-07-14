@@ -3,7 +3,6 @@ import {IntlContext} from "~contexts/intl";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "~store";
 import {Box, Card, CardOverflow, Divider, Link, Stack, Table, Typography} from "@mui/joy";
-import {ComponentType} from "~constants/enums/components";
 import {ComponentItemType} from "~components/components-table/component-type";
 import {ComponentItemQuantity} from "~components/components-table/component-quantity";
 import {computationWorker} from "~workers";
@@ -14,9 +13,11 @@ import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
 import {computeComponents, initialComputationComponents} from "~utils/computations/price.ts";
 import {AnimatePresence, motion} from "framer-motion";
 import {useBreakpoint} from "~hooks/breakpoints";
+import { Commodity } from "src/data/commodities/enums";
+import { serializeCommoditites } from "~utils/serialize-commodity";
 
 export function ComponentsTable() {
-    const [components, setComponents] = useState<Record<ComponentType, number>>({} as Record<ComponentType, number>);
+    const [components, setComponents] = useState<Record<Commodity, number>>({} as Record<Commodity, number>);
     const [computations, setComputations] = useState<ReturnType<typeof computeComponents>>(initialComputationComponents);
 
     const intlContext = useContext(IntlContext);
@@ -69,7 +70,7 @@ export function ComponentsTable() {
                     <Table>
                         <tbody>
                         <AnimatePresence>
-                            {(Object.keys(components) as ComponentType[]).sort((a, b) => a.localeCompare(b)).map(type => (
+                            {(serializeCommoditites(Object.keys(components))).sort((a, b) => a + b).map(type => (
                                 <motion.tr
                                     key={type}
                                     initial={{opacity: 0}}

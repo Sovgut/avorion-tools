@@ -5,11 +5,11 @@ import {MIN_CARGO_QUANTITY} from "~constants/common";
 import {IntlContext} from "~contexts/intl";
 import {useDispatch} from "react-redux";
 import {createCargoComponent} from "~reducers/cargo";
-import {ComponentType} from "~constants/enums/components";
 import {ComponentItemModal} from "~components/components-table/component-modal";
+import { Commodity } from "src/data/commodities/enums";
 
 type Props = {
-    type: ComponentType;
+    type: Commodity;
 }
 
 export function ComponentItemAction({type}: Props) {
@@ -41,7 +41,7 @@ export function ComponentItemAction({type}: Props) {
             </IconButton>
 
             <ComponentItemModal open={menuOpen}
-                                title={intlContext.text("COMPONENT", type)}
+                                title={intlContext.text("COMMODITY", type)}
                                 type={type}
                                 onClose={onModalClose}
                                 onSubmit={onModalSubmit}/>

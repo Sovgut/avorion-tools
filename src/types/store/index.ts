@@ -1,19 +1,19 @@
-import {Identity} from "./common.ts";
-import {TurretEntity} from "./entity.ts";
-import {ComponentType} from "~constants/enums/components.ts";
+import { Commodity } from "src/data/commodities/enums.ts";
+import { Identity } from "./common.ts";
+import { TurretEntity } from "./entity.ts";
 
 export interface TurretStoreState {
-    entities: Record<Identity, TurretEntity>;
+  entities: Record<Identity, TurretEntity>;
 }
 
-export interface ComponentStoreState {
-    entities: Record<Identity, Record<ComponentType, number>>;
+export interface CommodityStoreState {
+  entities: Record<Identity, Record<Commodity, number>>;
 }
 
 export interface CargoStoreState {
-    entities: Record<ComponentType, number>;
+  entities: Record<Commodity, number>;
 }
 
-export interface CheckboxComponentStoreState {
-    entities: Record<ComponentType, true>;
+export interface CheckboxCommodityStoreState {
+  entities: Record<Commodity, true>;
 }

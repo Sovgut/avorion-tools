@@ -1,5 +1,9 @@
-import {PayloadAction} from "@reduxjs/toolkit";
-import {ComponentEntity} from "../entity.ts";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { CommodityEntity } from "../entity";
 
-export type CheckboxCreateAction = PayloadAction<ComponentEntity | Omit<ComponentEntity, 'quantity'>>;
-export type CheckboxDeleteAction = PayloadAction<ComponentEntity | Omit<ComponentEntity, 'quantity'>>;
+export type CheckboxCreateAction = PayloadAction<
+  CommodityEntity | Omit<CommodityEntity, "quantity">
+>;
+export type CheckboxDeleteAction = PayloadAction<
+  CommodityEntity | Omit<CommodityEntity, "quantity">
+>;

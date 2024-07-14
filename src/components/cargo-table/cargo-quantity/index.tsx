@@ -1,12 +1,12 @@
 import {Stack, Typography} from "@mui/joy";
 import {CargoItemAction} from "~components/cargo-table/cargo-action";
-import {ComponentType} from "~constants/enums/components.ts";
 import styles from "./styles.module.css";
 import {useBreakpoint} from "~hooks/breakpoints";
+import { Commodity } from "src/data/commodities/enums";
 
 type Props = {
     value: number;
-    type: ComponentType;
+    type: Commodity;
 }
 
 export function CargoItemQuantity({value, type}: Props) {

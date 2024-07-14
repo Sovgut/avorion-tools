@@ -1,11 +1,11 @@
 import {createContext, ReactNode, useState} from "react";
 import {CACHE_LANG} from "~constants/common";
-import {IntlStorage, IntlStorageLabel, LanguageType} from "~contexts/intl/storage/types";
+import {IntlLabel, LanguageType} from "~contexts/intl/storage/types";
 import {INTL_STORAGE} from "~contexts/intl/storage";
 
 type Context = {
     language: LanguageType;
-    text(scope: keyof IntlStorage, label: keyof IntlStorageLabel): string;
+    text<Scope extends keyof IntlLabel>(scope: Scope, label: IntlLabel[Scope]): string;
     selectLanguage(language: string): void;
 }
 
@@ -28,7 +28,7 @@ export function IntlContextProvider({children}: Props) {
         setLanguage(language);
     }
 
-    function text(scope: keyof IntlStorage, label: keyof IntlStorageLabel): string {
+    function text<Scope extends keyof IntlLabel>(scope: Scope, label: IntlLabel[Scope]): string {
         const storage = INTL_STORAGE[scope];
         const translation = storage[language] || storage["en-US"];
         const section = translation[label as keyof typeof translation];

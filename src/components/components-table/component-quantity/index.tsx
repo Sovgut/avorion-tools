@@ -3,12 +3,12 @@ import {useMemo} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "~store";
 import {computeQuantity} from "~utils/computations/quantity";
-import {ComponentType} from "~constants/enums/components";
 import {ComponentItemAction} from "~components/components-table/component-action";
 import {useBreakpoint} from "~hooks/breakpoints";
+import { Commodity } from "src/data/commodities/enums";
 
 type Props = {
-    type: ComponentType;
+    type: Commodity;
     value: number;
 }
 

@@ -4,10 +4,10 @@ import {IntlContext} from "~contexts/intl";
 import {Numeric} from "~components/numeric";
 import {MAX_COMPONENT_QUANTITY} from "~constants/common";
 import {useDispatch, useSelector} from "react-redux";
-import {ComponentType} from "~constants/enums/components";
 import {nanoid} from "nanoid";
 import {RootState} from "~store";
 import {updateComponent} from "~reducers/component.ts";
+import { serializeCommoditites, serializeCommodity } from "~utils/serialize-commodity";
 
 type Props = {
     id: string;
@@ -25,13 +25,13 @@ export function TurretComponents({id}: Props) {
         dispatch(updateComponent({
             identity: id,
             entity: {
-                type: type as ComponentType,
+                type: serializeCommodity(type),
                 quantity: Number(value),
             }
         }));
     }
 
-    const list = Object.keys(componentStore.entities[id] ?? {}) as ComponentType[];
+    const list = serializeCommoditites(Object.keys(componentStore.entities[id] ?? {}));
 
 
     if (list.length === 0) {
@@ -49,9 +49,9 @@ export function TurretComponents({id}: Props) {
             {list.map(type => (
                 <Numeric
                     key={type}
-                    id={type}
+                    id={String(type)}
                     max={MAX_COMPONENT_QUANTITY}
-                    label={intlContext.text("COMPONENT", type)}
+                    label={intlContext.text("COMMODITY", type)}
                     value={componentStore.entities[id][type]}
                     onChange={handleComponentChange}/>
             ))}
