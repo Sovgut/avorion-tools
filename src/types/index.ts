@@ -8,6 +8,7 @@ export type ComponentMetaType = {
     illegal: boolean,
     dangerous: boolean,
     icon: string,
-    sellers: SellerType[]
+    source: SellerType[]
+    optionalSource: SellerType[]
 };
 export type SellerMetaType = { link: string };

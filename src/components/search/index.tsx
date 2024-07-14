@@ -78,15 +78,21 @@ export const GlobalSearch: FC = memo(() => {
 
         {
 
-            const array = Object.keys(INTL_STORAGE.SELLER[intlContext.language]).map((key) => ({ key: INTL_STORAGE.SELLER[intlContext.language][key as SellerType], value: key }));
-            const found = array.filter(seller => seller.key.toLowerCase().includes(search.toLowerCase()));
+            const array = Object
+                            .keys(INTL_STORAGE.SELLER[intlContext.language])
+                            .map((key) => ({ key: INTL_STORAGE.SELLER[intlContext.language][key as SellerType], value: key }));
+            const found = array
+                            .filter(seller => seller.key.toLowerCase().includes(search.toLowerCase()));
 
             setStations(found.map(seller => seller.value) as SellerType[]);
         }
 
         {
-            const array = Object.keys(INTL_STORAGE.COMPONENT[intlContext.language]).map((key) => ({ key: INTL_STORAGE.COMPONENT[intlContext.language][key as ComponentType], value: key }));
-            const found = array.filter(component => component.key.toLowerCase().includes(search.toLowerCase()));
+            const array = Object
+                            .keys(INTL_STORAGE.COMPONENT[intlContext.language])
+                            .map((key) => ({ key: INTL_STORAGE.COMPONENT[intlContext.language][key as ComponentType], value: key }));
+            const found = array
+                            .filter(component => component.key.toLowerCase().includes(search.toLowerCase()));
 
             setCommodities(found.map(component => component.value) as ComponentType[]);
         }

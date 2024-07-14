@@ -1,4 +1,4 @@
-export enum SellerType {
+export enum Station {
     AcceleratorFactory,
     AluminumMine,
     AmmunitionFactory,
@@ -29,6 +29,7 @@ export enum SellerType {
     ElectromagneticChargeFactory,
     EnergyContainerFactory,
     EnergyInverterFactory,
+    EnergyGeneratorFactory,
     EnergyTubeFactory,
     ExplosiveChargeFactory,
     FabricFactory,
@@ -46,6 +47,7 @@ export enum SellerType {
     GaussRailFactory,
     GlassManufacturer,
     GunFactory,
+    Hideout,
     HighCapacityLensFactory,
     HighPressureTubeFactory,
     IceMine,

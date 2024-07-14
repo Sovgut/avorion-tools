@@ -1,4 +1,4 @@
-export enum TurretType {
+export enum Turret {
     AntiFighter,
     Bolter,
     Cannon,
