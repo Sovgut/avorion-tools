@@ -4,7 +4,7 @@ import {
   memo,
   useCallback,
   useContext,
-  useLayoutEffect,
+  useEffect,
   useState,
 } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -19,7 +19,7 @@ export const FactoriesPage: FC = memo(() => {
   const [station, setStation] = useState<Station | null>(null);
   const intlContext = useContext(IntlContext);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const stationKey = searchParams.get("station");
 
     if (stationKey) {
@@ -27,7 +27,7 @@ export const FactoriesPage: FC = memo(() => {
 
       setStation(station);
     }
-  }, []);
+  }, [searchParams]);
 
   const getLeftNodes = useCallback(
     (variation: IStationVariation) => {
@@ -80,13 +80,16 @@ export const FactoriesPage: FC = memo(() => {
                 </Stack>
                 
                 <Stack>
-                    <Typography>{intlContext.text("STATION", station)}</Typography>
+                    <Typography level="h4">{intlContext.text("STATION", station)}</Typography>
+
+                    <Typography sx={{mt: 3}}>Ingredients</Typography>
                     {variation.ingredients.map(([ingredient, count, isOptional], ingredientIndex) => (
-                        <Typography key={ingredientIndex}>{intlContext.text("COMMODITY", ingredient)}: {count}{isOptional ? "*" : null}</Typography>
+                        <Typography key={ingredientIndex} color={isOptional ? "warning" : "neutral"}>{intlContext.text("COMMODITY", ingredient)}: {count}</Typography>
                     ))}
 
+                    <Typography sx={{mt: 3}}>Results</Typography>
                     {variation.results.map(([result, count, isOptional], resultIndex) => (
-                        <Typography key={resultIndex}>{intlContext.text("COMMODITY", result)}: {count}{isOptional ? "*" : null}</Typography>
+                        <Typography key={resultIndex} color={isOptional ? "warning" : "neutral"}>{intlContext.text("COMMODITY", result)}: {count}</Typography>
                     ))}
                 </Stack>
 
