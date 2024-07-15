@@ -1,7 +1,5 @@
 import { CopyAll, Search } from "@mui/icons-material";
 import {
-  Alert,
-  Badge,
   Box,
   Chip,
   DialogTitle,
@@ -75,7 +73,7 @@ export const GlobalSearch: FC = memo(() => {
       }
 
       return (
-        <Stack direction="column" spacing={2} sx={{marginTop: 1}}>
+        <Stack direction="column" spacing={2} sx={{marginTop: 2}}>
           {dangerous}
           {illegal}
         </Stack>
