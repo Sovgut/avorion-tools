@@ -4,7 +4,7 @@ import { Box, Divider, IconButton, Link, Stack } from "@mui/joy";
 import { IntlContext } from "~contexts/intl";
 import { StationMetadata } from "~data/stations/metadata";
 import { copyOnMouseEvent } from "~utils/copy-on-mouse-event";
-import { CopyAll } from "@mui/icons-material";
+import { AccountTree, CopyAll } from "@mui/icons-material";
 import { useBreakpoint } from "~hooks/breakpoints";
 
 export const StationsList: FC<ISearchStationsList> = memo((props) => {
@@ -19,7 +19,7 @@ export const StationsList: FC<ISearchStationsList> = memo((props) => {
         <Box key={station}>
           <Divider />
           <Stack direction="row" spacing={0.5} alignItems="center">
-          {!breakpoint.sm && (
+            {!breakpoint.sm && (
               <IconButton
                 size="sm"
                 title={intlContext.text("UI", "copy")}
@@ -27,6 +27,13 @@ export const StationsList: FC<ISearchStationsList> = memo((props) => {
               >
                 <CopyAll />
               </IconButton>
+            )}
+            {!breakpoint.sm && (
+              <Link href={`/factories?station=${station}`}>
+                <IconButton size="sm">
+                  <AccountTree />
+                </IconButton>
+              </Link>
             )}
             <Link
               href={StationMetadata[station].link}
@@ -37,6 +44,7 @@ export const StationsList: FC<ISearchStationsList> = memo((props) => {
             >
               {intlContext.text("STATION", station)}
             </Link>
+            
           </Stack>
         </Box>
       ))}

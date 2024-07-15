@@ -5,7 +5,7 @@ import { useBreakpoint } from "~hooks/breakpoints";
 import { IntlContext } from "~contexts/intl";
 import { copyOnMouseEvent } from "~utils/copy-on-mouse-event";
 import { StationMetadata } from "~data/stations/metadata";
-import { CopyAll } from "@mui/icons-material";
+import { AccountTree, CopyAll } from "@mui/icons-material";
 
 export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
   (props) => {
@@ -13,11 +13,7 @@ export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
     const intlContext = useContext(IntlContext);
 
     return (
-      <Stack
-        direction="row"
-        spacing={0.5}
-        alignItems="center"
-      >
+      <Stack direction="row" spacing={0.5} alignItems="center">
         {!breakpoint.sm && (
           <IconButton
             size="sm"
@@ -29,6 +25,13 @@ export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
             <CopyAll />
           </IconButton>
         )}
+        {!breakpoint.sm && (
+          <Link href={`/factories?station=${props.station}`}>
+            <IconButton size="sm">
+              <AccountTree />
+            </IconButton>
+          </Link>
+        )}
         <Link
           href={StationMetadata[props.station].link}
           color="primary"
@@ -38,7 +41,6 @@ export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
         >
           {intlContext.text("STATION", props.station)}
         </Link>
-        
       </Stack>
     );
   }
