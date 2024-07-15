@@ -13,7 +13,7 @@ import { IntlContext } from "~contexts/intl";
 import { Commodity } from "~data/commodities/enums";
 import { Station } from "~data/stations/enums";
 import { StationMetadata } from "~data/stations/metadata";
-import { IStationCommodity, IStationVariation } from "~data/stations/types";
+import { IStationCommodity } from "~data/stations/types";
 import { serializeStation, serializeStations } from "~utils/serialize-station";
 
 export const FactoriesPage: FC = memo(() => {
