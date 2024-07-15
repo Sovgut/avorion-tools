@@ -8,7 +8,7 @@ export const CommoditiesList: FC<ISearchCommoditiesList> = memo((props) => {
 
   return (
     <Stack direction="column">
-      {props.commodities.map((commodity) => <SearchCommodity commodity={commodity}/>)}
+      {props.commodities.map((commodity) => <SearchCommodity key={commodity} commodity={commodity}/>)}
     </Stack>
   );
 });
