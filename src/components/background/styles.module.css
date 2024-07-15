@@ -7,14 +7,6 @@
     top: 0;
     right: 0;
     bottom: 0;
-
-    background-image: url("/img/dark-background.webp");
-    background-repeat: no-repeat;
-    background-position: center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-
+    background: rgb(24 25 30);
     min-height: 100vh;
 }
