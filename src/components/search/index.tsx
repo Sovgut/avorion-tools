@@ -1,17 +1,14 @@
-import { CopyAll, Search } from "@mui/icons-material";
+import { Search } from "@mui/icons-material";
 import {
   Box,
-  Chip,
   DialogTitle,
   Divider,
   IconButton,
   Input,
-  Link,
   Modal,
   ModalClose,
   ModalDialog,
   Stack,
-  Typography,
 } from "@mui/joy";
 import {
   ChangeEventHandler,
@@ -25,15 +22,14 @@ import {
   useState,
 } from "react";
 import { Commodity } from "~data/commodities/enums";
-import { CommodityMetadata } from "~data/commodities/metadata";
 import { Station } from "~data/stations/enums";
-import { StationMetadata } from "~data/stations/metadata";
 import { IntlContext } from "~contexts/intl";
 import { INTL_STORAGE } from "~contexts/intl/storage";
 import { useBreakpoint } from "~hooks/breakpoints";
-import { copyOnMouseEvent } from "~utils/copy-on-mouse-event";
 import { serializeCommoditites } from "~utils/serialize-commodity";
 import { serializeStations } from "~utils/serialize-station";
+import { StationsList } from "./components/StationsList";
+import { CommoditiesList } from "./components/CommoditiesList";
 
 export const GlobalSearch: FC = memo(() => {
   const [open, setOpen] = useState<boolean>(false);
@@ -50,37 +46,6 @@ export const GlobalSearch: FC = memo(() => {
       window.removeEventListener("keydown", onShortcut);
     };
   }, []);
-
-  const renderCommoditiesMetadata = useCallback(
-    (type: Commodity) => {
-      let dangerous = null;
-      let illegal = null;
-
-      if (CommodityMetadata[type].illegal) {
-        illegal = (
-          <Chip color="warning">
-            {intlContext.text("UI", "illegal-cargo")}
-          </Chip>
-        );
-      }
-
-      if (CommodityMetadata[type].dangerous) {
-        dangerous = (
-          <Chip color="danger">
-            {intlContext.text("UI", "dangerous-cargo")}
-          </Chip>
-        );
-      }
-
-      return (
-        <Stack direction="column" spacing={2} sx={{marginTop: 2}}>
-          {dangerous}
-          {illegal}
-        </Stack>
-      );
-    },
-    [intlContext.language]
-  );
 
   const onShortcut: EventListener = useCallback((event: any) => {
     if (event.key === "F2") {
@@ -132,11 +97,11 @@ export const GlobalSearch: FC = memo(() => {
           key: INTL_STORAGE.COMMODITY[intlContext.language][key],
           value: key,
         }));
-        const found = array.filter((component) =>
-          component.key.toLowerCase().includes(search.toLowerCase())
+        const found = array.filter((commodity) =>
+          commodity.key.toLowerCase().includes(search.toLowerCase())
         );
 
-        setCommodities(found.map((component) => component.value));
+        setCommodities(found.map((commodity) => commodity.value));
       }
     },
     [intlContext.language, setStations, setCommodities]
@@ -179,7 +144,7 @@ export const GlobalSearch: FC = memo(() => {
           <ModalClose onClick={onModalClose} />
           <Divider />
 
-          <Stack direction="column" spacing={2}>
+          <Stack direction="column">
             <Stack spacing={1}>
               <form onSubmit={onFormSubmit}>
                 <Stack spacing={2}>
@@ -196,108 +161,8 @@ export const GlobalSearch: FC = memo(() => {
             </Stack>
 
             <Box maxHeight={400} sx={{ overflowY: "auto" }}>
-              {stations.length > 0 && (
-                <Stack direction="column">
-                  {stations.map((station) => (
-                    <Box key={station}>
-                      <Stack direction="row" spacing={0.5} alignItems="center">
-                        <Typography level="body-sm">
-                          {intlContext.text("UI", "station")} /{" "}
-                        </Typography>
-                        <Link
-                          href={StationMetadata[station].link}
-                          color="primary"
-                          target="_blank"
-                          level="body-sm"
-                          sx={{ width: "max-content" }}
-                        >
-                          {intlContext.text("STATION", station)}
-                        </Link>
-                        {!breakpoint.sm && (
-                          <IconButton
-                            size="sm"
-                            title={intlContext.text("UI", "copy")}
-                            onClick={copyOnMouseEvent(
-                              intlContext.text("STATION", station)
-                            )}
-                          >
-                            <CopyAll />
-                          </IconButton>
-                        )}
-                      </Stack>
-                      <Divider />
-                    </Box>
-                  ))}
-                </Stack>
-              )}
-
-              {commodities.map((commodity) => (
-                <Box key={commodity}>
-                  <Stack>
-                    {renderCommoditiesMetadata(commodity)}
-
-                    <Stack
-                      direction="column"
-                      alignItems="left"
-                      justifyContent="center"
-                    >
-                      {CommodityMetadata[commodity].stations.map((station) => (
-                        <Stack
-                          key={commodity + station}
-                          direction="row"
-                          spacing={0.5}
-                          alignItems="center"
-                        >
-                          <Stack direction="row" alignItems="center">
-                            <Typography
-                              level="body-sm"
-                              sx={{ width: "max-content" }}
-                            >
-                              {intlContext.text("COMMODITY", commodity)}
-                            </Typography>
-                            {!breakpoint.sm && (
-                              <IconButton
-                                size="sm"
-                                title={intlContext.text("UI", "copy")}
-                                onClick={copyOnMouseEvent(
-                                  intlContext.text("COMMODITY", commodity)
-                                )}
-                              >
-                                <CopyAll />
-                              </IconButton>
-                            )}
-                          </Stack>
-                          <Typography level="body-sm">
-                            {" "}
-                            &gt; {intlContext.text("UI", "station")} /{" "}
-                          </Typography>
-                          <Link
-                            href={StationMetadata[station].link}
-                            color="primary"
-                            target="_blank"
-                            level="body-sm"
-                            sx={{ width: "max-content" }}
-                          >
-                            {intlContext.text("STATION", station)}
-                          </Link>
-                          {!breakpoint.sm && (
-                            <IconButton
-                              size="sm"
-                              title={intlContext.text("UI", "copy")}
-                              onClick={copyOnMouseEvent(
-                                intlContext.text("STATION", station)
-                              )}
-                            >
-                              <CopyAll />
-                            </IconButton>
-                          )}
-                        </Stack>
-                      ))}
-                    </Stack>
-                  </Stack>
-                  <Divider />
-                </Box>
-              ))}
+              <StationsList stations={stations} />
+              <CommoditiesList commodities={commodities} />
             </Box>
           </Stack>
         </ModalDialog>
