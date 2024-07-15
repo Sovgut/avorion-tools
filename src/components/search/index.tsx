@@ -188,10 +188,7 @@ export const GlobalSearch: FC = memo(() => {
 
             <Box maxHeight={400} sx={{ overflowY: "auto" }}>
               {stations.length > 0 && (
-                <Typography level="title-md">{intlContext.text("UI", "stations")}</Typography>
-              )}
-              {stations.length > 0 && (
-                <Stack direction="column" sx={{ paddingLeft: 4 }}>
+                <Stack direction="column">
                   {stations.map((station) => (
                     <Stack
                       key={station}
@@ -206,7 +203,7 @@ export const GlobalSearch: FC = memo(() => {
                         level="body-sm"
                         sx={{ width: "max-content" }}
                       >
-                        {intlContext.text("STATION", station)}
+                        {intlContext.text("UI", "station")} / {intlContext.text("STATION", station)}
                       </Link>
                       {!breakpoint.sm && (
                         <IconButton
@@ -224,17 +221,12 @@ export const GlobalSearch: FC = memo(() => {
                 </Stack>
               )}
 
-              {commodities.length > 0 && (
-                <Typography level="title-md">{intlContext.text("UI", "commodities")}</Typography>
-              )}
               {commodities.map((commodity) => (
                 <Stack key={commodity} spacing={1}>
                   <Divider />
                   <Stack>
-                    <Stack spacing={2} direction="row">
-                      <Typography level="body-md">
-                        {intlContext.text("COMMODITY", commodity)}
-                      </Typography>
+                    <Stack direction="row" alignItems="center">
+                      <Typography level="body-sm" sx={{ width: "max-content" }}>{intlContext.text("COMMODITY", commodity)}</Typography>
                       {!breakpoint.sm && (
                         <IconButton
                           size="sm"
@@ -249,52 +241,7 @@ export const GlobalSearch: FC = memo(() => {
                     </Stack>
                     {renderCommoditiesMetadata(commodity)}
 
-                    <Box>
-                      <Typography level="title-md">
-                        {intlContext.text("UI", "can-be-found-in")}
-                      </Typography>
-
-                      <Stack sx={{ paddingLeft: 4 }}>
-                        {[
-                          Station.TurretFactory,
-                          Station.TurretFactorySupplier,
-                        ].map((station) => (
-                          <Stack
-                            key={commodity + station}
-                            direction="row"
-                            spacing={0.5}
-                            alignItems="center"
-                          >
-                            <Link
-                              href={StationMetadata[station].link}
-                              color="primary"
-                              target="_blank"
-                              level="body-sm"
-                              sx={{ width: "max-content" }}
-                            >
-                              {intlContext.text("STATION", station)}
-                            </Link>
-                            {!breakpoint.sm && (
-                              <IconButton
-                                size="sm"
-                                title={intlContext.text("UI", "copy")}
-                                onClick={copyOnMouseEvent(
-                                  intlContext.text("STATION", station)
-                                )}
-                              >
-                                <CopyAll />
-                              </IconButton>
-                            )}
-                          </Stack>
-                        ))}
-                      </Stack>
-                    </Box>
-
-                    <Box>
-                      <Typography level="title-md">
-                        {intlContext.text("UI", "guaranteed-in")}
-                      </Typography>
-                      <Stack sx={{ paddingLeft: 4 }}>
+                    <Stack sx={{ paddingLeft: 4 }}>
                         {CommodityMetadata[commodity].stations.map(
                           (station) => (
                             <Stack
@@ -310,7 +257,7 @@ export const GlobalSearch: FC = memo(() => {
                                 level="body-sm"
                                 sx={{ width: "max-content" }}
                               >
-                                {intlContext.text("STATION", station)}
+                                {intlContext.text("UI", "station")} / {intlContext.text("STATION", station)}
                               </Link>
                               {!breakpoint.sm && (
                                 <IconButton
@@ -327,7 +274,6 @@ export const GlobalSearch: FC = memo(() => {
                           )
                         )}
                       </Stack>
-                    </Box>
                   </Stack>
                 </Stack>
               ))}
