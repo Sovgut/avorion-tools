@@ -56,7 +56,7 @@ export function TurretPlannerPage() {
                 <Box className={animationClasses}>
                     <Stack direction="row" spacing={1}>
                         <Box sx={{width: "100%"}}>
-                            <TurretPicker/>
+                            <TurretPicker variant="soft"/>
                         </Box>
                         <IconButton
                             color="danger"

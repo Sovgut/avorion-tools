@@ -67,10 +67,10 @@ export function TurretHeader({id, entity}: Props) {
                     </Typography>
                 </Stack>
                 <Dropdown>
-                    <MenuButton variant="plain" sx={{width: "44px", height: "40px"}}>
+                    <MenuButton variant="soft" sx={{width: "44px", height: "40px"}}>
                         <MoreIcon/>
                     </MenuButton>
-                    <Menu placement="bottom-end" sx={{minWidth: "200px"}}>
+                    <Menu placement="bottom-end" variant="soft" sx={{minWidth: "200px"}}>
                         <MenuItem onClick={resetToDefaultValues}>
                             <ListItemDecorator>
                                 <RestartAlt/>

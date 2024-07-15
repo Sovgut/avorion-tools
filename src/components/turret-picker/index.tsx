@@ -11,7 +11,11 @@ import { serializeTurret, serializeTurrets } from "~utils/serialize-turret";
 import { Turret } from "~data/turrets/enums";
 import { TurretMetadata } from "~data/turrets/metadata";
 
-export function TurretPicker() {
+interface ITurretPicker {
+    variant: "soft" | "plain";
+}
+
+export function TurretPicker(props: ITurretPicker) {
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
     const turrets = serializeTurrets(Object.keys(Turret));
@@ -48,6 +52,7 @@ export function TurretPicker() {
             placeholder={intlContext.text("UI", "select-turret")}
             onChange={handleSelect}
             value={null}
+            variant={props.variant}
             slotProps={{
                 listbox: {
                     sx: {

@@ -73,7 +73,7 @@ export function ComponentItemModal({open, title, type, onClose, onSubmit}: Props
 
     return (
         <Modal open={open} onClose={onModalClose}>
-            <ModalDialog sx={{minWidth: breakpoint.sm ? "auto" : 500, pt: 1.5}}>
+            <ModalDialog variant="soft" sx={{minWidth: breakpoint.sm ? "auto" : 500, pt: 1.5}}>
                 <DialogTitle sx={{pr: 2}}>{title}</DialogTitle>
                 <ModalClose onClick={onClose}/>
                 <Divider/>

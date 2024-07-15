@@ -9,7 +9,7 @@ type Props = {
 
 export function App({children}: Props) {
     return (
-        <Box>
+        <Box id="layout">
             <Background/>
             <Header/>
             {children}

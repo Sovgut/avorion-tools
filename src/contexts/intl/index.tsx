@@ -2,6 +2,7 @@ import {createContext, ReactNode, useState} from "react";
 import {CACHE_LANG} from "~constants/common";
 import {IntlLabel, LanguageType} from "~contexts/intl/storage/types";
 import {INTL_STORAGE} from "~contexts/intl/storage";
+import { LocalState } from "@sovgut/state";
 
 type Context = {
     language: LanguageType;
@@ -20,10 +21,10 @@ export const IntlContext = createContext<Context>({
 });
 
 export function IntlContextProvider({children}: Props) {
-    const [language, setLanguage] = useState<LanguageType>((localStorage.getItem(CACHE_LANG) ?? window.navigator.language ?? "en-US") as LanguageType);
+    const [language, setLanguage] = useState<LanguageType>((LocalState.get(CACHE_LANG, { fallback: window.navigator.language ?? "en-US" })) as LanguageType);
 
     function selectLanguage(language: LanguageType) {
-        localStorage.setItem(CACHE_LANG, language);
+        LocalState.set(CACHE_LANG, language);
 
         setLanguage(language);
     }

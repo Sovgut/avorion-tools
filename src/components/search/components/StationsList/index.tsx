@@ -1,6 +1,6 @@
 import { FC, memo, useContext } from "react";
 import { type ISearchStationsList } from "./types";
-import { Box, Divider, IconButton, Link, Stack, Typography } from "@mui/joy";
+import { Box, Divider, IconButton, Link, Stack } from "@mui/joy";
 import { IntlContext } from "~contexts/intl";
 import { StationMetadata } from "~data/stations/metadata";
 import { copyOnMouseEvent } from "~utils/copy-on-mouse-event";
@@ -19,9 +19,15 @@ export const StationsList: FC<ISearchStationsList> = memo((props) => {
         <Box key={station}>
           <Divider />
           <Stack direction="row" spacing={0.5} alignItems="center">
-            <Typography level="body-sm">
-              {intlContext.text("UI", "station")} /{" "}
-            </Typography>
+          {!breakpoint.sm && (
+              <IconButton
+                size="sm"
+                title={intlContext.text("UI", "copy")}
+                onClick={copyOnMouseEvent(intlContext.text("STATION", station))}
+              >
+                <CopyAll />
+              </IconButton>
+            )}
             <Link
               href={StationMetadata[station].link}
               color="primary"
@@ -31,15 +37,6 @@ export const StationsList: FC<ISearchStationsList> = memo((props) => {
             >
               {intlContext.text("STATION", station)}
             </Link>
-            {!breakpoint.sm && (
-              <IconButton
-                size="sm"
-                title={intlContext.text("UI", "copy")}
-                onClick={copyOnMouseEvent(intlContext.text("STATION", station))}
-              >
-                <CopyAll />
-              </IconButton>
-            )}
           </Stack>
         </Box>
       ))}

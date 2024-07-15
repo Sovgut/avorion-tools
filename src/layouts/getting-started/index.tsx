@@ -8,7 +8,7 @@ type Props = {
 
 export function GettingStartedLayout({children}: Props) {
     return (
-        <Box className={styles.component}>
+        <Box id="layout" className={styles.component}>
             {children}
         </Box>
     )
