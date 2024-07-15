@@ -82,12 +82,12 @@ export const FactoriesPage: FC = memo(() => {
                 <Stack>
                     <Typography level="h4">{intlContext.text("STATION", station)}</Typography>
 
-                    <Typography sx={{mt: 3}}>Ingredients</Typography>
+                    {variation.ingredients.length > 0 && <Typography sx={{mt: 3}}>Ingredients</Typography>}
                     {variation.ingredients.map(([ingredient, count, isOptional], ingredientIndex) => (
                         <Typography key={ingredientIndex} color={isOptional ? "warning" : "neutral"}>{intlContext.text("COMMODITY", ingredient)}: {count}</Typography>
                     ))}
 
-                    <Typography sx={{mt: 3}}>Results</Typography>
+                    {variation.results.length > 0 && <Typography sx={{mt: 3}}>Results</Typography>}
                     {variation.results.map(([result, count, isOptional], resultIndex) => (
                         <Typography key={resultIndex} color={isOptional ? "warning" : "neutral"}>{intlContext.text("COMMODITY", result)}: {count}</Typography>
                     ))}
