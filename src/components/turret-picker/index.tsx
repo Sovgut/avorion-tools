@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {SyntheticEvent, useContext} from "react";
 import {IntlContext} from "~contexts/intl";
 import {useDispatch} from "react-redux";
 import {ListItemDecorator, Option, Select} from "@mui/joy";
@@ -16,10 +16,11 @@ export function TurretPicker() {
     const dispatch = useDispatch();
     const turrets = serializeTurrets(Object.keys(Turret));
 
-    function handleSelect(_event: unknown, value: string | null) {
+    function handleSelect(_: SyntheticEvent | null, value: {} | null) {
         if (value === null) return;
 
-        const turret = serializeTurret(value);
+        const newValue = value as string;
+        const turret = serializeTurret(newValue);
         const identity = nanoid();
 
         dispatch(createTurret({
