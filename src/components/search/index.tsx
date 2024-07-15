@@ -22,8 +22,8 @@ import { CommoditiesList } from "./components/CommoditiesList";
 export const GlobalSearch: FC = memo(() => {
   const [open, setOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<string>(String());
-  const [commodities, setCommodities] = useState<Commodity[]>([]);
-  const [stations, setStations] = useState<Station[]>([]);
+  const [commodities, setCommodities] = useState<Commodity[]>(serializeCommoditites(Object.keys(Commodity)));
+  const [stations, setStations] = useState<Station[]>(serializeStations(Object.keys(Station)));
   const intlContext = useContext(IntlContext);
 
   useEffect(() => {
@@ -37,16 +37,12 @@ export const GlobalSearch: FC = memo(() => {
   const onShortcut: EventListener = useCallback((event: any) => {
     if (event.key === "F2") {
       setSearch(String());
-      setStations([]);
-      setCommodities([]);
       setOpen((pv) => !pv);
       toggleLayoutScroll(true);
     }
 
     if (event.key === "Escape") {
       setSearch(String());
-      setStations([]);
-      setCommodities([]);
       setOpen(false);
       toggleLayoutScroll(true);
     }
@@ -54,8 +50,6 @@ export const GlobalSearch: FC = memo(() => {
 
   const onModalClose = useCallback(() => {
     setSearch(String());
-    setStations([]);
-    setCommodities([]);
     setOpen(false);
     toggleLayoutScroll(true);
   }, []);
@@ -82,8 +76,8 @@ export const GlobalSearch: FC = memo(() => {
   const processSearch = useCallback(
     (value: string) => {
       if (value.length === 0) {
-        setStations([]);
-        setCommodities([]);
+        setStations(serializeStations(Object.keys(Station)));
+        setCommodities(serializeCommoditites(Object.keys(Commodity)));
 
         if (value !== search) {
           setOpen(false);
@@ -103,8 +97,8 @@ export const GlobalSearch: FC = memo(() => {
           key: INTL_STORAGE.STATION[intlContext.language][key],
           value: key,
         }));
-        const found = array.filter((seller) =>
-          seller.key.toLowerCase().includes(value.toLowerCase())
+        const found = array.filter((station) =>
+          station.key.toLowerCase().includes(value.toLowerCase())
         );
 
         setStations(found.map((seller) => seller.value));
