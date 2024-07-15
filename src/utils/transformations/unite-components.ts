@@ -1,21 +1,25 @@
-import {ComponentType} from "~constants/enums/components";
-import {ComponentStoreState, TurretStoreState} from "~types/store";
+import { Commodity } from "~data/commodities/enums";
+import { CommodityStoreState, TurretStoreState } from "~types/store";
+import { serializeCommodity } from "~utils/serialize-commodity";
 
-export function uniteComponents(turrets: TurretStoreState, components: ComponentStoreState): Record<ComponentType, number> {
-    const result: Record<ComponentType, number> = {} as Record<ComponentType, number>;
+export function uniteComponents(
+  turrets: TurretStoreState,
+  components: CommodityStoreState
+): Record<Commodity, number> {
+  const result: Record<Commodity, number> = {} as Record<Commodity, number>;
 
-    for (const id of Object.keys(components.entities)) {
+  for (const id of Object.keys(components.entities)) {
+    for (const type of Object.keys(components.entities[id])) {
+      const commidity = serializeCommodity(type);
+      const quantity = components.entities[id][commidity];
 
-        for (const type of Object.keys(components.entities[id]) as ComponentType[]) {
-            const quantity = components.entities[id][type];
-
-            if (typeof result[type] === 'number') {
-                result[type] += quantity * turrets.entities[id].quantity;
-            } else {
-                result[type] = quantity * turrets.entities[id].quantity;
-            }
-        }
+      if (typeof result[commidity] === "number") {
+        result[commidity] += quantity * turrets.entities[id].quantity;
+      } else {
+        result[commidity] = quantity * turrets.entities[id].quantity;
+      }
     }
+  }
 
-    return result;
+  return result;
 }

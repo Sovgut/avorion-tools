@@ -1,12 +1,12 @@
 import {useContext, useEffect, useState} from "react";
-import {TurretsMeta} from "~constants/meta/turrets";
-import {TurretType} from "~constants/enums/turrets";
 import {IntlContext} from "~contexts/intl";
 import styles from "./styles.module.css";
 import {replaceBlackToTransparent} from "~utils/transformations/replace-black-to-transparent.ts";
+import { Turret } from "~data/turrets/enums";
+import { TurretMetadata } from "~data/turrets/metadata";
 
 type Props = {
-    type: TurretType;
+    type: Turret;
 }
 
 export function TurretIcon({type}: Props) {
@@ -15,7 +15,7 @@ export function TurretIcon({type}: Props) {
 
     useEffect(() => {
         (async () => {
-            const modifiedImageSrc = await replaceBlackToTransparent(TurretsMeta[type].icon);
+            const modifiedImageSrc = await replaceBlackToTransparent(TurretMetadata[type].icon);
             setImageSrc(modifiedImageSrc);
         })();
     }, [type]);

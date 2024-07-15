@@ -3,12 +3,12 @@ import {IntlContext} from "~contexts/intl";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "~store";
 import {Card, Divider, IconButton, Stack, Table, Typography} from "@mui/joy";
-import {ComponentType} from "~constants/enums/components";
 import {ClearAll} from "@mui/icons-material";
 import {clearCargoComponents} from "~reducers/cargo.ts";
 import {AnimatePresence, motion} from "framer-motion";
 import {CargoItemType} from "~components/cargo-table/cargo-type";
 import {CargoItemQuantity} from "~components/cargo-table/cargo-quantity";
+import { serializeCommoditites } from "~utils/serialize-commodity";
 
 export function CargoTable() {
     const intlContext = useContext(IntlContext);
@@ -44,7 +44,7 @@ export function CargoTable() {
                     <Table>
                         <tbody>
                         <AnimatePresence>
-                            {(Object.keys(cargo.entities) as ComponentType[]).sort((a, b) => a.localeCompare(b)).map(type => (
+                            {(serializeCommoditites(Object.keys(cargo.entities))).sort((a, b) => a - b).map(type => (
                                 <motion.tr
                                     key={type}
                                     initial={{opacity: 0}}

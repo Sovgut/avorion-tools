@@ -1,12 +1,12 @@
 import {useContext, useEffect, useState} from "react";
-import {ComponentsMeta} from "~constants/meta/components.ts";
-import {ComponentType} from "~constants/enums/components.ts";
 import {IntlContext} from "~contexts/intl";
 import styles from "./styles.module.css";
 import {replaceBlackToTransparent} from "~utils/transformations/replace-black-to-transparent.ts";
+import { Commodity } from "~data/commodities/enums";
+import { CommodityMetadata } from "~data/commodities/metadata";
 
 type Props = {
-    type: ComponentType;
+    type: Commodity;
 }
 
 export function ComponentIcon({type}: Props) {
@@ -15,12 +15,12 @@ export function ComponentIcon({type}: Props) {
 
     useEffect(() => {
         (async () => {
-            const modifiedImageSrc = await replaceBlackToTransparent(ComponentsMeta[type].icon);
+            const modifiedImageSrc = await replaceBlackToTransparent(CommodityMetadata[type].icon);
             setImageSrc(modifiedImageSrc);
         })();
     }, [type]);
 
     return imageSrc ? (
-        <img className={styles.icon} src={imageSrc} alt={intlContext.text("COMPONENT", type)}/>
+        <img className={styles.icon} src={imageSrc} alt={intlContext.text("COMMODITY", type)}/>
     ) : null;
 }

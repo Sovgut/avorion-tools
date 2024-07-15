@@ -13,20 +13,20 @@ import {
 } from "@mui/joy";
 import {FormEvent, Fragment, useContext, useState} from "react";
 import {useBreakpoint} from "~hooks/breakpoints";
-import {ComponentType} from "~constants/enums/components.ts";
-import {ComponentsMeta} from "~constants/meta/components.ts";
 import {IntlContext} from "~contexts/intl";
-import {SellerType} from "~constants/enums/sellers.ts";
-import {SellersMeta} from "~constants/meta/sellers.ts";
 import {Add, CopyAll} from "@mui/icons-material";
 import {copyOnMouseEvent} from "~utils/copy-on-mouse-event.ts";
 import {Numeric} from "~components/numeric";
 import {MAX_CARGO_QUANTITY, MIN_CARGO_QUANTITY} from "~constants/common.ts";
+import { Commodity } from "~data/commodities/enums";
+import { CommodityMetadata } from "~data/commodities/metadata";
+import { Station } from "~data/stations/enums";
+import { StationMetadata } from "~data/stations/metadata";
 
 type Props = {
     open: boolean;
     title: string;
-    type: ComponentType;
+    type: Commodity;
 
     onClose?: () => void;
     onSubmit?: (value: number) => void;
@@ -40,12 +40,12 @@ export function ComponentItemModal({open, title, type, onClose, onSubmit}: Props
     let dangerous = null;
     let illegal = null;
 
-    if (ComponentsMeta[type].illegal) {
+    if (CommodityMetadata[type].illegal) {
         illegal =
             <Typography color="warning" level="body-sm">{intlContext.text("UI", "illegal-cargo")}</Typography>;
     }
 
-    if (ComponentsMeta[type].dangerous) {
+    if (CommodityMetadata[type].dangerous) {
         dangerous =
             <Typography color="danger" level="body-sm">{intlContext.text("UI", "dangerous-cargo")}</Typography>;
     }
@@ -78,7 +78,7 @@ export function ComponentItemModal({open, title, type, onClose, onSubmit}: Props
                 <ModalClose onClick={onClose}/>
                 <Divider/>
                 {
-                    (ComponentsMeta[type].illegal || ComponentsMeta[type].dangerous) && (
+                    (CommodityMetadata[type].illegal || CommodityMetadata[type].dangerous) && (
                         <Box>
                             <Typography level="title-md">{intlContext.text("UI", "threats")}</Typography>
                             <Stack>
@@ -92,19 +92,19 @@ export function ComponentItemModal({open, title, type, onClose, onSubmit}: Props
                 <Box>
                     <Typography level="title-md">{intlContext.text("UI", "can-be-found-in")}</Typography>
                     <Stack>
-                        {[SellerType.TurretFactory, SellerType.TurretFactorySupplier].map(seller => (
-                            <Stack key={type + seller} direction="row" spacing={.5} alignItems="center">
-                                <Link href={SellersMeta[seller].link}
+                        {[Station.TurretFactory, Station.TurretFactorySupplier].map(station => (
+                            <Stack key={type + station} direction="row" spacing={.5} alignItems="center">
+                                <Link href={StationMetadata[station].link}
                                       color="primary"
                                       target="_blank"
                                       level="body-sm"
                                       sx={{width: "max-content"}}>
-                                    {intlContext.text("SELLER", seller)}
+                                    {intlContext.text("STATION", station)}
                                 </Link>
                                 {!breakpoint.sm && (
                                     <IconButton size="sm"
                                                 title={intlContext.text("UI", "copy")}
-                                                onClick={copyOnMouseEvent(intlContext.text("SELLER", seller))}>
+                                                onClick={copyOnMouseEvent(intlContext.text("STATION", station))}>
                                         <CopyAll/>
                                     </IconButton>
                                 )}
@@ -116,19 +116,19 @@ export function ComponentItemModal({open, title, type, onClose, onSubmit}: Props
                 <Box>
                     <Typography level="title-md">{intlContext.text("UI", "guaranteed-in")}</Typography>
                     <Stack>
-                        {ComponentsMeta[type].sellers.map((seller: SellerType) => (
-                            <Stack key={type + seller} direction="row" spacing={.5} alignItems="center">
-                                <Link href={SellersMeta[seller].link}
+                        {CommodityMetadata[type].stations.map((station) => (
+                            <Stack key={type + station} direction="row" spacing={.5} alignItems="center">
+                                <Link href={StationMetadata[station].link}
                                       color="primary"
                                       target="_blank"
                                       level="body-sm"
                                       sx={{width: "max-content"}}>
-                                    {intlContext.text("SELLER", seller)}
+                                    {intlContext.text("STATION", station)}
                                 </Link>
                                 {!breakpoint.sm && (
                                     <IconButton size="sm"
                                                 title={intlContext.text("UI", "copy")}
-                                                onClick={copyOnMouseEvent(intlContext.text("SELLER", seller))}>
+                                                onClick={copyOnMouseEvent(intlContext.text("STATION", station))}>
                                         <CopyAll/>
                                     </IconButton>
                                 )}
@@ -143,7 +143,7 @@ export function ComponentItemModal({open, title, type, onClose, onSubmit}: Props
                     <Typography level="title-md">{intlContext.text("UI", "cargo-offset")}</Typography>
                     <form onSubmit={onFormSubmit}>
                         <Stack spacing={2}>
-                            <Numeric id={type}
+                            <Numeric id={String(type)}
                                      label={intlContext.text("UI", "cargo-field-label")}
                                      max={MAX_CARGO_QUANTITY}
                                      min={MIN_CARGO_QUANTITY}

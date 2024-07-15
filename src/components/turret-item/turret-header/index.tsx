@@ -7,7 +7,6 @@ import {deleteTurret, updateTurret} from "~reducers/turret";
 import {TurretEntity} from "~types/store/entity.ts";
 import {deleteComponent, updateComponent} from "~reducers/component.ts";
 import {RootState} from "~store";
-import {ComponentType} from "~constants/enums/components.ts";
 import {
     MIN_COMPONENT_QUANTITY,
     MIN_TURRET_PRICE,
@@ -17,6 +16,7 @@ import {
 import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
 import {TurretIcon} from "~components/turret-icon";
 import {AnimationControlContext} from "~contexts/animation-control";
+import { serializeCommoditites } from "~utils/serialize-commodity";
 
 type Props = {
     id: string;
@@ -50,7 +50,7 @@ export function TurretHeader({id, entity}: Props) {
             entity: {...entity, quantity: MIN_TURRET_QUANTITY, price: MIN_TURRET_PRICE}
         }));
 
-        (Object.keys(componentStore.entities[id]) as ComponentType[])
+        (serializeCommoditites(Object.keys(componentStore.entities[id])))
             .forEach(type => dispatch(updateComponent({
                 identity: id,
                 entity: {type, quantity: MIN_COMPONENT_QUANTITY}

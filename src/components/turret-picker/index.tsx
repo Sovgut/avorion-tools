@@ -1,33 +1,37 @@
 import {useContext} from "react";
 import {IntlContext} from "~contexts/intl";
 import {useDispatch} from "react-redux";
-import {TurretType} from "~constants/enums/turrets";
 import {ListItemDecorator, Option, Select} from "@mui/joy";
 import {createTurret} from "~reducers/turret.ts";
 import {MIN_COMPONENT_QUANTITY, MIN_TURRET_PRICE, MIN_TURRET_QUANTITY} from "~constants/common.ts";
 import {nanoid} from "nanoid";
 import {createComponent} from "~reducers/component.ts";
-import {TurretsMeta} from "~constants/meta/turrets.ts";
 import {TurretIcon} from "~components/turret-icon";
+import { serializeTurret, serializeTurrets } from "~utils/serialize-turret";
+import { Turret } from "~data/turrets/enums";
+import { TurretMetadata } from "~data/turrets/metadata";
 
 export function TurretPicker() {
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
-    const turrets = Object.values(TurretType) as TurretType[];
+    const turrets = serializeTurrets(Object.keys(Turret));
 
-    function handleSelect(_event: unknown, value: unknown) {
+    function handleSelect(_event: unknown, value: string | null) {
+        if (value === null) return;
+
+        const turret = serializeTurret(value);
         const identity = nanoid();
 
         dispatch(createTurret({
             identity,
             entity: {
-                type: value as TurretType,
+                type: turret,
                 price: MIN_TURRET_PRICE,
                 quantity: MIN_TURRET_QUANTITY,
             }
         }));
 
-        for (const component of TurretsMeta[value as TurretType].components) {
+        for (const component of TurretMetadata[turret].commodities) {
             dispatch(createComponent({
                 identity,
                 entity: {

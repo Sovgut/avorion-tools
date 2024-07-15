@@ -1,6 +1,6 @@
-import {PayloadAction} from "@reduxjs/toolkit";
-import {ComponentEntity} from "../entity.ts";
-import {ComponentType} from "~constants/enums/components.ts";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { CommodityEntity } from "../entity";
+import { Commodity } from "~data/commodities/enums";
 
-export type CargoCreateAction = PayloadAction<ComponentEntity>;
-export type CargoDeleteAction = PayloadAction<ComponentType>;
+export type CargoCreateAction = PayloadAction<CommodityEntity>;
+export type CargoDeleteAction = PayloadAction<Commodity>;

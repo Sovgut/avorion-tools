@@ -1,0 +1,21 @@
+export enum Turret {
+    AntiFighter,
+    Bolter,
+    Cannon,
+    Chaingun,
+    ForceGun,
+    Laser,
+    LightningGun,
+    MiningLaser,
+    PlasmaGun,
+    PointDefenseCannon,
+    PointDefenseLaser,
+    PulseCannon,
+    Railgun,
+    RawMiningLaser,
+    RawSalvagingLaser,
+    Repair,
+    RocketLauncher,
+    SalvagingLaser,
+    TeslaGun
+}
