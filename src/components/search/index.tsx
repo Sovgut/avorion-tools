@@ -3,7 +3,6 @@ import {
   Box,
   DialogTitle,
   Divider,
-  IconButton,
   Input,
   Modal,
   ModalClose,
@@ -53,6 +52,17 @@ export const GlobalSearch: FC = memo(() => {
       setStations([]);
       setCommodities([]);
       setOpen((pv) => !pv);
+      toggleLayoutScroll(true)
+
+    }
+
+    if (event.key === 'Escape') {
+      setSearch(String());
+      setStations([]);
+      setCommodities([]);
+      setOpen(false);
+      toggleLayoutScroll(true)
+
     }
   }, []);
 
@@ -61,19 +71,44 @@ export const GlobalSearch: FC = memo(() => {
     setStations([]);
     setCommodities([]);
     setOpen(false);
+    toggleLayoutScroll(true)
   }, []);
 
   const onModalOpen = useCallback(() => {
     setOpen(true);
+    toggleLayoutScroll(false)
   }, []);
 
+  const toggleLayoutScroll = useCallback((state: boolean) => {
+    const layout = document.getElementById("layout");
+
+    if (layout) {
+      if (state) {
+        layout.style.maxHeight = "auto";
+        layout.style.overflowY = "auto";
+      } else {
+        layout.style.maxHeight = "100vh";
+        layout.style.overflowY = "hidden";
+      }
+      
+    }
+  }, [])
+
   const processSearch = useCallback(
-    (search: string) => {
-      if (search.length === 0) {
+    (value: string) => {
+      if (value.length === 0) {
         setStations([]);
         setCommodities([]);
 
+        if (value !== search) {
+          setOpen(false);
+        }
+
         return;
+      } else {
+        if (search.length === 0) {
+          setOpen(true);
+        }
       }
 
       {
@@ -84,7 +119,7 @@ export const GlobalSearch: FC = memo(() => {
           value: key,
         }));
         const found = array.filter((seller) =>
-          seller.key.toLowerCase().includes(search.toLowerCase())
+          seller.key.toLowerCase().includes(value.toLowerCase())
         );
 
         setStations(found.map((seller) => seller.value));
@@ -98,13 +133,13 @@ export const GlobalSearch: FC = memo(() => {
           value: key,
         }));
         const found = array.filter((commodity) =>
-          commodity.key.toLowerCase().includes(search.toLowerCase())
+          commodity.key.toLowerCase().includes(value.toLowerCase())
         );
 
         setCommodities(found.map((commodity) => commodity.value));
       }
     },
-    [intlContext.language, setStations, setCommodities]
+    [intlContext.language, setStations, setCommodities, search]
   );
 
   const onSearchChange: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -127,17 +162,45 @@ export const GlobalSearch: FC = memo(() => {
 
   return (
     <Fragment>
-      <IconButton
+      <Input
         onClick={onModalOpen}
-        variant="plain"
         color="neutral"
-        sx={{ width: 32, height: 32 }}
-      >
-        <Search fontSize="small" />
-      </IconButton>
+        variant="soft"
+        placeholder={`${intlContext.text(
+          "UI",
+          "stations"
+        )} & ${intlContext.text("UI", "commodities")}...`}
+        endDecorator={<Search fontSize="small" />}
+        value={search}
+        onChange={onSearchChange}
+      />
 
-      <Modal open={open} onClose={onModalClose}>
-        <ModalDialog sx={{ minWidth: breakpoint.sm ? "auto" : 500, pt: 1.5 }}>
+      {open && (
+        <Box
+          sx={{
+            height: "calc(100% - 68px)",
+            width: "100%",
+            background: "rgb(16 17 20)",
+            position: "fixed",
+            left: -16,
+            top: "68px",
+            zIndex: 9999,
+          }}
+         
+        >
+           <Stack direction="row" sx={{height: "100%"}}>
+            <Box sx={{ height: "100%", width: "100%", p: 1, overflowY: "auto"}}>
+              <CommoditiesList commodities={commodities} />
+            </Box>
+            <Box sx={{height: "100%", width: "100%", p: 1, overflowY: "auto"}}>
+             <StationsList stations={stations} />
+            </Box>
+          </Stack>
+        </Box>
+      )}
+
+      {/* <Modal open={open} onClose={onModalClose}>
+        <ModalDialog variant="soft" sx={{ minWidth: breakpoint.sm ? "auto" : 500, pt: 1.5 }}>
           <DialogTitle sx={{ pr: 2 }}>
             {intlContext.text("UI", "global-search")}
           </DialogTitle>
@@ -153,6 +216,7 @@ export const GlobalSearch: FC = memo(() => {
                       "UI",
                       "stations"
                     )} & ${intlContext.text("UI", "commodities")}...`}
+                    variant="plain"
                     value={search}
                     onChange={onSearchChange}
                   />
@@ -166,7 +230,7 @@ export const GlobalSearch: FC = memo(() => {
             </Box>
           </Stack>
         </ModalDialog>
-      </Modal>
+      </Modal> */}
     </Fragment>
   );
 });

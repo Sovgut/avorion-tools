@@ -30,7 +30,7 @@ export function CargoTable() {
                 animate={{opacity: 1, scale: 1}}
                 layout
             >
-                <Card variant="outlined" sx={{p: 0, gap: 0, boxShadow: "sm"}}>
+                <Card variant="soft" sx={{p: 0, gap: 0, boxShadow: "sm"}}>
                     <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1}
                            sx={{p: 2, pb: 0}}>
                         <Typography level="body-lg" fontWeight="bold" textColor="white">

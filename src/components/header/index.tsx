@@ -14,8 +14,8 @@ export function Header() {
     }
 
     return (
-        <Container maxWidth={false} sx={{height: 90}}>
-            <Stack direction="row" spacing={2} sx={{pt: 3, pb: 3}} justifyContent="space-between">
+        <Container maxWidth={false} sx={{ height: "68px" }}>
+            <Stack direction="row" spacing={2} sx={{pt: 3, pb: 1}} justifyContent="space-between">
                 <Stack direction="row" spacing={4}>
                     <Stack direction="row" spacing={2} alignItems="center">
                         <GlobalSearch />
@@ -23,18 +23,19 @@ export function Header() {
                 </Stack>
                 <Stack direction="row" spacing={1} alignItems="center">
                     <Link href="https://github.com/Sovgut/avorion-tools" target="_blank">
-                        <IconButton sx={{width: 32, height: 32}}>
+                        <IconButton sx={{width: 32, height: 32}} variant="soft">
                             <GitHub/>
                         </IconButton>
                     </Link>
                     <Dropdown>
                         <MenuButton
                             slots={{root: IconButton}}
-                            slotProps={{root: {variant: 'plain', color: 'neutral', sx: {width: 32, height: 32}}}}
+                            variant="soft"
+                            slotProps={{root: {variant: 'soft', color: 'neutral', sx: {width: 32, height: 32}}}}
                         >
                             <Translate/>
                         </MenuButton>
-                        <Menu placement="bottom-end" sx={{minWidth: "200px"}}>
+                        <Menu placement="bottom-end" sx={{minWidth: "200px"}} variant="soft">
                             <MenuItem selected={intlContext.language === 'en-US'}
                                       onClick={handleLanguageChange("en-US")}>
                                 {intlContext.text("UI", "english-language")}

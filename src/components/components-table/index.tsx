@@ -53,8 +53,8 @@ export function ComponentsTable() {
     }
 
     return (
-        <Card variant="outlined" sx={{p: 0, gap: 0, boxShadow: "sm"}}>
-            <Typography level="body-lg" fontWeight="bold" textColor="white" sx={{p: 2, pb: 1, pt: 3}}>
+        <Card variant="soft" sx={{p: 0, gap: 0, boxShadow: "sm"}}>
+            <Typography level="body-lg" fontWeight="bold" textColor="white" sx={{p: 2, pb: 0.1, pt: 3}}>
                 {intlContext.text("UI", "cargo-required")}
             </Typography>
             <Divider sx={{mt: 2}}/>

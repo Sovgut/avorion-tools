@@ -78,6 +78,7 @@ export function Numeric({id, label, value, focus, min, max, disabled, onChange}:
                     ref,
                 }
             }}
+            variant="plain"
             sx={{opacity: disabled ? '0.75' : '1'}}
             disabled={disabled}
             onChange={handleChange}

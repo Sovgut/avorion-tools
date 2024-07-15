@@ -1,6 +1,15 @@
 import { FC, memo, useContext } from "react";
 import { ISearchCommodity } from "./types";
-import { Box, Divider, IconButton, Stack, Typography } from "@mui/joy";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardOverflow,
+  Divider,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/joy";
 import { SearchCommodityMetadata } from "../Metadata";
 import { CommodityMetadata } from "~data/commodities/metadata";
 import { SearchCommodityStation } from "./components/Station";
@@ -14,40 +23,37 @@ export const SearchCommodity: FC<ISearchCommodity> = memo((props) => {
   const intlContext = useContext(IntlContext);
 
   return (
-    <Box>
-      <Stack>
-        <Divider />
-        <SearchCommodityMetadata commodity={props.commodity} />
-
-        <Stack direction="column" alignItems="left" justifyContent="center">
-          {CommodityMetadata[props.commodity].stations.length > 0 ? (
-            CommodityMetadata[props.commodity].stations.map((station) => (
-              <SearchCommodityStation
-                key={`${props.commodity}-${station}`}
-                commodity={props.commodity}
-                station={station}
-              />
-            ))
-          ) : (
-            <Stack direction="row" alignItems="center">
-              <Typography level="body-sm" sx={{ width: "max-content" }}>
-                {intlContext.text("COMMODITY", props.commodity)}
-              </Typography>
-              {!breakpoint.sm && (
-                <IconButton
-                  size="sm"
-                  title={intlContext.text("UI", "copy")}
-                  onClick={copyOnMouseEvent(
-                    intlContext.text("COMMODITY", props.commodity)
-                  )}
-                >
-                  <CopyAll />
-                </IconButton>
-              )}
-            </Stack>
-          )}
+    <Card variant="soft">
+      <Box>
+        <Stack direction="row" spacing={1}>
+          <Typography level="title-lg">
+            {intlContext.text("COMMODITY", props.commodity)}
+          </Typography>
+          <SearchCommodityMetadata commodity={props.commodity} />
         </Stack>
-      </Stack>
-    </Box>
+        <IconButton
+          variant="plain"
+          color="neutral"
+          sx={{ position: "absolute", top: "0.875rem", right: "0.5rem" }}
+          size="sm"
+          title={intlContext.text("UI", "copy")}
+          onClick={copyOnMouseEvent(
+            intlContext.text("COMMODITY", props.commodity)
+          )}
+        >
+          <CopyAll />
+        </IconButton>
+      </Box>
+
+      <CardContent>
+        {CommodityMetadata[props.commodity].stations.map((station) => (
+          <SearchCommodityStation
+            key={`${props.commodity}-${station}`}
+            commodity={props.commodity}
+            station={station}
+          />
+        ))}
+      </CardContent>
+    </Card>
   );
 });
