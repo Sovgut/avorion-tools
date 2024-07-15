@@ -769,14 +769,13 @@ export const CommodityMetadata: Record<Commodity, ICommodityMetadata> = {
     dangerous: false,
     stations: [Station.PlanktonCollector, Station.FishFarm],
   },
-  // TODO: Investigate, what the hell is plant.
   [Commodity.Plant]: {
     icon: "/img/icon/plant.png",
     price: 14,
     volume: 1.5,
     illegal: false,
     dangerous: false,
-    stations: [],
+    stations: [Station.PlantFarm],
   },
   [Commodity.PlasmaCell]: {
     icon: "/img/icon/plasma-cell.png",
