@@ -13,7 +13,7 @@ import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
 import {computeComponents, initialComputationComponents} from "~utils/computations/price.ts";
 import {AnimatePresence, motion} from "framer-motion";
 import {useBreakpoint} from "~hooks/breakpoints";
-import { Commodity } from "src/data/commodities/enums";
+import { Commodity } from "~data/commodities/enums";
 import { serializeCommoditites } from "~utils/serialize-commodity";
 
 export function ComponentsTable() {
@@ -70,7 +70,7 @@ export function ComponentsTable() {
                     <Table>
                         <tbody>
                         <AnimatePresence>
-                            {(serializeCommoditites(Object.keys(components))).sort((a, b) => a + b).map(type => (
+                            {(serializeCommoditites(Object.keys(components))).sort((a, b) => a - b).map(type => (
                                 <motion.tr
                                     key={type}
                                     initial={{opacity: 0}}

@@ -5,7 +5,7 @@ import {
   CargoCreateAction,
   CargoDeleteAction,
 } from "~types/store/actions/cargo";
-import { Commodity } from "src/data/commodities/enums";
+import { Commodity } from "~data/commodities/enums";
 import { LocalState } from "@sovgut/state";
 
 const cargoSlice = createSlice({

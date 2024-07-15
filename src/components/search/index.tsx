@@ -23,10 +23,10 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Commodity } from "src/data/commodities/enums";
-import { CommodityMetadata } from "src/data/commodities/metadata";
-import { Station } from "src/data/stations/enums";
-import { StationMetadata } from "src/data/stations/metadata";
+import { Commodity } from "~data/commodities/enums";
+import { CommodityMetadata } from "~data/commodities/metadata";
+import { Station } from "~data/stations/enums";
+import { StationMetadata } from "~data/stations/metadata";
 import { IntlContext } from "~contexts/intl";
 import { INTL_STORAGE } from "~contexts/intl/storage";
 import { useBreakpoint } from "~hooks/breakpoints";
@@ -76,7 +76,7 @@ export const GlobalSearch: FC = memo(() => {
         {illegal}
       </Stack>
     );
-  }, []);
+  }, [intlContext.language]);
 
   const onShortcut: EventListener = useCallback((event: any) => {
     if (event.key === "F2") {
@@ -175,9 +175,6 @@ export const GlobalSearch: FC = memo(() => {
 
           <Stack direction="column" spacing={2}>
             <Stack spacing={1}>
-              <Typography level="title-md">
-                {intlContext.text("UI", "cargo-offset")}
-              </Typography>
               <form onSubmit={onFormSubmit}>
                 <Stack spacing={2}>
                   <Input

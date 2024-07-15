@@ -1,5 +1,5 @@
-import { Commodity } from "src/data/commodities/enums";
-import { CommodityMetadata } from "src/data/commodities/metadata";
+import { Commodity } from "~data/commodities/enums";
+import { CommodityMetadata } from "~data/commodities/metadata";
 import { MAX_PRICE_PERCENTAGE } from "~constants/common";
 import {
   CargoStoreState,

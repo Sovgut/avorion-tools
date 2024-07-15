@@ -2,7 +2,7 @@ import {Close} from "@mui/icons-material";
 import {IconButton} from "@mui/joy";
 import {deleteCargoComponent} from "~reducers/cargo";
 import {useDispatch} from "react-redux";
-import { Commodity } from "src/data/commodities/enums";
+import { Commodity } from "~data/commodities/enums";
 
 type Props = {
     type: Commodity;

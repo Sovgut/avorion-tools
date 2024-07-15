@@ -3,8 +3,8 @@ import { Stack, Typography } from "@mui/joy";
 import { IntlContext } from "~contexts/intl";
 import { ComponentIcon } from "~components/component-icon";
 import { useBreakpoint } from "~hooks/breakpoints";
-import { Commodity } from "src/data/commodities/enums";
-import { CommodityMetadata } from "src/data/commodities/metadata";
+import { Commodity } from "~data/commodities/enums";
+import { CommodityMetadata } from "~data/commodities/metadata";
 
 type Props = {
   type: Commodity;

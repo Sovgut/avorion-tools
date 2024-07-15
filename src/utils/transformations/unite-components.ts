@@ -1,4 +1,4 @@
-import { Commodity } from "src/data/commodities/enums";
+import { Commodity } from "~data/commodities/enums";
 import { CommodityStoreState, TurretStoreState } from "~types/store";
 import { serializeCommodity } from "~utils/serialize-commodity";
 

@@ -1,7 +1,7 @@
-import { Turret } from "src/data/turrets/enums";
+import { Turret } from "~data/turrets/enums";
 
 export function serializeTurret(value: string): Turret {
-    if (!Object.keys(Turret).includes(value)) {
+    if (!Object.keys(Turret).map(Number).includes(Number(value))) {
         throw ReferenceError("Invalid turret type");
     }
 
@@ -9,5 +9,5 @@ export function serializeTurret(value: string): Turret {
 }
 
 export function serializeTurrets(values: string[]): Turret[] {
-    return values.map(value => serializeTurret(value));
+    return values.map(value => serializeTurret(value)).filter(Boolean);
 }

@@ -2,7 +2,7 @@ import {Stack, Typography} from "@mui/joy";
 import {CargoItemAction} from "~components/cargo-table/cargo-action";
 import styles from "./styles.module.css";
 import {useBreakpoint} from "~hooks/breakpoints";
-import { Commodity } from "src/data/commodities/enums";
+import { Commodity } from "~data/commodities/enums";
 
 type Props = {
     value: number;

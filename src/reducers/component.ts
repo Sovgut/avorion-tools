@@ -6,7 +6,7 @@ import {
   ComponentDeleteAction,
   ComponentUpdateAction,
 } from "~types/store/actions/component";
-import { Commodity } from "src/data/commodities/enums";
+import { Commodity } from "~data/commodities/enums";
 import { LocalState } from "@sovgut/state";
 
 const componentSlice = createSlice({

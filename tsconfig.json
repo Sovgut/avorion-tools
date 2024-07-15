@@ -70,6 +70,9 @@
       ],
       "~workers/*": [
         "src/workers/*"
+      ],
+      "~data/*": [
+        "src/data/*"
       ]
     }
   },

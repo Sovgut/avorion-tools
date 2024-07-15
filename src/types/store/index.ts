@@ -1,4 +1,4 @@
-import { Commodity } from "src/data/commodities/enums.ts";
+import { Commodity } from "~data/commodities/enums.ts";
 import { Identity } from "./common.ts";
 import { TurretEntity } from "./entity.ts";
 

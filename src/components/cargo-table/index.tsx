@@ -44,7 +44,7 @@ export function CargoTable() {
                     <Table>
                         <tbody>
                         <AnimatePresence>
-                            {(serializeCommoditites(Object.keys(cargo.entities))).sort((a, b) => a + b).map(type => (
+                            {(serializeCommoditites(Object.keys(cargo.entities))).sort((a, b) => a - b).map(type => (
                                 <motion.tr
                                     key={type}
                                     initial={{opacity: 0}}

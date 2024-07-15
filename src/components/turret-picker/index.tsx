@@ -8,8 +8,8 @@ import {nanoid} from "nanoid";
 import {createComponent} from "~reducers/component.ts";
 import {TurretIcon} from "~components/turret-icon";
 import { serializeTurret, serializeTurrets } from "~utils/serialize-turret";
-import { Turret } from "src/data/turrets/enums";
-import { TurretMetadata } from "src/data/turrets/metadata";
+import { Turret } from "~data/turrets/enums";
+import { TurretMetadata } from "~data/turrets/metadata";
 
 export function TurretPicker() {
     const intlContext = useContext(IntlContext);
@@ -17,7 +17,7 @@ export function TurretPicker() {
     const turrets = serializeTurrets(Object.keys(Turret));
 
     function handleSelect(_event: unknown, value: string | null) {
-        if (!value) return;
+        if (value === null) return;
 
         const turret = serializeTurret(value);
         const identity = nanoid();

@@ -1,6 +1,6 @@
-import { Commodity } from "src/data/commodities/enums";
-import { Station } from "src/data/stations/enums";
-import { Turret } from "src/data/turrets/enums";
+import { Commodity } from "~data/commodities/enums";
+import { Station } from "~data/stations/enums";
+import { Turret } from "~data/turrets/enums";
 
 export type LanguageType = "en-US" | "ru";
 

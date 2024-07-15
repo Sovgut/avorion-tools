@@ -1,5 +1,5 @@
-import { Turret } from "src/data/turrets/enums";
-import { Commodity } from "src/data/commodities/enums";
+import { Turret } from "~data/turrets/enums";
+import { Commodity } from "~data/commodities/enums";
 
 export interface TurretEntity {
     type: Turret;

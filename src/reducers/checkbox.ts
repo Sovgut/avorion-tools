@@ -5,7 +5,7 @@ import {
   CheckboxCreateAction,
   CheckboxDeleteAction,
 } from "~types/store/actions/checkbox";
-import { Commodity } from "src/data/commodities/enums";
+import { Commodity } from "~data/commodities/enums";
 import { LocalState } from "@sovgut/state";
 
 const checkboxSlice = createSlice({

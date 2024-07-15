@@ -5,7 +5,7 @@ import {RootState} from "~store";
 import {computeQuantity} from "~utils/computations/quantity";
 import {ComponentItemAction} from "~components/components-table/component-action";
 import {useBreakpoint} from "~hooks/breakpoints";
-import { Commodity } from "src/data/commodities/enums";
+import { Commodity } from "~data/commodities/enums";
 
 type Props = {
     type: Commodity;

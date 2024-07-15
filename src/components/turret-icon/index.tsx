@@ -2,8 +2,8 @@ import {useContext, useEffect, useState} from "react";
 import {IntlContext} from "~contexts/intl";
 import styles from "./styles.module.css";
 import {replaceBlackToTransparent} from "~utils/transformations/replace-black-to-transparent.ts";
-import { Turret } from "src/data/turrets/enums";
-import { TurretMetadata } from "src/data/turrets/metadata";
+import { Turret } from "~data/turrets/enums";
+import { TurretMetadata } from "~data/turrets/metadata";
 
 type Props = {
     type: Turret;

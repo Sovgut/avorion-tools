@@ -1,7 +1,7 @@
-import { Commodity } from "src/data/commodities/enums";
+import { Commodity } from "~data/commodities/enums";
 
 export function serializeCommodity(value: string): Commodity {
-    if (!Object.keys(Commodity).includes(value)) {
+    if (!Object.keys(Commodity).map(Number).includes(Number(value))) {
         throw ReferenceError("Invalid commodity type");
     }
 
@@ -9,5 +9,5 @@ export function serializeCommodity(value: string): Commodity {
 }
 
 export function serializeCommoditites(values: string[]): Commodity[] {
-    return values.map(value => serializeCommodity(value));
+    return values.map(value => serializeCommodity(value)).filter(Boolean);
 }

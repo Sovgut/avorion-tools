@@ -6,7 +6,7 @@ import {IntlContext} from "~contexts/intl";
 import {useDispatch} from "react-redux";
 import {createCargoComponent} from "~reducers/cargo";
 import {ComponentItemModal} from "~components/components-table/component-modal";
-import { Commodity } from "src/data/commodities/enums";
+import { Commodity } from "~data/commodities/enums";
 
 type Props = {
     type: Commodity;

@@ -17,6 +17,7 @@ export default defineConfig({
             '~store': '/src/store',
             '~types': '/src/types',
             '~workers': '/src/workers',
+            '~data': '/src/data',
         }
     }
 })

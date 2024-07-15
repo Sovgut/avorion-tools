@@ -18,10 +18,10 @@ import {Add, CopyAll} from "@mui/icons-material";
 import {copyOnMouseEvent} from "~utils/copy-on-mouse-event.ts";
 import {Numeric} from "~components/numeric";
 import {MAX_CARGO_QUANTITY, MIN_CARGO_QUANTITY} from "~constants/common.ts";
-import { Commodity } from "src/data/commodities/enums";
-import { CommodityMetadata } from "src/data/commodities/metadata";
-import { Station } from "src/data/stations/enums";
-import { StationMetadata } from "src/data/stations/metadata";
+import { Commodity } from "~data/commodities/enums";
+import { CommodityMetadata } from "~data/commodities/metadata";
+import { Station } from "~data/stations/enums";
+import { StationMetadata } from "~data/stations/metadata";
 
 type Props = {
     open: boolean;

@@ -1,7 +1,7 @@
-import { Station } from "src/data/stations/enums";
+import { Station } from "~data/stations/enums";
 
 export function serializeStation(value: string): Station {
-    if (!Object.keys(Station).includes(value)) {
+    if (!Object.keys(Station).map(Number).includes(Number(value))) {
         throw ReferenceError("Invalid station type");
     }
 
@@ -9,5 +9,5 @@ export function serializeStation(value: string): Station {
 }
 
 export function serializeStations(values: string[]): Station[] {
-    return values.map(value => serializeStation(value));
+    return values.map(value => serializeStation(value)).filter(Boolean);
 }
