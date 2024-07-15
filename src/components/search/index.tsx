@@ -1,18 +1,8 @@
 import { Search } from "@mui/icons-material";
-import {
-  Box,
-  DialogTitle,
-  Divider,
-  Input,
-  Modal,
-  ModalClose,
-  ModalDialog,
-  Stack,
-} from "@mui/joy";
+import { Box, Input, Stack } from "@mui/joy";
 import {
   ChangeEventHandler,
   FC,
-  FormEventHandler,
   Fragment,
   memo,
   useCallback,
@@ -24,7 +14,6 @@ import { Commodity } from "~data/commodities/enums";
 import { Station } from "~data/stations/enums";
 import { IntlContext } from "~contexts/intl";
 import { INTL_STORAGE } from "~contexts/intl/storage";
-import { useBreakpoint } from "~hooks/breakpoints";
 import { serializeCommoditites } from "~utils/serialize-commodity";
 import { serializeStations } from "~utils/serialize-station";
 import { StationsList } from "./components/StationsList";
@@ -35,7 +24,6 @@ export const GlobalSearch: FC = memo(() => {
   const [search, setSearch] = useState<string>(String());
   const [commodities, setCommodities] = useState<Commodity[]>([]);
   const [stations, setStations] = useState<Station[]>([]);
-  const breakpoint = useBreakpoint();
   const intlContext = useContext(IntlContext);
 
   useEffect(() => {
@@ -52,17 +40,15 @@ export const GlobalSearch: FC = memo(() => {
       setStations([]);
       setCommodities([]);
       setOpen((pv) => !pv);
-      toggleLayoutScroll(true)
-
+      toggleLayoutScroll(true);
     }
 
-    if (event.key === 'Escape') {
+    if (event.key === "Escape") {
       setSearch(String());
       setStations([]);
       setCommodities([]);
       setOpen(false);
-      toggleLayoutScroll(true)
-
+      toggleLayoutScroll(true);
     }
   }, []);
 
@@ -71,12 +57,12 @@ export const GlobalSearch: FC = memo(() => {
     setStations([]);
     setCommodities([]);
     setOpen(false);
-    toggleLayoutScroll(true)
+    toggleLayoutScroll(true);
   }, []);
 
   const onModalOpen = useCallback(() => {
     setOpen(true);
-    toggleLayoutScroll(false)
+    toggleLayoutScroll(false);
   }, []);
 
   const toggleLayoutScroll = useCallback((state: boolean) => {
@@ -90,9 +76,8 @@ export const GlobalSearch: FC = memo(() => {
         layout.style.maxHeight = "100vh";
         layout.style.overflowY = "hidden";
       }
-      
     }
-  }, [])
+  }, []);
 
   const processSearch = useCallback(
     (value: string) => {
@@ -151,15 +136,6 @@ export const GlobalSearch: FC = memo(() => {
     [processSearch]
   );
 
-  const onFormSubmit: FormEventHandler = useCallback(
-    (event) => {
-      event.preventDefault();
-
-      processSearch(search);
-    },
-    [search, processSearch]
-  );
-
   return (
     <Fragment>
       <Input
@@ -177,6 +153,7 @@ export const GlobalSearch: FC = memo(() => {
 
       {open && (
         <Box
+          component="div"
           sx={{
             height: "calc(100% - 68px)",
             width: "100%",
@@ -186,14 +163,20 @@ export const GlobalSearch: FC = memo(() => {
             top: "68px",
             zIndex: 9999,
           }}
-         
+          onClick={() =>
+            commodities.length === 0 && stations.length === 0 && onModalClose()
+          }
         >
-           <Stack direction="row" sx={{height: "100%"}}>
-            <Box sx={{ height: "100%", width: "100%", p: 1, overflowY: "auto"}}>
+          <Stack direction="row" sx={{ height: "100%" }}>
+            <Box
+              sx={{ height: "100%", width: "100%", p: 1, overflowY: "auto" }}
+            >
               <CommoditiesList commodities={commodities} />
             </Box>
-            <Box sx={{height: "100%", width: "100%", p: 1, overflowY: "auto"}}>
-             <StationsList stations={stations} />
+            <Box
+              sx={{ height: "100%", width: "100%", p: 1, overflowY: "auto" }}
+            >
+              <StationsList stations={stations} />
             </Box>
           </Stack>
         </Box>

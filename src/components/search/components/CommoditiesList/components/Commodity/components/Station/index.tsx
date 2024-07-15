@@ -1,12 +1,11 @@
 import { FC, memo, useContext } from "react";
 import { ISearchCommodityStation } from "./types";
-import { IconButton, Link, Stack, Typography } from "@mui/joy";
+import { IconButton, Link, Stack } from "@mui/joy";
 import { useBreakpoint } from "~hooks/breakpoints";
 import { IntlContext } from "~contexts/intl";
 import { copyOnMouseEvent } from "~utils/copy-on-mouse-event";
 import { StationMetadata } from "~data/stations/metadata";
 import { CopyAll } from "@mui/icons-material";
-import { SearchCommodityMetadata } from "../../../Metadata";
 
 export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
   (props) => {

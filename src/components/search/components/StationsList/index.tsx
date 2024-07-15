@@ -1,6 +1,6 @@
 import { FC, memo, useContext } from "react";
 import { type ISearchStationsList } from "./types";
-import { Box, Divider, IconButton, Link, Stack, Typography } from "@mui/joy";
+import { Box, Divider, IconButton, Link, Stack } from "@mui/joy";
 import { IntlContext } from "~contexts/intl";
 import { StationMetadata } from "~data/stations/metadata";
 import { copyOnMouseEvent } from "~utils/copy-on-mouse-event";

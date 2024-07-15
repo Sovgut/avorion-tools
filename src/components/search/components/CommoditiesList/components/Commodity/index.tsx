@@ -4,8 +4,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardOverflow,
-  Divider,
   IconButton,
   Stack,
   Typography,
@@ -14,12 +12,10 @@ import { SearchCommodityMetadata } from "../Metadata";
 import { CommodityMetadata } from "~data/commodities/metadata";
 import { SearchCommodityStation } from "./components/Station";
 import { copyOnMouseEvent } from "~utils/copy-on-mouse-event";
-import { useBreakpoint } from "~hooks/breakpoints";
 import { IntlContext } from "~contexts/intl";
 import { CopyAll } from "@mui/icons-material";
 
 export const SearchCommodity: FC<ISearchCommodity> = memo((props) => {
-  const breakpoint = useBreakpoint();
   const intlContext = useContext(IntlContext);
 
   return (

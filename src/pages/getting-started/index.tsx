@@ -2,11 +2,10 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "~store";
-import { Box, Card, Container, Link, Stack, Typography } from "@mui/joy";
+import { Box, Card, Container, Link, Typography } from "@mui/joy";
 import { GettingStartedLayout } from "~layouts/getting-started";
 import styles from "./styles.module.css";
 import { clsx } from "clsx";
-import { IntlContext } from "~contexts/intl";
 import { TurretPicker } from "~components/turret-picker";
 import { Center } from "~components/center";
 import { AnimationControlContext } from "~contexts/animation-control";
@@ -18,7 +17,6 @@ import {
 } from "~constants/common.ts";
 
 export function GettingStartedPage() {
-  const intlContext = useContext(IntlContext);
   const navigate = useNavigate();
   const turretStore = useSelector((state: RootState) => state.turret);
   const controls = useContext(AnimationControlContext);
