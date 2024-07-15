@@ -12,6 +12,7 @@ import {App} from "~layouts/app";
 import {store} from "~store";
 import {AnimatePresence} from "framer-motion";
 import {AnimationControlContextProvider} from "~contexts/animation-control";
+import { FactoriesPage } from "~pages/factories";
 
 const theme = extendTheme({
     "colorSchemes": {
@@ -29,6 +30,15 @@ const theme = extendTheme({
 });
 
 const router = createBrowserRouter([
+    {
+        path: "/factories",
+        children: [
+            {
+                index: true,
+                element: <FactoriesPage />
+            }
+        ]
+    },
     {
         path: "/turret-planner",
         children: [
