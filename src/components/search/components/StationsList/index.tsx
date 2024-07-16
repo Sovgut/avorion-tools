@@ -4,10 +4,13 @@ import { Box, Divider, IconButton, Link, Stack } from "@mui/joy";
 import { IntlContext } from "~contexts/intl";
 import { StationMetadata } from "~data/stations/metadata";
 import { copyOnMouseEvent } from "~utils/copy-on-mouse-event";
-import { CopyAll } from "@mui/icons-material";
+import { AccountTree, CopyAll } from "@mui/icons-material";
 import { useBreakpoint } from "~hooks/breakpoints";
+import {Link as RouterLink} from "react-router-dom"
+import { useGlobalSearch } from "~components/search/hook/use-global-search";
 
 export const StationsList: FC<ISearchStationsList> = memo((props) => {
+  const globalSearch = useGlobalSearch();
   const breakpoint = useBreakpoint();
   const intlContext = useContext(IntlContext);
 
@@ -19,7 +22,7 @@ export const StationsList: FC<ISearchStationsList> = memo((props) => {
         <Box key={station}>
           <Divider />
           <Stack direction="row" spacing={0.5} alignItems="center">
-          {!breakpoint.sm && (
+            {!breakpoint.sm && (
               <IconButton
                 size="sm"
                 title={intlContext.text("UI", "copy")}
@@ -27,6 +30,13 @@ export const StationsList: FC<ISearchStationsList> = memo((props) => {
               >
                 <CopyAll />
               </IconButton>
+            )}
+            {!breakpoint.sm && (
+              <Link to={`/factories?station=${station}`} component={RouterLink} onClick={() => globalSearch.setOpen(false)}>
+                <IconButton size="sm">
+                  <AccountTree />
+                </IconButton>
+              </Link>
             )}
             <Link
               href={StationMetadata[station].link}
@@ -37,6 +47,7 @@ export const StationsList: FC<ISearchStationsList> = memo((props) => {
             >
               {intlContext.text("STATION", station)}
             </Link>
+            
           </Stack>
         </Box>
       ))}

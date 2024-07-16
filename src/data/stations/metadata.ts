@@ -1618,7 +1618,7 @@ export const StationMetadata: Record<Station, IStationMetadata> = {
                 ingredients: [],
                 results: [
                     [Commodity.Gold, 1],
-                    [Commodity.Platinum, 1, STATION_OPTIONAL_COMMODITY],
+                    [Commodity.Platinum, 1],
                 ],
                 requiredPC: 90,
                 profitPerCycle: 1350,
