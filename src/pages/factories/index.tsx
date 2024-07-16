@@ -1,4 +1,12 @@
-import { Box, Container, Divider, Link, Stack, Typography } from "@mui/joy";
+import {
+  Box,
+  Card,
+  Container,
+  Divider,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/joy";
 import {
   FC,
   Fragment,
@@ -78,23 +86,37 @@ export const FactoriesPage: FC = memo(() => {
   );
 
   const calculateProcessResultLine = useCallback(
-    (commodity: Commodity, count: number, nodeCommodities: IStationCommodity[]) => {
-      const nodeCommodity = nodeCommodities.find(([nodeCommodity]) => nodeCommodity === commodity);
+    (
+      commodity: Commodity,
+      count: number,
+      nodeCommodities: IStationCommodity[]
+    ) => {
+      const nodeCommodity = nodeCommodities.find(
+        ([nodeCommodity]) => nodeCommodity === commodity
+      );
 
       if (!nodeCommodity) return 1;
 
-      return count < nodeCommodity[1] ? 1 : Math.ceil(count / nodeCommodity[1])
+      return count < nodeCommodity[1] ? 1 : Math.ceil(count / nodeCommodity[1]);
     },
     []
   );
 
   const calculateProcessIngredientLine = useCallback(
-    (commodity: Commodity, count: number, nodeCommodities: IStationCommodity[]) => {
-      const nodeCommodity = nodeCommodities.find(([nodeCommodity]) => nodeCommodity === commodity);
+    (
+      commodity: Commodity,
+      count: number,
+      nodeCommodities: IStationCommodity[]
+    ) => {
+      const nodeCommodity = nodeCommodities.find(
+        ([nodeCommodity]) => nodeCommodity === commodity
+      );
 
       if (!nodeCommodity) return 1;
 
-      return count > nodeCommodity[1] ? Math.floor(count / nodeCommodity[1]) : Math.floor(nodeCommodity[1] / count)
+      return count > nodeCommodity[1]
+        ? Math.floor(count / nodeCommodity[1])
+        : Math.floor(nodeCommodity[1] / count);
     },
     []
   );
@@ -106,115 +128,123 @@ export const FactoriesPage: FC = memo(() => {
       {StationMetadata[station].variations.map((variation, variationIndex) => {
         return (
           <Box key={variationIndex}>
-            <Stack>
-              <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
-                <Box />
+            <Box
+              sx={{ height: "calc(100vh - 68px)", overflowY: "auto", 
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+                columnGap: "128px",
+                alignItems: "center"
+              }}
+            >
+              <Stack
+                direction="column"
+                justifyContent="space-between"
+                sx={{ height: "100%", pt: 2, pb: 2 }}
+              >
+                {variation.ingredients.map(
+                  ([ingredient, count], ingredientIndex) => (
+                    <Stack key={ingredientIndex}>
+                      {getLeftNodes(ingredient).map(
+                        ({ station, variations }) => (
+                          <Fragment key={station}>
+                            {variations.map(
+                              (leftVariation, leftVariationIndex) => (
+                                <Card key={leftVariationIndex} data-node={`result-${ingredient}`}>
+                                  <Link href={`/factories?station=${station}`}>
+                                    {intlContext.text("STATION", station)} -&gt;{" "}
+                                    {intlContext.text("COMMODITY", ingredient)}{" "}
+                                    (x
+                                    {calculateProcessResultLine(
+                                      ingredient,
+                                      count,
+                                      leftVariation.results
+                                    )}
+                                    )
+                                  </Link>
+                                </Card>
+                              )
+                            )}
+                          </Fragment>
+                        )
+                      )}
+                    </Stack>
+                  )
+                )}
+              </Stack>
+              <Card sx={{height: "max-content", wight: "max-content"}} data-node={`${station}-${variationIndex}`}>
                 <Typography level="h4">
                   {intlContext.text("STATION", station)}
                 </Typography>
-                <Box />
-              </Box>
-
-              {variation.ingredients.length > 0 && (
-                <Box
-                  sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
-                >
-                  <Box />
-                  <Typography sx={{ mt: 3 }}>Ingredients</Typography>
-                  <Box />
-                </Box>
-              )}
-              {variation.ingredients.map(
-                ([ingredient, count, isOptional], ingredientIndex) => (
-                  <Box key={ingredientIndex}>
-                    <Divider />
-                    <Box
-                      sx={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr 1fr",
-                        pb: 1,
-                      }}
-                    >
-                      <Stack>
-                        {getLeftNodes(ingredient).map(
-                          ({ station, variations }) => (
-                            <Fragment key={station}>
-                              {variations.map(
-                                (leftVariation, leftVariationIndex) => (
-                                  <Link
-                                    href={`/factories?station=${station}`}
-                                    key={leftVariationIndex}
-                                  >
-                                    {intlContext.text("STATION", station)} -&gt;{" "}
-                                    {intlContext.text("COMMODITY", ingredient)}{" "}
-                                    (x{calculateProcessResultLine(ingredient, count, leftVariation.results)})
-                                  </Link>
-                                )
-                              )}
-                            </Fragment>
-                          )
-                        )}
-                      </Stack>
-                      <Typography
-                        key={ingredientIndex}
-                        color={isOptional ? "warning" : "neutral"}
-                      >
+                <Typography sx={{ mt: 3 }}>Ingredients</Typography>
+                {variation.ingredients.map(
+                  ([ingredient, count, isOptional], ingredientIndex) => (
+                    <Fragment key={ingredientIndex}>
+                      <Divider />
+                      <Typography color={isOptional ? "warning" : "neutral"} data-node={`commodity-${ingredient}`}>
                         {intlContext.text("COMMODITY", ingredient)}: {count}
                       </Typography>
-                      <Box />
-                    </Box>
-                  </Box>
-                )
-              )}
+                    </Fragment>
+                  )
+                )}
+                <Typography sx={{ mt: 3 }}>Results</Typography>
 
-              {variation.results.length > 0 && (
-                <Box
-                  sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
-                >
-                  <Box />
-                  <Typography sx={{ mt: 3 }}>Results</Typography>
-                  <Box />
-                </Box>
-              )}
-              {variation.results.map(
-                ([result, count, isOptional], resultIndex) => (
-                  <Box key={resultIndex}>
-                    <Divider />
-                    <Box
-                      sx={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr 1fr",
-                        pb: 1,
-                      }}
-                    >
-                      <Box />
-                      <Typography color={isOptional ? "warning" : "neutral"}>
+                {variation.results.map(
+                  ([result, count, isOptional], resultIndex) => (
+                    <Fragment key={resultIndex}>
+                      <Divider />
+                      <Typography color={isOptional ? "warning" : "neutral"} data-node={`commodity-${result}`}>
                         {intlContext.text("COMMODITY", result)}: {count}
                       </Typography>
-                      <Stack>
-                        {getRightNodes(result).map(
-                          ({ station, variations }) => (
-                            <Fragment key={station}>
-                              {variations.map(
-                                (leftVariation, leftVariationIndex) => (
-                                  <Link
-                                    href={`/factories?station=${station}`}
-                                    key={leftVariationIndex}
-                                  >
-                                    {intlContext.text("STATION", station)} -&gt;{" "}
-                                    {intlContext.text("COMMODITY", result)} (x{calculateProcessIngredientLine(result, count, leftVariation.ingredients)})
-                                  </Link>
-                                )
-                              )}
-                            </Fragment>
-                          )
-                        )}
-                      </Stack>
-                    </Box>
-                  </Box>
-                )
-              )}
-            </Stack>
+                    </Fragment>
+                  )
+                )}
+              </Card>
+              <Stack
+                direction="column"
+                justifyContent="space-between"
+                sx={{ height: "100%", pt: 2, pb: 2}}
+              >
+                {variation.results.map(
+                  ([result, count], resultIndex) => (
+                    <Stack
+                      key={resultIndex}
+                      direction="column"
+                      justifyContent="center"
+                      sx={{
+                        "&:empty": {
+                          display: "none",
+                        }
+                      }}
+                    >
+                      {getRightNodes(result).map(({ station, variations }) => (
+                        <Fragment key={station}>
+                          {variations.map(
+                            (rightVariation, rightVariationIndex) => (
+                              <Card 
+                              key={rightVariationIndex}
+                              data-node={`ingredient-${result}`}
+                              >
+                                <Link
+                                  href={`/factories?station=${station}`}
+                                >
+                                  {intlContext.text("COMMODITY", result)} (x
+                                  {calculateProcessIngredientLine(
+                                    result,
+                                    count,
+                                    rightVariation.ingredients
+                                  )}
+                                  ) -&gt; {intlContext.text("STATION", station)}
+                                </Link>
+                              </Card>
+                            )
+                          )}
+                        </Fragment>
+                      ))}
+                    </Stack>
+                  )
+                )}
+              </Stack>
+            </Box>
           </Box>
         );
       })}
