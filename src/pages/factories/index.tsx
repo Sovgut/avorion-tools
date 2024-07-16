@@ -138,7 +138,6 @@ export const FactoriesPage: FC = memo(() => {
             >
               <Stack
                 direction="column"
-                justifyContent="space-between"
                 sx={{ height: "100%" }}
               >
                 {variation.ingredients.map(
@@ -217,7 +216,6 @@ export const FactoriesPage: FC = memo(() => {
               </Card>
               <Stack
                 direction="column"
-                justifyContent="space-between"
                 sx={{ height: "100%" }}
               >
                 {variation.results.map(([result, count], resultIndex) => (
