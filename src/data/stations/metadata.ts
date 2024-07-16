@@ -1767,28 +1767,8 @@ export const StationMetadata: Record<Station, IStationMetadata> = {
         link: "https://avorion.fandom.com/wiki/Planetary_Trading_Post",
         variations: [
             {
-                ingredients: [
-                    [Commodity.Carbon, Infinity],
-                    [Commodity.Copper, Infinity],
-                    [Commodity.Gem, Infinity],
-                    [Commodity.Gold, Infinity],
-                    [Commodity.Lead, Infinity],
-                    [Commodity.Mineral, Infinity],
-                    [Commodity.Ore, Infinity],
-                    [Commodity.RawOil, Infinity],
-                    [Commodity.Silicon, Infinity],
-                ],
-                results: [
-                    [Commodity.Drill, Infinity],
-                    [Commodity.Drone, Infinity],
-                    [Commodity.EnergyCell, Infinity],
-                    [Commodity.EnergyGenerator, Infinity],
-                    [Commodity.ExplosiveCharge, Infinity],
-                    [Commodity.Fuel, Infinity],
-                    [Commodity.MiningRobot, Infinity],
-                    [Commodity.SolarPanel, Infinity],
-                    [Commodity.Tools, Infinity],
-                ],
+                ingredients: [],
+                results: [],
             }
         ]
     },

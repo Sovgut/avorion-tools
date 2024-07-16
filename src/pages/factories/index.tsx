@@ -98,7 +98,7 @@ export const FactoriesPage: FC = memo(() => {
 
       if (!nodeCommodity) return 1;
 
-      return count < nodeCommodity[1] ? 1 : Math.ceil(count / nodeCommodity[1]);
+      return count / nodeCommodity[1];
     },
     []
   );
@@ -115,9 +115,7 @@ export const FactoriesPage: FC = memo(() => {
 
       if (!nodeCommodity) return 1;
 
-      return count > nodeCommodity[1]
-        ? Math.floor(count / nodeCommodity[1])
-        : Math.floor(nodeCommodity[1] / count);
+      return count / nodeCommodity[1];
     },
     []
   );
@@ -131,8 +129,6 @@ export const FactoriesPage: FC = memo(() => {
           <Box key={variationIndex}>
             <Box
               sx={{
-                height: "calc(100vh - 68px)",
-                overflowY: "auto",
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr 1fr",
                 columnGap: "128px",
@@ -168,7 +164,7 @@ export const FactoriesPage: FC = memo(() => {
                                       ingredient,
                                       count,
                                       leftVariation.results
-                                    )}
+                                    ).toFixed(2)}
                                     )
                                   </Link>
                                 </Card>
@@ -252,7 +248,7 @@ export const FactoriesPage: FC = memo(() => {
                                   result,
                                   count,
                                   rightVariation.ingredients
-                                )}
+                                ).toFixed(2)}
                                 ) -&gt; {intlContext.text("STATION", station)}
                               </Link>
                             </Card>
