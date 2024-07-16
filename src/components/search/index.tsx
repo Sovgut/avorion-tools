@@ -18,12 +18,13 @@ import { serializeCommoditites } from "~utils/serialize-commodity";
 import { serializeStations } from "~utils/serialize-station";
 import { StationsList } from "./components/StationsList";
 import { CommoditiesList } from "./components/CommoditiesList";
+import { useGlobalSearch } from "./hook/use-global-search";
 
 export const GlobalSearch: FC = memo(() => {
-  const [open, setOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<string>(String());
   const [commodities, setCommodities] = useState<Commodity[]>(serializeCommoditites(Object.keys(Commodity)));
   const [stations, setStations] = useState<Station[]>(serializeStations(Object.keys(Station)));
+  const globalSearch = useGlobalSearch();
   const intlContext = useContext(IntlContext);
 
   useEffect(() => {
@@ -37,25 +38,25 @@ export const GlobalSearch: FC = memo(() => {
   const onShortcut: EventListener = useCallback((event: any) => {
     if (event.key === "F2") {
       setSearch(String());
-      setOpen((pv) => !pv);
+      globalSearch.setOpen((pv) => !pv);
       toggleLayoutScroll(true);
     }
 
     if (event.key === "Escape") {
       setSearch(String());
-      setOpen(false);
+      globalSearch.setOpen(false);
       toggleLayoutScroll(true);
     }
   }, []);
 
   const onModalClose = useCallback(() => {
     setSearch(String());
-    setOpen(false);
+    globalSearch.setOpen(false);
     toggleLayoutScroll(true);
   }, []);
 
   const onModalOpen = useCallback(() => {
-    setOpen(true);
+    globalSearch.setOpen(true);
     toggleLayoutScroll(false);
   }, []);
 
@@ -80,13 +81,13 @@ export const GlobalSearch: FC = memo(() => {
         setCommodities(serializeCommoditites(Object.keys(Commodity)));
 
         if (value !== search) {
-          setOpen(false);
+          globalSearch.setOpen(false);
         }
 
         return;
       } else {
         if (search.length === 0) {
-          setOpen(true);
+          globalSearch.setOpen(true);
         }
       }
 
@@ -145,7 +146,7 @@ export const GlobalSearch: FC = memo(() => {
         onChange={onSearchChange}
       />
 
-      {open && (
+      {globalSearch.open && (
         <Box
           component="div"
           sx={{
@@ -175,39 +176,6 @@ export const GlobalSearch: FC = memo(() => {
           </Stack>
         </Box>
       )}
-
-      {/* <Modal open={open} onClose={onModalClose}>
-        <ModalDialog variant="soft" sx={{ minWidth: breakpoint.sm ? "auto" : 500, pt: 1.5 }}>
-          <DialogTitle sx={{ pr: 2 }}>
-            {intlContext.text("UI", "global-search")}
-          </DialogTitle>
-          <ModalClose onClick={onModalClose} />
-          <Divider />
-
-          <Stack direction="column">
-            <Stack spacing={1}>
-              <form onSubmit={onFormSubmit}>
-                <Stack spacing={2}>
-                  <Input
-                    placeholder={`${intlContext.text(
-                      "UI",
-                      "stations"
-                    )} & ${intlContext.text("UI", "commodities")}...`}
-                    variant="plain"
-                    value={search}
-                    onChange={onSearchChange}
-                  />
-                </Stack>
-              </form>
-            </Stack>
-
-            <Box maxHeight={400} sx={{ overflowY: "auto" }}>
-              <StationsList stations={stations} />
-              <CommoditiesList commodities={commodities} />
-            </Box>
-          </Stack>
-        </ModalDialog>
-      </Modal> */}
     </Fragment>
   );
 });

@@ -23,6 +23,7 @@ import { Station } from "~data/stations/enums";
 import { StationMetadata } from "~data/stations/metadata";
 import { IStationCommodity } from "~data/stations/types";
 import { serializeStation, serializeStations } from "~utils/serialize-station";
+import { Link as RouterLink } from "react-router-dom";
 
 export const FactoriesPage: FC = memo(() => {
   const [searchParams] = useSearchParams();
@@ -129,17 +130,20 @@ export const FactoriesPage: FC = memo(() => {
         return (
           <Box key={variationIndex}>
             <Box
-              sx={{ height: "calc(100vh - 68px)", overflowY: "auto", 
+              sx={{
+                height: "calc(100vh - 68px)",
+                overflowY: "auto",
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr 1fr",
                 columnGap: "128px",
-                alignItems: "center"
+                pt: 2,
+                pb: 2,
               }}
             >
               <Stack
                 direction="column"
                 justifyContent="space-between"
-                sx={{ height: "100%", pt: 2, pb: 2 }}
+                sx={{ height: "100%" }}
               >
                 {variation.ingredients.map(
                   ([ingredient, count], ingredientIndex) => (
@@ -149,8 +153,14 @@ export const FactoriesPage: FC = memo(() => {
                           <Fragment key={station}>
                             {variations.map(
                               (leftVariation, leftVariationIndex) => (
-                                <Card key={leftVariationIndex} data-node={`result-${ingredient}`}>
-                                  <Link href={`/factories?station=${station}`}>
+                                <Card
+                                  key={leftVariationIndex}
+                                  data-node={`result-${ingredient}`}
+                                >
+                                  <Link
+                                    to={`/factories?station=${station}`}
+                                    component={RouterLink}
+                                  >
                                     {intlContext.text("STATION", station)} -&gt;{" "}
                                     {intlContext.text("COMMODITY", ingredient)}{" "}
                                     (x
@@ -171,30 +181,40 @@ export const FactoriesPage: FC = memo(() => {
                   )
                 )}
               </Stack>
-              <Card sx={{height: "max-content", wight: "max-content"}} data-node={`${station}-${variationIndex}`}>
+              <Card
+                sx={{ height: "max-content", wight: "max-content" }}
+                data-node={`${station}-${variationIndex}`}
+              >
                 <Typography level="h4">
                   {intlContext.text("STATION", station)}
                 </Typography>
-                <Typography sx={{ mt: 3 }}>Ingredients</Typography>
+
+                {variation.ingredients.length > 0 && <Divider>Ingredients</Divider>}
                 {variation.ingredients.map(
-                  ([ingredient, count, isOptional], ingredientIndex) => (
+                  ([ingredient, count, isOptional], ingredientIndex, array) => (
                     <Fragment key={ingredientIndex}>
-                      <Divider />
-                      <Typography color={isOptional ? "warning" : "neutral"} data-node={`commodity-${ingredient}`}>
+                      <Typography
+                        color={isOptional ? "warning" : "neutral"}
+                        data-node={`commodity-${ingredient}`}
+                      >
                         {intlContext.text("COMMODITY", ingredient)}: {count}
                       </Typography>
+                      {ingredientIndex !== array.length - 1 && <Divider />}
                     </Fragment>
                   )
                 )}
-                <Typography sx={{ mt: 3 }}>Results</Typography>
 
+                {variation.results.length > 0 && <Divider>Results</Divider>}
                 {variation.results.map(
-                  ([result, count, isOptional], resultIndex) => (
+                  ([result, count, isOptional], resultIndex, array) => (
                     <Fragment key={resultIndex}>
-                      <Divider />
-                      <Typography color={isOptional ? "warning" : "neutral"} data-node={`commodity-${result}`}>
+                      <Typography
+                        color={isOptional ? "warning" : "neutral"}
+                        data-node={`commodity-${result}`}
+                      >
                         {intlContext.text("COMMODITY", result)}: {count}
                       </Typography>
+                      {resultIndex !== array.length - 1 && <Divider />}
                     </Fragment>
                   )
                 )}
@@ -202,47 +222,46 @@ export const FactoriesPage: FC = memo(() => {
               <Stack
                 direction="column"
                 justifyContent="space-between"
-                sx={{ height: "100%", pt: 2, pb: 2}}
+                sx={{ height: "100%" }}
               >
-                {variation.results.map(
-                  ([result, count], resultIndex) => (
-                    <Stack
-                      key={resultIndex}
-                      direction="column"
-                      justifyContent="center"
-                      sx={{
-                        "&:empty": {
-                          display: "none",
-                        }
-                      }}
-                    >
-                      {getRightNodes(result).map(({ station, variations }) => (
-                        <Fragment key={station}>
-                          {variations.map(
-                            (rightVariation, rightVariationIndex) => (
-                              <Card 
+                {variation.results.map(([result, count], resultIndex) => (
+                  <Stack
+                    key={resultIndex}
+                    direction="column"
+                    justifyContent="center"
+                    sx={{
+                      "&:empty": {
+                        display: "none",
+                      },
+                    }}
+                  >
+                    {getRightNodes(result).map(({ station, variations }) => (
+                      <Fragment key={station}>
+                        {variations.map(
+                          (rightVariation, rightVariationIndex) => (
+                            <Card
                               key={rightVariationIndex}
                               data-node={`ingredient-${result}`}
+                            >
+                              <Link
+                                to={`/factories?station=${station}`}
+                                component={RouterLink}
                               >
-                                <Link
-                                  href={`/factories?station=${station}`}
-                                >
-                                  {intlContext.text("COMMODITY", result)} (x
-                                  {calculateProcessIngredientLine(
-                                    result,
-                                    count,
-                                    rightVariation.ingredients
-                                  )}
-                                  ) -&gt; {intlContext.text("STATION", station)}
-                                </Link>
-                              </Card>
-                            )
-                          )}
-                        </Fragment>
-                      ))}
-                    </Stack>
-                  )
-                )}
+                                {intlContext.text("COMMODITY", result)} (x
+                                {calculateProcessIngredientLine(
+                                  result,
+                                  count,
+                                  rightVariation.ingredients
+                                )}
+                                ) -&gt; {intlContext.text("STATION", station)}
+                              </Link>
+                            </Card>
+                          )
+                        )}
+                      </Fragment>
+                    ))}
+                  </Stack>
+                ))}
               </Stack>
             </Box>
           </Box>

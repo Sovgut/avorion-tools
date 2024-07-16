@@ -6,9 +6,12 @@ import { IntlContext } from "~contexts/intl";
 import { copyOnMouseEvent } from "~utils/copy-on-mouse-event";
 import { StationMetadata } from "~data/stations/metadata";
 import { AccountTree, CopyAll } from "@mui/icons-material";
+import {Link as RouterLink} from "react-router-dom"
+import { useGlobalSearch } from "~components/search/hook/use-global-search";
 
 export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
   (props) => {
+    const globalSearch = useGlobalSearch();
     const breakpoint = useBreakpoint();
     const intlContext = useContext(IntlContext);
 
@@ -26,7 +29,7 @@ export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
           </IconButton>
         )}
         {!breakpoint.sm && (
-          <Link href={`/factories?station=${props.station}`}>
+          <Link to={`/factories?station=${props.station}`} component={RouterLink} onClick={() => globalSearch.setOpen(false)}>
             <IconButton size="sm">
               <AccountTree />
             </IconButton>
