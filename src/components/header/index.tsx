@@ -44,7 +44,9 @@ export function Header() {
               component={RouterLink}
               onClick={() => globalSearch.setOpen(false)}
             >
-              <Typography>{intlContext.text("UI", "turret-planner")}</Typography>
+              <Typography>
+                {intlContext.text("UI", "turret-planner")}
+              </Typography>
             </Link>
           </Stack>
         </Stack>
@@ -70,7 +72,7 @@ export function Header() {
             </MenuButton>
             <Menu
               placement="bottom-end"
-              sx={{ minWidth: "200px" }}
+              sx={{ minWidth: "200px", zIndex: 9999999 }}
               variant="soft"
             >
               <MenuItem
