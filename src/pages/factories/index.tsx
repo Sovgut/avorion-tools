@@ -21,11 +21,10 @@ import { IntlContext } from "~contexts/intl";
 import { Commodity } from "~data/commodities/enums";
 import { Station } from "~data/stations/enums";
 import { StationMetadata } from "~data/stations/metadata";
-import { IStationCommodity, IStationVariation } from "~data/stations/types";
+import { IStationVariation } from "~data/stations/types";
 import { serializeStation, serializeStations } from "~utils/serialize-station";
 import { Link as RouterLink } from "react-router-dom";
-import { ProductionMultiplier } from "./componets/ProductionMultiplier";
-import { ArrowRight } from "@mui/icons-material";
+import { CommodityMetadata } from "~data/commodities/metadata";
 
 export const FactoriesPage: FC = memo(() => {
   const [searchParams] = useSearchParams();
@@ -85,40 +84,6 @@ export const FactoriesPage: FC = memo(() => {
       }));
   }, []);
 
-  const calculateProcessResultLine = useCallback(
-    (
-      commodity: Commodity,
-      count: number,
-      nodeCommodities: IStationCommodity[],
-    ) => {
-      const nodeCommodity = nodeCommodities.find(
-        ([nodeCommodity]) => nodeCommodity === commodity,
-      );
-
-      if (!nodeCommodity) return 1;
-
-      return count / nodeCommodity[1];
-    },
-    [],
-  );
-
-  const calculateProcessIngredientLine = useCallback(
-    (
-      commodity: Commodity,
-      count: number,
-      nodeCommodities: IStationCommodity[],
-    ) => {
-      const nodeCommodity = nodeCommodities.find(
-        ([nodeCommodity]) => nodeCommodity === commodity,
-      );
-
-      if (!nodeCommodity) return 1;
-
-      return count / nodeCommodity[1];
-    },
-    [station],
-  );
-
   const calculatePaybackCycles = useCallback((variation: IStationVariation) => {
     if (!variation.cost || !variation.profitPerCycle) return 0;
 
@@ -154,34 +119,61 @@ export const FactoriesPage: FC = memo(() => {
                                   key={leftVariationIndex}
                                   data-node={`result-${ingredient}`}
                                 >
-                                  <Link
-                                    to={`/factories?station=${station}`}
-                                    component={RouterLink}
-                                  >
-                                    <Stack
-                                      flexWrap="wrap"
-                                      direction="row"
-                                      alignItems="center"
+                                  <Stack>
+                                    <Link
+                                      to={`/factories?station=${station}`}
+                                      component={RouterLink}
                                     >
                                       <Typography>
                                         {intlContext.text("STATION", station)}
                                       </Typography>
-                                      <ArrowRight />
-                                      <Typography>
+                                    </Link>
+                                    <Stack direction="column" spacing={1}>
+                                      <Divider sx={{ width: "100%" }}>
                                         {intlContext.text(
                                           "COMMODITY",
                                           ingredient,
                                         )}
-                                      </Typography>
-                                      <ProductionMultiplier
-                                        multiplier={calculateProcessResultLine(
-                                          ingredient,
-                                          count,
-                                          leftVariation.results,
-                                        )}
-                                      />
+                                      </Divider>
+                                      <Stack direction="row" spacing={1}>
+                                        <Typography>
+                                          {intlContext.text("UI", "required")}:
+                                        </Typography>
+                                        <Typography>
+                                          {
+                                            leftVariation.results.find(
+                                              ([commodity]) =>
+                                                commodity === ingredient,
+                                            )?.[1]
+                                          }
+                                        </Typography>
+                                        <Typography>
+                                          / {intlContext.text("UI", "cycle")}
+                                        </Typography>
+                                      </Stack>
+                                      <Stack spacing={1} direction="row">
+                                        <Typography>
+                                          {intlContext.text("UI", "produced")}:
+                                        </Typography>
+                                        <Typography
+                                          color={
+                                            count >=
+                                            (leftVariation.results.find(
+                                              ([commodity]) =>
+                                                commodity === ingredient,
+                                            )?.[1] ?? 0)
+                                              ? "success"
+                                              : "danger"
+                                          }
+                                        >
+                                          {count}
+                                        </Typography>
+                                        <Typography>
+                                          / {intlContext.text("UI", "cycle")}
+                                        </Typography>
+                                      </Stack>
                                     </Stack>
-                                  </Link>
+                                  </Stack>
                                 </Card>
                               ),
                             )}
@@ -271,22 +263,27 @@ export const FactoriesPage: FC = memo(() => {
                   <Divider>{intlContext.text("UI", "ingredients")}</Divider>
                 )}
                 {variation.ingredients.map(
-                  ([ingredient, count, isOptional], ingredientIndex, array) => (
+                  ([ingredient, count, isOptional], ingredientIndex) => (
                     <Fragment key={ingredientIndex}>
                       <Stack>
-                        <Typography
-                          color="neutral"
-                          data-node={`commodity-${ingredient}`}
-                        >
-                          {intlContext.text("COMMODITY", ingredient)}: {count}
-                        </Typography>
+                        <Stack direction="row" spacing={1} flexWrap="wrap">
+                          <Typography
+                            color="neutral"
+                            data-node={`commodity-${ingredient}`}
+                          >
+                            {intlContext.text("COMMODITY", ingredient)}:
+                          </Typography>
+                          <Typography>{count}</Typography>
+                          <Typography color="success">
+                            (¢{CommodityMetadata[ingredient].price})
+                          </Typography>
+                        </Stack>
                         {isOptional && (
                           <Typography level="body-xs" color="warning">
                             {intlContext.text("UI", "ingredient-optional-hint")}
                           </Typography>
                         )}
                       </Stack>
-                      {ingredientIndex !== array.length - 1 && <Divider />}
                     </Fragment>
                   ),
                 )}
@@ -295,22 +292,27 @@ export const FactoriesPage: FC = memo(() => {
                   <Divider>{intlContext.text("UI", "results")}</Divider>
                 )}
                 {variation.results.map(
-                  ([result, count, isOptional], resultIndex, array) => (
+                  ([result, count, isOptional], resultIndex) => (
                     <Fragment key={resultIndex}>
                       <Stack>
-                        <Typography
-                          color="neutral"
-                          data-node={`commodity-${result}`}
-                        >
-                          {intlContext.text("COMMODITY", result)}: {count}
-                        </Typography>
+                        <Stack direction="row" spacing={1} flexWrap="wrap">
+                          <Typography
+                            color="neutral"
+                            data-node={`commodity-${result}`}
+                          >
+                            {intlContext.text("COMMODITY", result)}:
+                          </Typography>
+                          <Typography>{count}</Typography>
+                          <Typography color="success">
+                            (¢{CommodityMetadata[result].price})
+                          </Typography>
+                        </Stack>
                         {isOptional && (
                           <Typography level="body-xs" color="warning">
                             {intlContext.text("UI", "result-optional-hint")}
                           </Typography>
                         )}
                       </Stack>
-                      {resultIndex !== array.length - 1 && <Divider />}
                     </Fragment>
                   ),
                 )}
@@ -335,31 +337,56 @@ export const FactoriesPage: FC = memo(() => {
                               key={rightVariationIndex}
                               data-node={`ingredient-${result}`}
                             >
-                              <Link
-                                to={`/factories?station=${station}`}
-                                component={RouterLink}
-                              >
-                                <Stack
-                                  flexWrap="wrap"
-                                  direction="row"
-                                  alignItems="center"
+                              <Stack>
+                                <Link
+                                  to={`/factories?station=${station}`}
+                                  component={RouterLink}
                                 >
-                                  <Typography>
-                                    {intlContext.text("COMMODITY", result)}
-                                  </Typography>
-                                  <ProductionMultiplier
-                                    multiplier={calculateProcessIngredientLine(
-                                      result,
-                                      count,
-                                      rightVariation.ingredients,
-                                    )}
-                                  />
-                                  <ArrowRight />
                                   <Typography>
                                     {intlContext.text("STATION", station)}
                                   </Typography>
+                                </Link>
+                                <Stack direction="column" spacing={1}>
+                                  <Divider sx={{ width: "100%" }}>
+                                    {intlContext.text("COMMODITY", result)}
+                                  </Divider>
+                                  <Stack direction="row" spacing={1}>
+                                    <Typography>
+                                      {intlContext.text("UI", "required")}:
+                                    </Typography>
+                                    <Typography>
+                                      {
+                                        rightVariation.ingredients.find(
+                                          ([commodity]) => commodity === result,
+                                        )?.[1]
+                                      }
+                                    </Typography>
+                                    <Typography>
+                                      / {intlContext.text("UI", "cycle")}
+                                    </Typography>
+                                  </Stack>
+                                  <Stack spacing={1} direction="row">
+                                    <Typography>
+                                      {intlContext.text("UI", "produced")}:
+                                    </Typography>
+                                    <Typography
+                                      color={
+                                        count >=
+                                        (rightVariation.ingredients.find(
+                                          ([commodity]) => commodity === result,
+                                        )?.[1] ?? 0)
+                                          ? "success"
+                                          : "danger"
+                                      }
+                                    >
+                                      {count}
+                                    </Typography>
+                                    <Typography>
+                                      / {intlContext.text("UI", "cycle")}
+                                    </Typography>
+                                  </Stack>
                                 </Stack>
-                              </Link>
+                              </Stack>
                             </Card>
                           ),
                         )}

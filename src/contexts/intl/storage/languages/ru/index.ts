@@ -9,6 +9,8 @@ import {
 } from "~contexts/intl/storage/types";
 
 const UI: IntlUI = {
+  produced: "Произведено",
+  required: "Требуется",
   "result-optional-hint": "Этот результат является необязательным.",
   results: "Результаты",
   "ingredient-optional-hint": "Этот ингредиент является необязательным.",

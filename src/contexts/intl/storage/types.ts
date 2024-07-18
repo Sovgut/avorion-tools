@@ -9,6 +9,8 @@ export type IntlCommodity = Record<Commodity, string>;
 export type IntlTurret = Record<Turret, string>;
 
 export interface IntlUI {
+  produced: string;
+  required: string;
   "result-optional-hint": string;
   results: string;
   "ingredient-optional-hint": string;
