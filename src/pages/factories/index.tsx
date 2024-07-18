@@ -24,6 +24,8 @@ import { StationMetadata } from "~data/stations/metadata";
 import { IStationCommodity, IStationVariation } from "~data/stations/types";
 import { serializeStation, serializeStations } from "~utils/serialize-station";
 import { Link as RouterLink } from "react-router-dom";
+import { ProductionMultiplier } from "./componets/ProductionMultiplier";
+import { ArrowRight } from "@mui/icons-material";
 
 export const FactoriesPage: FC = memo(() => {
   const [searchParams] = useSearchParams();
@@ -40,23 +42,26 @@ export const FactoriesPage: FC = memo(() => {
     }
   }, [searchParams]);
 
-  const getLeftNodes = useCallback((commodity: Commodity) => {
-    return serializeStations(Object.keys(StationMetadata))
-      .filter(
-        (station) =>
-          !!StationMetadata[station].variations.find(
+  const getLeftNodes = useCallback(
+    (commodity: Commodity) => {
+      return serializeStations(Object.keys(StationMetadata))
+        .filter(
+          (station) =>
+            !!StationMetadata[station].variations.find(
+              (variation) =>
+                !!variation.results.find(([result]) => result === commodity),
+            ),
+        )
+        .map((station) => ({
+          station,
+          variations: StationMetadata[station].variations.filter(
             (variation) =>
               !!variation.results.find(([result]) => result === commodity),
           ),
-      )
-      .map((station) => ({
-        station,
-        variations: StationMetadata[station].variations.filter(
-          (variation) =>
-            !!variation.results.find(([result]) => result === commodity),
-        ),
-      }));
-  }, []);
+        }));
+    },
+    [station],
+  );
 
   const getRightNodes = useCallback((commodity: Commodity) => {
     return serializeStations(Object.keys(StationMetadata))
@@ -111,7 +116,7 @@ export const FactoriesPage: FC = memo(() => {
 
       return count / nodeCommodity[1];
     },
-    [],
+    [station],
   );
 
   const calculatePaybackCycles = useCallback((variation: IStationVariation) => {
@@ -153,15 +158,29 @@ export const FactoriesPage: FC = memo(() => {
                                     to={`/factories?station=${station}`}
                                     component={RouterLink}
                                   >
-                                    {intlContext.text("STATION", station)} -&gt;{" "}
-                                    {intlContext.text("COMMODITY", ingredient)}{" "}
-                                    (x
-                                    {calculateProcessResultLine(
-                                      ingredient,
-                                      count,
-                                      leftVariation.results,
-                                    ).toFixed(2)}
-                                    )
+                                    <Stack
+                                      flexWrap="wrap"
+                                      direction="row"
+                                      alignItems="center"
+                                    >
+                                      <Typography>
+                                        {intlContext.text("STATION", station)}
+                                      </Typography>
+                                      <ArrowRight />
+                                      <Typography>
+                                        {intlContext.text(
+                                          "COMMODITY",
+                                          ingredient,
+                                        )}
+                                      </Typography>
+                                      <ProductionMultiplier
+                                        multiplier={calculateProcessResultLine(
+                                          ingredient,
+                                          count,
+                                          leftVariation.results,
+                                        )}
+                                      />
+                                    </Stack>
                                   </Link>
                                 </Card>
                               ),
@@ -181,11 +200,11 @@ export const FactoriesPage: FC = memo(() => {
                   {intlContext.text("STATION", station)}
                 </Typography>
 
-                <Divider>Info</Divider>
+                <Divider>{intlContext.text("UI", "info")}</Divider>
 
                 {variation.cost && (
                   <Stack direction="row" spacing={1}>
-                    <Typography>Cost:</Typography>
+                    <Typography>{intlContext.text("UI", "cost")}:</Typography>
                     <Typography color="success">
                       {variation.cost?.toLocaleString()}
                     </Typography>
@@ -195,16 +214,20 @@ export const FactoriesPage: FC = memo(() => {
                 {variation.profitPerCycle && (
                   <Stack>
                     <Stack direction="row" spacing={1}>
-                      <Typography>Profit:</Typography>
+                      <Typography>
+                        {intlContext.text("UI", "profit")}:
+                      </Typography>
                       <Stack direction="row">
                         <Typography color="success">
                           {variation.profitPerCycle?.toLocaleString()}
                         </Typography>
-                        <Typography>/Cycle</Typography>
+                        <Typography>
+                          /{intlContext.text("UI", "cycle")}
+                        </Typography>
                       </Stack>
                     </Stack>
                     <Typography level="body-xs">
-                      One cycle is equal to 15 seconds.
+                      {intlContext.text("UI", "profit-hint")}
                     </Typography>
                   </Stack>
                 )}
@@ -212,13 +235,15 @@ export const FactoriesPage: FC = memo(() => {
                 {variation.cost && (
                   <Stack>
                     <Stack direction="row" spacing={1}>
-                      <Typography>Required Cargo:</Typography>
+                      <Typography>
+                        {intlContext.text("UI", "required-cargo")}:
+                      </Typography>
                       <Typography color="success">
                         {variation.requiredPC?.toLocaleString()}
                       </Typography>
                     </Stack>
                     <Typography level="body-xs">
-                      Optimal factory production capacity
+                      {intlContext.text("UI", "required-cargo-hint")}
                     </Typography>
                   </Stack>
                 )}
@@ -226,7 +251,9 @@ export const FactoriesPage: FC = memo(() => {
                 {variation.ROICycles && (
                   <Stack>
                     <Stack direction="row" spacing={1}>
-                      <Typography>Payback Cycles:</Typography>
+                      <Typography>
+                        {intlContext.text("UI", "roi-cycles")}:
+                      </Typography>
                       <Typography color="success">
                         {parseInt(
                           calculatePaybackCycles(variation).toString(),
@@ -235,13 +262,13 @@ export const FactoriesPage: FC = memo(() => {
                       </Typography>
                     </Stack>
                     <Typography level="body-xs">
-                      Cycles until the base founding cost is repaid.
+                      {intlContext.text("UI", "roi-cycles-hint")}
                     </Typography>
                   </Stack>
                 )}
 
                 {variation.ingredients.length > 0 && (
-                  <Divider>Ingredients</Divider>
+                  <Divider>{intlContext.text("UI", "ingredients")}</Divider>
                 )}
                 {variation.ingredients.map(
                   ([ingredient, count, isOptional], ingredientIndex, array) => (
@@ -255,7 +282,7 @@ export const FactoriesPage: FC = memo(() => {
                         </Typography>
                         {isOptional && (
                           <Typography level="body-xs" color="warning">
-                            This ingredient is optional.
+                            {intlContext.text("UI", "ingredient-optional-hint")}
                           </Typography>
                         )}
                       </Stack>
@@ -264,7 +291,9 @@ export const FactoriesPage: FC = memo(() => {
                   ),
                 )}
 
-                {variation.results.length > 0 && <Divider>Results</Divider>}
+                {variation.results.length > 0 && (
+                  <Divider>{intlContext.text("UI", "results")}</Divider>
+                )}
                 {variation.results.map(
                   ([result, count, isOptional], resultIndex, array) => (
                     <Fragment key={resultIndex}>
@@ -277,7 +306,7 @@ export const FactoriesPage: FC = memo(() => {
                         </Typography>
                         {isOptional && (
                           <Typography level="body-xs" color="warning">
-                            This result is optional.
+                            {intlContext.text("UI", "result-optional-hint")}
                           </Typography>
                         )}
                       </Stack>
@@ -310,13 +339,26 @@ export const FactoriesPage: FC = memo(() => {
                                 to={`/factories?station=${station}`}
                                 component={RouterLink}
                               >
-                                {intlContext.text("COMMODITY", result)} (x
-                                {calculateProcessIngredientLine(
-                                  result,
-                                  count,
-                                  rightVariation.ingredients,
-                                ).toFixed(2)}
-                                ) -&gt; {intlContext.text("STATION", station)}
+                                <Stack
+                                  flexWrap="wrap"
+                                  direction="row"
+                                  alignItems="center"
+                                >
+                                  <Typography>
+                                    {intlContext.text("COMMODITY", result)}
+                                  </Typography>
+                                  <ProductionMultiplier
+                                    multiplier={calculateProcessIngredientLine(
+                                      result,
+                                      count,
+                                      rightVariation.ingredients,
+                                    )}
+                                  />
+                                  <ArrowRight />
+                                  <Typography>
+                                    {intlContext.text("STATION", station)}
+                                  </Typography>
+                                </Stack>
                               </Link>
                             </Card>
                           ),

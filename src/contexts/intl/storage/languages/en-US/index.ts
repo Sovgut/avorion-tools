@@ -9,6 +9,19 @@ import {
 } from "~contexts/intl/storage/types";
 
 const UI: IntlUI = {
+  "result-optional-hint": "This result is optional.",
+  results: "Results",
+  "ingredient-optional-hint": "This ingredient is optional.",
+  ingredients: "Ingredients",
+  info: "Info",
+  "roi-cycles-hint": "Cycles until the base founding cost is repaid.",
+  "roi-cycles": "Payback Cycles",
+  "required-cargo-hint": "Optimal factory production capacity",
+  "required-cargo": "Required Cargo",
+  "profit-hint": "One cycle is equal to 15 seconds.",
+  cycle: "Cycle",
+  profit: "Profit",
+  cost: "Cost",
   copy: "Copy",
   copied: "Copied!",
   "lets-add-turret": "Let's add your first recipe to the Turret planner!",

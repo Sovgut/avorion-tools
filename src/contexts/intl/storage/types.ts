@@ -9,6 +9,19 @@ export type IntlCommodity = Record<Commodity, string>;
 export type IntlTurret = Record<Turret, string>;
 
 export interface IntlUI {
+  "result-optional-hint": string;
+  results: string;
+  "ingredient-optional-hint": string;
+  ingredients: string;
+  info: string;
+  "roi-cycles-hint": string;
+  "roi-cycles": string;
+  "required-cargo-hint": string;
+  "required-cargo": string;
+  "profit-hint": string;
+  cycle: string;
+  profit: string;
+  cost: string;
   "global-search": string;
   commodity: string;
   commodities: string;

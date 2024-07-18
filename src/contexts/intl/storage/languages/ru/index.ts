@@ -9,6 +9,19 @@ import {
 } from "~contexts/intl/storage/types";
 
 const UI: IntlUI = {
+  "result-optional-hint": "Этот результат является необязательным.",
+  results: "Результаты",
+  "ingredient-optional-hint": "Этот ингредиент является необязательным.",
+  ingredients: "Ингредиенты",
+  info: "Информация",
+  "roi-cycles-hint": "Количество циклов до окупаемости первоначальных затрат.",
+  "roi-cycles": "Циклы окупаемости",
+  "required-cargo-hint": "Оптимальная производственная мощность фабрики",
+  "required-cargo": "Необходимый груз",
+  "profit-hint": "Один цикл равен 15 секундам.",
+  cycle: "Цикл",
+  profit: "Прибыль",
+  cost: "Стоимость",
   copy: "Скопировать",
   copied: "Скопировано!",
   "lets-add-turret": "Давайте добавим ваш первый рецепт в планировщик турелей!",
