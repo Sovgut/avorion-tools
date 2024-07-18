@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/joy";
+import { Typography } from "@mui/joy";
 import { FC, memo } from "react";
 import { IProductionMultiplier } from "./types";
 
