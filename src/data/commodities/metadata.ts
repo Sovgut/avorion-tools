@@ -17,7 +17,7 @@ export const CommodityMetadata: Record<Commodity, ICommodityMetadata> = {
     volume: 0.1,
     illegal: true,
     dangerous: false,
-    stations: [Station.Hideout],
+    stations: [],
   },
   [Commodity.Adhesive]: {
     icon: "/img/icon/adhesive.png",
@@ -657,7 +657,7 @@ export const CommodityMetadata: Record<Commodity, ICommodityMetadata> = {
     volume: 0.1,
     illegal: true,
     dangerous: false,
-    stations: [Station.Hideout],
+    stations: [],
   },
   [Commodity.Nanobot]: {
     icon: "/img/icon/nanobots.png",
