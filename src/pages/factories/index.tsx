@@ -10,7 +10,6 @@ import {
   Typography,
 } from "@mui/joy";
 import {
-  ChangeEventHandler,
   FC,
   Fragment,
   memo,
