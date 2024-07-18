@@ -15,6 +15,7 @@ import { GitHub, Translate } from "@mui/icons-material";
 import { GlobalSearch } from "~components/search";
 import { Link as RouterLink } from "react-router-dom";
 import { useGlobalSearch } from "~components/search/hook/use-global-search";
+import { LanguageType } from "~contexts/intl/storage/types";
 
 export function Header() {
   const globalSearch = useGlobalSearch();
@@ -22,7 +23,7 @@ export function Header() {
 
   function handleLanguageChange(value: string) {
     return function $dropdownMenuItemClick() {
-      intlContext.setLanguage(value);
+      intlContext.setLanguage(value as LanguageType);
     };
   }
 
