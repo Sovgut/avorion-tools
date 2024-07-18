@@ -9,7 +9,7 @@ import {
 } from "~types/store/actions/turret";
 
 const turretSlice = createSlice({
-  initialState: LocalState.get<TurretStoreState>(CACHE_TURRETS, {
+  initialState: LocalState.getItem<TurretStoreState>(CACHE_TURRETS, {
     fallback: { entities: {} },
   }),
   name: "turret",

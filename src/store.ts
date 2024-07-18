@@ -25,10 +25,10 @@ store.subscribe(
   debounce(() => {
     const state = store.getState();
 
-    LocalState.set(CACHE_TURRETS, state.turret);
-    LocalState.set(CACHE_COMPONENTS, state.component);
-    LocalState.set(CACHE_CARGO, state.cargo);
-    LocalState.set(CACHE_CHECKBOX, state.checkbox);
+    LocalState.setItem(CACHE_TURRETS, state.turret);
+    LocalState.setItem(CACHE_COMPONENTS, state.component);
+    LocalState.setItem(CACHE_CARGO, state.cargo);
+    LocalState.setItem(CACHE_CHECKBOX, state.checkbox);
   }, 1000)
 );
 
