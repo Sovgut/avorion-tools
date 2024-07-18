@@ -3,6 +3,7 @@ import {CACHE_LANG} from "~constants/common";
 import {IntlLabel, LanguageType} from "~contexts/intl/storage/types";
 import {INTL_STORAGE} from "~contexts/intl/storage";
 import { LocalState } from "@sovgut/state";
+import { SUPPORTED_LANGUAGES } from "./constants";
 
 type Context = {
     language: LanguageType;
@@ -26,7 +27,7 @@ export function IntlContextProvider({children}: Props) {
     useLayoutEffect(() => {
         const language = LocalState.getItem(CACHE_LANG, { fallback: window.navigator.language }) as LanguageType;
 
-        if (language) {
+        if (SUPPORTED_LANGUAGES.includes(language)) {
             setLanguage(language);
         }
     }, [])
