@@ -7,7 +7,7 @@ import { CommodityMetadata } from "~data/commodities/metadata";
 
 type Props = {
     type: Commodity;
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 export function ComponentIcon({type, onClick}: Props) {
