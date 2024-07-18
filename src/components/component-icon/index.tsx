@@ -7,9 +7,10 @@ import { CommodityMetadata } from "~data/commodities/metadata";
 
 type Props = {
     type: Commodity;
+    onClick: () => void;
 }
 
-export function ComponentIcon({type}: Props) {
+export function ComponentIcon({type, onClick}: Props) {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const intlContext = useContext(IntlContext);
 
@@ -21,6 +22,6 @@ export function ComponentIcon({type}: Props) {
     }, [type]);
 
     return imageSrc ? (
-        <img className={styles.icon} src={imageSrc} alt={intlContext.text("COMMODITY", type)}/>
+        <img onClick={onClick} className={styles.icon} src={imageSrc} alt={intlContext.text("COMMODITY", type)}/>
     ) : null;
 }
