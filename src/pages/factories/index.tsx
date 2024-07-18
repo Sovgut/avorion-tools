@@ -21,7 +21,7 @@ import { IntlContext } from "~contexts/intl";
 import { Commodity } from "~data/commodities/enums";
 import { Station } from "~data/stations/enums";
 import { StationMetadata } from "~data/stations/metadata";
-import { IStationCommodity } from "~data/stations/types";
+import { IStationCommodity, IStationVariation } from "~data/stations/types";
 import { serializeStation, serializeStations } from "~utils/serialize-station";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -40,85 +40,85 @@ export const FactoriesPage: FC = memo(() => {
     }
   }, [searchParams]);
 
-  const getLeftNodes = useCallback(
-    (commodity: Commodity) => {
-      return serializeStations(Object.keys(StationMetadata))
-        .filter(
-          (station) =>
-            !!StationMetadata[station].variations.find(
-              (variation) =>
-                !!variation.results.find(([result]) => result === commodity)
-            )
-        )
-        .map((station) => ({
-          station,
-          variations: StationMetadata[station].variations.filter(
+  const getLeftNodes = useCallback((commodity: Commodity) => {
+    return serializeStations(Object.keys(StationMetadata))
+      .filter(
+        (station) =>
+          !!StationMetadata[station].variations.find(
             (variation) =>
-              !!variation.results.find(([result]) => result === commodity)
+              !!variation.results.find(([result]) => result === commodity),
           ),
-        }));
-    },
-    [station]
-  );
+      )
+      .map((station) => ({
+        station,
+        variations: StationMetadata[station].variations.filter(
+          (variation) =>
+            !!variation.results.find(([result]) => result === commodity),
+        ),
+      }));
+  }, []);
 
-  const getRightNodes = useCallback(
-    (commodity: Commodity) => {
-      return serializeStations(Object.keys(StationMetadata))
-        .filter(
-          (station) =>
-            !!StationMetadata[station].variations.find(
-              (variation) =>
-                !!variation.ingredients.find(
-                  ([ingredient]) => ingredient === commodity
-                )
-            )
-        )
-        .map((station) => ({
-          station,
-          variations: StationMetadata[station].variations.filter(
+  const getRightNodes = useCallback((commodity: Commodity) => {
+    return serializeStations(Object.keys(StationMetadata))
+      .filter(
+        (station) =>
+          !!StationMetadata[station].variations.find(
             (variation) =>
               !!variation.ingredients.find(
-                ([ingredient]) => ingredient === commodity
-              )
+                ([ingredient]) => ingredient === commodity,
+              ),
           ),
-        }));
-    },
-    [station]
-  );
+      )
+      .map((station) => ({
+        station,
+        variations: StationMetadata[station].variations.filter(
+          (variation) =>
+            !!variation.ingredients.find(
+              ([ingredient]) => ingredient === commodity,
+            ),
+        ),
+      }));
+  }, []);
 
   const calculateProcessResultLine = useCallback(
     (
       commodity: Commodity,
       count: number,
-      nodeCommodities: IStationCommodity[]
+      nodeCommodities: IStationCommodity[],
     ) => {
       const nodeCommodity = nodeCommodities.find(
-        ([nodeCommodity]) => nodeCommodity === commodity
+        ([nodeCommodity]) => nodeCommodity === commodity,
       );
 
       if (!nodeCommodity) return 1;
 
       return count / nodeCommodity[1];
     },
-    []
+    [],
   );
 
   const calculateProcessIngredientLine = useCallback(
     (
       commodity: Commodity,
       count: number,
-      nodeCommodities: IStationCommodity[]
+      nodeCommodities: IStationCommodity[],
     ) => {
       const nodeCommodity = nodeCommodities.find(
-        ([nodeCommodity]) => nodeCommodity === commodity
+        ([nodeCommodity]) => nodeCommodity === commodity,
       );
 
       if (!nodeCommodity) return 1;
 
       return count / nodeCommodity[1];
     },
-    []
+    [],
   );
+
+  const calculatePaybackCycles = useCallback((variation: IStationVariation) => {
+    if (!variation.cost || !variation.profitPerCycle) return 0;
+
+    return variation.cost / variation.profitPerCycle;
+  }, []);
 
   if (station === null) return null;
 
@@ -159,18 +159,18 @@ export const FactoriesPage: FC = memo(() => {
                                     {calculateProcessResultLine(
                                       ingredient,
                                       count,
-                                      leftVariation.results
+                                      leftVariation.results,
                                     ).toFixed(2)}
                                     )
                                   </Link>
                                 </Card>
-                              )
+                              ),
                             )}
                           </Fragment>
-                        )
+                        ),
                       )}
                     </Stack>
-                  )
+                  ),
                 )}
               </Stack>
               <Card
@@ -180,22 +180,64 @@ export const FactoriesPage: FC = memo(() => {
                 <Typography level="h4">
                   {intlContext.text("STATION", station)}
                 </Typography>
+
+                <Divider>Info</Divider>
+
                 {variation.cost && (
-                  <Typography>
-                    Cost: {variation.cost?.toLocaleString()}
-                  </Typography>
+                  <Stack direction="row" spacing={1}>
+                    <Typography>Cost:</Typography>
+                    <Typography color="success">
+                      {variation.cost?.toLocaleString()}
+                    </Typography>
+                  </Stack>
                 )}
 
                 {variation.profitPerCycle && (
-                  <Typography>
-                    Profit: {variation.profitPerCycle?.toLocaleString()} / cycle
-                  </Typography>
+                  <Stack>
+                    <Stack direction="row" spacing={1}>
+                      <Typography>Profit:</Typography>
+                      <Stack direction="row">
+                        <Typography color="success">
+                          {variation.profitPerCycle?.toLocaleString()}
+                        </Typography>
+                        <Typography>/Cycle</Typography>
+                      </Stack>
+                    </Stack>
+                    <Typography level="body-xs">
+                      One cycle is equal to 15 seconds.
+                    </Typography>
+                  </Stack>
+                )}
+
+                {variation.cost && (
+                  <Stack>
+                    <Stack direction="row" spacing={1}>
+                      <Typography>Required Cargo:</Typography>
+                      <Typography color="success">
+                        {variation.requiredPC?.toLocaleString()}
+                      </Typography>
+                    </Stack>
+                    <Typography level="body-xs">
+                      Optimal factory production capacity
+                    </Typography>
+                  </Stack>
                 )}
 
                 {variation.ROICycles && (
-                  <Typography>
-                    Payback Cycles: {variation.ROICycles?.toLocaleString()}
-                  </Typography>
+                  <Stack>
+                    <Stack direction="row" spacing={1}>
+                      <Typography>Payback Cycles:</Typography>
+                      <Typography color="success">
+                        {parseInt(
+                          calculatePaybackCycles(variation).toString(),
+                          10,
+                        ).toLocaleString()}
+                      </Typography>
+                    </Stack>
+                    <Typography level="body-xs">
+                      Cycles until the base founding cost is repaid.
+                    </Typography>
+                  </Stack>
                 )}
 
                 {variation.ingredients.length > 0 && (
@@ -204,30 +246,44 @@ export const FactoriesPage: FC = memo(() => {
                 {variation.ingredients.map(
                   ([ingredient, count, isOptional], ingredientIndex, array) => (
                     <Fragment key={ingredientIndex}>
-                      <Typography
-                        color={isOptional ? "warning" : "neutral"}
-                        data-node={`commodity-${ingredient}`}
-                      >
-                        {intlContext.text("COMMODITY", ingredient)}: {count}
-                      </Typography>
+                      <Stack>
+                        <Typography
+                          color="neutral"
+                          data-node={`commodity-${ingredient}`}
+                        >
+                          {intlContext.text("COMMODITY", ingredient)}: {count}
+                        </Typography>
+                        {isOptional && (
+                          <Typography level="body-xs" color="warning">
+                            This ingredient is optional.
+                          </Typography>
+                        )}
+                      </Stack>
                       {ingredientIndex !== array.length - 1 && <Divider />}
                     </Fragment>
-                  )
+                  ),
                 )}
 
                 {variation.results.length > 0 && <Divider>Results</Divider>}
                 {variation.results.map(
                   ([result, count, isOptional], resultIndex, array) => (
                     <Fragment key={resultIndex}>
-                      <Typography
-                        color={isOptional ? "warning" : "neutral"}
-                        data-node={`commodity-${result}`}
-                      >
-                        {intlContext.text("COMMODITY", result)}: {count}
-                      </Typography>
+                      <Stack>
+                        <Typography
+                          color="neutral"
+                          data-node={`commodity-${result}`}
+                        >
+                          {intlContext.text("COMMODITY", result)}: {count}
+                        </Typography>
+                        {isOptional && (
+                          <Typography level="body-xs" color="warning">
+                            This result is optional.
+                          </Typography>
+                        )}
+                      </Stack>
                       {resultIndex !== array.length - 1 && <Divider />}
                     </Fragment>
-                  )
+                  ),
                 )}
               </Card>
               <Stack direction="column" sx={{ height: "100%" }}>
@@ -258,12 +314,12 @@ export const FactoriesPage: FC = memo(() => {
                                 {calculateProcessIngredientLine(
                                   result,
                                   count,
-                                  rightVariation.ingredients
+                                  rightVariation.ingredients,
                                 ).toFixed(2)}
                                 ) -&gt; {intlContext.text("STATION", station)}
                               </Link>
                             </Card>
-                          )
+                          ),
                         )}
                       </Fragment>
                     ))}
