@@ -116,6 +116,7 @@ export const FactoriesPage: FC = memo(() => {
             display: "grid",
             gridTemplateColumns: "max-content auto max-content",
             columnGap: "2rem",
+            position: "relative",
             pt: 2,
             pb: 2,
           }}
@@ -123,15 +124,18 @@ export const FactoriesPage: FC = memo(() => {
           <Box
             sx={{
               display: "grid",
-              gridTemplateColumns: "max-content auto",
-              minHeight: "500px",
               height: "max-content",
-              rowGap: "2rem",
+              rowGap: "1rem",
             }}
           >
             {variation.ingredients.map(
               ([ingredient, count], ingredientIndex) => (
                 <Fragment key={ingredientIndex}>
+                  <Divider>
+                    <Typography color="warning">
+                      {intlContext.text("COMMODITY", ingredient)}
+                    </Typography>
+                  </Divider>
                   <Stack
                     direction="column"
                     justifyContent="center"
@@ -200,19 +204,6 @@ export const FactoriesPage: FC = memo(() => {
                       </Fragment>
                     ))}
                   </Stack>
-                  <Divider orientation="vertical">
-                    <Typography
-                      color="warning"
-                      sx={{
-                        p: 2,
-                        transform: "rotate(-90deg)",
-                        transition: "all 100ms ease-in-out",
-                        "&:hover": { transform: "rotate(0deg)" },
-                      }}
-                    >
-                      {intlContext.text("COMMODITY", ingredient)}
-                    </Typography>
-                  </Divider>
                 </Fragment>
               ),
             )}
@@ -248,7 +239,7 @@ export const FactoriesPage: FC = memo(() => {
               <Stack direction="row" spacing={1}>
                 <Typography>{intlContext.text("UI", "cost")}:</Typography>
                 <Typography color="success">
-                  {variation.cost?.toLocaleString()}
+                  ¢{variation.cost?.toLocaleString()}
                 </Typography>
               </Stack>
             )}
@@ -259,7 +250,7 @@ export const FactoriesPage: FC = memo(() => {
                   <Typography>{intlContext.text("UI", "profit")}:</Typography>
                   <Stack direction="row" spacing={1}>
                     <Typography color="success">
-                      {variation.profitPerCycle?.toLocaleString()}
+                      ¢{variation.profitPerCycle?.toLocaleString()}
                     </Typography>
                     <Typography>/ {intlContext.text("UI", "cycle")}</Typography>
                   </Stack>
@@ -321,7 +312,8 @@ export const FactoriesPage: FC = memo(() => {
                       </Typography>
                       <Typography>{count}</Typography>
                       <Typography color="success">
-                        (¢{CommodityMetadata[ingredient].price})
+                        (¢{CommodityMetadata[ingredient].price.toLocaleString()}
+                        )
                       </Typography>
                     </Stack>
                     {isOptional && (
@@ -350,7 +342,7 @@ export const FactoriesPage: FC = memo(() => {
                       </Typography>
                       <Typography>{count}</Typography>
                       <Typography color="success">
-                        (¢{CommodityMetadata[result].price})
+                        (¢{CommodityMetadata[result].price.toLocaleString()})
                       </Typography>
                     </Stack>
                     {isOptional && (
@@ -366,24 +358,14 @@ export const FactoriesPage: FC = memo(() => {
           <Box
             sx={{
               display: "grid",
-              gridTemplateColumns: "max-content auto",
-              minHeight: "500px",
               height: "max-content",
-              rowGap: "2rem",
+              rowGap: "1rem",
             }}
           >
             {variation.results.map(([result, count], resultIndex) => (
               <Fragment key={resultIndex}>
-                <Divider orientation="vertical">
-                  <Typography
-                    color="warning"
-                    sx={{
-                      p: 2,
-                      transform: "rotate(90deg)",
-                      transition: "all 100ms ease-in-out",
-                      "&:hover": { transform: "rotate(0deg)" },
-                    }}
-                  >
+                <Divider>
+                  <Typography color="warning">
                     {intlContext.text("COMMODITY", result)}
                   </Typography>
                 </Divider>
