@@ -136,10 +136,7 @@ export const FactoriesPage: FC = memo(() => {
                 pb: 2,
               }}
             >
-              <Stack
-                direction="column"
-                sx={{ height: "100%" }}
-              >
+              <Stack direction="column" sx={{ height: "100%" }}>
                 {variation.ingredients.map(
                   ([ingredient, count], ingredientIndex) => (
                     <Stack key={ingredientIndex}>
@@ -183,20 +180,27 @@ export const FactoriesPage: FC = memo(() => {
                 <Typography level="h4">
                   {intlContext.text("STATION", station)}
                 </Typography>
-                <Typography>
-                  Cost: {variation.cost}
-                </Typography>
-                <Typography>
-                  Profit: {variation.profitPerCycle} / cycle
-                </Typography>
-                <Typography>
-                  Payback Cycles: {variation.ROICycles}
-                </Typography>
-                <Typography level="h4">
-                  {intlContext.text("STATION", station)}
-                </Typography>
+                {variation.cost && (
+                  <Typography>
+                    Cost: {variation.cost?.toLocaleString()}
+                  </Typography>
+                )}
 
-                {variation.ingredients.length > 0 && <Divider>Ingredients</Divider>}
+                {variation.profitPerCycle && (
+                  <Typography>
+                    Profit: {variation.profitPerCycle?.toLocaleString()} / cycle
+                  </Typography>
+                )}
+
+                {variation.ROICycles && (
+                  <Typography>
+                    Payback Cycles: {variation.ROICycles?.toLocaleString()}
+                  </Typography>
+                )}
+
+                {variation.ingredients.length > 0 && (
+                  <Divider>Ingredients</Divider>
+                )}
                 {variation.ingredients.map(
                   ([ingredient, count, isOptional], ingredientIndex, array) => (
                     <Fragment key={ingredientIndex}>
@@ -226,10 +230,7 @@ export const FactoriesPage: FC = memo(() => {
                   )
                 )}
               </Card>
-              <Stack
-                direction="column"
-                sx={{ height: "100%" }}
-              >
+              <Stack direction="column" sx={{ height: "100%" }}>
                 {variation.results.map(([result, count], resultIndex) => (
                   <Stack
                     key={resultIndex}
