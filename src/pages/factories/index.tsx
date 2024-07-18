@@ -183,6 +183,18 @@ export const FactoriesPage: FC = memo(() => {
                 <Typography level="h4">
                   {intlContext.text("STATION", station)}
                 </Typography>
+                <Typography>
+                  Cost: {variation.cost}
+                </Typography>
+                <Typography>
+                  Profit: {variation.profitPerCycle} / cycle
+                </Typography>
+                <Typography>
+                  Payback Cycles: {variation.ROICycles}
+                </Typography>
+                <Typography level="h4">
+                  {intlContext.text("STATION", station)}
+                </Typography>
 
                 {variation.ingredients.length > 0 && <Divider>Ingredients</Divider>}
                 {variation.ingredients.map(
