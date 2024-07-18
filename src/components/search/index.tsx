@@ -86,7 +86,7 @@ export const GlobalSearch: FC = memo(() => {
 
         return;
       } else {
-        if (search.length === 0) {
+        if (value.length > 0) {
           globalSearch.setOpen(true);
         }
       }
