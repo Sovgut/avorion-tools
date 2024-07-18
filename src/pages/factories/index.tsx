@@ -173,7 +173,7 @@ export const FactoriesPage: FC = memo(() => {
                                   </Typography>
                                 </Stack>
                                 <Stack spacing={1} direction="row">
-                                  <Typography>
+                                  <Typography color="neutral">
                                     {intlContext.text("UI", "required")}:
                                   </Typography>
                                   <Typography
@@ -257,11 +257,11 @@ export const FactoriesPage: FC = memo(() => {
               <Stack>
                 <Stack direction="row" spacing={1}>
                   <Typography>{intlContext.text("UI", "profit")}:</Typography>
-                  <Stack direction="row">
+                  <Stack direction="row" spacing={1}>
                     <Typography color="success">
                       {variation.profitPerCycle?.toLocaleString()}
                     </Typography>
-                    <Typography>/{intlContext.text("UI", "cycle")}</Typography>
+                    <Typography>/ {intlContext.text("UI", "cycle")}</Typography>
                   </Stack>
                 </Stack>
                 <Typography level="body-xs">
@@ -427,7 +427,7 @@ export const FactoriesPage: FC = memo(() => {
                                 </Typography>
                               </Stack>
                               <Stack spacing={1} direction="row">
-                                <Typography>
+                                <Typography color="neutral">
                                   {intlContext.text("UI", "produced")}:
                                 </Typography>
                                 <Typography
