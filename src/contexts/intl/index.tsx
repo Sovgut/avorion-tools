@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useState} from "react";
+import {createContext, Dispatch, ReactNode, SetStateAction, useEffect, useLayoutEffect, useState} from "react";
 import {CACHE_LANG} from "~constants/common";
 import {IntlLabel, LanguageType} from "~contexts/intl/storage/types";
 import {INTL_STORAGE} from "~contexts/intl/storage";
@@ -7,7 +7,7 @@ import { LocalState } from "@sovgut/state";
 type Context = {
     language: LanguageType;
     text<Scope extends keyof IntlLabel>(scope: Scope, label: IntlLabel[Scope]): string;
-    selectLanguage(language: string): void;
+    setLanguage: Dispatch<SetStateAction<LanguageType>>;
 }
 
 type Props = {
@@ -17,27 +17,33 @@ type Props = {
 export const IntlContext = createContext<Context>({
     language: "en-US",
     text: () => String(),
-    selectLanguage: () => undefined,
+    setLanguage: () => undefined,
 });
 
 export function IntlContextProvider({children}: Props) {
-    const [language, setLanguage] = useState<LanguageType>((LocalState.get(CACHE_LANG, { fallback: window.navigator.language ?? "en-US" })) as LanguageType);
+    const [language, setLanguage] = useState<LanguageType>("en-US");
 
-    function selectLanguage(language: LanguageType) {
-        LocalState.set(CACHE_LANG, language);
+    useLayoutEffect(() => {
+        const language = LocalState.getItem(CACHE_LANG, { fallback: window.navigator.language }) as LanguageType;
 
-        setLanguage(language);
-    }
+        if (language) {
+            setLanguage(language);
+        }
+    }, [])
+
+    useEffect(() => {
+        LocalState.setItem(CACHE_LANG, language);
+    }, [language]);
 
     function text<Scope extends keyof IntlLabel>(scope: Scope, label: IntlLabel[Scope]): string {
         const storage = INTL_STORAGE[scope];
         const translation = storage[language] || storage["en-US"];
         const section = translation[label as keyof typeof translation];
 
-        return section || String();
+        return section || label;
     }
 
-    return <IntlContext.Provider value={{language, selectLanguage, text}}>
+    return <IntlContext.Provider value={{language, setLanguage, text}}>
         {children}
     </IntlContext.Provider>
 }

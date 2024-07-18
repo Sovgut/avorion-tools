@@ -22,7 +22,7 @@ export function Header() {
 
   function handleLanguageChange(value: string) {
     return function $dropdownMenuItemClick() {
-      intlContext.selectLanguage(value);
+      intlContext.setLanguage(value);
     };
   }
 
