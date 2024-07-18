@@ -1,4 +1,4 @@
-import { MouseEvent, useContext, useMemo } from "react";
+import { MouseEvent, useCallback, useContext, useMemo } from "react";
 import { IconButton, Link, Stack, Typography } from "@mui/joy";
 import { IntlContext } from "~contexts/intl";
 import { ComponentIcon } from "~components/component-icon";
@@ -42,22 +42,20 @@ export function CargoItemType({ type }: Props) {
     };
   }
 
-  function searchStation(commodity: Commodity) {
-    const stations = serializeStations(Object.keys(StationMetadata)).filter(
+  const searchStation = useCallback((commodity: Commodity) => {
+    const station = serializeStations(Object.keys(StationMetadata)).find(
       (station) =>
-        !!StationMetadata[station].variations.filter((variation) =>
-          variation.results.filter(
+        StationMetadata[station].variations.find((variation) =>
+          variation.results.find(
             ([result]: IStationCommodity) => result === commodity
           )
         )
-    );
+      );
 
-    if (stations.length == 0) return undefined;
+    return station;
+  }, [type]);
 
-    return stations[0];
-  }
-
-  const station = useMemo(() => searchStation(type), [type]);
+  const station = useMemo(() => searchStation(type), [type, searchStation]);
 
   return (
     <td style={{ paddingLeft: 16, paddingRight: 0, userSelect: "none" }}>
