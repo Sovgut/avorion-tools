@@ -22,8 +22,12 @@ import { useGlobalSearch } from "./hook/use-global-search";
 
 export const GlobalSearch: FC = memo(() => {
   const [search, setSearch] = useState<string>(String());
-  const [commodities, setCommodities] = useState<Commodity[]>(serializeCommoditites(Object.keys(Commodity)));
-  const [stations, setStations] = useState<Station[]>(serializeStations(Object.keys(Station)));
+  const [commodities, setCommodities] = useState<Commodity[]>(
+    serializeCommoditites(Object.keys(Commodity)),
+  );
+  const [stations, setStations] = useState<Station[]>(
+    serializeStations(Object.keys(Station)),
+  );
   const globalSearch = useGlobalSearch();
   const intlContext = useContext(IntlContext);
 
@@ -39,39 +43,21 @@ export const GlobalSearch: FC = memo(() => {
     if (event.key === "F2") {
       setSearch(String());
       globalSearch.setOpen((pv) => !pv);
-      toggleLayoutScroll(true);
     }
 
     if (event.key === "Escape") {
       setSearch(String());
       globalSearch.setOpen(false);
-      toggleLayoutScroll(true);
     }
   }, []);
 
   const onModalClose = useCallback(() => {
     setSearch(String());
     globalSearch.setOpen(false);
-    toggleLayoutScroll(true);
   }, []);
 
   const onModalOpen = useCallback(() => {
     globalSearch.setOpen(true);
-    toggleLayoutScroll(false);
-  }, []);
-
-  const toggleLayoutScroll = useCallback((state: boolean) => {
-    const layout = document.getElementById("layout");
-
-    if (layout) {
-      if (state) {
-        layout.style.maxHeight = "auto";
-        layout.style.overflowY = "auto";
-      } else {
-        layout.style.maxHeight = "100vh";
-        layout.style.overflowY = "hidden";
-      }
-    }
   }, []);
 
   const processSearch = useCallback(
@@ -93,13 +79,13 @@ export const GlobalSearch: FC = memo(() => {
 
       {
         const array = serializeStations(
-          Object.keys(INTL_STORAGE.STATION[intlContext.language])
+          Object.keys(INTL_STORAGE.STATION[intlContext.language]),
         ).map((key) => ({
           key: INTL_STORAGE.STATION[intlContext.language][key],
           value: key,
         }));
         const found = array.filter((station) =>
-          station.key.toLowerCase().includes(value.toLowerCase())
+          station.key.toLowerCase().includes(value.toLowerCase()),
         );
 
         setStations(found.map((seller) => seller.value));
@@ -107,19 +93,19 @@ export const GlobalSearch: FC = memo(() => {
 
       {
         const array = serializeCommoditites(
-          Object.keys(INTL_STORAGE.COMMODITY[intlContext.language])
+          Object.keys(INTL_STORAGE.COMMODITY[intlContext.language]),
         ).map((key) => ({
           key: INTL_STORAGE.COMMODITY[intlContext.language][key],
           value: key,
         }));
         const found = array.filter((commodity) =>
-          commodity.key.toLowerCase().includes(value.toLowerCase())
+          commodity.key.toLowerCase().includes(value.toLowerCase()),
         );
 
         setCommodities(found.map((commodity) => commodity.value));
       }
     },
-    [intlContext.language, setStations, setCommodities, search]
+    [intlContext.language, setStations, setCommodities, search],
   );
 
   const onSearchChange: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -128,7 +114,7 @@ export const GlobalSearch: FC = memo(() => {
 
       processSearch(event.target.value);
     },
-    [processSearch]
+    [processSearch],
   );
 
   return (
@@ -139,7 +125,7 @@ export const GlobalSearch: FC = memo(() => {
         variant="soft"
         placeholder={`${intlContext.text(
           "UI",
-          "stations"
+          "stations",
         )} & ${intlContext.text("UI", "commodities")}...`}
         endDecorator={<Search fontSize="small" />}
         value={search}
