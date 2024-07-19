@@ -7,17 +7,10 @@ import {
   MenuButton,
   MenuItem,
   Stack,
-  Typography,
 } from "@mui/joy";
 import { useContext } from "react";
 import { IntlContext } from "~contexts/intl";
-import {
-  AccountBalance,
-  AccountTree,
-  GitHub,
-  Home,
-  Translate,
-} from "@mui/icons-material";
+import { AccountTree, GitHub, Home, Translate } from "@mui/icons-material";
 import { GlobalSearch } from "~components/search";
 import { Link as RouterLink } from "react-router-dom";
 import { useGlobalSearch } from "~components/search/hook/use-global-search";
