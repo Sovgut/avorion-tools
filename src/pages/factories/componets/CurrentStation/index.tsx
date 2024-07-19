@@ -12,12 +12,6 @@ export const CurrentStation: FC = memo(() => {
   const intlContext = useContext(IntlContext);
   const factory = useFactory();
 
-  const calculatePaybackCycles = useCallback((variation: IStationVariation) => {
-    if (!variation.cost || !variation.profitPerCycle) return 0;
-
-    return variation.cost / variation.profitPerCycle;
-  }, []);
-
   const onVariationChange = useCallback(
     (_: SyntheticEvent | null, value: number | null) => {
       if (value === null) return;
@@ -49,7 +43,7 @@ export const CurrentStation: FC = memo(() => {
   }, []);
 
   const calculateUpgradeCost = useCallback(
-    (variation: IStationVariation, size: 1 | 2 | 3 | 4 | 5 | 6) => {
+    (variation: IStationVariation, size: 1 | 2 | 3 | 4 | 5) => {
       let ingredientValue = 0;
       let resultValue = 0;
 
@@ -69,6 +63,15 @@ export const CurrentStation: FC = memo(() => {
       return costs;
     },
     [],
+  );
+
+  const calculatePaybackCycles = useCallback(
+    (variation: IStationVariation) => {
+      if (!variation.profitPerCycle) return 0;
+
+      return calculateStationCost(variation) / variation.profitPerCycle;
+    },
+    [calculateStationCost],
   );
 
   const variation =
@@ -223,7 +226,7 @@ export const CurrentStation: FC = memo(() => {
               </Stack>
               <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
                 <Typography fontFamily="monospace" lineHeight="1.1">
-                  ├
+                  └
                 </Typography>
                 <Typography
                   fontFamily="monospace"
@@ -234,21 +237,6 @@ export const CurrentStation: FC = memo(() => {
                 </Typography>
                 <Typography fontFamily="monospace" lineHeight="1.1">
                   XXL
-                </Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  └
-                </Typography>
-                <Typography
-                  fontFamily="monospace"
-                  lineHeight="1.1"
-                  color="success"
-                >
-                  ¢{calculateUpgradeCost(variation, 6).toLocaleString()}
-                </Typography>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  XXXL
                 </Typography>
               </Stack>
             </Stack>
