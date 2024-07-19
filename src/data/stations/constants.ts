@@ -1,1 +1,0 @@
-export const STATION_OPTIONAL_COMMODITY = 1 as const;

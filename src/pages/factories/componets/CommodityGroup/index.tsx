@@ -13,7 +13,7 @@ export const CommodityGroup: FC<ICommodityGroup> = memo((props) => {
     <fieldset>
       <legend>
         <Typography color="neutral">
-          {intlContext.text("COMMODITY", props.stationCommodity[0])}
+          {intlContext.text("COMMODITY", props.stationCommodity.type)}
         </Typography>
       </legend>
       <table>

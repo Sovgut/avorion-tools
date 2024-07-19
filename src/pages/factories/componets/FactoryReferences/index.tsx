@@ -18,7 +18,7 @@ export const FactoryReferences: FC<IFactoryReferences> = memo((props) => {
             !!StationMetadata[station].variations.find(
               (variation) =>
                 !!variation[props.direction].find(
-                  ([ingredient]) => ingredient === commodity,
+                  (ingredient) => ingredient.type === commodity,
                 ),
             ),
         )
@@ -29,7 +29,7 @@ export const FactoryReferences: FC<IFactoryReferences> = memo((props) => {
             .filter(
               (variation) =>
                 !!variation.metadata[props.direction].find(
-                  ([ingredient]) => ingredient === commodity,
+                  (ingredient) => ingredient.type === commodity,
                 ),
             ),
         }));
@@ -53,7 +53,7 @@ export const FactoryReferences: FC<IFactoryReferences> = memo((props) => {
       {variation[rootDirection].map((commodity, index) => (
         <CommodityGroup
           key={index}
-          nodes={getNodes(commodity[0])}
+          nodes={getNodes(commodity.type)}
           direction={props.direction}
           stationCommodity={commodity}
         />

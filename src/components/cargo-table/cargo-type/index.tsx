@@ -42,18 +42,21 @@ export function CargoItemType({ type }: Props) {
     };
   }
 
-  const searchStation = useCallback((commodity: Commodity) => {
-    const station = serializeStations(Object.keys(StationMetadata)).find(
-      (station) =>
-        StationMetadata[station].variations.find((variation) =>
-          variation.results.find(
-            ([result]: IStationCommodity) => result === commodity
-          )
-        )
+  const searchStation = useCallback(
+    (commodity: Commodity) => {
+      const station = serializeStations(Object.keys(StationMetadata)).find(
+        (station) =>
+          StationMetadata[station].variations.find((variation) =>
+            variation.results.find(
+              (result: IStationCommodity) => result.type === commodity,
+            ),
+          ),
       );
 
-    return station;
-  }, [type]);
+      return station;
+    },
+    [type],
+  );
 
   const station = useMemo(() => searchStation(type), [type, searchStation]);
 

@@ -1,5 +1,13 @@
 import { Box, Option, Select, Stack, Tooltip, Typography } from "@mui/joy";
-import { FC, memo, SyntheticEvent, useCallback, useContext } from "react";
+import {
+  FC,
+  Fragment,
+  memo,
+  SyntheticEvent,
+  useCallback,
+  useContext,
+  useMemo,
+} from "react";
 import { ComponentIcon } from "~components/component-icon";
 import { StationIcon } from "~components/station-icon";
 import { IntlContext } from "~contexts/intl";
@@ -7,6 +15,7 @@ import { CommodityMetadata } from "~data/commodities/metadata";
 import { StationMetadata } from "~data/stations/metadata";
 import { IStationVariation } from "~data/stations/types";
 import { useFactory } from "~pages/factories/hook/use-factory";
+import { getUniqueStationCommodities } from "~utils/get-unique-station-commodities";
 
 export const CurrentStation: FC = memo(() => {
   const intlContext = useContext(IntlContext);
@@ -22,17 +31,31 @@ export const CurrentStation: FC = memo(() => {
   );
 
   const calculateStationCost = useCallback((variation: IStationVariation) => {
+    if (variation.isConsumer) {
+      let sum = 0;
+
+      for (const commodity of variation.ingredients) {
+        const good = CommodityMetadata[commodity.type];
+        sum = sum + good.price;
+      }
+
+      const base = 4000000;
+      return base + Math.round(Math.sqrt(sum * 2500) / 10) * 8000;
+    }
+
     let ingredientValue = 0;
     let resultValue = 0;
 
-    for (const [commodity, amount] of variation.ingredients) {
-      const good = CommodityMetadata[commodity];
-      ingredientValue = ingredientValue + good.price * amount;
+    for (const commodity of variation.ingredients) {
+      if (!Number.isFinite(commodity.amount) || commodity.isConsumer) continue;
+
+      const good = CommodityMetadata[commodity.type];
+      ingredientValue = ingredientValue + good.price * commodity.amount;
     }
 
-    for (const [commodity, amount] of variation.results) {
-      const good = CommodityMetadata[commodity];
-      resultValue = resultValue + good.price * amount;
+    for (const commodity of variation.results) {
+      const good = CommodityMetadata[commodity.type];
+      resultValue = resultValue + good.price * commodity.amount;
     }
 
     const diff = resultValue - ingredientValue;
@@ -47,14 +70,16 @@ export const CurrentStation: FC = memo(() => {
       let ingredientValue = 0;
       let resultValue = 0;
 
-      for (const [commodity, amount] of variation.ingredients) {
-        const good = CommodityMetadata[commodity];
-        ingredientValue = ingredientValue + good.price * amount;
+      for (const commodity of variation.ingredients) {
+        if (!Number.isFinite(commodity.amount)) continue;
+
+        const good = CommodityMetadata[commodity.type];
+        ingredientValue = ingredientValue + good.price * commodity.amount;
       }
 
-      for (const [commodity, amount] of variation.results) {
-        const good = CommodityMetadata[commodity];
-        resultValue = resultValue + good.price * amount;
+      for (const commodity of variation.results) {
+        const good = CommodityMetadata[commodity.type];
+        resultValue = resultValue + good.price * commodity.amount;
       }
 
       const diff = resultValue - ingredientValue;
@@ -76,6 +101,16 @@ export const CurrentStation: FC = memo(() => {
 
   const variation =
     StationMetadata[factory.station].variations[factory.stationVariationIndex];
+
+  /**
+   * Payback
+   */
+  const PB = useMemo(() => calculatePaybackCycles(variation), [variation]);
+
+  /**
+   * First upgrade
+   */
+  const FU = useMemo(() => calculateUpgradeCost(variation, 1), [variation]);
 
   return (
     <Stack spacing={1} sx={{ width: "50%", p: 1 }}>
@@ -113,133 +148,145 @@ export const CurrentStation: FC = memo(() => {
               </Typography>
             </Stack>
 
-            <Typography>{intlContext.text("UI", "profit")}</Typography>
-            <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
-              <Typography fontFamily="monospace">└</Typography>
-              <Typography fontFamily="monospace" color="success">
-                ¢{variation.profitPerCycle?.toLocaleString()}
-              </Typography>
-              <Typography fontFamily="monospace" color="neutral">
-                /
-              </Typography>
-              <Tooltip
-                placement="bottom"
-                variant="outlined"
-                slotProps={{
-                  root: {
-                    style: { maxWidth: "300px" },
-                  } as any,
-                }}
-                arrow
-                title="Adding Assembly Blocks to factories decreases the time needed to perform one production cycle, down to a minimum of 15 seconds. When the player is not in the same sector as the factory they are updated less frequently. In some cases this may mean that the actual time to produce a cycle while a player is not present may be increased up to almost 5 seconds. "
-              >
-                <Typography
-                  fontFamily="monospace"
-                  sx={{ textDecoration: "underline" }}
-                >
-                  {intlContext.text("UI", "cycle")}
-                </Typography>
-              </Tooltip>
-            </Stack>
+            {variation.profitPerCycle && (
+              <Fragment>
+                <Typography>{intlContext.text("UI", "profit")}</Typography>
+                <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
+                  <Typography fontFamily="monospace">└</Typography>
+                  <Typography fontFamily="monospace" color="success">
+                    ¢{variation.profitPerCycle?.toLocaleString()}
+                  </Typography>
+                  <Typography fontFamily="monospace" color="neutral">
+                    /
+                  </Typography>
+                  <Tooltip
+                    placement="bottom"
+                    variant="outlined"
+                    slotProps={{
+                      root: {
+                        style: { maxWidth: "300px" },
+                      } as any,
+                    }}
+                    arrow
+                    title="Adding Assembly Blocks to factories decreases the time needed to perform one production cycle, down to a minimum of 15 seconds. When the player is not in the same sector as the factory they are updated less frequently. In some cases this may mean that the actual time to produce a cycle while a player is not present may be increased up to almost 5 seconds. "
+                  >
+                    <Typography
+                      fontFamily="monospace"
+                      sx={{ textDecoration: "underline" }}
+                    >
+                      {intlContext.text("UI", "cycle")}
+                    </Typography>
+                  </Tooltip>
+                </Stack>
+              </Fragment>
+            )}
 
-            <Typography>{intlContext.text("UI", "required-cargo")}</Typography>
-            <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
-              <Typography fontFamily="monospace">└</Typography>
-              <Typography fontFamily="monospace" color="success">
-                {variation.requiredPC?.toLocaleString()}
-              </Typography>
-            </Stack>
+            {variation.requiredPC && (
+              <Fragment>
+                <Typography>
+                  {intlContext.text("UI", "required-cargo")}
+                </Typography>
+                <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
+                  <Typography fontFamily="monospace">└</Typography>
+                  <Typography fontFamily="monospace" color="success">
+                    {variation.requiredPC?.toLocaleString()}
+                  </Typography>
+                </Stack>
+              </Fragment>
+            )}
 
-            <Stack sx={{ minWidth: "fit-content" }}>
-              <Typography>{intlContext.text("UI", "roi-cycles")}</Typography>
-              <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
-                <Typography fontFamily="monospace">└</Typography>
-                <Typography fontFamily="monospace" color="success">
-                  {parseInt(
-                    calculatePaybackCycles(variation).toString(),
-                    10,
-                  ).toLocaleString()}
-                </Typography>
-              </Stack>
-            </Stack>
-            <Stack sx={{ minWidth: "fit-content" }}>
-              <Typography>Upgrade cost</Typography>
-              <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  ├
-                </Typography>
-                <Typography
-                  fontFamily="monospace"
-                  lineHeight="1.1"
-                  color="success"
-                >
-                  ¢{calculateUpgradeCost(variation, 1).toLocaleString()}
-                </Typography>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  S
-                </Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  ├
-                </Typography>
-                <Typography
-                  fontFamily="monospace"
-                  lineHeight="1.1"
-                  color="success"
-                >
-                  ¢{calculateUpgradeCost(variation, 2).toLocaleString()}
-                </Typography>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  M
-                </Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  ├
-                </Typography>
-                <Typography
-                  fontFamily="monospace"
-                  lineHeight="1.1"
-                  color="success"
-                >
-                  ¢{calculateUpgradeCost(variation, 3).toLocaleString()}
-                </Typography>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  L
-                </Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  ├
-                </Typography>
-                <Typography
-                  fontFamily="monospace"
-                  lineHeight="1.1"
-                  color="success"
-                >
-                  ¢{calculateUpgradeCost(variation, 4).toLocaleString()}
-                </Typography>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  XL
-                </Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  └
-                </Typography>
-                <Typography
-                  fontFamily="monospace"
-                  lineHeight="1.1"
-                  color="success"
-                >
-                  ¢{calculateUpgradeCost(variation, 5).toLocaleString()}
-                </Typography>
-                <Typography fontFamily="monospace" lineHeight="1.1">
-                  XXL
-                </Typography>
-              </Stack>
-            </Stack>
+            {PB > 0 && (
+              <Fragment>
+                <Typography>{intlContext.text("UI", "roi-cycles")}</Typography>
+                <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
+                  <Typography fontFamily="monospace">└</Typography>
+                  <Typography fontFamily="monospace" color="success">
+                    {parseInt(PB.toString(), 10).toLocaleString()}
+                  </Typography>
+                </Stack>
+              </Fragment>
+            )}
+
+            {FU > 0 && (
+              <Fragment>
+                <Typography>Upgrade cost</Typography>
+                <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
+                  <Typography fontFamily="monospace" lineHeight="1.1">
+                    ├
+                  </Typography>
+                  <Typography
+                    fontFamily="monospace"
+                    lineHeight="1.1"
+                    color="success"
+                  >
+                    ¢{calculateUpgradeCost(variation, 1).toLocaleString()}
+                  </Typography>
+                  <Typography fontFamily="monospace" lineHeight="1.1">
+                    S
+                  </Typography>
+                </Stack>
+                <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
+                  <Typography fontFamily="monospace" lineHeight="1.1">
+                    ├
+                  </Typography>
+                  <Typography
+                    fontFamily="monospace"
+                    lineHeight="1.1"
+                    color="success"
+                  >
+                    ¢{calculateUpgradeCost(variation, 2).toLocaleString()}
+                  </Typography>
+                  <Typography fontFamily="monospace" lineHeight="1.1">
+                    M
+                  </Typography>
+                </Stack>
+                <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
+                  <Typography fontFamily="monospace" lineHeight="1.1">
+                    ├
+                  </Typography>
+                  <Typography
+                    fontFamily="monospace"
+                    lineHeight="1.1"
+                    color="success"
+                  >
+                    ¢{calculateUpgradeCost(variation, 3).toLocaleString()}
+                  </Typography>
+                  <Typography fontFamily="monospace" lineHeight="1.1">
+                    L
+                  </Typography>
+                </Stack>
+                <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
+                  <Typography fontFamily="monospace" lineHeight="1.1">
+                    ├
+                  </Typography>
+                  <Typography
+                    fontFamily="monospace"
+                    lineHeight="1.1"
+                    color="success"
+                  >
+                    ¢{calculateUpgradeCost(variation, 4).toLocaleString()}
+                  </Typography>
+                  <Typography fontFamily="monospace" lineHeight="1.1">
+                    XL
+                  </Typography>
+                </Stack>
+                <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
+                  <Typography fontFamily="monospace" lineHeight="1.1">
+                    └
+                  </Typography>
+                  <Typography
+                    fontFamily="monospace"
+                    lineHeight="1.1"
+                    color="success"
+                  >
+                    ¢{calculateUpgradeCost(variation, 5).toLocaleString()}
+                  </Typography>
+                  <Typography fontFamily="monospace" lineHeight="1.1">
+                    XXL
+                  </Typography>
+                </Stack>
+              </Fragment>
+            )}
           </Stack>
         </fieldset>
       </Box>
@@ -287,24 +334,29 @@ export const CurrentStation: FC = memo(() => {
               </tr>
             </thead>
             <tbody>
-              {variation.ingredients.map(
-                ([commodity, count], ingredientIndex) => (
+              {getUniqueStationCommodities(variation.ingredients).map(
+                (commodity, ingredientIndex) => (
                   <tr key={ingredientIndex}>
                     <td>
                       <Stack direction="row">
-                        <ComponentIcon type={commodity} />
+                        <ComponentIcon type={commodity.type} />
                         <Typography>
-                          {intlContext.text("COMMODITY", commodity)}
+                          {intlContext.text("COMMODITY", commodity.type)}
                         </Typography>
                       </Stack>
                     </td>
                     <td align="right">
                       <Typography fontFamily="monospace" color="warning">
-                        ¢{CommodityMetadata[commodity].price.toLocaleString()}
+                        ¢
+                        {CommodityMetadata[
+                          commodity.type
+                        ].price.toLocaleString()}
                       </Typography>
                     </td>
                     <td align="right">
-                      <Typography fontFamily="monospace">{count}</Typography>
+                      <Typography fontFamily="monospace">
+                        {commodity.amount}
+                      </Typography>
                     </td>
                   </tr>
                 ),
@@ -357,23 +409,26 @@ export const CurrentStation: FC = memo(() => {
               </tr>
             </thead>
             <tbody>
-              {variation.results.map(([commodity, count], ingredientIndex) => (
+              {variation.results.map((commodity, ingredientIndex) => (
                 <tr key={ingredientIndex}>
                   <td>
                     <Stack direction="row">
-                      <ComponentIcon type={commodity} />
+                      <ComponentIcon type={commodity.type} />
                       <Typography>
-                        {intlContext.text("COMMODITY", commodity)}
+                        {intlContext.text("COMMODITY", commodity.type)}
                       </Typography>
                     </Stack>
                   </td>
                   <td align="right">
                     <Typography fontFamily="monospace" color="success">
-                      ¢{CommodityMetadata[commodity].price.toLocaleString()}
+                      ¢
+                      {CommodityMetadata[commodity.type].price.toLocaleString()}
                     </Typography>
                   </td>
                   <td align="right">
-                    <Typography fontFamily="monospace">{count}</Typography>
+                    <Typography fontFamily="monospace">
+                      {commodity.amount}
+                    </Typography>
                   </td>
                 </tr>
               ))}

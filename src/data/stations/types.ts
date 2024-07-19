@@ -1,26 +1,35 @@
 import { Commodity } from "../commodities/enums";
-import { STATION_OPTIONAL_COMMODITY } from "./constants";
 
-export type IStationCommodity = [Commodity, number, typeof STATION_OPTIONAL_COMMODITY?]
+export type IStationCommodity = {
+  type: Commodity;
+  amount: number;
+  isOptional?: boolean;
+
+  /**
+   * Mark this commodity as consumer only, some calculations are skipped.
+   */
+  isConsumer?: boolean;
+};
 
 export interface IStationVariation {
-    cost?: number;
-    results: IStationCommodity[];
-    ingredients: IStationCommodity[];
-    profitPerCycle?: number;
+  cost?: number;
+  results: IStationCommodity[];
+  ingredients: IStationCommodity[];
+  profitPerCycle?: number;
+  isConsumer?: boolean;
 
-    /**
-     * Optimal factory production capacity
-     */
-    requiredPC?: number;
+  /**
+   * Optimal factory production capacity
+   */
+  requiredPC?: number;
 
-    /**
-     * Cycles until the base founding cost is repaid.
-     */
-    ROICycles?: number;
+  /**
+   * Cycles until the base founding cost is repaid.
+   */
+  ROICycles?: number;
 }
 
-export interface IStationMetadata { 
-    link: string;
-    variations: IStationVariation[]
+export interface IStationMetadata {
+  link: string;
+  variations: IStationVariation[];
 }

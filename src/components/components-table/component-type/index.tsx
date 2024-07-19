@@ -66,24 +66,26 @@ export function ComponentItemType({ type }: Props) {
     };
   }
 
-  const searchStation = useCallback((commodity: Commodity) => {
-    const station = serializeStations(Object.keys(StationMetadata)).find(
-      (station) =>
-        StationMetadata[station].variations.find((variation) =>
-          variation.results.find(
-            ([result]: IStationCommodity) => result === commodity
-          )
-        )
+  const searchStation = useCallback(
+    (commodity: Commodity) => {
+      const station = serializeStations(Object.keys(StationMetadata)).find(
+        (station) =>
+          StationMetadata[station].variations.find((variation) =>
+            variation.results.find(
+              (result: IStationCommodity) => result.type === commodity,
+            ),
+          ),
       );
 
-    return station;
-  }, [type]);
+      return station;
+    },
+    [type],
+  );
 
   const station = useMemo(() => searchStation(type), [type, searchStation]);
 
   return (
     <td
-      
       style={{
         paddingLeft: 16,
         paddingRight: 0,
@@ -92,7 +94,7 @@ export function ComponentItemType({ type }: Props) {
       }}
     >
       <Box className={styles.component} sx={sx}>
-        <ComponentIcon type={type} onClick={handleCheckbox}/>
+        <ComponentIcon type={type} onClick={handleCheckbox} />
 
         {!breakpoint.sm && (
           <IconButton
@@ -111,7 +113,12 @@ export function ComponentItemType({ type }: Props) {
             </IconButton>
           </Link>
         )}
-        <Typography fontSize={fontSize} color={color} sx={sx} onClick={handleCheckbox}>
+        <Typography
+          fontSize={fontSize}
+          color={color}
+          sx={sx}
+          onClick={handleCheckbox}
+        >
           {intlContext.text("COMMODITY", type)}
         </Typography>
       </Box>

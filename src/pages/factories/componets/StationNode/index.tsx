@@ -18,11 +18,11 @@ export const StationNode: FC<IStationNode> = memo((props) => {
 
   const intlContext = useContext(IntlContext);
   const factory = useFactory();
-  const [commodity, count] = props.stationCommodity;
+  const { type: commodity, amount } = props.stationCommodity;
 
   const nodeCommodity = useMemo(() => {
     return props.nodeCommodities.find(
-      ([nodeCommodity]) => nodeCommodity === commodity,
+      ({ type: nodeCommodity }) => nodeCommodity === commodity,
     );
   }, [commodity, props.nodeCommodities]);
 
@@ -36,17 +36,19 @@ export const StationNode: FC<IStationNode> = memo((props) => {
 
   if (!nodeCommodity) return null;
 
-  const ingredientsColor =
-    nodeCommodity[1] === count
+  const ingredientsColor = !Number.isFinite(nodeCommodity.amount)
+    ? "success"
+    : nodeCommodity.amount === amount
       ? "warning"
-      : nodeCommodity[1] < count
+      : nodeCommodity.amount < amount
         ? "success"
         : "danger";
 
-  const resultsColor =
-    nodeCommodity[1] === count
+  const resultsColor = !Number.isFinite(amount)
+    ? "success"
+    : nodeCommodity.amount === amount
       ? "warning"
-      : nodeCommodity[1] > count
+      : nodeCommodity.amount > amount
         ? "success"
         : "danger";
 
@@ -55,8 +57,13 @@ export const StationNode: FC<IStationNode> = memo((props) => {
       <Fragment>
         <td>
           <Stack direction="row">
-            <Typography color={ingredientsColor}>{count}</Typography>
-            <Typography>/{nodeCommodity[1]}</Typography>
+            <Typography color={ingredientsColor}>{amount}</Typography>
+            <Typography>
+              /
+              {Number.isFinite(nodeCommodity.amount)
+                ? nodeCommodity.amount
+                : "?"}
+            </Typography>
           </Stack>
         </td>
         <td>
@@ -82,7 +89,7 @@ export const StationNode: FC<IStationNode> = memo((props) => {
                       </Typography>
                       <Stack direction="row" spacing={0.25}>
                         <Typography color={ingredientsColor}>
-                          {count}
+                          {amount}
                         </Typography>
                         <Typography color="neutral">/</Typography>
                         <Typography>
@@ -110,7 +117,9 @@ export const StationNode: FC<IStationNode> = memo((props) => {
                       </Typography>
                       <Stack direction="row" spacing={0.25}>
                         <Typography color="primary">
-                          {nodeCommodity[1]}
+                          {Number.isFinite(nodeCommodity.amount)
+                            ? nodeCommodity.amount
+                            : "?"}
                         </Typography>
                         <Typography color="neutral">/</Typography>
                         <Typography>
@@ -153,8 +162,8 @@ export const StationNode: FC<IStationNode> = memo((props) => {
     <Fragment>
       <td>
         <Stack direction="row">
-          <Typography color={resultsColor}>{nodeCommodity[1]}</Typography>
-          <Typography>/{count}</Typography>
+          <Typography color={resultsColor}>{nodeCommodity.amount}</Typography>
+          <Typography>/{Number.isFinite(amount) ? amount : "?"}</Typography>
         </Stack>
       </td>
       <td>
@@ -179,7 +188,9 @@ export const StationNode: FC<IStationNode> = memo((props) => {
                       └ {intlContext.text("COMMODITY", commodity)}:
                     </Typography>
                     <Stack direction="row" spacing={0.25}>
-                      <Typography color="primary">{count}</Typography>
+                      <Typography color="primary">
+                        {Number.isFinite(amount) ? amount : "?"}
+                      </Typography>
                       <Typography color="neutral">/</Typography>
                       <Typography>
                         {intlContext.text("UI", "cycle").toLowerCase()}
@@ -204,7 +215,7 @@ export const StationNode: FC<IStationNode> = memo((props) => {
                     </Typography>
                     <Stack direction="row" spacing={0.25}>
                       <Typography color={resultsColor}>
-                        {nodeCommodity[1]}
+                        {nodeCommodity.amount}
                       </Typography>
                       <Typography color="neutral">/</Typography>
                       <Typography>
