@@ -264,6 +264,16 @@ const TURRET: IntlTurret = {
 };
 
 const STATION: IntlStation = {
+  [Station.Biotope]: "Биотоп",
+  [Station.Casino]: "Казино",
+  [Station.Habitat]: "Жилой комплекс",
+  [Station.EquipmentDock]: "Склад снаряжения",
+  [Station.Shipyard]: "Судоверфь",
+  [Station.RepairDock]: "Ремонтный док",
+  [Station.MilitaryOutpost]: "Военный аванпост",
+  [Station.ResearchStation]: "Исследовательская станция",
+  [Station.RiftResearchStation]: "Исследовательская станция разлома",
+  [Station.TravelHub]: "Транспортный узел",
   [Station.TurretFactory]: "Фабрика турелей",
   [Station.TurretFactorySupplier]: "Поставщик фабрики турелей",
   [Station.PlanetaryTradingPost]: "Планетарная торговая фактория",

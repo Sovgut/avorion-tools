@@ -264,6 +264,16 @@ const TURRET: IntlTurret = {
 };
 
 const STATION: IntlStation = {
+  [Station.Biotope]: "Biotope",
+  [Station.Casino]: "Casino",
+  [Station.Habitat]: "Habitat",
+  [Station.EquipmentDock]: "Equipment Dock",
+  [Station.Shipyard]: "Shipyard",
+  [Station.RepairDock]: "Repair Dock",
+  [Station.MilitaryOutpost]: "Military Outpost",
+  [Station.ResearchStation]: "Research Station",
+  [Station.RiftResearchStation]: "Rift Research Station",
+  [Station.TravelHub]: "Travel Hub",
   [Station.TurretFactorySupplier]: "Turret Factory Supplier",
   [Station.TurretFactory]: "Turret Factory",
   [Station.AluminumMine]: "Aluminum Mine",

@@ -1905,7 +1905,7 @@ export const StationMetadata: Record<Station, IStationMetadata> = {
       {
         isConsumer: true,
         cost: 25000000,
-        results: [
+        ingredients: [
           {
             type: Commodity.Servo,
             amount: Infinity,
@@ -2297,7 +2297,7 @@ export const StationMetadata: Record<Station, IStationMetadata> = {
             isOptional: true,
           },
         ],
-        ingredients: [],
+        results: [],
       },
     ],
   },
