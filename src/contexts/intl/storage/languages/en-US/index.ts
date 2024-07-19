@@ -9,6 +9,9 @@ import {
 } from "~contexts/intl/storage/types";
 
 const UI: IntlUI = {
+  "upgrade-cost": "Upgrade cost",
+  consumables: "Consumables",
+  count: "Count",
   produced: "Produced",
   required: "Required",
   "result-optional-hint": "This result is optional.",
@@ -20,7 +23,7 @@ const UI: IntlUI = {
   "roi-cycles": "Payback Cycles",
   "required-cargo-hint": "Optimal factory production capacity",
   "required-cargo": "Required Cargo",
-  "profit-hint": "One cycle is equal to 15 seconds.",
+  "profit-hint": "Adding Assembly Blocks to factories decreases the time needed to perform one production cycle, down to a minimum of 15 seconds. When the player is not in the same sector as the factory they are updated less frequently. In some cases this may mean that the actual time to produce a cycle while a player is not present may be increased up to almost 5 seconds.",
   cycle: "Cycle",
   profit: "Profit",
   cost: "Cost",

@@ -1,6 +1,6 @@
 import { Container, Stack } from "@mui/joy";
 import { FC, memo, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Station } from "~data/stations/enums";
 import { StationMetadata } from "~data/stations/metadata";
 import { serializeStation } from "~utils/serialize-station";
@@ -9,9 +9,10 @@ import { FactoryReferences } from "./componets/FactoryReferences";
 import { CurrentStation } from "./componets/CurrentStation";
 
 export const FactoriesPage: FC = memo(() => {
-  const [searchParams] = useSearchParams();
   const [station, setStation] = useState<Station>(Station.Sector);
   const [selectedVariation, setSelectedVariation] = useState<number>(0);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const stationKey = searchParams.get("station");
@@ -20,15 +21,19 @@ export const FactoriesPage: FC = memo(() => {
     if (stationKey) {
       const station = serializeStation(stationKey);
 
-      setStation(station);
-
-      if (
-        variationKey &&
-        Number(variationKey) < StationMetadata[station].variations.length
-      ) {
-        setSelectedVariation(Number(variationKey));
+      if ([Station.Sector, Station.Hideout, Station.Rift].includes(station)) {
+        navigate("/factories?station=0");
       } else {
-        setSelectedVariation(0);
+        setStation(station);
+
+        if (
+          variationKey &&
+          Number(variationKey) < StationMetadata[station].variations.length
+        ) {
+          setSelectedVariation(Number(variationKey));
+        } else {
+          setSelectedVariation(0);
+        }
       }
     }
   }, [searchParams]);

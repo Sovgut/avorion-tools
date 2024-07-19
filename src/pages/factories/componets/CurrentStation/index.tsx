@@ -109,7 +109,7 @@ export const CurrentStation: FC = memo(() => {
   const FU = useMemo(() => calculateUpgradeCost(variation, 1), [variation]);
 
   return (
-    <Stack spacing={1} sx={{ width: "50%", p: 1 }}>
+    <Stack spacing={1} sx={{ p: 1.25 }}>
       <Box
         sx={{
           display: "grid",
@@ -122,9 +122,9 @@ export const CurrentStation: FC = memo(() => {
             <StationIcon type={factory.station} size="128px" />
           </Stack>
           <Select
-            placeholder="Variation..."
+            placeholder="..."
             value={factory.stationVariationIndex}
-            key={`${factory.station}-${factory.stationVariationIndex}`}
+            key={`${factory.station}-${factory.stationVariationIndex}-${intlContext.language}`}
             onChange={onVariationChange}
           >
             {StationMetadata[factory.station].variations.map((_, index) => (
@@ -165,7 +165,7 @@ export const CurrentStation: FC = memo(() => {
                       } as any,
                     }}
                     arrow
-                    title="Adding Assembly Blocks to factories decreases the time needed to perform one production cycle, down to a minimum of 15 seconds. When the player is not in the same sector as the factory they are updated less frequently. In some cases this may mean that the actual time to produce a cycle while a player is not present may be increased up to almost 5 seconds. "
+                    title={intlContext.text("UI", "profit-hint")}
                   >
                     <Typography
                       fontFamily="monospace"
@@ -206,7 +206,9 @@ export const CurrentStation: FC = memo(() => {
 
             {FU > 0 && (
               <Fragment>
-                <Typography>Upgrade cost</Typography>
+                <Typography>
+                  {intlContext.text("UI", "upgrade-cost")}
+                </Typography>
                 <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
                   <Typography fontFamily="monospace" lineHeight="1.1">
                     ├
@@ -290,7 +292,7 @@ export const CurrentStation: FC = memo(() => {
 
       {variation.consumables.length > 0 && (
         <fieldset style={{ borderColor: "#9d6363" }}>
-          <legend>Consumables</legend>
+          <legend>{intlContext.text("UI", "consumables")}</legend>
           <table style={{ width: "100%" }}>
             <thead>
               <tr>
@@ -351,28 +353,22 @@ export const CurrentStation: FC = memo(() => {
                   </Typography>
                 </th>
                 <th align="right" style={{ width: "150px" }}>
-                  <Tooltip
-                    title={intlContext.text("UI", "profit-hint")}
-                    variant="outlined"
-                    placement="top"
+                  <Stack
+                    direction="row"
+                    spacing={0.25}
+                    alignItems="center"
+                    sx={{
+                      width: "max-content",
+                    }}
                   >
-                    <Stack
-                      direction="row"
-                      spacing={0.25}
-                      alignItems="center"
-                      sx={{
-                        cursor: "help",
-                        textDecoration: "underline",
-                        width: "max-content",
-                      }}
-                    >
-                      <Typography color="neutral">Count</Typography>
-                      <Typography color="neutral">/</Typography>
-                      <Typography color="neutral">
-                        {intlContext.text("UI", "cycle")}
-                      </Typography>
-                    </Stack>
-                  </Tooltip>
+                    <Typography color="neutral">
+                      {intlContext.text("UI", "count")}
+                    </Typography>
+                    <Typography color="neutral">/</Typography>
+                    <Typography color="neutral">
+                      {intlContext.text("UI", "cycle")}
+                    </Typography>
+                  </Stack>
                 </th>
               </tr>
             </thead>
@@ -426,28 +422,22 @@ export const CurrentStation: FC = memo(() => {
                   </Typography>
                 </th>
                 <th align="right" style={{ width: "150px" }}>
-                  <Tooltip
-                    title={intlContext.text("UI", "profit-hint")}
-                    variant="outlined"
-                    placement="top"
+                  <Stack
+                    direction="row"
+                    spacing={0.25}
+                    alignItems="center"
+                    sx={{
+                      width: "max-content",
+                    }}
                   >
-                    <Stack
-                      direction="row"
-                      spacing={0.25}
-                      alignItems="center"
-                      sx={{
-                        cursor: "help",
-                        textDecoration: "underline",
-                        width: "max-content",
-                      }}
-                    >
-                      <Typography color="neutral">Count</Typography>
-                      <Typography color="neutral">/</Typography>
-                      <Typography color="neutral">
-                        {intlContext.text("UI", "cycle")}
-                      </Typography>
-                    </Stack>
-                  </Tooltip>
+                    <Typography color="neutral">
+                      {intlContext.text("UI", "count")}
+                    </Typography>
+                    <Typography color="neutral">/</Typography>
+                    <Typography color="neutral">
+                      {intlContext.text("UI", "cycle")}
+                    </Typography>
+                  </Stack>
                 </th>
               </tr>
             </thead>

@@ -11,7 +11,13 @@ import {
 } from "@mui/joy";
 import { useContext } from "react";
 import { IntlContext } from "~contexts/intl";
-import { GitHub, Translate } from "@mui/icons-material";
+import {
+  AccountBalance,
+  AccountTree,
+  GitHub,
+  Home,
+  Translate,
+} from "@mui/icons-material";
 import { GlobalSearch } from "~components/search";
 import { Link as RouterLink } from "react-router-dom";
 import { useGlobalSearch } from "~components/search/hook/use-global-search";
@@ -44,9 +50,19 @@ export function Header() {
               component={RouterLink}
               onClick={() => globalSearch.setOpen(false)}
             >
-              <Typography>
-                {intlContext.text("UI", "turret-planner")}
-              </Typography>
+              <IconButton>
+                <Home />
+              </IconButton>
+            </Link>
+            <Link
+              to="/factories?station=0"
+              color="neutral"
+              component={RouterLink}
+              onClick={() => globalSearch.setOpen(false)}
+            >
+              <IconButton>
+                <AccountTree />
+              </IconButton>
             </Link>
           </Stack>
         </Stack>

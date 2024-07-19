@@ -9,6 +9,9 @@ export type IntlCommodity = Record<Commodity, string>;
 export type IntlTurret = Record<Turret, string>;
 
 export interface IntlUI {
+  "upgrade-cost": string;
+  consumables: string;
+  count: string;
   produced: string;
   required: string;
   "result-optional-hint": string;
