@@ -1,23 +1,5 @@
-import { Info } from "@mui/icons-material";
-import {
-  Box,
-  Card,
-  Divider,
-  IconButton,
-  Option,
-  Select,
-  Stack,
-  Tooltip,
-  Typography,
-} from "@mui/joy";
-import {
-  FC,
-  Fragment,
-  memo,
-  SyntheticEvent,
-  useCallback,
-  useContext,
-} from "react";
+import { Box, Option, Select, Stack, Tooltip, Typography } from "@mui/joy";
+import { FC, memo, SyntheticEvent, useCallback, useContext } from "react";
 import { ComponentIcon } from "~components/component-icon";
 import { StationIcon } from "~components/station-icon";
 import { IntlContext } from "~contexts/intl";
@@ -137,9 +119,24 @@ export const CurrentStation: FC = memo(() => {
               <Typography fontFamily="monospace" color="neutral">
                 /
               </Typography>
-              <Typography fontFamily="monospace">
-                {intlContext.text("UI", "cycle")}
-              </Typography>
+              <Tooltip
+                placement="bottom"
+                variant="outlined"
+                slotProps={{
+                  root: {
+                    style: { maxWidth: "300px" },
+                  } as any,
+                }}
+                arrow
+                title="Adding Assembly Blocks to factories decreases the time needed to perform one production cycle, down to a minimum of 15 seconds. When the player is not in the same sector as the factory they are updated less frequently. In some cases this may mean that the actual time to produce a cycle while a player is not present may be increased up to almost 5 seconds. "
+              >
+                <Typography
+                  fontFamily="monospace"
+                  sx={{ textDecoration: "underline" }}
+                >
+                  {intlContext.text("UI", "cycle")}
+                </Typography>
+              </Tooltip>
             </Stack>
 
             <Typography>{intlContext.text("UI", "required-cargo")}</Typography>
