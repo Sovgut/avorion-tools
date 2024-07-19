@@ -134,6 +134,12 @@ export const CurrentStation: FC = memo(() => {
               <Typography fontFamily="monospace" color="success">
                 ¢{variation.profitPerCycle?.toLocaleString()}
               </Typography>
+              <Typography fontFamily="monospace" color="neutral">
+                /
+              </Typography>
+              <Typography fontFamily="monospace">
+                {intlContext.text("UI", "cycle")}
+              </Typography>
             </Stack>
 
             <Typography>{intlContext.text("UI", "required-cargo")}</Typography>
