@@ -1,3 +1,4 @@
 export interface IFactoryReferences {
-  direction: "ingredients" | "results";
+  reference: "consumables" | "ingredients" | "results";
+  root: "consumables" | "ingredients" | "results"
 }

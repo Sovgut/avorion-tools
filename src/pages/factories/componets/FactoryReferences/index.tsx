@@ -6,9 +6,13 @@ import { CommodityGroup } from "../CommodityGroup";
 import { Commodity } from "~data/commodities/enums";
 import { serializeStations } from "~utils/serialize-station";
 import { IFactoryReferences } from "./types";
+import { FactoryReferenceProvider } from "./provider";
 
 export const FactoryReferences: FC<IFactoryReferences> = memo((props) => {
   const factory = useFactory();
+
+  const variation =
+    StationMetadata[factory.station].variations[factory.stationVariationIndex];
 
   const getNodes = useCallback(
     (commodity: Commodity) => {
@@ -17,10 +21,10 @@ export const FactoryReferences: FC<IFactoryReferences> = memo((props) => {
           (station) =>
             !!StationMetadata[station].variations.find(
               (variation) =>
-                !!variation[props.direction].find(
-                  (ingredient) => ingredient.type === commodity,
-                ),
-            ),
+                !!variation[props.reference].find(
+                  (ingredient) => ingredient.type === commodity
+                )
+            )
         )
         .map((station) => ({
           station,
@@ -28,36 +32,30 @@ export const FactoryReferences: FC<IFactoryReferences> = memo((props) => {
             .map((variation, index) => ({ metadata: variation, index }))
             .filter(
               (variation) =>
-                !!variation.metadata[props.direction].find(
-                  (ingredient) => ingredient.type === commodity,
-                ),
+                !!variation.metadata[props.reference].find(
+                  (ingredient) => ingredient.type === commodity
+                )
             ),
         }));
     },
-    [props.direction],
+    [props.reference]
   );
 
-  const variation =
-    StationMetadata[factory.station].variations[factory.stationVariationIndex];
-  const rootDirection =
-    props.direction === "results" ? "ingredients" : "results";
+  const groups = variation[props.root].map((commodity, index) => {
+    const nodes = getNodes(commodity.type);
+
+    if (!nodes) return null;
+
+    return (
+      <CommodityGroup key={index} nodes={nodes} stationCommodity={commodity} />
+    );
+  });
+
+  if (groups.filter(Boolean).length === 0) return null;
 
   return (
-    <Box
-      sx={{
-        "&:empty": {
-          display: "none",
-        },
-      }}
-    >
-      {variation[rootDirection].map((commodity, index) => (
-        <CommodityGroup
-          key={index}
-          nodes={getNodes(commodity.type)}
-          direction={props.direction}
-          stationCommodity={commodity}
-        />
-      ))}
-    </Box>
+    <FactoryReferenceProvider root={props.root} reference={props.reference}>
+      <Box>{groups}</Box>
+    </FactoryReferenceProvider>
   );
 });

@@ -45,9 +45,15 @@ export const FactoriesPage: FC = memo(() => {
     >
       <Container maxWidth="xl" sx={{ pb: 2, pt: 2 }}>
         <Stack direction="row" justifyContent="space-between">
-          <FactoryReferences direction="results" />
+          <Stack sx={{ "&:empty": { display: "none" } }}>
+            <FactoryReferences root="ingredients" reference="results" />
+            <FactoryReferences root="consumables" reference="results" />
+          </Stack>
           <CurrentStation />
-          <FactoryReferences direction="ingredients" />
+          <Stack sx={{ "&:empty": { display: "none" } }}>
+            <FactoryReferences root="results" reference="ingredients" />
+            <FactoryReferences root="results" reference="consumables" />
+          </Stack>
         </Stack>
       </Container>
     </FactoryProvider>

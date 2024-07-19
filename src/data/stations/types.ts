@@ -4,29 +4,25 @@ export type IStationCommodity = {
   type: Commodity;
   amount: number;
   isOptional?: boolean;
-
-  /**
-   * Mark this commodity as consumer only, some calculations are skipped.
-   */
-  isConsumer?: boolean;
 };
 
 export interface IStationVariation {
-  cost?: number;
+  cost: number;
   results: IStationCommodity[];
   ingredients: IStationCommodity[];
-  profitPerCycle?: number;
-  isConsumer?: boolean;
+  consumables: IStationCommodity[];
+  profitPerCycle: number;
+  isConsumer: boolean;
 
   /**
    * Optimal factory production capacity
    */
-  requiredPC?: number;
+  requiredPC: number;
 
   /**
    * Cycles until the base founding cost is repaid.
    */
-  ROICycles?: number;
+  ROICycles: number;
 }
 
 export interface IStationMetadata {

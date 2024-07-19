@@ -27,14 +27,14 @@ export const CurrentStation: FC = memo(() => {
 
       factory.setStationVariation(value);
     },
-    [],
+    []
   );
 
   const calculateStationCost = useCallback((variation: IStationVariation) => {
     if (variation.isConsumer) {
       let sum = 0;
 
-      for (const commodity of variation.ingredients) {
+      for (const commodity of variation.consumables) {
         const good = CommodityMetadata[commodity.type];
         sum = sum + good.price;
       }
@@ -47,8 +47,6 @@ export const CurrentStation: FC = memo(() => {
     let resultValue = 0;
 
     for (const commodity of variation.ingredients) {
-      if (!Number.isFinite(commodity.amount) || commodity.isConsumer) continue;
-
       const good = CommodityMetadata[commodity.type];
       ingredientValue = ingredientValue + good.price * commodity.amount;
     }
@@ -71,8 +69,6 @@ export const CurrentStation: FC = memo(() => {
       let resultValue = 0;
 
       for (const commodity of variation.ingredients) {
-        if (!Number.isFinite(commodity.amount)) continue;
-
         const good = CommodityMetadata[commodity.type];
         ingredientValue = ingredientValue + good.price * commodity.amount;
       }
@@ -87,7 +83,7 @@ export const CurrentStation: FC = memo(() => {
 
       return costs;
     },
-    [],
+    []
   );
 
   const calculatePaybackCycles = useCallback(
@@ -96,7 +92,7 @@ export const CurrentStation: FC = memo(() => {
 
       return calculateStationCost(variation) / variation.profitPerCycle;
     },
-    [calculateStationCost],
+    [calculateStationCost]
   );
 
   const variation =
@@ -128,6 +124,7 @@ export const CurrentStation: FC = memo(() => {
           <Select
             placeholder="Variation..."
             value={factory.stationVariationIndex}
+            key={`${factory.station}-${factory.stationVariationIndex}`}
             onChange={onVariationChange}
           >
             {StationMetadata[factory.station].variations.map((_, index) => (
@@ -148,7 +145,7 @@ export const CurrentStation: FC = memo(() => {
               </Typography>
             </Stack>
 
-            {variation.profitPerCycle && (
+            {variation.profitPerCycle > 0 && (
               <Fragment>
                 <Typography>{intlContext.text("UI", "profit")}</Typography>
                 <Stack direction="row" sx={{ pl: 1 }} spacing={0.25}>
@@ -181,7 +178,7 @@ export const CurrentStation: FC = memo(() => {
               </Fragment>
             )}
 
-            {variation.requiredPC && (
+            {variation.requiredPC > 0 && (
               <Fragment>
                 <Typography>
                   {intlContext.text("UI", "required-cargo")}
@@ -291,6 +288,52 @@ export const CurrentStation: FC = memo(() => {
         </fieldset>
       </Box>
 
+      {variation.consumables.length > 0 && (
+        <fieldset style={{ borderColor: "#9d6363" }}>
+          <legend>Consumables</legend>
+          <table style={{ width: "100%" }}>
+            <thead>
+              <tr>
+                <th align="left">
+                  <Typography color="neutral">
+                    {intlContext.text("UI", "commodity")}
+                  </Typography>
+                </th>
+                <th align="right" style={{ width: "150px" }}>
+                  <Typography color="neutral">
+                    {intlContext.text("UI", "cost")}
+                  </Typography>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {getUniqueStationCommodities(variation.consumables).map(
+                (commodity, ingredientIndex) => (
+                  <tr key={ingredientIndex}>
+                    <td>
+                      <Stack direction="row">
+                        <ComponentIcon type={commodity.type} />
+                        <Typography>
+                          {intlContext.text("COMMODITY", commodity.type)}
+                        </Typography>
+                      </Stack>
+                    </td>
+                    <td align="right">
+                      <Typography fontFamily="monospace" color="warning">
+                        ¢
+                        {CommodityMetadata[
+                          commodity.type
+                        ].price.toLocaleString()}
+                      </Typography>
+                    </td>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </table>
+        </fieldset>
+      )}
+
       {variation.ingredients.length > 0 && (
         <fieldset>
           <legend>{intlContext.text("UI", "ingredients")}</legend>
@@ -359,7 +402,7 @@ export const CurrentStation: FC = memo(() => {
                       </Typography>
                     </td>
                   </tr>
-                ),
+                )
               )}
             </tbody>
           </table>

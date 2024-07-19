@@ -12,17 +12,19 @@ import { Link as RouterLink } from "react-router-dom";
 import { IntlContext } from "~contexts/intl";
 import { IStationNode } from "./types";
 import { useFactory } from "~pages/factories/hook/use-factory";
+import { useFactoryReference } from "../FactoryReferences/hook/use-factory-reference";
 
 export const StationNode: FC<IStationNode> = memo((props) => {
   const [showIndex, setShowIndex] = useState(false);
 
   const intlContext = useContext(IntlContext);
   const factory = useFactory();
+  const factoryReference = useFactoryReference();
   const { type: commodity, amount } = props.stationCommodity;
 
   const nodeCommodity = useMemo(() => {
     return props.nodeCommodities.find(
-      ({ type: nodeCommodity }) => nodeCommodity === commodity,
+      ({ type: nodeCommodity }) => nodeCommodity === commodity
     );
   }, [commodity, props.nodeCommodities]);
 
@@ -39,20 +41,52 @@ export const StationNode: FC<IStationNode> = memo((props) => {
   const ingredientsColor = !Number.isFinite(nodeCommodity.amount)
     ? "success"
     : nodeCommodity.amount === amount
-      ? "warning"
-      : nodeCommodity.amount < amount
-        ? "success"
-        : "danger";
+    ? "warning"
+    : nodeCommodity.amount < amount
+    ? "success"
+    : "danger";
 
   const resultsColor = !Number.isFinite(amount)
     ? "success"
     : nodeCommodity.amount === amount
-      ? "warning"
-      : nodeCommodity.amount > amount
-        ? "success"
-        : "danger";
+    ? "warning"
+    : nodeCommodity.amount > amount
+    ? "success"
+    : "danger";
 
-  if (props.direction === "ingredients") {
+  if (
+    factoryReference.root === "consumables" ||
+    factoryReference.reference === "consumables"
+  ) {
+    return (
+      <Fragment>
+        <td>
+          <Link
+            to={`/factories?station=${props.station}&variation=${props.nodeVariationIndex}`}
+            component={RouterLink}
+          >
+            <Typography onMouseEnter={onShowIndex} onMouseLeave={onHideIndex}>
+              {intlContext.text("STATION", props.station)}
+              <Typography
+                color="neutral"
+                sx={{
+                  textDecoration: "none",
+                  pl: 1,
+                  opacity: showIndex ? 1 : 0,
+                  transition: "opacity 200ms ease",
+                }}
+              >
+                #{props.nodeVariationIndex + 1}
+              </Typography>
+            </Typography>
+          </Link>
+        </td>
+        <td />
+      </Fragment>
+    );
+  }
+
+  if (factoryReference.reference === "ingredients") {
     return (
       <Fragment>
         <td>

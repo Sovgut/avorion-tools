@@ -7,5 +7,4 @@ export interface ICommodityGroup {
     station: Station;
     variations: { metadata: IStationVariation; index: number }[];
   }>;
-  direction: "ingredients" | "results";
 }

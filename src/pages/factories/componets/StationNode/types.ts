@@ -6,5 +6,4 @@ export interface IStationNode {
   stationCommodity: IStationCommodity;
   nodeCommodities: IStationCommodity[];
   nodeVariationIndex: number;
-  direction: "ingredients" | "results";
 }
