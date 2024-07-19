@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/joy";
+import { Typography } from "@mui/joy";
 import { FC, memo, useContext } from "react";
 import { StationNode } from "../StationNode";
 import { ICommodityGroup } from "./types";
