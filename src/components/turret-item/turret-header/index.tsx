@@ -1,29 +1,30 @@
-import {useContext} from "react";
-import {Close, MoreVert as MoreIcon, RestartAlt} from "@mui/icons-material";
-import {IntlContext} from "~contexts/intl";
-import {Box, Divider, Dropdown, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Typography,} from "@mui/joy";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteTurret, updateTurret} from "~reducers/turret";
-import {TurretEntity} from "~types/store/entity.ts";
-import {deleteComponent, updateComponent} from "~reducers/component.ts";
-import {RootState} from "~store";
+import { useContext } from "react";
+import { Close, MoreVert as MoreIcon, RestartAlt } from "@mui/icons-material";
+import { IntlContext } from "~contexts/intl";
+import { Box, Divider, Dropdown, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Typography, } from "@mui/joy";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTurret, updateTurret } from "~reducers/turret";
+import { TurretEntity } from "~types/store/entity.ts";
+import { deleteComponent, updateComponent } from "~reducers/component.ts";
+import { RootState } from "~store";
 import {
     MIN_COMPONENT_QUANTITY,
     MIN_TURRET_PRICE,
     MIN_TURRET_QUANTITY,
     PAGE_ANIMATION_CONTROLS,
 } from "~constants/common.ts";
-import {clearComponentsCheckbox} from "~reducers/checkbox.ts";
-import {TurretIcon} from "~components/turret-icon";
-import {AnimationControlContext} from "~contexts/animation-control";
+import { clearComponentsCheckbox } from "~reducers/checkbox.ts";
+import { TurretIcon } from "~components/turret-icon";
+import { AnimationControlContext } from "~contexts/animation-control";
 import { serializeCommoditites } from "~utils/serialize-commodity";
+import { Numeric } from "~components/numeric";
 
 type Props = {
     id: string;
     entity: TurretEntity;
 };
 
-export function TurretHeader({id, entity}: Props) {
+export function TurretHeader({ id, entity }: Props) {
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
     const turretStore = useSelector((state: RootState) => state.turret);
@@ -40,47 +41,47 @@ export function TurretHeader({id, entity}: Props) {
 
     function performStateCleanup() {
         dispatch(clearComponentsCheckbox());
-        dispatch(deleteComponent({identity: id}));
-        dispatch(deleteTurret({identity: id}));
+        dispatch(deleteComponent({ identity: id }));
+        dispatch(deleteTurret({ identity: id }));
     }
 
     function resetToDefaultValues() {
         dispatch(updateTurret({
             identity: id,
-            entity: {...entity, quantity: MIN_TURRET_QUANTITY, price: MIN_TURRET_PRICE}
+            entity: { ...entity, quantity: MIN_TURRET_QUANTITY, price: MIN_TURRET_PRICE }
         }));
 
         (serializeCommoditites(Object.keys(componentStore.entities[id])))
             .forEach(type => dispatch(updateComponent({
                 identity: id,
-                entity: {type, quantity: MIN_COMPONENT_QUANTITY}
+                entity: { type, quantity: MIN_COMPONENT_QUANTITY }
             })));
     }
 
     return (
-        <Box sx={{p: 2, pb: 0}}>
+        <Box sx={{ p: 2, pb: 0 }}>
             <Stack direction="row" justifyContent="space-between">
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <TurretIcon type={entity.type}/>
+                    <TurretIcon type={entity.type} />
                     <Typography level="title-md">
                         {intlContext.text("TURRET", entity.type)}
                     </Typography>
                 </Stack>
                 <Dropdown>
-                    <MenuButton variant="soft" sx={{width: "44px", height: "40px"}}>
-                        <MoreIcon/>
+                    <MenuButton variant="soft" sx={{ width: "44px", height: "40px" }}>
+                        <MoreIcon />
                     </MenuButton>
-                    <Menu placement="bottom-end" variant="soft" sx={{minWidth: "200px"}}>
+                    <Menu placement="bottom-end" variant="soft" sx={{ minWidth: "200px" }}>
                         <MenuItem onClick={resetToDefaultValues}>
                             <ListItemDecorator>
-                                <RestartAlt/>
+                                <RestartAlt />
                             </ListItemDecorator>
                             {intlContext.text("UI", "reset-components")}
                         </MenuItem>
-                        <Divider/>
+                        <Divider />
                         <MenuItem color="danger" onClick={removeTurretAndCleanState}>
                             <ListItemDecorator>
-                                <Close/>
+                                <Close />
                             </ListItemDecorator>
                             {intlContext.text("UI", "remove-turret")}
                         </MenuItem>

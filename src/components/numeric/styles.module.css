@@ -25,4 +25,5 @@
 
 .input {
     -moz-appearance: textfield;
+    width: 100%;
 }

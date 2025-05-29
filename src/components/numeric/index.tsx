@@ -15,11 +15,12 @@ type NumericProps = {
     min?: number;
     max?: number;
     disabled?: boolean;
-
+    placeholder?: string;
+    width?: string | number;
     onChange?(id: string, value: string | null): void;
 }
 
-export function Numeric({id, label, value, focus, min, max, disabled, onChange}: NumericProps) {
+export function Numeric({id, label, value, focus, min, max, disabled, placeholder, width, onChange}: NumericProps) {
     const theme = useTheme();
     const ref = useRef<HTMLInputElement>(null);
 
@@ -64,6 +65,7 @@ export function Numeric({id, label, value, focus, min, max, disabled, onChange}:
         <Input
             className={styles.component}
             startDecorator={decorator}
+            placeholder={placeholder}
             slotProps={{
                 input: {
                     inputMode: "numeric",
@@ -79,7 +81,7 @@ export function Numeric({id, label, value, focus, min, max, disabled, onChange}:
                 }
             }}
             variant="plain"
-            sx={{opacity: disabled ? '0.75' : '1'}}
+            sx={{opacity: disabled ? '0.75' : '1', width: width ?? '100%', minWidth: 'auto'}}
             disabled={disabled}
             onChange={handleChange}
             onClick={handleClick}

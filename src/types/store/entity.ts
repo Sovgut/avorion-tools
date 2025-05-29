@@ -5,6 +5,7 @@ export interface TurretEntity {
     type: Turret;
     price: number;
     quantity: number;
+    location: { x: number; y: number }
 }
 
 export interface CommodityEntity {

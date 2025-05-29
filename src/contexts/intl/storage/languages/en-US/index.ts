@@ -10,6 +10,8 @@ import {
 
 const UI: IntlUI = {
   "upgrade-cost": "Upgrade cost",
+  "position-x": "Position X",
+  "position-y": "Position Y",
   consumables: "Consumables",
   count: "Count",
   produced: "Produced",

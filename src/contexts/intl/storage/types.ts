@@ -11,6 +11,8 @@ export type IntlTurret = Record<Turret, string>;
 export interface IntlUI {
   "upgrade-cost": string;
   consumables: string;
+  "position-x": string;
+  "position-y": string;
   count: string;
   produced: string;
   required: string;

@@ -11,6 +11,8 @@ import {
 const UI: IntlUI = {
   "upgrade-cost": "Стоимость улучшения",
   "consumables": "Расходные материалы",
+  "position-x": "Позиция X",
+  "position-y": "Позиция Y",
   "count": "Количество",
   produced: "Произведено",
   required: "Требуется",
