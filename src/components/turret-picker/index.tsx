@@ -33,6 +33,7 @@ export function TurretPicker(props: ITurretPicker) {
                 type: turret,
                 price: MIN_TURRET_PRICE,
                 quantity: MIN_TURRET_QUANTITY,
+                location: { x: 0, y: 0 }
             }
         }));
 

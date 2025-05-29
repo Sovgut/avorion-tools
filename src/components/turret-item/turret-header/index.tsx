@@ -17,7 +17,6 @@ import { clearComponentsCheckbox } from "~reducers/checkbox.ts";
 import { TurretIcon } from "~components/turret-icon";
 import { AnimationControlContext } from "~contexts/animation-control";
 import { serializeCommoditites } from "~utils/serialize-commodity";
-import { Numeric } from "~components/numeric";
 
 type Props = {
     id: string;
