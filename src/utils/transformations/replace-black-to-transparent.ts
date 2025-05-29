@@ -3,7 +3,7 @@ function loadImage(url: string): Promise<HTMLImageElement> {
     const image = new Image();
     image.onload = () => resolve(image);
     image.onerror = reject;
-    image.src = url;
+    image.src = `/avorion-tools${url}`;
   });
 }
 
