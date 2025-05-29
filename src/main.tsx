@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { StrictMode } from "react";
 import { CssBaseline, CssVarsProvider, extendTheme } from "@mui/joy";
 import {
-  createBrowserRouter,
+  createHashRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
@@ -34,57 +34,52 @@ const theme = extendTheme({
   },
 });
 
-const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <App />,
-      children: [
-        {
-          path: "factories",
-          children: [
-            {
-              index: true,
-              element: <FactoriesPage />,
-            },
-          ],
-        },
-        {
-          path: "turret-planner",
-          children: [
-            {
-              index: true,
-              element: (
-                <AnimatePresence mode="wait">
-                  <TurretPlannerPage />
-                </AnimatePresence>
-              ),
-            },
-            {
-              path: "getting-started",
-              element: (
-                <AnimatePresence mode="wait">
-                  <GettingStartedPage />
-                </AnimatePresence>
-              ),
-            },
-          ],
-        },
-        {
-          path: "/",
-          element: <Navigate to="turret-planner" replace />,
-        },
-        {
-          path: "*",
-          element: <Navigate to="turret-planner" replace />,
-        },
-      ],
-    },
-  ],
+const router = createHashRouter([
   {
-    basename: "/avorion-tools",
-  }
-);
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "factories",
+        children: [
+          {
+            index: true,
+            element: <FactoriesPage />,
+          },
+        ],
+      },
+      {
+        path: "turret-planner",
+        children: [
+          {
+            index: true,
+            element: (
+              <AnimatePresence mode="wait">
+                <TurretPlannerPage />
+              </AnimatePresence>
+            ),
+          },
+          {
+            path: "getting-started",
+            element: (
+              <AnimatePresence mode="wait">
+                <GettingStartedPage />
+              </AnimatePresence>
+            ),
+          },
+        ],
+      },
+      {
+        index: true,
+        element: <Navigate to="/turret-planner" replace />,
+      },
+      {
+        path: "*",
+        element: <Navigate to="/turret-planner" replace />,
+      },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
