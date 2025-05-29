@@ -34,52 +34,57 @@ const theme = extendTheme({
   },
 });
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <App />,
+      children: [
+        {
+          path: "factories",
+          children: [
+            {
+              index: true,
+              element: <FactoriesPage />,
+            },
+          ],
+        },
+        {
+          path: "turret-planner",
+          children: [
+            {
+              index: true,
+              element: (
+                <AnimatePresence mode="wait">
+                  <TurretPlannerPage />
+                </AnimatePresence>
+              ),
+            },
+            {
+              path: "getting-started",
+              element: (
+                <AnimatePresence mode="wait">
+                  <GettingStartedPage />
+                </AnimatePresence>
+              ),
+            },
+          ],
+        },
+        {
+          path: "/",
+          element: <Navigate to="turret-planner" replace />,
+        },
+        {
+          path: "*",
+          element: <Navigate to="turret-planner" replace />,
+        },
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: "factories",
-        children: [
-          {
-            index: true,
-            element: <FactoriesPage />,
-          },
-        ],
-      },
-      {
-        path: "turret-planner",
-        children: [
-          {
-            index: true,
-            element: (
-              <AnimatePresence mode="wait">
-                <TurretPlannerPage />
-              </AnimatePresence>
-            ),
-          },
-          {
-            path: "getting-started",
-            element: (
-              <AnimatePresence mode="wait">
-                <GettingStartedPage />
-              </AnimatePresence>
-            ),
-          },
-        ],
-      },
-      {
-        path: "/",
-        element: <Navigate to="turret-planner" replace />,
-      },
-      {
-        path: "*",
-        element: <Navigate to="turret-planner" replace />,
-      },
-    ],
-  },
-]);
+    basename: "/avorion-tools",
+  }
+);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -103,17 +108,3 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </CssVarsProvider>
   </StrictMode>
 );
-
-if (import.meta.env.MODE === "production") {
-  // This anonymous function is required for load asynchronous modules.
-  // That modules are blocked by browser extensions like `adguard`
-  // and others related to the same functionality extensions.
-  (async () => {
-    const { inject: VercelAnalytics } = await import("@vercel/analytics");
-    const { reportVercelAnalytics } = await import("./vitals");
-    const { reportWebVitals } = await import("./reportWebVitals");
-
-    VercelAnalytics();
-    reportWebVitals(reportVercelAnalytics);
-  })();
-}
