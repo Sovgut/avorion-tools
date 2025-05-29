@@ -17,7 +17,7 @@ export function StationIcon({ type, onClick, size }: Props) {
   useEffect(() => {
     (async () => {
       const modifiedImageSrc = await replaceBlackToTransparent(
-        "/img/icon/station.png",
+        "/avorion-tools/img/icon/station.png",
       );
       setImageSrc(modifiedImageSrc);
     })();
