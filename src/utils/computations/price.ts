@@ -65,6 +65,10 @@ export function computeComponents(
   }
 
   for (const id of Object.keys(turretStore.entities)) {
+    if (typeof turretStore.entities[id].enabled === 'boolean' && !turretStore.entities[id].enabled) {
+      continue;
+    }
+    
     result.min +=
       turretStore.entities[id].price * turretStore.entities[id].quantity;
     result.max +=
