@@ -1,13 +1,11 @@
-import { IconButton, Sheet, Stack } from "@mui/joy";
-import { Fragment, MouseEvent, useContext } from "react";
+import { Sheet, Stack } from "@mui/joy";
+import { Fragment, useContext } from "react";
 import { IntlContext } from "~contexts/intl";
 import { useDispatch } from "react-redux";
 import { updateTurret } from "~reducers/turret";
 import { Numeric } from "~components/numeric";
 import { MAX_TURRET_PRICE, MAX_TURRET_QUANTITY, MIN_TURRET_PRICE, MIN_TURRET_QUANTITY } from "~constants/common";
 import { TurretEntity } from "~types/store/entity";
-import { useBreakpoint } from "~hooks/breakpoints";
-import { CopyAll } from "@mui/icons-material";
 
 type Props = {
     id: string;
@@ -17,7 +15,6 @@ type Props = {
 export function TurretOptions({ id, entity }: Props) {
     const intlContext = useContext(IntlContext)
     const dispatch = useDispatch();
-    const breakpoint = useBreakpoint();
 
     function handleAttributeChange(attribute: "quantity" | "price") {
         return function $onAttributeChange(id: string, value: string | null) {

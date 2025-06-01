@@ -1,5 +1,5 @@
 import { MouseEvent, useContext } from "react";
-import { Close, CopyAll, MoreVert as MoreIcon, PlaceOutlined, RestartAlt } from "@mui/icons-material";
+import { Close, MoreVert as MoreIcon, PlaceOutlined, RestartAlt } from "@mui/icons-material";
 import { IntlContext } from "~contexts/intl";
 import { Box, Divider, Dropdown, IconButton, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Tooltip, Typography, } from "@mui/joy";
 import { useDispatch, useSelector } from "react-redux";
