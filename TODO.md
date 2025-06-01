@@ -1,4 +1,4 @@
-### TODO
+### Todo
 - [ ] Enhance the user experience (UX).
 - [ ] Undertake a complete redesign of the factory page.
 - [ ] Implement search list caching to boost performance.
