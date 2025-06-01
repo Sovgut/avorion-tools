@@ -17,12 +17,12 @@ export function StationIcon({ type, onClick, size }: Props) {
   useEffect(() => {
     (async () => {
       const modifiedImageSrc = await replaceBlackToTransparent(
-        "/avorion-tools/img/icon/station.png",
+        "/img/icon/station.png",
       );
       setImageSrc(modifiedImageSrc);
     })();
   }, [type]);
-
+ 
   return imageSrc ? (
     <img
       onClick={onClick}
