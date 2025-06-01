@@ -10,8 +10,8 @@ import {
 
 const UI: IntlUI = {
   "upgrade-cost": "Upgrade cost",
-  "position-x": "Position X",
-  "position-y": "Position Y",
+  "position-x": "X",
+  "position-y": "Y",
   consumables: "Consumables",
   count: "Count",
   produced: "Produced",
@@ -30,6 +30,7 @@ const UI: IntlUI = {
   profit: "Profit",
   cost: "Cost",
   copy: "Copy",
+  "copy-location": "Copy location",
   copied: "Copied!",
   "lets-add-turret": "Let's add your first recipe to the Turret planner!",
   "cargo-offset": "Cargo offset",

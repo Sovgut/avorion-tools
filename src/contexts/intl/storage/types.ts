@@ -35,6 +35,7 @@ export interface IntlUI {
   station: string;
   stations: string;
   copy: string;
+  "copy-location": string;
   copied: string;
   "lets-add-turret": string;
   "cargo-offset": string;

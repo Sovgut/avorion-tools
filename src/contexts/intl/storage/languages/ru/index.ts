@@ -11,8 +11,8 @@ import {
 const UI: IntlUI = {
   "upgrade-cost": "Стоимость улучшения",
   "consumables": "Расходные материалы",
-  "position-x": "Позиция X",
-  "position-y": "Позиция Y",
+  "position-x": "X",
+  "position-y": "Y",
   "count": "Количество",
   produced: "Произведено",
   required: "Требуется",
@@ -30,6 +30,7 @@ const UI: IntlUI = {
   profit: "Прибыль",
   cost: "Стоимость",
   copy: "Скопировать",
+  "copy-location": "Скопировать местоположение",
   copied: "Скопировано!",
   "lets-add-turret": "Давайте добавим ваш первый рецепт в планировщик турелей!",
   "cargo-offset": "Наличие в трюме",
