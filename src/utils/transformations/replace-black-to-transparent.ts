@@ -32,7 +32,7 @@ export async function replaceBlackToTransparent(imgURL: string) {
     // const a = pixels[i+3]; // alpha
 
     if (r <= 20 && g <= 20 && b <= 20) {
-      pixels[i + 3] = 0; // Set alpha to 0
+      pixels[i + 3] = 0; // set alpha to 0
     }
   }
 
