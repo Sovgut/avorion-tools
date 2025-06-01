@@ -39,8 +39,8 @@ const UI: IntlUI = {
   quantity: "Quantity",
   component: "Component",
   components: "Components",
-  "estimated-price": "Estimated price",
-  "estimated-volume": "Estimated volume",
+  "estimated-price": "Approximate price",
+  "estimated-volume": "Volume",
   "estimated-price-info":
     "Price of all components (based on min price and max price)",
   "component-source-info":
