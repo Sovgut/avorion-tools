@@ -17,6 +17,7 @@ import { clearComponentsCheckbox } from "~reducers/checkbox.ts";
 import { TurretIcon } from "~components/turret-icon";
 import { AnimationControlContext } from "~contexts/animation-control";
 import { serializeCommoditites } from "~utils/serialize-commodity";
+import { SxProps } from "@mui/joy/styles/types";
 
 type Props = {
     id: string;
@@ -29,6 +30,11 @@ export function TurretHeader({ id, entity }: Props) {
     const turretStore = useSelector((state: RootState) => state.turret);
     const componentStore = useSelector((state: RootState) => state.component);
     const controls = useContext(AnimationControlContext);
+
+    const sx: SxProps = { opacity: 1, cursor: "pointer", userSelect: "none" };
+    if (typeof entity.enabled === 'boolean' && !entity.enabled) {
+        sx.opacity = 0.5;
+    }
 
     function removeTurretAndCleanState() {
         if (Object.keys(turretStore.entities).length === 1) {
@@ -57,6 +63,16 @@ export function TurretHeader({ id, entity }: Props) {
             })));
     }
 
+    function handleToggleTurretEnabled(e: MouseEvent<HTMLDivElement>) {
+        e.stopPropagation();
+
+        const newEnabledState = typeof entity.enabled === 'undefined' ? false : !entity.enabled;
+        dispatch(updateTurret({
+            identity: id,
+            entity: { ...entity, enabled: newEnabledState }
+        }));
+    }
+
     function handleCopyText(component: string) {
         return function $handleCopyText(e: MouseEvent<HTMLButtonElement>) {
             e.stopPropagation();
@@ -68,7 +84,7 @@ export function TurretHeader({ id, entity }: Props) {
     return (
         <Box sx={{ p: 2, pb: 0 }}>
             <Stack direction="row" justifyContent="space-between">
-                <Stack direction="row" spacing={1} alignItems="center">
+                <Stack direction="row" spacing={1} alignItems="center" sx={sx} onClick={handleToggleTurretEnabled} role="button">
                     <TurretIcon type={entity.type} />
 
                     <Typography level="title-md">

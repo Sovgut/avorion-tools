@@ -9,6 +9,10 @@ export function uniteComponents(
   const result: Record<Commodity, number> = {} as Record<Commodity, number>;
 
   for (const id of Object.keys(components.entities)) {
+    if (typeof turrets.entities[id].enabled === 'boolean' && !turrets.entities[id].enabled) {
+      continue;
+    }
+
     for (const type of Object.keys(components.entities[id])) {
       const commidity = serializeCommodity(type);
       const quantity = components.entities[id][commidity];

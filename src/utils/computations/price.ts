@@ -24,6 +24,10 @@ export function computeComponents(
   const result = { ...initialComputationComponents };
 
   for (const id of Object.keys(componentStore.entities)) {
+    if (typeof turretStore.entities[id].enabled === 'boolean' && !turretStore.entities[id].enabled) {
+      continue;
+    }
+
     const turret: TurretEntity = turretStore.entities[id];
     const components: Record<Commodity, number> = componentStore.entities[id];
 

@@ -5,6 +5,7 @@ export interface TurretEntity {
     type: Turret;
     price: number;
     quantity: number;
+    enabled: boolean;
     location: { x: number; y: number }
 }
 
