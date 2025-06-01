@@ -103,7 +103,7 @@ export function ComponentsTable() {
                                     <Typography fontSize={fontSize}
                                                 level="body-sm">{intlContext.text("UI", "estimated-price")}</Typography>
                                     <Stack direction="row">
-                                        <Typography fontSize={fontSize} level="body-sm">~</Typography>
+                                        <Typography fontSize={fontSize} level="body-sm">≈</Typography>
                                         <Typography fontSize={fontSize}
                                                     level="body-sm">{computations.avg.toLocaleString()}</Typography>
                                     </Stack>
