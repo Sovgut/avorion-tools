@@ -12,6 +12,8 @@ import {
 } from "~constants/common.ts";
 import { LocalState } from "@sovgut/state";
 
+const DEBOUNCE_TIME = 10_000;
+
 export const store = configureStore({
   reducer: {
     turret: turretReducer,
@@ -29,7 +31,7 @@ store.subscribe(
     LocalState.setItem(CACHE_COMPONENTS, state.component);
     LocalState.setItem(CACHE_CARGO, state.cargo);
     LocalState.setItem(CACHE_CHECKBOX, state.checkbox);
-  }, 1000)
+  }, DEBOUNCE_TIME)
 );
 
 export type RootState = ReturnType<typeof store.getState>;
