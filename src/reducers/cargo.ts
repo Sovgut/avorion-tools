@@ -9,7 +9,7 @@ import { Commodity } from "~data/commodities/enums";
 import { LocalState } from "@sovgut/state";
 
 const cargoSlice = createSlice({
-  initialState: LocalState.getItem<CargoStoreState>(CACHE_CARGO, {
+  initialState: LocalState.get<CargoStoreState>(CACHE_CARGO, {
     fallback: { entities: {} as Record<Commodity, number> },
   }),
   name: "cargo",

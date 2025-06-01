@@ -25,7 +25,7 @@ export function IntlContextProvider({children}: Props) {
     const [language, setLanguage] = useState<LanguageType>("en-US");
 
     useLayoutEffect(() => {
-        const language = LocalState.getItem(CACHE_LANG, { fallback: window.navigator.language }) as LanguageType;
+        const language = LocalState.get(CACHE_LANG, { fallback: window.navigator.language as LanguageType });
 
         if (SUPPORTED_LANGUAGES.includes(language)) {
             setLanguage(language);
@@ -33,7 +33,7 @@ export function IntlContextProvider({children}: Props) {
     }, [])
 
     useEffect(() => {
-        LocalState.setItem(CACHE_LANG, language);
+        LocalState.set(CACHE_LANG, language);
     }, [language]);
 
     function text<Scope extends keyof IntlLabel>(scope: Scope, label: IntlLabel[Scope]): string {

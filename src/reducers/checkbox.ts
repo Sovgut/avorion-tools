@@ -9,7 +9,7 @@ import { Commodity } from "~data/commodities/enums";
 import { LocalState } from "@sovgut/state";
 
 const checkboxSlice = createSlice({
-  initialState: LocalState.getItem<CheckboxCommodityStoreState>(CACHE_CHECKBOX, {
+  initialState: LocalState.get<CheckboxCommodityStoreState>(CACHE_CHECKBOX, {
     fallback: { entities: {} as Record<Commodity, true> },
   }),
   name: "checkbox",
