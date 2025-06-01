@@ -7,6 +7,8 @@
 - [ ] Develop a blueprint saving system for turrets:
    - [ ] Support a 5MB history length.
    - [ ] Notify the user when storage space is insufficient, and provide a list of turrets for deletion.
+- [ ] Migrate from `LocalStorage` to `IndexedDB`
+- [ ] Add tabs for turret lists
 
 ### Research
 - [ ] Investigate and implement a method for constructing turrets and goods based on game files (currently, all data is manually writen).
