@@ -1,11 +1,13 @@
-import { Stack } from "@mui/joy";
-import { Fragment, useContext } from "react";
+import { IconButton, Sheet, Stack } from "@mui/joy";
+import { Fragment, MouseEvent, useContext } from "react";
 import { IntlContext } from "~contexts/intl";
 import { useDispatch } from "react-redux";
 import { updateTurret } from "~reducers/turret";
 import { Numeric } from "~components/numeric";
 import { MAX_TURRET_PRICE, MAX_TURRET_QUANTITY, MIN_TURRET_PRICE, MIN_TURRET_QUANTITY } from "~constants/common";
 import { TurretEntity } from "~types/store/entity";
+import { useBreakpoint } from "~hooks/breakpoints";
+import { CopyAll } from "@mui/icons-material";
 
 type Props = {
     id: string;
@@ -15,6 +17,7 @@ type Props = {
 export function TurretOptions({ id, entity }: Props) {
     const intlContext = useContext(IntlContext)
     const dispatch = useDispatch();
+    const breakpoint = useBreakpoint();
 
     function handleAttributeChange(attribute: "quantity" | "price") {
         return function $onAttributeChange(id: string, value: string | null) {
@@ -28,7 +31,7 @@ export function TurretOptions({ id, entity }: Props) {
                 }));
                 return;
             }
-            
+
             const numericValue = Number(value);
             if (!isNaN(numericValue)) {
                 dispatch(updateTurret({
@@ -80,20 +83,22 @@ export function TurretOptions({ id, entity }: Props) {
                     value={entity.price}
                     onChange={handleAttributeChange("price")} />
             </Stack>
-            <Stack spacing={2} direction="row" justifyContent="space-between" sx={{ p: 2, pt: 0, pb: 0 }}>
-                <Numeric id={id}
-                    label={intlContext.text("UI", "position-x")}
-                    max={500}
-                    min={-500}
-                    value={entity.location?.x ?? 0}
-                    onChange={onLocationChange("x")} />
-                <Numeric id={id}
-                    label={intlContext.text("UI", "position-y")}
-                    max={500}
-                    min={-500}
-                    value={entity.location?.y ?? 0}
-                    onChange={onLocationChange("y")} />
-            </Stack>
+            <Sheet>
+                <Stack spacing={2} direction="row" justifyContent="space-between">
+                    <Numeric id={id}
+                        label={intlContext.text("UI", "position-x")}
+                        max={500}
+                        min={-500}
+                        value={entity.location?.x ?? 0}
+                        onChange={onLocationChange("x")} />
+                    <Numeric id={id}
+                        label={intlContext.text("UI", "position-y")}
+                        max={500}
+                        min={-500}
+                        value={entity.location?.y ?? 0}
+                        onChange={onLocationChange("y")} />
+                </Stack>
+            </Sheet>
         </Fragment>
     )
 }
