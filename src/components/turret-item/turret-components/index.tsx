@@ -22,13 +22,27 @@ export function TurretComponents({id}: Props) {
     const componentStore = useSelector((state: RootState) => state.component);
 
     function handleComponentChange(type: string, value: string | null) {
-        dispatch(updateComponent({
-            identity: id,
-            entity: {
-                type: serializeCommodity(type),
-                quantity: Number(value),
-            }
-        }));
+        if (value === '' || value === null || value === '-') {
+            dispatch(updateComponent({
+                identity: id,
+                entity: {
+                    type: serializeCommodity(type),
+                    quantity: 0,
+                }
+            }));
+            return;
+        }
+        
+        const numericValue = Number(value);
+        if (!isNaN(numericValue)) {
+            dispatch(updateComponent({
+                identity: id,
+                entity: {
+                    type: serializeCommodity(type),
+                    quantity: numericValue,
+                }
+            }));
+        }
     }
 
     const list = serializeCommoditites(Object.keys(componentStore.entities[id] ?? {}));

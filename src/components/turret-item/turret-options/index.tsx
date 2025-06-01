@@ -18,17 +18,41 @@ export function TurretOptions({ id, entity }: Props) {
 
     function handleAttributeChange(attribute: "quantity" | "price") {
         return function $onAttributeChange(id: string, value: string | null) {
-            dispatch(updateTurret({
-                identity: id,
-                entity: {
-                    ...entity,
-                    [attribute]: Number(value),
-                }
-            }));
+            if (value === '' || value === null) {
+                dispatch(updateTurret({
+                    identity: id,
+                    entity: {
+                        ...entity,
+                        [attribute]: 0,
+                    }
+                }));
+                return;
+            }
+            
+            const numericValue = Number(value);
+            if (!isNaN(numericValue)) {
+                dispatch(updateTurret({
+                    identity: id,
+                    entity: {
+                        ...entity,
+                        [attribute]: numericValue,
+                    }
+                }));
+            }
         }
     }
 
     const onLocationChange = (direction: "x" | "y") => (id: string, value: string | null) => {
+        if (value === '-' || value === '') {
+            const defaultLocation = entity.location || { x: 0, y: 0 };
+            const updatedLocation = { ...defaultLocation, [direction]: value };
+            dispatch(updateTurret({
+                identity: id,
+                entity: { ...entity, location: updatedLocation }
+            }));
+            return;
+        }
+
         const parsedValue = Number(value);
         if (isNaN(parsedValue)) return;
 

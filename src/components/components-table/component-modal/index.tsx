@@ -64,7 +64,14 @@ export function ComponentItemModal({
   }
 
   function onCargoChange(_id: string, value: string | null) {
-    setCargoInput(Number(value));
+    if (value === '' || value === null || value === '-') {
+      return;
+    }
+    
+    const numericValue = Number(value);
+    if (!isNaN(numericValue)) {
+      setCargoInput(numericValue);
+    }
   }
 
   function onFormSubmit(event: FormEvent<HTMLFormElement>) {

@@ -57,7 +57,7 @@ export const CurrentStation: FC = memo(() => {
     }
 
     const diff = resultValue - ingredientValue;
-    let costs = 2500000; // 2.5m minimum for a factory
+    let costs = 2_500_000;
 
     costs = costs + diff * 3500;
     return costs;

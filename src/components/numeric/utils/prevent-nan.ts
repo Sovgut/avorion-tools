@@ -1,7 +1,11 @@
-export function preventNaN(value: number, initial: number) {
-    if (Number.isNaN(value)) {
+export function preventNaN(value: number | string, initial: number) {
+    if (value === '-') {
+        return '-';
+    }
+    
+    if (Number.isNaN(Number(value))) {
         return initial;
     }
 
-    return value;
+    return Number(value);
 }

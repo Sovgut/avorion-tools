@@ -52,13 +52,26 @@ export function Numeric({id, label, value, focus, min, max, disabled, placeholde
         const value = e.target.value;
         const initialMin = Number(min) ?? 0;
         const initialMax = Number(max) ?? Number.MAX_SAFE_INTEGER;
-        let parsed = Number(value ?? initialMin);
-
-        parsed = preventNaN(parsed, initialMin);
-        parsed = preventOverMin(parsed, initialMin);
-        parsed = preventOverMax(parsed, initialMax);
-
-        onChange?.(id || String(), parsed.toString() || null);
+        
+        if (value === '') {
+            onChange?.(id || String(), value);
+            return;
+        }
+        
+        if (value === '-') {
+            if (initialMin < 0) {
+                onChange?.(id || String(), value);
+            }
+            return;
+        }
+        
+        let parsed = preventNaN(value, initialMin);
+    
+        if (typeof parsed === 'number') {
+            parsed = preventOverMin(parsed, initialMin);
+            parsed = preventOverMax(parsed, initialMax);
+            onChange?.(id || String(), parsed.toString());
+        }
     }
 
     return (
@@ -85,8 +98,8 @@ export function Numeric({id, label, value, focus, min, max, disabled, placeholde
             disabled={disabled}
             onChange={handleChange}
             onClick={handleClick}
-            type="number"
-            value={String(value ?? String())}
+            type="text"
+            value={value === '-' ? '-' : String(value ?? '')}
         />
     )
 }
