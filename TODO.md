@@ -12,3 +12,6 @@
 
 ### Research
 - [ ] Investigate and implement a method for constructing turrets and goods based on game files (currently, all data is manually writen).
+- [ ] Galaxy map with stations locations
+    - [ ] Generate map the same way as game generates it
+    - [ ] Use seed provided by game server (`/seed` command in the game)
