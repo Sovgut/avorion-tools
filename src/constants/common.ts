@@ -14,6 +14,8 @@ export const CACHE_LANG = "cache:v4:lang";
 export const CACHE_TURRETS = "cache:v4:turrets";
 export const CACHE_COMPONENTS = "cache:v4:components";
 export const CACHE_THEME = "cache:v4:theme";
+export const CACHE_TABS = "cache:v4:tabs";
+export const CACHE_BLUEPRINTS = "cache:v4:blueprints";
 
 export const PAGE_ANIMATION_CONTROLS = {
     opacity: 0,

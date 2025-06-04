@@ -9,6 +9,19 @@ import {
 } from "~contexts/intl/storage/types";
 
 const UI: IntlUI = {
+  "blueprint-add": "Добавить рецепт турели",
+  "blueprint-add-title": "Добавить рецепт турели",
+  "blueprint-add-name": "Название рецепта",
+  "blueprint-add-submit": "Добавить рецепт",
+  "blueprint-list": "Список рецептов турелей",
+  "blueprint-list-title": "Список рецептов турелей",
+  "rarity-legendary": "Легендарный",
+  "rarity-exotic": "Экзотический",
+  "rarity-exceptional": "Исключительный",
+  "rarity-rare": "Редкий",
+  "rarity-uncommon": "Необычный",
+  "rarity-common": "Обычный",
+  "rarity-petty": "Незначительный",
   "upgrade-cost": "Стоимость улучшения",
   "consumables": "Расходные материалы",
   "position-x": "X",

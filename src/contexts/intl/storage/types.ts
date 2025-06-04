@@ -9,6 +9,19 @@ export type IntlCommodity = Record<Commodity, string>;
 export type IntlTurret = Record<Turret, string>;
 
 export interface IntlUI {
+  "blueprint-add": string;
+  "blueprint-add-title": string;
+  "blueprint-add-name": string;
+  "blueprint-add-submit": string;
+  "blueprint-list": string;
+  "blueprint-list-title": string;
+  "rarity-legendary": string;
+  "rarity-exotic": string;
+  "rarity-exceptional": string;
+  "rarity-rare": string;
+  "rarity-uncommon": string;
+  "rarity-common": string;
+  "rarity-petty": string;
   "upgrade-cost": string;
   consumables: string;
   "position-x": string;

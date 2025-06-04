@@ -9,6 +9,19 @@ import {
 } from "~contexts/intl/storage/types";
 
 const UI: IntlUI = {
+  "blueprint-add": "Add blueprint",
+  "blueprint-add-title": "Add a new turret blueprint",
+  "blueprint-add-name": "Blueprint name",
+  "blueprint-add-submit": "Add Blueprint",
+  "blueprint-list": "List of blueprints",
+  "blueprint-list-title": "List of blueprints",
+  "rarity-legendary": "Legendary",
+  "rarity-exotic": "Exotic",
+  "rarity-exceptional": "Exceptional",
+  "rarity-rare": "Rare",
+  "rarity-uncommon": "Uncommon",
+  "rarity-common": "Common",
+  "rarity-petty": "Petty",
   "upgrade-cost": "Upgrade cost",
   "position-x": "X",
   "position-y": "Y",
