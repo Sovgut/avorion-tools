@@ -4,7 +4,7 @@
 - [ ] Implement search list caching to boost performance.
 - [ ] Create individual pages for each good and component, displaying all available game data.
 - [ ] Create individual pages for each turret, displaying all available game data.
-- [+] Develop a blueprint saving system for turrets:
+- [x] Develop a blueprint saving system for turrets:
    - [ ] Support a 5MB history length.
    - [ ] Notify the user when storage space is insufficient, and provide a list of turrets for deletion.
 - [ ] Migrate from `LocalStorage` to `IndexedDB`
