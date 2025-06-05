@@ -7,3 +7,13 @@ export enum Rarity {
     Exotic = "exotic",
     Legendary = "legendary",
 }
+
+export enum RarityColor {
+    Petty = "#808080",
+    Common = "#dfdfdf",
+    Uncommon = "#31dd31",
+    Rare = "#3198ff",
+    Exceptional = "#ffca42",
+    Exotic = "#ff420e",
+    Legendary = "#c642ff",
+}

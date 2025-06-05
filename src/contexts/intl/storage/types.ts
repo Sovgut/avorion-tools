@@ -12,6 +12,8 @@ export interface IntlUI {
   "blueprint-add": string;
   "blueprint-add-title": string;
   "blueprint-add-name": string;
+  "blueprint-add-name-required": string;
+  "blueprint-add-rarity-required": string;
   "blueprint-add-submit": string;
   "blueprint-list": string;
   "blueprint-list-title": string;
