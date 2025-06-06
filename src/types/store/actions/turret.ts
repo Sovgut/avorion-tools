@@ -1,13 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { TurretEntity } from "../entity.ts";
-import { Identity } from "../common.ts";
+import { Turret } from "~models/turret";
 
-export type TurretCreateAction = PayloadAction<{
-  identity: Identity;
-  entity: TurretEntity;
-}>;
-export type TurretUpdateAction = PayloadAction<{
-  identity: Identity;
-  entity: TurretEntity;
-}>;
-export type TurretDeleteAction = PayloadAction<{ identity: Identity }>;
+export type TurretCreateAction = PayloadAction<Turret>;
+export type TurretUpdateAction = PayloadAction<Turret>;
+export type TurretDeleteAction = PayloadAction<string>;

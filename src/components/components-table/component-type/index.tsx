@@ -31,9 +31,9 @@ export function ComponentItemType({ type }: Props) {
 
   function handleCheckbox() {
     if (checkbox.entities[type]) {
-      dispatch(deleteComponentCheckbox({ type: type }));
+      dispatch(deleteComponentCheckbox(type));
     } else {
-      dispatch(createComponentCheckbox({ type: type }));
+      dispatch(createComponentCheckbox({ type: type, value: true }));
     }
   }
 

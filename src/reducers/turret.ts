@@ -1,30 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { LocalState } from "@sovgut/state";
-import { CACHE_TURRETS } from "~constants/common";
 import { TurretStoreState } from "~types/store";
 import {
   TurretCreateAction,
   TurretDeleteAction,
   TurretUpdateAction,
 } from "~types/store/actions/turret";
+import { getCurrentCacheKey } from "~utils/get-cache";
+
+const cacheKey = getCurrentCacheKey('turrets');
 
 const turretSlice = createSlice({
-  initialState: LocalState.get<TurretStoreState>(CACHE_TURRETS, {
-    fallback: { entities: {} },
+  initialState: LocalState.get<TurretStoreState>(cacheKey, { 
+    fallback: { entities: [] } 
   }),
   name: "turret",
   reducers: {
     create(state, action: TurretCreateAction) {
-      state.entities[action.payload.identity] = action.payload.entity;
+      state.entities.push(action.payload)
+
+      LocalState.set(cacheKey, state)
     },
     update(state, action: TurretUpdateAction) {
-      state.entities[action.payload.identity] = action.payload.entity;
+      state.entities = state.entities.map(entity => {
+        if (entity.id !== action.payload.id) {
+          return entity;
+        }
+
+        return action.payload;
+      })
+
+      LocalState.set(cacheKey, state)
     },
     delete(state, action: TurretDeleteAction) {
-      delete state.entities[action.payload.identity];
+      state.entities = state.entities.filter(entity => entity.id !== action.payload);
+
+      LocalState.set(cacheKey, state)
     },
     clear() {
-      return { entities: {} };
+      LocalState.set(cacheKey, {
+        entities: [],
+      })
+
+      return { entities: [] };
     },
   },
 });

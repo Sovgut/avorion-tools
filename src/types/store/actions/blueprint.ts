@@ -1,13 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { BlueprintEntity } from "../entity.ts";
-import { Identity } from "../common.ts";
+import { Blueprint } from "~models/blueprint.ts";
 
-export type BlueprintCreateAction = PayloadAction<{
-  identity: Identity;
-  entity: BlueprintEntity;
-}>;
-export type BlueprintUpdateAction = PayloadAction<{
-  identity: Identity;
-  entity: BlueprintEntity;
-}>;
-export type BlueprintDeleteAction = PayloadAction<{ identity: Identity }>;
+export type BlueprintCreateAction = PayloadAction<Blueprint>;
+export type BlueprintUpdateAction = PayloadAction<Blueprint>;
+export type BlueprintDeleteAction = PayloadAction<string>;

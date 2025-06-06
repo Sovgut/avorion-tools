@@ -1,39 +1,55 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LocalState } from "@sovgut/state";
-import { CACHE_BLUEPRINTS, CACHE_TABS } from "~constants/common";
+import { Tab } from "~models/tab";
 import { TabStoreState } from "~types/store";
 import { TabCreateAction, TabDeleteAction, TabUpdateAction } from "~types/store/actions/tab";
+import { getCurrentCacheKey } from "~utils/get-cache";
+
+const cacheKey = getCurrentCacheKey('tabs');
 
 const tabSlice = createSlice({
-    initialState: LocalState.get<TabStoreState>(CACHE_TABS, {
-        fallback: { entities: {} },
+    initialState: LocalState.get<TabStoreState>(cacheKey, { 
+        fallback: { entities: [], current: null as Tab | null } 
     }),
     name: "tab",
     reducers: {
-        create(state, action: TabCreateAction) {
-            state.entities[action.payload.identity] = action.payload.entity;
+        setCurrent(state, action: PayloadAction<Tab | null>) {
+            state.current = action.payload;
 
-            LocalState.set(CACHE_BLUEPRINTS, state);
+            LocalState.set(cacheKey, state);
+        },
+        create(state, action: TabCreateAction) {
+            state.entities.push(action.payload);
+            state.current = action.payload;
+
+            LocalState.set(cacheKey,state);
         },
         update(state, action: TabUpdateAction) {
-            state.entities[action.payload.identity] = action.payload.entity;
+            state.entities = state.entities.map(entity => {
+                if (entity.id !== action.payload.id) {
+                    return action.payload;
+                }
 
-            LocalState.set(CACHE_BLUEPRINTS, state);
+                return action.payload;
+            })
+
+            LocalState.set(cacheKey, state);
         },
         delete(state, action: TabDeleteAction) {
-            delete state.entities[action.payload.identity];
+            state.entities = state.entities.filter(entity => entity.id !== action.payload);
 
-            LocalState.set(CACHE_BLUEPRINTS, state);
+            LocalState.set(cacheKey, state);
         },
         clear() {
-            LocalState.set(CACHE_BLUEPRINTS, { entities: {} });
+            LocalState.set(cacheKey, { entities: [], current: null });
 
-            return { entities: {} };
+            return { entities: [], current: null };
         },
     },
 });
 
 export const {
+    setCurrent: setCurrentTab,
     create: createTab,
     update: updateTab,
     delete: deleteTab,

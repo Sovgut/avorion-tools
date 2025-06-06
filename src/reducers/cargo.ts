@@ -1,38 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CACHE_CARGO, MAX_COMPONENT_QUANTITY } from "~constants/common";
+import { LocalState } from "@sovgut/state";
 import { CargoStoreState } from "~types/store";
 import {
   CargoCreateAction,
   CargoDeleteAction,
 } from "~types/store/actions/cargo";
-import { Commodity } from "~data/commodities/enums";
-import { LocalState } from "@sovgut/state";
+import { getCurrentCacheKey } from "~utils/get-cache";
+
+const cacheKey = getCurrentCacheKey('cargo');
 
 const cargoSlice = createSlice({
-  initialState: LocalState.get<CargoStoreState>(CACHE_CARGO, {
-    fallback: { entities: {} as Record<Commodity, number> },
-  }),
+  initialState: LocalState.get<CargoStoreState>(cacheKey, { fallback: { entities: {} as CargoStoreState['entities'] } }),
   name: "cargo",
   reducers: {
     create(state, action: CargoCreateAction) {
-      if (typeof state.entities[action.payload.type] === "number") {
-        if (
-          state.entities[action.payload.type] + action.payload.quantity >
-          MAX_COMPONENT_QUANTITY
-        ) {
-          state.entities[action.payload.type] = MAX_COMPONENT_QUANTITY;
-        } else {
-          state.entities[action.payload.type] += action.payload.quantity;
-        }
-      } else {
-        state.entities[action.payload.type] = action.payload.quantity;
-      }
+      state.entities[action.payload.type] = action.payload.quantity
+
+      LocalState.set(cacheKey, state);
     },
     delete(state, action: CargoDeleteAction) {
       delete state.entities[action.payload];
+
+      LocalState.set(cacheKey, state);
     },
     clear() {
-      return { entities: {} as Record<Commodity, number> };
+      LocalState.set(cacheKey, { entities: {} });
+
+      return { entities: {} as CargoStoreState['entities'] };
     },
   },
 });

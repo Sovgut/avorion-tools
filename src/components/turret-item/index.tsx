@@ -2,27 +2,26 @@ import {Card, Divider, Stack} from "@mui/joy";
 import {TurretHeader} from "~components/turret-item/turret-header";
 import {TurretOptions} from "~components/turret-item/turret-options";
 import {TurretComponents} from "~components/turret-item/turret-components";
-import {TurretEntity} from "~types/store/entity.ts";
+import { Turret as TurretEntity } from "~models/turret";
 
 type Props = {
-    id: string;
     entity: TurretEntity;
 }
 
-export function Turret({id, entity}: Props) {
+export function Turret({entity}: Props) {
     return (
         <Card sx={{height: "100%", width: '100%', flexShrink: 0, boxShadow: "sm", p: 0}}
               variant="soft">
-            <TurretHeader entity={entity} id={id}/>
+            <TurretHeader entity={entity} />
 
             <Divider/>
 
             <Stack spacing={2}>
-                <TurretOptions entity={entity} id={id}/>
+                <TurretOptions entity={entity} />
 
                 <Divider/>
 
-                <TurretComponents id={id}/>
+                <TurretComponents entity={entity} />
             </Stack>
         </Card>
     )

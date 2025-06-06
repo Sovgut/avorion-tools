@@ -15,14 +15,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useBreakpoint } from "~hooks/breakpoints";
 import { Commodity } from "~data/commodities/enums";
 import { serializeCommoditites } from "~utils/serialize-commodity";
+import { Turret } from "~models/turret";
+import { Component } from "~models/component";
 
-export function ComponentsTable() {
+interface Props {
+    turrets: Turret[];
+    components: Component[]
+}
+
+export function ComponentsTable({turrets, components: turretsComponents}: Props) {
     const [components, setComponents] = useState<Record<Commodity, number>>({} as Record<Commodity, number>);
     const [computations, setComputations] = useState<ReturnType<typeof computeComponents>>(initialComputationComponents);
 
     const intlContext = useContext(IntlContext);
-    const componentStore = useSelector((state: RootState) => state.component);
-    const turretStore = useSelector((state: RootState) => state.turret);
     const cargoStore = useSelector((state: RootState) => state.cargo);
     const worker = useMemo(() => computationWorker, []);
     const dispatch = useDispatch();
@@ -30,17 +35,18 @@ export function ComponentsTable() {
 
     useEffect(() => {
         async function performComputation() {
-            setComponents(await worker.uniteComponents(turretStore, componentStore));
-            setComputations(await worker.computeComponents(cargoStore, turretStore, componentStore));
+            setComponents(await worker.uniteComponents(turrets, turretsComponents));
+            setComputations(await worker.computeComponents(cargoStore, turrets, turretsComponents));
         }
 
-        performComputation().catch(() => {
+        performComputation().catch((error) => {
+            console.error("Error while computing components:", error);
             dispatch(clearTurrets());
             dispatch(clearComponents());
             dispatch(clearCargoComponents());
             dispatch(clearComponentsCheckbox());
         });
-    }, [cargoStore, componentStore, turretStore, worker, dispatch]);
+    }, [cargoStore, turrets, turretsComponents, worker, dispatch]);
 
     if (Object.keys(components).length === 0) {
         return null;

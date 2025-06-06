@@ -8,14 +8,10 @@ export const MAX_PRICE_PERCENTAGE = 3.00;
 export const MAX_CARGO_QUANTITY = 9_999_999;
 export const MIN_CARGO_QUANTITY = 1;
 
-export const CACHE_CHECKBOX = "cache:v4:checkbox";
-export const CACHE_CARGO = "cache:v4:cargo";
-export const CACHE_LANG = "cache:v4:lang";
-export const CACHE_TURRETS = "cache:v4:turrets";
-export const CACHE_COMPONENTS = "cache:v4:components";
-export const CACHE_THEME = "cache:v4:theme";
-export const CACHE_TABS = "cache:v4:tabs";
-export const CACHE_BLUEPRINTS = "cache:v4:blueprints";
+export const APP_VERSION = 5;
+
+export const CACHE_VERSION = `v${APP_VERSION}`;
+export const CACHE_PREVIOUS_VERSION = `v${APP_VERSION - 1}`;
 
 export const PAGE_ANIMATION_CONTROLS = {
     opacity: 0,

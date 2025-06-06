@@ -1,9 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { CommodityEntity } from "../entity";
+import { Commodity } from "~data/commodities/enums";
 
-export type CheckboxCreateAction = PayloadAction<
-  CommodityEntity | Omit<CommodityEntity, "quantity">
->;
-export type CheckboxDeleteAction = PayloadAction<
-  CommodityEntity | Omit<CommodityEntity, "quantity">
->;
+export type CheckboxCreateAction = PayloadAction<{ type: Commodity; value: boolean }>;
+export type CheckboxDeleteAction = PayloadAction<Commodity>;

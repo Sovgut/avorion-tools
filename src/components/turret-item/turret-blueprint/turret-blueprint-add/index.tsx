@@ -2,23 +2,20 @@ import { Button, DialogTitle, Divider, Input, Modal, ModalClose, ModalDialog, Op
 import { nanoid } from "nanoid";
 import { FormEventHandler, useCallback, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MIN_COMPONENT_QUANTITY } from "~constants/common";
 import { IntlContext } from "~contexts/intl";
 import { Rarity, RarityColor } from "~data/common";
 import { useBreakpoint } from "~hooks/breakpoints";
+import { Turret as TurretEntity } from "~models/turret";
 import { createBlueprint } from "~reducers/blueprint";
 import { RootState } from "~store";
-import { TurretEntity } from "~types/store/entity";
-import { serializeCommoditites } from "~utils/serialize-commodity";
 
 type Props = {
-    id: string;
     entity: TurretEntity;
     open: boolean;
     onClose: () => void;
 };
 
-export function TurretBlueprintAdd({ id, entity, open, onClose }: Props) {
+export function TurretBlueprintAdd({ entity, open, onClose }: Props) {
     const breakpoint = useBreakpoint();
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
@@ -42,24 +39,19 @@ export function TurretBlueprintAdd({ id, entity, open, onClose }: Props) {
         }
 
         const identity = nanoid();
-        const components = serializeCommoditites(Object.keys(componentStore.entities[id])).map(type => ({
-            type: Number(type),
-            quantity: componentStore.entities[id][type] ?? MIN_COMPONENT_QUANTITY,
-        }));
+
+        const turretComponents = componentStore.entities.filter(component => component.turret_id === entity.id);
 
         dispatch(createBlueprint({
-            identity,
-            entity: {
-                id: identity,
-                rarity: rarity as Rarity,
-                name: name.trim(),
-                reference: entity,
-                components: components,
-            }
+            id: identity,
+            rarity: rarity as Rarity,
+            name: name.trim(),
+            turret: entity,
+            components: turretComponents,
         }))
 
         onClose();
-    }, [dispatch, onClose, id, entity]);
+    }, [dispatch, onClose, entity]);
 
     return (
         <Modal open={open} onClose={onClose}>

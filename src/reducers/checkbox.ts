@@ -1,27 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CACHE_CHECKBOX } from "~constants/common";
+import { LocalState } from "@sovgut/state";
 import { CheckboxCommodityStoreState } from "~types/store";
 import {
   CheckboxCreateAction,
   CheckboxDeleteAction,
 } from "~types/store/actions/checkbox";
-import { Commodity } from "~data/commodities/enums";
-import { LocalState } from "@sovgut/state";
+import { getCurrentCacheKey } from "~utils/get-cache";
+
+const cacheKey = getCurrentCacheKey('checkbox');
 
 const checkboxSlice = createSlice({
-  initialState: LocalState.get<CheckboxCommodityStoreState>(CACHE_CHECKBOX, {
-    fallback: { entities: {} as Record<Commodity, true> },
-  }),
+  initialState: LocalState.get<CheckboxCommodityStoreState>(cacheKey, { fallback: { entities: {} as CheckboxCommodityStoreState['entities'] } }),
   name: "checkbox",
   reducers: {
     create(state, action: CheckboxCreateAction) {
-      state.entities[action.payload.type] = true;
+      state.entities[action.payload.type] = action.payload.value;
+      
+      LocalState.set(cacheKey, state);
     },
     delete(state, action: CheckboxDeleteAction) {
-      delete state.entities[action.payload.type];
+      delete state.entities[action.payload];
+      
+      LocalState.set(cacheKey, state);
     },
     clear() {
-      return { entities: {} as Record<Commodity, true> };
+      LocalState.set(cacheKey, { entities: {} });
+
+      return { entities: {} as CheckboxCommodityStoreState['entities'] };
     },
   },
 });

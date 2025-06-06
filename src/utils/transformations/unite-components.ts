@@ -1,26 +1,27 @@
 import { Commodity } from "~data/commodities/enums";
-import { CommodityStoreState, TurretStoreState } from "~types/store";
-import { serializeCommodity } from "~utils/serialize-commodity";
+import { Component } from "~models/component";
+import { Turret } from "~models/turret";
 
 export function uniteComponents(
-  turrets: TurretStoreState,
-  components: CommodityStoreState
+  turrets: Turret[],
+  components: Component[]
 ): Record<Commodity, number> {
   const result: Record<Commodity, number> = {} as Record<Commodity, number>;
 
-  for (const id of Object.keys(components.entities)) {
-    if (typeof turrets.entities[id].enabled === 'boolean' && !turrets.entities[id].enabled) {
+  for (const turret of turrets) {
+    if (typeof turret.enabled === 'boolean' && !turret.enabled) {
       continue;
     }
 
-    for (const type of Object.keys(components.entities[id])) {
-      const commidity = serializeCommodity(type);
-      const quantity = components.entities[id][commidity];
+    for (const component of components) {
+      if (component.turret_id !== turret.id) {
+        continue;
+      }
 
-      if (typeof result[commidity] === "number") {
-        result[commidity] += quantity * turrets.entities[id].quantity;
+      if (typeof result[component.type] === "number") {
+        result[component.type] += component.quantity * turret.quantity;
       } else {
-        result[commidity] = quantity * turrets.entities[id].quantity;
+        result[component.type] = component.quantity * turret.quantity;
       }
     }
   }

@@ -1,9 +1,9 @@
 import {createContext, Dispatch, ReactNode, SetStateAction, useEffect, useLayoutEffect, useState} from "react";
-import {CACHE_LANG} from "~constants/common";
 import {IntlLabel, LanguageType} from "~contexts/intl/storage/types";
 import {INTL_STORAGE} from "~contexts/intl/storage";
 import { LocalState } from "@sovgut/state";
 import { SUPPORTED_LANGUAGES } from "./constants";
+import { getCurrentCacheKey } from "~utils/get-cache";
 
 type Context = {
     language: LanguageType;
@@ -25,7 +25,7 @@ export function IntlContextProvider({children}: Props) {
     const [language, setLanguage] = useState<LanguageType>("en-US");
 
     useLayoutEffect(() => {
-        const language = LocalState.get(CACHE_LANG, { fallback: window.navigator.language as LanguageType });
+        const language = LocalState.get(getCurrentCacheKey('lang'), { fallback: window.navigator.language as LanguageType });
 
         if (SUPPORTED_LANGUAGES.includes(language)) {
             setLanguage(language);
@@ -33,7 +33,7 @@ export function IntlContextProvider({children}: Props) {
     }, [])
 
     useEffect(() => {
-        LocalState.set(CACHE_LANG, language);
+        LocalState.set(getCurrentCacheKey('lang'), language);
     }, [language]);
 
     function text<Scope extends keyof IntlLabel>(scope: Scope, label: IntlLabel[Scope]): string {

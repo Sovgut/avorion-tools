@@ -1,13 +1,15 @@
 import { Commodity } from "~data/commodities/enums.ts";
-import { Identity } from "./common.ts";
-import { BlueprintEntity, TabEntity, TurretEntity } from "./entity.ts";
+import { Tab } from "~models/tab.ts";
+import { Blueprint } from "~models/blueprint.ts";
+import { Component } from "~models/component.ts";
+import { Turret } from "~models/turret.ts";
 
 export interface TurretStoreState {
-  entities: Record<Identity, TurretEntity>;
+  entities: Turret[];
 }
 
-export interface CommodityStoreState {
-  entities: Record<Identity, Record<Commodity, number>>;
+export interface ComponentStoreState {
+  entities: Component[];
 }
 
 export interface CargoStoreState {
@@ -15,13 +17,14 @@ export interface CargoStoreState {
 }
 
 export interface CheckboxCommodityStoreState {
-  entities: Record<Commodity, true>;
+  entities: Record<Commodity, boolean>;
 }
 
 export interface BlueprintStoreState {
-  entities: Record<Identity, BlueprintEntity>;
+  entities: Blueprint[];
 }
 
 export interface TabStoreState {
-  entities: Record<Identity, TabEntity>;
+  entities: Tab[];
+  current: Tab | null;
 }

@@ -4,7 +4,6 @@ import { IntlContext } from "~contexts/intl";
 import { Box, Divider, Dropdown, IconButton, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Tooltip, Typography, } from "@mui/joy";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTurret, updateTurret } from "~reducers/turret";
-import { TurretEntity } from "~types/store/entity.ts";
 import { deleteComponent, updateComponent } from "~reducers/component.ts";
 import { RootState } from "~store";
 import {
@@ -16,18 +15,17 @@ import {
 import { clearComponentsCheckbox } from "~reducers/checkbox.ts";
 import { TurretIcon } from "~components/turret-icon";
 import { AnimationControlContext } from "~contexts/animation-control";
-import { serializeCommoditites } from "~utils/serialize-commodity";
 import { SxProps } from "@mui/joy/styles/types";
 import { TurretBlueprintAdd } from "../turret-blueprint/turret-blueprint-add";
 import { TurretBlueprintList } from "../turret-blueprint/turret-blueprint-list";
 import { TurretBlueprintModals } from "../turret-blueprint/types";
+import { Turret as TurretEntity } from "~models/turret";
 
 type Props = {
-    id: string;
     entity: TurretEntity;
 };
 
-export function TurretHeader({ id, entity }: Props) {
+export function TurretHeader({ entity }: Props) {
     const [modals, setModals] = useState<TurretBlueprintModals>({ blueprintAdd: false, blueprintList: false });
 
     const intlContext = useContext(IntlContext);
@@ -37,7 +35,7 @@ export function TurretHeader({ id, entity }: Props) {
     const controls = useContext(AnimationControlContext);
     const blueprints = useSelector((state: RootState) => state.blueprint.entities);
     
-    const blueprintsList = useMemo(() => Object.values(blueprints).filter(blueprint => blueprint.reference.type === entity.type), [blueprints, entity.type]);
+    const blueprintsList = useMemo(() => Object.values(blueprints).filter(blueprint => blueprint.turret.type === entity.type), [blueprints, entity.type]);
     const hasBlueprints = blueprintsList.length > 0;
 
     const sx: SxProps = { opacity: 1, cursor: "pointer", userSelect: "none" };
@@ -55,21 +53,28 @@ export function TurretHeader({ id, entity }: Props) {
 
     function performStateCleanup() {
         dispatch(clearComponentsCheckbox());
-        dispatch(deleteComponent({ identity: id }));
-        dispatch(deleteTurret({ identity: id }));
+        dispatch(deleteTurret(entity.id));
+
+        const turretComponents = componentStore.entities.filter(component => component.turret_id === entity.id);
+
+        turretComponents.forEach(component => {
+            dispatch(deleteComponent(component.id));
+        });
     }
 
     function resetToDefaultValues() {
         dispatch(updateTurret({
-            identity: id,
-            entity: { ...entity, quantity: MIN_TURRET_QUANTITY, price: MIN_TURRET_PRICE, location: { x: 0, y: 0 } }
+            ...entity,
+            quantity: MIN_TURRET_QUANTITY,
+            price: MIN_TURRET_PRICE, 
+            location: { x: 0, y: 0 }
         }));
 
-        (serializeCommoditites(Object.keys(componentStore.entities[id])))
-            .forEach(type => dispatch(updateComponent({
-                identity: id,
-                entity: { type, quantity: MIN_COMPONENT_QUANTITY }
-            })));
+        const turretComponents = componentStore.entities.filter(component => component.turret_id === entity.id);
+
+        turretComponents.forEach(component => {
+            dispatch(updateComponent({ ...component, quantity: MIN_COMPONENT_QUANTITY }));
+        });
     }
 
     function handleToggleTurretEnabled(e: MouseEvent<HTMLDivElement>) {
@@ -77,8 +82,8 @@ export function TurretHeader({ id, entity }: Props) {
 
         const newEnabledState = typeof entity.enabled === 'undefined' ? false : !entity.enabled;
         dispatch(updateTurret({
-            identity: id,
-            entity: { ...entity, enabled: newEnabledState }
+            ...entity,
+            enabled: newEnabledState,
         }));
     }
 
@@ -146,8 +151,8 @@ export function TurretHeader({ id, entity }: Props) {
                 </Stack>
             </Stack>
 
-            <TurretBlueprintAdd id={id} entity={entity} open={modals.blueprintAdd} onClose={() => setModals(state => ({...state, blueprintAdd: false}))} />
-            <TurretBlueprintList id={id} entity={entity} open={modals.blueprintList} onClose={() => setModals(state => ({...state, blueprintList: false}))} />
+            <TurretBlueprintAdd entity={entity} open={modals.blueprintAdd} onClose={() => setModals(state => ({...state, blueprintAdd: false}))} />
+            <TurretBlueprintList entity={entity} open={modals.blueprintList} onClose={() => setModals(state => ({...state, blueprintList: false}))} />
         </Box>
     );
 }

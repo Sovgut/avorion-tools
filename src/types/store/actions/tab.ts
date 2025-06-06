@@ -1,13 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Identity } from "../common.ts";
-import { TabEntity } from "../entity.ts";
+import { Tab } from "~models/tab";
 
-export type TabCreateAction = PayloadAction<{
-  identity: Identity;
-  entity: TabEntity;
-}>;
-export type TabUpdateAction = PayloadAction<{
-  identity: Identity;
-  entity: TabEntity;
-}>;
-export type TabDeleteAction = PayloadAction<{ identity: Identity }>;
+export type TabCreateAction = PayloadAction<Tab>;
+export type TabUpdateAction = PayloadAction<Tab>;
+export type TabDeleteAction = PayloadAction<string>;

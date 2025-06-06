@@ -6,28 +6,28 @@ import { MIN_TURRET_QUANTITY } from "~constants/common";
 import { IntlContext } from "~contexts/intl";
 import { Rarity, RarityColor } from "~data/common";
 import { useBreakpoint } from "~hooks/breakpoints";
+import { Blueprint } from "~models/blueprint";
+import { Turret as TurretEntity } from "~models/turret";
 import { deleteBlueprint } from "~reducers/blueprint";
 import { updateComponent } from "~reducers/component";
 import { updateTurret } from "~reducers/turret";
 import { RootState } from "~store";
-import { BlueprintEntity, TurretEntity } from "~types/store/entity";
 
 type Props = {
-    id: string;
     entity: TurretEntity;
     open: boolean;
     onClose: () => void;
 };
 
-export function TurretBlueprintList({ id, entity, open, onClose }: Props) {
+export function TurretBlueprintList({ entity, open, onClose }: Props) {
     const intlContext = useContext(IntlContext);
     const dispatch = useDispatch();
     const breakpoint = useBreakpoint();
     const blueprints = useSelector((state: RootState) => state.blueprint.entities);
 
-    const blueprintsList = useMemo(() => Object.values(blueprints).filter(blueprint => blueprint.reference.type === entity.type), [blueprints, entity.type]);
+    const blueprintsList = useMemo(() => Object.values(blueprints).filter(blueprint => blueprint.turret.type === entity.type), [blueprints, entity.type]);
 
-    const getBlueprintRarityColor = useCallback((blueprint: BlueprintEntity) => {
+    const getBlueprintRarityColor = useCallback((blueprint: Blueprint) => {
         switch (blueprint.rarity) {
             case Rarity.Petty:
                 return RarityColor.Petty;
@@ -48,29 +48,23 @@ export function TurretBlueprintList({ id, entity, open, onClose }: Props) {
         }
     }, [])
 
-    const onDelete = useCallback((identity: string) => {
-        dispatch(deleteBlueprint({ identity }));
+    const onDelete = useCallback((id: string) => {
+        dispatch(deleteBlueprint(id));
 
         if (blueprintsList.length === 1) {
             onClose();
         }
     }, [dispatch, blueprintsList.length, onClose]);
 
-    const onLoad = useCallback((blueprint: BlueprintEntity) => {
-        dispatch(updateTurret({
-            identity: id,
-            entity: { ...blueprint.reference, enabled: true, quantity: MIN_TURRET_QUANTITY }
-        }))
+    const onLoad = useCallback((blueprint: Blueprint) => {
+        dispatch(updateTurret({ ...blueprint.turret, enabled: true, quantity: MIN_TURRET_QUANTITY }))
 
-        blueprint.components.forEach(({ type, quantity }) => {
-            dispatch(updateComponent({
-                identity: id,
-                entity: { type: Number(type), quantity: Number(quantity) }
-            }));
+        blueprint.components.forEach((component) => {
+            dispatch(updateComponent(component));
         });
 
         onClose();
-    }, [dispatch, id, onClose]);
+    }, [dispatch, onClose]);
 
     return (
         <Modal open={open} onClose={onClose}>

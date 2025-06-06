@@ -1,40 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CACHE_COMPONENTS } from "~constants/common";
-import { CommodityStoreState } from "~types/store";
+import { ComponentStoreState } from "~types/store";
 import {
   ComponentCreateAction,
   ComponentDeleteAction,
   ComponentUpdateAction,
 } from "~types/store/actions/component";
-import { Commodity } from "~data/commodities/enums";
+import { getCurrentCacheKey } from "~utils/get-cache";
 import { LocalState } from "@sovgut/state";
 
+const cacheKey = getCurrentCacheKey('components');
+
 const componentSlice = createSlice({
-  initialState: LocalState.get<CommodityStoreState>(CACHE_COMPONENTS, {
-    fallback: { entities: {} },
+  initialState: LocalState.get<ComponentStoreState>(cacheKey, { 
+    fallback: { entities: [] } 
   }),
   name: "component",
   reducers: {
     create(state, action: ComponentCreateAction) {
-      if (!state.entities[action.payload.identity]) {
-        state.entities[action.payload.identity] = {} as Record<
-          Commodity,
-          number
-        >;
-      }
+      state.entities.push(action.payload)
 
-      state.entities[action.payload.identity][action.payload.entity.type] =
-        action.payload.entity.quantity;
+      LocalState.set(cacheKey, state);
     },
     update(state, action: ComponentUpdateAction) {
-      state.entities[action.payload.identity][action.payload.entity.type] =
-        action.payload.entity.quantity;
+      state.entities = state.entities.map(entity => {
+        if (entity.id !== action.payload.id) {
+          return entity;
+        }
+
+        return action.payload;
+      });
+
+      LocalState.set(cacheKey, state);
     },
     delete(state, action: ComponentDeleteAction) {
-      delete state.entities[action.payload.identity];
+      state.entities = state.entities.filter(entity => entity.id !== action.payload);
+
+      LocalState.set(cacheKey, state);
     },
     clear() {
-      return { entities: {} };
+      LocalState.set(cacheKey, {
+        entities: [],
+      });
+
+      return { entities: [] };
     },
   },
 });

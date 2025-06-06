@@ -1,6 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { CommodityEntity } from "../entity";
 import { Commodity } from "~data/commodities/enums";
 
-export type CargoCreateAction = PayloadAction<CommodityEntity>;
+export type CargoCreateAction = PayloadAction<{ type: Commodity; quantity: number }>;
 export type CargoDeleteAction = PayloadAction<Commodity>;

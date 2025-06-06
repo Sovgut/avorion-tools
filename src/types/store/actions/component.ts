@@ -1,13 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Identity } from "../common.ts";
-import { CommodityEntity } from "../entity.ts";
+import { Component } from "~models/component.ts";
 
-export type ComponentCreateAction = PayloadAction<{
-  identity: Identity;
-  entity: CommodityEntity;
-}>;
-export type ComponentUpdateAction = PayloadAction<{
-  identity: Identity;
-  entity: CommodityEntity;
-}>;
-export type ComponentDeleteAction = PayloadAction<{ identity: Identity }>;
+export type ComponentCreateAction = PayloadAction<Component>;
+export type ComponentUpdateAction = PayloadAction<Component>;
+export type ComponentDeleteAction = PayloadAction<string>;

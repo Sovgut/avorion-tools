@@ -16,8 +16,6 @@
 
 .component .layout {
     display: flex;
-    padding-top: 8px;
-    gap: 8px;
 }
 
 .component .itemsList {
@@ -41,6 +39,7 @@
     flex: min-content 1 1;
 
     gap: 8px;
+    margin-bottom: 8px;
 }
 
 .component .tableList .table {

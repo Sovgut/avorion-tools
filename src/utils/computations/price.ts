@@ -1,13 +1,8 @@
-import { Commodity } from "~data/commodities/enums";
 import { CommodityMetadata } from "~data/commodities/metadata";
 import { MAX_PRICE_PERCENTAGE } from "~constants/common";
-import {
-  CargoStoreState,
-  CommodityStoreState,
-  TurretStoreState,
-} from "~types/store";
-import { TurretEntity } from "~types/store/entity.ts";
-import { serializeCommodity } from "~utils/serialize-commodity";
+import { CargoStoreState } from "~types/store";
+import { Turret } from "~models/turret";
+import { Component } from "~models/component";
 
 export const initialComputationComponents = {
   min: 0,
@@ -18,43 +13,39 @@ export const initialComputationComponents = {
 
 export function computeComponents(
   cargoStore: CargoStoreState,
-  turretStore: TurretStoreState,
-  componentStore: CommodityStoreState
+  turretStore: Turret[],
+  componentStore: Component[]
 ) {
   const result = { ...initialComputationComponents };
 
-  for (const id of Object.keys(componentStore.entities)) {
-    if (typeof turretStore.entities[id].enabled === 'boolean' && !turretStore.entities[id].enabled) {
+  for (const turret of turretStore) {
+    if (typeof turret.enabled === 'boolean' && !turret.enabled) {
       continue;
     }
 
-    const turret: TurretEntity = turretStore.entities[id];
-    const components: Record<Commodity, number> = componentStore.entities[id];
+    for (const component of componentStore) {
+      if (component.turret_id !== turret.id) {
+        continue;
+      }
 
-    for (const type in components) {
-      const commodity = serializeCommodity(type);
-      const componentQuantity: number = components[commodity];
-      const cargoQuantity: number = cargoStore.entities[commodity];
+      const componentQuantity: number = component.quantity * turret.quantity;
+      const cargoQuantity: number = cargoStore.entities[component.type] || 0;
 
       let priceValue = 0;
       let volumeValue = 0;
 
       if (cargoQuantity) {
-        const quantity = componentQuantity * turret.quantity - cargoQuantity;
+        const quantity = componentQuantity - cargoQuantity;
 
         priceValue =
-          CommodityMetadata[commodity].price * (quantity < 0 ? 0 : quantity);
+          CommodityMetadata[component.type].price * (quantity < 0 ? 0 : quantity);
         volumeValue =
-          CommodityMetadata[commodity].volume * (quantity < 0 ? 0 : quantity);
+          CommodityMetadata[component.type].volume * (quantity < 0 ? 0 : quantity);
       } else {
         priceValue =
-          CommodityMetadata[commodity].price *
-          componentQuantity *
-          turret.quantity;
+          CommodityMetadata[component.type].price * componentQuantity;
         volumeValue =
-          CommodityMetadata[commodity].volume *
-          componentQuantity *
-          turret.quantity;
+          CommodityMetadata[component.type].volume * componentQuantity;
       }
 
       result.min += priceValue;
@@ -64,17 +55,17 @@ export function computeComponents(
     }
   }
 
-  for (const id of Object.keys(turretStore.entities)) {
-    if (typeof turretStore.entities[id].enabled === 'boolean' && !turretStore.entities[id].enabled) {
+  for (const turret of turretStore) {
+    if (typeof turret.enabled === 'boolean' && !turret.enabled) {
       continue;
     }
-    
+
     result.min +=
-      turretStore.entities[id].price * turretStore.entities[id].quantity;
+      turret.price * turret.quantity;
     result.max +=
-      turretStore.entities[id].price * turretStore.entities[id].quantity;
+      turret.price * turret.quantity;
     result.avg +=
-      turretStore.entities[id].price * turretStore.entities[id].quantity;
+      turret.price * turret.quantity;
   }
 
   return result;

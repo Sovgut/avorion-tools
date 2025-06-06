@@ -11,13 +11,13 @@ import { Provider } from "react-redux";
 import { TurretPlannerPage } from "~pages/turret-planner";
 import { GettingStartedPage } from "~pages/getting-started";
 import { IntlContextProvider } from "~contexts/intl";
-import { CACHE_THEME } from "~constants/common";
 import { App } from "~layouts/app";
 import { store } from "~store";
 import { AnimatePresence } from "framer-motion";
 import { AnimationControlContextProvider } from "~contexts/animation-control";
 import { FactoriesPage } from "~pages/factories";
 import { GlobalSearchProvider } from "~components/search/provider";
+import { getCurrentCacheKey } from "~utils/get-cache";
 
 const theme = extendTheme({
   colorSchemes: {
@@ -86,7 +86,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <CssVarsProvider
       theme={theme}
       defaultMode="dark"
-      modeStorageKey={CACHE_THEME}
+      modeStorageKey={getCurrentCacheKey("theme")}
       disableNestedContext
     >
       <CssBaseline />

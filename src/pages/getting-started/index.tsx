@@ -1,10 +1,9 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~store";
 import { Box, Card, Container, Link, Typography } from "@mui/joy";
 import { GettingStartedLayout } from "~layouts/getting-started";
-import styles from "./styles.module.css";
 import { clsx } from "clsx";
 import { TurretPicker } from "~components/turret-picker";
 import { Center } from "~components/center";
@@ -16,19 +15,25 @@ import {
   PAGE_ANIMATION_INITIAL,
 } from "~constants/common.ts";
 
+import styles from "./styles.module.css";
+import { setCurrentTab } from "~reducers/tab";
+
 export function GettingStartedPage() {
   const navigate = useNavigate();
-  const turretStore = useSelector((state: RootState) => state.turret);
+  const dispatch = useDispatch();
+  const tabStore = useSelector((state: RootState) => state.tab);
   const controls = useContext(AnimationControlContext);
 
   useEffect(() => {
-    if (Object.keys(turretStore.entities).length > 0) {
+    if (tabStore.current && tabStore.current !== null) {
       controls?.start(PAGE_ANIMATION_CONTROLS).then(() => {
         window.scrollTo(0, 0);
         navigate("/turret-planner", { replace: true });
       });
+    } else if (tabStore.entities.length !== 0) {
+      dispatch(setCurrentTab(tabStore.entities[0]))
     }
-  }, [controls, navigate, turretStore]);
+  }, [controls, navigate, tabStore]);
 
   const componentClasses = clsx({
     [styles.animation]: true,
