@@ -39,7 +39,6 @@ export function TurretBlueprintAdd({ entity, open, onClose }: Props) {
         }
 
         const identity = nanoid();
-
         const turretComponents = componentStore.entities.filter(component => component.turret_id === entity.id);
 
         dispatch(createBlueprint({
