@@ -65,9 +65,9 @@ export function TurretBlueprintAdd({ entity, open, onClose }: Props) {
                         <Option value={Rarity.Exotic} sx={{ color: RarityColor.Exotic }}>{intlContext.text("UI", "rarity-exotic")}</Option>
                         <Option value={Rarity.Exceptional} sx={{ color: RarityColor.Exceptional }}>{intlContext.text("UI", "rarity-exceptional")}</Option>
                         <Option value={Rarity.Rare} sx={{ color: RarityColor.Rare }}>{intlContext.text("UI", "rarity-rare")}</Option>
-                        <Option value={Rarity.Uncommon} sx={{ color: Rarity.Uncommon }}>{intlContext.text("UI", "rarity-uncommon")}</Option>
-                        <Option value={Rarity.Common} sx={{ color: Rarity.Common }}>{intlContext.text("UI", "rarity-common")}</Option>
-                        <Option value={Rarity.Petty} sx={{ color: Rarity.Petty }}>{intlContext.text("UI", "rarity-petty")}</Option>
+                        <Option value={Rarity.Uncommon} sx={{ color: RarityColor.Uncommon }}>{intlContext.text("UI", "rarity-uncommon")}</Option>
+                        <Option value={Rarity.Common} sx={{ color: RarityColor.Common }}>{intlContext.text("UI", "rarity-common")}</Option>
+                        <Option value={Rarity.Petty} sx={{ color: RarityColor.Petty }}>{intlContext.text("UI", "rarity-petty")}</Option>
                     </Select>
                     <Button type="submit">{intlContext.text("UI", "blueprint-add-submit")}</Button>
                 </Stack>
