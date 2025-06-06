@@ -104,8 +104,8 @@ export function TurretPlannerPage() {
                         }}>
                             <TabList sx={{ overflow: 'auto', scrollSnapType: 'x mandatory' }}>
                                 {tabStore.entities.map((tab) => (
-                                    <Tab value={tab.id} sx={{ flex: 'none', scrollSnapAlign: 'start' }}>
-                                        <Typography>
+                                    <Tab value={tab.id} component="div" role="button" key={tab.id} sx={{ flex: 'none', scrollSnapAlign: 'start' }}>
+                                        <Typography fontWeight={tabStore.current?.id === tab.id ? "600" : "400"}>
                                             {tab.name}
                                         </Typography>
 
@@ -125,7 +125,7 @@ export function TurretPlannerPage() {
                             </TabList>
 
                             {tabStore.entities.map((tab) => (
-                                <TabPanel value={tab.id}>
+                                <TabPanel value={tab.id} key={tab.id}>
                                     <Box className={styles.tableList}>
                                         <Box className={styles.table}>
                                             <ComponentsTable turrets={tabTurrets} components={tabComponents} />
