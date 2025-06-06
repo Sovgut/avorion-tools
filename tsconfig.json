@@ -73,6 +73,9 @@
       ],
       "~data/*": [
         "src/data/*"
+      ],
+      "~models/*": [
+        "src/models/*"
       ]
     }
   },
