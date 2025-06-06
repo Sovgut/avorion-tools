@@ -24,6 +24,7 @@ export function TurretBlueprintList({ entity, open, onClose }: Props) {
     const dispatch = useDispatch();
     const breakpoint = useBreakpoint();
     const blueprints = useSelector((state: RootState) => state.blueprint.entities);
+    const componentsStore = useSelector((state: RootState) => state.component.entities);
 
     const blueprintsList = useMemo(() => Object.values(blueprints).filter(blueprint => blueprint.turret.type === entity.type), [blueprints, entity.type]);
 
@@ -57,14 +58,21 @@ export function TurretBlueprintList({ entity, open, onClose }: Props) {
     }, [dispatch, blueprintsList.length, onClose]);
 
     const onLoad = useCallback((blueprint: Blueprint) => {
-        dispatch(updateTurret({ ...blueprint.turret, enabled: true, quantity: MIN_TURRET_QUANTITY }))
+        const turretComponents = componentsStore.filter(component => component.turret_id === entity.id);
+
+        dispatch(updateTurret({ ...blueprint.turret, id: entity.id, tab_id: entity.tab_id, enabled: true, quantity: MIN_TURRET_QUANTITY }))
 
         blueprint.components.forEach((component) => {
-            dispatch(updateComponent(component));
+            const existingComponent = turretComponents.find(c => c.type === component.type);
+            
+            if (existingComponent) {
+                dispatch(updateComponent({...existingComponent, quantity: component.quantity}));
+                return;
+            }
         });
 
         onClose();
-    }, [dispatch, onClose]);
+    }, [dispatch, onClose, componentsStore]);
 
     return (
         <Modal open={open} onClose={onClose}>
