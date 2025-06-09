@@ -126,7 +126,11 @@ export function ComponentItemModal({
                   <Buttoneble onClick={() => window.open(StationMetadata[station].link, "_blank")}>
                     <LinkOutlined />
                   </Buttoneble>
-                  <Buttoneble onClick={() => navigate(`/factories?station=${station}`)}>
+                  <Buttoneble onClick={() => {
+                    if (station !== Station.TurretFactorySupplier) {
+                      navigate(`/factories?station=${station}`)
+                    }
+                  }}>
 
                     {intlContext.text("STATION", station)}
                   </Buttoneble>
@@ -147,7 +151,11 @@ export function ComponentItemModal({
                 <Buttoneble onClick={() => window.open(StationMetadata[station].link, "_blank")}>
                   <LinkOutlined />
                 </Buttoneble>
-                <Buttoneble onClick={() => navigate(`/factories?station=${station}`)}>
+                <Buttoneble onClick={() => {
+                  if (station !== Station.TurretFactorySupplier) {
+                    navigate(`/factories?station=${station}`)
+                  }
+                }}>
 
                   {intlContext.text("STATION", station)}
                 </Buttoneble>

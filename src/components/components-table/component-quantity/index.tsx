@@ -15,6 +15,7 @@ type Props = {
 export function ComponentItemQuantity({type, value}: Props) {
     const cargo = useSelector((state: RootState) => state.cargo);
     const quantity = useMemo(() => computeQuantity(cargo.entities[type], value), [cargo, type, value]);
+    const checkbox = useSelector((state: RootState) => state.checkbox);
     const breakpoint = useBreakpoint();
 
     let fontSize: "md" | number = "md";
@@ -31,7 +32,7 @@ export function ComponentItemQuantity({type, value}: Props) {
     return (
         <td align="right" style={{paddingLeft: 0, paddingRight: 16}}>
             <Stack direction="row" spacing={1} justifyContent="flex-end" alignItems="center">
-                <Typography fontSize={fontSize} color={color} fontFamily="monospace">
+                <Typography fontSize={fontSize} color={color} fontFamily="monospace" sx={{ textDecoration: !!checkbox.entities[type] ? "line-through" : "none", opacity: !!checkbox.entities[type] ? 0.5 : 1 }}>
                     {quantity.toLocaleString()}
                 </Typography>
                 <ComponentItemAction type={type}/>

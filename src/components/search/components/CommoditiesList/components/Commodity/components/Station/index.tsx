@@ -8,6 +8,7 @@ import { ButtonebleGrouble } from "~components/UI/ButtonebleGrouble/ButtonebleGr
 import { Copiable } from "~components/UI/Copiable/Copiable";
 import { Buttoneble } from "~components/UI/Buttoneble/Buttoneble";
 import { StationMetadata } from "~data/stations/metadata";
+import { Station } from "~data/stations/enums";
 
 export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
   (props) => {
@@ -21,7 +22,11 @@ export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
           <Buttoneble onClick={() => window.open(StationMetadata[props.station].link, "_blank")}>
             <LinkOutlined />
           </Buttoneble>
-          <Buttoneble onClick={() => navigate(`/factories?station=${props.station}`)}>
+          <Buttoneble onClick={() => {
+            if (props.station !== Station.TurretFactorySupplier) {
+              navigate(`/factories?station=${props.station}`)
+            }
+          }}>
             <Typography level="title-md">
               {intlContext.text("STATION", props.station)}
             </Typography>
