@@ -11,22 +11,17 @@ import {
   useState,
 } from "react";
 import { Commodity } from "~data/commodities/enums";
-import { Station } from "~data/stations/enums";
 import { IntlContext } from "~contexts/intl";
 import { INTL_STORAGE } from "~contexts/intl/storage";
 import { serializeCommoditites } from "~utils/serialize-commodity";
-import { serializeStations } from "~utils/serialize-station";
-import { StationsList } from "./components/StationsList";
 import { CommoditiesList } from "./components/CommoditiesList";
 import { useGlobalSearch } from "./hook/use-global-search";
+import { CommodityMetadata } from "~data/commodities/metadata";
 
 export const GlobalSearch: FC = memo(() => {
   const [search, setSearch] = useState<string>(String());
   const [commodities, setCommodities] = useState<Commodity[]>(
     serializeCommoditites(Object.keys(Commodity)),
-  );
-  const [stations, setStations] = useState<Station[]>(
-    serializeStations(Object.keys(Station)),
   );
   const globalSearch = useGlobalSearch();
   const intlContext = useContext(IntlContext);
@@ -63,7 +58,6 @@ export const GlobalSearch: FC = memo(() => {
   const processSearch = useCallback(
     (value: string) => {
       if (value.length === 0) {
-        setStations(serializeStations(Object.keys(Station)));
         setCommodities(serializeCommoditites(Object.keys(Commodity)));
 
         if (value !== search) {
@@ -78,34 +72,39 @@ export const GlobalSearch: FC = memo(() => {
       }
 
       {
-        const array = serializeStations(
-          Object.keys(INTL_STORAGE.STATION[intlContext.language]),
-        ).map((key) => ({
-          key: INTL_STORAGE.STATION[intlContext.language][key],
-          value: key,
-        }));
-        const found = array.filter((station) =>
-          station.key.toLowerCase().includes(value.toLowerCase()),
+        const commodities = Object.keys(CommodityMetadata).map(Number) as Commodity[];
+        const foundCommodity = commodities.filter((commodity) =>
+          INTL_STORAGE.COMMODITY[intlContext.language][commodity]
+            .toLowerCase()
+            .includes(value.toLowerCase())
         );
 
-        setStations(found.map((seller) => seller.value));
-      }
+        const foundCommodityStations = commodities.filter((commodity) => {
+          const result = CommodityMetadata[commodity].stations.some((station) => {
+            const result = INTL_STORAGE.STATION[intlContext.language][station]
+              .toLowerCase()
+              .includes(value.toLowerCase())
 
-      {
-        const array = serializeCommoditites(
-          Object.keys(INTL_STORAGE.COMMODITY[intlContext.language]),
-        ).map((key) => ({
-          key: INTL_STORAGE.COMMODITY[intlContext.language][key],
-          value: key,
-        }));
-        const found = array.filter((commodity) =>
-          commodity.key.toLowerCase().includes(value.toLowerCase()),
-        );
+            if (result) {
+              console.log(
+              `Searching for commodity ${INTL_STORAGE.COMMODITY[intlContext.language][commodity]} in station ${INTL_STORAGE.STATION[intlContext.language][station]} with ${value}: ${result}`,)
+            }
 
-        setCommodities(found.map((commodity) => commodity.value));
+            return result;
+          });
+
+          return result;
+        });
+
+        const uniqueValue = new Set([
+          ...foundCommodity,
+          ...foundCommodityStations,
+        ])
+
+        setCommodities(Array.from(uniqueValue));
       }
     },
-    [intlContext.language, setStations, setCommodities, search],
+    [intlContext.language, setCommodities, search],
   );
 
   const onSearchChange: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -145,7 +144,7 @@ export const GlobalSearch: FC = memo(() => {
             zIndex: 9999,
           }}
           onClick={() =>
-            commodities.length === 0 && stations.length === 0 && onModalClose()
+            commodities.length === 0 && onModalClose()
           }
         >
           <Stack direction="row" sx={{ height: "100%" }}>
@@ -153,11 +152,6 @@ export const GlobalSearch: FC = memo(() => {
               sx={{ height: "100%", width: "100%", p: 1, overflowY: "auto" }}
             >
               <CommoditiesList commodities={commodities} />
-            </Box>
-            <Box
-              sx={{ height: "100%", width: "100%", p: 1, overflowY: "auto" }}
-            >
-              <StationsList stations={stations} />
             </Box>
           </Stack>
         </Box>

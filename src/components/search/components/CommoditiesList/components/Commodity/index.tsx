@@ -42,13 +42,15 @@ export const SearchCommodity: FC<ISearchCommodity> = memo((props) => {
       </Box>
 
       <CardContent>
-        {CommodityMetadata[props.commodity].stations.map((station) => (
+        <Stack gap={1} direction="row" flexWrap="wrap">
+          {CommodityMetadata[props.commodity].stations.map((station) => (
           <SearchCommodityStation
             key={`${props.commodity}-${station}`}
             commodity={props.commodity}
             station={station}
           />
         ))}
+        </Stack>
       </CardContent>
     </Card>
   );

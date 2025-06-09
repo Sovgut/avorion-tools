@@ -1,7 +1,7 @@
 import { MouseEvent, useContext, useMemo, useState } from "react";
 import { Close, ListAlt, MoreVert as MoreIcon, PlaceOutlined, PostAdd, RestartAlt } from "@mui/icons-material";
 import { IntlContext } from "~contexts/intl";
-import { Box, Divider, Dropdown, IconButton, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, Tooltip, Typography, } from "@mui/joy";
+import { Box, Dropdown, ListItemDecorator, Menu, MenuButton, MenuItem, Stack, } from "@mui/joy";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTurret, updateTurret } from "~reducers/turret";
 import { deleteComponent, updateComponent } from "~reducers/component.ts";
@@ -15,11 +15,14 @@ import {
 import { clearComponentsCheckbox } from "~reducers/checkbox.ts";
 import { TurretIcon } from "~components/turret-icon";
 import { AnimationControlContext } from "~contexts/animation-control";
-import { SxProps } from "@mui/joy/styles/types";
 import { TurretBlueprintAdd } from "../turret-blueprint/turret-blueprint-add";
 import { TurretBlueprintList } from "../turret-blueprint/turret-blueprint-list";
 import { TurretBlueprintModals } from "../turret-blueprint/types";
 import { Turret as TurretEntity } from "~models/turret";
+import { Toggleble } from "~components/UI/Toggleble/Toggleble";
+import { Buttoneble } from "~components/UI/Buttoneble/Buttoneble";
+import { ButtonebleGrouble } from "~components/UI/ButtonebleGrouble/ButtonebleGrouble";
+import { Copiable } from "~components/UI/Copiable/Copiable";
 
 type Props = {
     entity: TurretEntity;
@@ -33,15 +36,6 @@ export function TurretHeader({ entity }: Props) {
     const turretStore = useSelector((state: RootState) => state.turret);
     const componentStore = useSelector((state: RootState) => state.component);
     const controls = useContext(AnimationControlContext);
-    const blueprints = useSelector((state: RootState) => state.blueprint.entities);
-    
-    const blueprintsList = useMemo(() => Object.values(blueprints).filter(blueprint => blueprint.turret.type === entity.type), [blueprints, entity.type]);
-    const hasBlueprints = blueprintsList.length > 0;
-
-    const sx: SxProps = { opacity: 1, cursor: "pointer", userSelect: "none" };
-    if (typeof entity.enabled === 'boolean' && !entity.enabled) {
-        sx.opacity = 0.5;
-    }
 
     function removeTurretAndCleanState() {
         if (Object.keys(turretStore.entities).length === 1) {
@@ -66,7 +60,7 @@ export function TurretHeader({ entity }: Props) {
         dispatch(updateTurret({
             ...entity,
             quantity: MIN_TURRET_QUANTITY,
-            price: MIN_TURRET_PRICE, 
+            price: MIN_TURRET_PRICE,
             location: { x: 0, y: 0 }
         }));
 
@@ -87,53 +81,35 @@ export function TurretHeader({ entity }: Props) {
         }));
     }
 
-    function handleCopyText(component: string) {
-        return function $handleCopyText(e: MouseEvent<HTMLButtonElement>) {
-            e.stopPropagation();
-
-            window.navigator.clipboard.writeText(component).then();
-        };
-    }
+    const wasToggled = useMemo(() => {
+        return typeof entity.enabled === 'boolean' && !entity.enabled
+    }, [entity.enabled]);
 
     return (
         <Box sx={{ p: 2, pb: 0 }}>
             <Stack direction="row" justifyContent="space-between">
-                <Stack direction="row" spacing={1} alignItems="center" sx={sx} onClick={handleToggleTurretEnabled} role="button">
-                    <TurretIcon type={entity.type} />
-
-                    <Typography level="title-md">
+                <ButtonebleGrouble>
+                    <Buttoneble onClick={() => setModals(state => ({ ...state, blueprintAdd: true }))}>
+                        <PostAdd />
+                    </Buttoneble>
+                    <Buttoneble onClick={() => setModals(state => ({ ...state, blueprintList: true }))}>
+                        <ListAlt />
+                    </Buttoneble>
+                    <Copiable value={`${entity.location.x ?? 0}:${entity.location.y ?? 0}`}>
+                        <PlaceOutlined />
+                    </Copiable>
+                    <Toggleble onClick={handleToggleTurretEnabled} value={wasToggled}>
+                        <TurretIcon type={entity.type} />
                         {intlContext.text("TURRET", entity.type)}
-                    </Typography>
-                </Stack>
+                    </Toggleble>
+                </ButtonebleGrouble>
 
                 <Stack direction="row" alignItems="center">
-                    <Tooltip variant="soft" color="primary" placement="top" arrow title={intlContext.text("UI", "copy-location")}>
-                        <IconButton
-                            size="sm"
-                            title={intlContext.text("UI", "copy-location")}
-                            onClick={handleCopyText(`${entity.location.x ?? 0}:${entity.location.y ?? 0}`)}
-                        >
-                            <PlaceOutlined />
-                        </IconButton>
-                    </Tooltip>
                     <Dropdown>
                         <MenuButton variant="soft" sx={{ width: "24px", height: "24px" }}>
                             <MoreIcon />
                         </MenuButton>
                         <Menu placement="bottom-end" variant="soft" sx={{ minWidth: "200px" }}>
-                            <MenuItem onClick={() => setModals(state => ({...state, blueprintAdd: true}))}>
-                                <ListItemDecorator>
-                                    <PostAdd />
-                                </ListItemDecorator>
-                                {intlContext.text("UI", "blueprint-add")}
-                            </MenuItem>
-                            <MenuItem disabled={!hasBlueprints} onClick={() => setModals(state => ({...state, blueprintList: true}))}>
-                                <ListItemDecorator>
-                                    <ListAlt />
-                                </ListItemDecorator>
-                                {intlContext.text("UI", "blueprint-list")}
-                            </MenuItem>
-                            <Divider />
                             <MenuItem onClick={resetToDefaultValues}>
                                 <ListItemDecorator>
                                     <RestartAlt />
@@ -151,8 +127,8 @@ export function TurretHeader({ entity }: Props) {
                 </Stack>
             </Stack>
 
-            <TurretBlueprintAdd entity={entity} open={modals.blueprintAdd} onClose={() => setModals(state => ({...state, blueprintAdd: false}))} />
-            <TurretBlueprintList entity={entity} open={modals.blueprintList} onClose={() => setModals(state => ({...state, blueprintList: false}))} />
+            <TurretBlueprintAdd entity={entity} open={modals.blueprintAdd} onClose={() => setModals(state => ({ ...state, blueprintAdd: false }))} />
+            <TurretBlueprintList entity={entity} open={modals.blueprintList} onClose={() => setModals(state => ({ ...state, blueprintList: false }))} />
         </Box>
     );
 }

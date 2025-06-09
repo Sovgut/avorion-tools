@@ -3,8 +3,6 @@ import {
   Button,
   DialogTitle,
   Divider,
-  IconButton,
-  Link,
   Modal,
   ModalClose,
   ModalDialog,
@@ -14,15 +12,17 @@ import {
 import { FormEvent, Fragment, useContext, useState } from "react";
 import { useBreakpoint } from "~hooks/breakpoints";
 import { IntlContext } from "~contexts/intl";
-import { AccountTree, Add, CopyAll } from "@mui/icons-material";
-import { copyOnMouseEvent } from "~utils/copy-on-mouse-event.ts";
+import { Add, LinkOutlined } from "@mui/icons-material";
 import { Numeric } from "~components/numeric";
 import { MAX_CARGO_QUANTITY, MIN_CARGO_QUANTITY } from "~constants/common.ts";
 import { Commodity } from "~data/commodities/enums";
 import { CommodityMetadata } from "~data/commodities/metadata";
 import { Station } from "~data/stations/enums";
+import { useNavigate } from "react-router";
+import { ButtonebleGrouble } from "~components/UI/ButtonebleGrouble/ButtonebleGrouble";
+import { Copiable } from "~components/UI/Copiable/Copiable";
+import { Buttoneble } from "~components/UI/Buttoneble/Buttoneble";
 import { StationMetadata } from "~data/stations/metadata";
-import { Link as RouterLink } from "react-router-dom";
 
 type Props = {
   open: boolean;
@@ -43,6 +43,7 @@ export function ComponentItemModal({
   const breakpoint = useBreakpoint();
   const intlContext = useContext(IntlContext);
   const [cargoInput, setCargoInput] = useState(MIN_CARGO_QUANTITY);
+  const navigate = useNavigate();
 
   let dangerous = null;
   let illegal = null;
@@ -67,7 +68,7 @@ export function ComponentItemModal({
     if (value === '' || value === null || value === '-') {
       return;
     }
-    
+
     const numericValue = Number(value);
     if (!isNaN(numericValue)) {
       setCargoInput(numericValue);
@@ -102,51 +103,34 @@ export function ComponentItemModal({
         <Divider />
         {(CommodityMetadata[type].illegal ||
           CommodityMetadata[type].dangerous) && (
-          <Box>
-            <Typography level="title-md">
-              {intlContext.text("UI", "threats")}
-            </Typography>
-            <Stack>
-              <Fragment>{illegal}</Fragment>
-              <Fragment>{dangerous}</Fragment>
-            </Stack>
-          </Box>
-        )}
+            <Box>
+              <Typography level="title-md">
+                {intlContext.text("UI", "threats")}
+              </Typography>
+              <Stack>
+                <Fragment>{illegal}</Fragment>
+                <Fragment>{dangerous}</Fragment>
+              </Stack>
+            </Box>
+          )}
 
         <Box>
           <Typography level="title-md">
             {intlContext.text("UI", "can-be-found-in")}
           </Typography>
-          <Stack>
+          <Stack spacing={1}>
             {[Station.TurretFactory, Station.TurretFactorySupplier].map(
               (station) => (
-                <Stack
-                  key={type + station}
-                  direction="row"
-                  spacing={0.5}
-                  alignItems="center"
-                >
-                  {!breakpoint.sm && (
-                    <IconButton
-                      size="sm"
-                      title={intlContext.text("UI", "copy")}
-                      onClick={copyOnMouseEvent(
-                        intlContext.text("STATION", station)
-                      )}
-                    >
-                      <CopyAll />
-                    </IconButton>
-                  )}
-                  <Link
-                    href={StationMetadata[station].link}
-                    color="primary"
-                    target="_blank"
-                    level="body-sm"
-                    sx={{ width: "max-content" }}
-                  >
+                <ButtonebleGrouble key={type + station}>
+                  <Copiable value={intlContext.text("STATION", station)} />
+                  <Buttoneble onClick={() => window.open(StationMetadata[station].link, "_blank")}>
+                    <LinkOutlined />
+                  </Buttoneble>
+                  <Buttoneble onClick={() => navigate(`/factories?station=${station}`)}>
+
                     {intlContext.text("STATION", station)}
-                  </Link>
-                </Stack>
+                  </Buttoneble>
+                </ButtonebleGrouble>
               )
             )}
           </Stack>
@@ -156,45 +140,18 @@ export function ComponentItemModal({
           <Typography level="title-md">
             {intlContext.text("UI", "guaranteed-in")}
           </Typography>
-          <Stack>
+          <Stack spacing={1}>
             {CommodityMetadata[type].stations.map((station) => (
-              <Stack
-                key={type + station}
-                direction="row"
-                spacing={0.5}
-                alignItems="center"
-              >
-                {!breakpoint.sm && (
-                  <IconButton
-                    size="sm"
-                    title={intlContext.text("UI", "copy")}
-                    onClick={copyOnMouseEvent(
-                      intlContext.text("STATION", station)
-                    )}
-                  >
-                    <CopyAll />
-                  </IconButton>
-                )}
-                {!breakpoint.sm && (
-                  <Link
-                    to={`/factories?station=${station}`}
-                    component={RouterLink}
-                  >
-                    <IconButton size="sm">
-                      <AccountTree />
-                    </IconButton>
-                  </Link>
-                )}
-                <Link
-                  href={StationMetadata[station].link}
-                  color="primary"
-                  target="_blank"
-                  level="body-sm"
-                  sx={{ width: "max-content" }}
-                >
+              <ButtonebleGrouble key={type + station}>
+                <Copiable value={intlContext.text("STATION", station)} />
+                <Buttoneble onClick={() => window.open(StationMetadata[station].link, "_blank")}>
+                  <LinkOutlined />
+                </Buttoneble>
+                <Buttoneble onClick={() => navigate(`/factories?station=${station}`)}>
+
                   {intlContext.text("STATION", station)}
-                </Link>
-              </Stack>
+                </Buttoneble>
+              </ButtonebleGrouble>
             ))}
           </Stack>
         </Box>

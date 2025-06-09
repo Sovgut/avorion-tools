@@ -1,55 +1,42 @@
-import { FC, memo, useContext } from "react";
+import { FC, memo, useCallback, useContext } from "react";
 import { type ISearchStationsList } from "./types";
-import { Box, Divider, IconButton, Link, Stack } from "@mui/joy";
+import { Stack, Typography } from "@mui/joy";
 import { IntlContext } from "~contexts/intl";
-import { StationMetadata } from "~data/stations/metadata";
-import { copyOnMouseEvent } from "~utils/copy-on-mouse-event";
-import { AccountTree, CopyAll } from "@mui/icons-material";
-import { useBreakpoint } from "~hooks/breakpoints";
-import {Link as RouterLink} from "react-router-dom"
+import { LinkOutlined } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom"
 import { useGlobalSearch } from "~components/search/hook/use-global-search";
+import { ButtonebleGrouble } from "~components/UI/ButtonebleGrouble/ButtonebleGrouble";
+import { Copiable } from "~components/UI/Copiable/Copiable";
+import { Buttoneble } from "~components/UI/Buttoneble/Buttoneble";
+import { Station } from "~data/stations/enums";
+import { StationMetadata } from "~data/stations/metadata";
 
 export const StationsList: FC<ISearchStationsList> = memo((props) => {
   const globalSearch = useGlobalSearch();
-  const breakpoint = useBreakpoint();
   const intlContext = useContext(IntlContext);
+  const navigate = useNavigate();
+
+  const onNavigate = useCallback((station: Station) => {
+    navigate(`/factories?station=${station}`)
+    globalSearch.setOpen(false);
+  }, [globalSearch.setOpen, navigate]);
 
   if (props.stations.length === 0) return null;
 
   return (
-    <Stack direction="column">
+    <Stack spacing={2}>
       {props.stations.map((station) => (
-        <Box key={station}>
-          <Divider />
-          <Stack direction="row" spacing={0.5} alignItems="center">
-            {!breakpoint.sm && (
-              <IconButton
-                size="sm"
-                title={intlContext.text("UI", "copy")}
-                onClick={copyOnMouseEvent(intlContext.text("STATION", station))}
-              >
-                <CopyAll />
-              </IconButton>
-            )}
-            {!breakpoint.sm && (
-              <Link to={`/factories?station=${station}`} component={RouterLink} onClick={() => globalSearch.setOpen(false)}>
-                <IconButton size="sm">
-                  <AccountTree />
-                </IconButton>
-              </Link>
-            )}
-            <Link
-              href={StationMetadata[station].link}
-              color="primary"
-              target="_blank"
-              level="body-sm"
-              sx={{ width: "max-content" }}
-            >
+        <ButtonebleGrouble  key={station}>
+          <Copiable value={intlContext.text("STATION", station)} />
+          <Buttoneble onClick={() => window.open(StationMetadata[station].link, "_blank")}>
+            <LinkOutlined />
+          </Buttoneble>
+          <Buttoneble onClick={() => onNavigate(station)}>
+            <Typography level="title-md">
               {intlContext.text("STATION", station)}
-            </Link>
-            
-          </Stack>
-        </Box>
+            </Typography>
+          </Buttoneble>
+        </ButtonebleGrouble>
       ))}
     </Stack>
   );

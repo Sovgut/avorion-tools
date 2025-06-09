@@ -1,5 +1,5 @@
-import { MouseEvent, useCallback, useContext, useMemo } from "react";
-import { Box, IconButton, Link, Typography } from "@mui/joy";
+import { useContext } from "react";
+import { Box, Typography } from "@mui/joy";
 import { IntlContext } from "~contexts/intl";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~store";
@@ -8,16 +8,14 @@ import {
   createComponentCheckbox,
   deleteComponentCheckbox,
 } from "~reducers/checkbox.ts";
-import { AccountTree, CopyAll } from "@mui/icons-material";
 import { ComponentIcon } from "~components/component-icon";
 import styles from "./styles.module.css";
 import { useBreakpoint } from "~hooks/breakpoints";
 import { Commodity } from "~data/commodities/enums";
 import { CommodityMetadata } from "~data/commodities/metadata";
-import { StationMetadata } from "~data/stations/metadata";
-import { serializeStations } from "~utils/serialize-station";
-import { IStationCommodity } from "~data/stations/types";
-import { Link as RouterLink } from "react-router-dom";
+import { Toggleble } from "~components/UI/Toggleble/Toggleble";
+import { Copiable } from "~components/UI/Copiable/Copiable";
+import { ButtonebleGrouble } from "~components/UI/ButtonebleGrouble/ButtonebleGrouble";
 
 type Props = {
   type: Commodity;
@@ -53,37 +51,6 @@ export function ComponentItemType({ type }: Props) {
     color = "warning";
   }
 
-  if (checkbox.entities[type]) {
-    sx.textDecoration = "line-through";
-    sx.opacity = 0.5;
-  }
-
-  function handleCopyText(component: string) {
-    return function $handleCopyText(e: MouseEvent<HTMLButtonElement>) {
-      e.stopPropagation();
-
-      window.navigator.clipboard.writeText(component).then();
-    };
-  }
-
-  const searchStation = useCallback(
-    (commodity: Commodity) => {
-      const station = serializeStations(Object.keys(StationMetadata)).find(
-        (station) =>
-          StationMetadata[station].variations.find((variation) =>
-            variation.results.find(
-              (result: IStationCommodity) => result.type === commodity,
-            ),
-          ),
-      );
-
-      return station;
-    },
-    [type],
-  );
-
-  const station = useMemo(() => searchStation(type), [type, searchStation]);
-
   return (
     <td
       style={{
@@ -94,33 +61,20 @@ export function ComponentItemType({ type }: Props) {
       }}
     >
       <Box className={styles.component} sx={sx}>
-        <ComponentIcon type={type} onClick={handleCheckbox} />
-
-        {!breakpoint.sm && (
-          <IconButton
-            disabled={!!checkbox.entities[type]}
-            size="sm"
-            title={intlContext.text("UI", "copy")}
-            onClick={handleCopyText(intlContext.text("COMMODITY", type))}
-          >
-            <CopyAll />
-          </IconButton>
-        )}
-        {!breakpoint.sm && typeof station === "number" && (
-          <Link to={`/factories?station=${station}`} component={RouterLink}>
-            <IconButton size="sm">
-              <AccountTree />
-            </IconButton>
-          </Link>
-        )}
-        <Typography
-          fontSize={fontSize}
-          color={color}
-          sx={sx}
-          onClick={handleCheckbox}
-        >
-          {intlContext.text("COMMODITY", type)}
-        </Typography>
+        <ButtonebleGrouble>
+          <Copiable value={intlContext.text("COMMODITY", type)} />
+          <Toggleble onClick={handleCheckbox} value={!!checkbox.entities[type]}>
+            <ComponentIcon type={type} />
+            <Typography
+              fontSize={fontSize}
+              color={color}
+              sx={sx}
+              onClick={handleCheckbox}
+            >
+              {intlContext.text("COMMODITY", type)}
+            </Typography>
+          </Toggleble>
+        </ButtonebleGrouble>
       </Box>
     </td>
   );

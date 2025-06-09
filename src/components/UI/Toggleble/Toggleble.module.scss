@@ -1,0 +1,53 @@
+.component {
+    &:where([data-scope="toggleble"][data-part="root"]) {
+        --color: var(--group-color, #4393e4);
+        --animation-speed: 200ms;
+
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-items: center;
+        background: rgb(from var(--color) r g b / 0.1);
+        outline: 1px solid rgb(from var(--color) r g b / 0.25);
+        border-radius: 6px;
+        padding: 0.2rem 0.4rem;
+        padding-left: 0.8rem;
+        gap: 0.5ch;
+        position: relative;
+        transition: background var(--animation-speed) ease-in-out, padding var(--animation-speed) ease-in-out;
+
+        &::after {
+            content: "";
+            display: block;
+            width: 6px;
+            height: calc(100% - 0.2rem);
+            position: absolute;
+            background: rgb(from var(--color) r g b);
+            top: .1rem;
+            left: .1rem;
+            border-radius: inherit;
+            pointer-events: none;
+
+            transition: left var(--animation-speed) ease-in-out, top var(--animation-speed) ease-in-out, width var(--animation-speed) ease-in-out, height var(--animation-speed) ease-in-out, background var(--animation-speed) ease-in-out;
+        }
+
+        &[data-state="true"] {
+            padding: 0.2rem 0.4rem;
+            text-decoration: line-through;
+            color: rgb(from var(--color) r g b / .5);
+
+            &::after {
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background: rgb(from var(--color) r g b / .1);
+            }
+        }
+
+        &:hover {
+            background: rgb(from var(--color) r g b / 0.25);
+            outline: 1px solid rgb(from var(--color) r g b / 0.5);
+        }
+    }
+}
