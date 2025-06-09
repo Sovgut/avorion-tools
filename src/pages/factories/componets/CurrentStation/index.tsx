@@ -7,6 +7,7 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useState,
 } from "react";
 import { ComponentIcon } from "~components/component-icon";
 import { StationIcon } from "~components/station-icon";
@@ -20,6 +21,7 @@ import { getUniqueStationCommodities } from "~utils/get-unique-station-commoditi
 export const CurrentStation: FC = memo(() => {
   const intlContext = useContext(IntlContext);
   const factory = useFactory();
+  const [upgrade, setUpgrade] = useState<number>(1);
 
   const onVariationChange = useCallback(
     (_: SyntheticEvent | null, value: number | null) => {
@@ -86,6 +88,14 @@ export const CurrentStation: FC = memo(() => {
     []
   );
 
+  const onChangeUpgrade = useCallback(
+    (_event: React.MouseEvent | React.KeyboardEvent | React.FocusEvent | null, value: number | null) => {
+      if (value === null) return;
+
+      setUpgrade(value);
+    }
+    , []);
+
   const calculatePaybackCycles = useCallback(
     (variation: IStationVariation) => {
       if (!variation.profitPerCycle) return 0;
@@ -108,6 +118,18 @@ export const CurrentStation: FC = memo(() => {
    */
   const FU = useMemo(() => calculateUpgradeCost(variation, 1), [variation]);
 
+  const factoryScale = useCallback((size: number) => {
+    return {
+      1: "S",
+      2: "M",
+      3: "L",
+      4: "XL",
+      5: "XXL"
+    }[
+      size
+    ];
+  }, []);
+
   return (
     <Stack spacing={1} sx={{ p: 1.25 }}>
       <Box
@@ -121,18 +143,33 @@ export const CurrentStation: FC = memo(() => {
           <Stack direction="row" justifyContent="center" sx={{ width: "100%" }}>
             <StationIcon type={factory.station} size="128px" />
           </Stack>
-          <Select
-            placeholder="..."
-            value={factory.stationVariationIndex}
-            key={`${factory.station}-${factory.stationVariationIndex}-${intlContext.language}`}
-            onChange={onVariationChange}
-          >
-            {StationMetadata[factory.station].variations.map((_, index) => (
-              <Option key={index} value={index}>
-                {intlContext.text("STATION", factory.station)} #{index + 1}
-              </Option>
-            ))}
-          </Select>
+          <Stack direction="row" spacing={1}>
+            <Select
+              placeholder="..."
+              value={factory.stationVariationIndex}
+              key={`${factory.station}-${factory.stationVariationIndex}-${intlContext.language}`}
+              onChange={onVariationChange}
+            >
+              {StationMetadata[factory.station].variations.map((_, index) => (
+                <Option key={index} value={index}>
+                  {intlContext.text("STATION", factory.station)} #{index + 1}
+                </Option>
+              ))}
+            </Select>
+            <Select
+              sx={{ width: "80px" }}
+              placeholder="..."
+              value={upgrade}
+              key={`${factory.station}-${factory.stationVariationIndex}-${intlContext.language}`}
+              onChange={onChangeUpgrade}
+            >
+              {[1, 2, 3, 4, 5].map((size) => (
+                <Option key={size} value={size}>
+                  {factoryScale(size)}
+                </Option>
+              ))}
+            </Select>
+          </Stack>
         </Stack>
 
         <fieldset>
@@ -394,7 +431,7 @@ export const CurrentStation: FC = memo(() => {
                     </td>
                     <td align="right">
                       <Typography fontFamily="monospace">
-                        {commodity.amount}
+                        {commodity.amount * (upgrade + 1)}
                       </Typography>
                     </td>
                   </tr>
@@ -460,7 +497,7 @@ export const CurrentStation: FC = memo(() => {
                   </td>
                   <td align="right">
                     <Typography fontFamily="monospace">
-                      {commodity.amount}
+                      {commodity.amount * (upgrade + 1)}
                     </Typography>
                   </td>
                 </tr>
