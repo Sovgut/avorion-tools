@@ -160,7 +160,7 @@ export const CurrentStation: FC = memo(() => {
               sx={{ width: "80px" }}
               placeholder="..."
               value={upgrade}
-              key={`${factory.station}-${factory.stationVariationIndex}-${intlContext.language}`}
+              key={`${factory.station}-${factory.stationVariationIndex}-${intlContext.language}-${upgrade}`}
               onChange={onChangeUpgrade}
             >
               {[1, 2, 3, 4, 5].map((size) => (
