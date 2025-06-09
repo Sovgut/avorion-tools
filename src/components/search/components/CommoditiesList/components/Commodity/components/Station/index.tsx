@@ -9,10 +9,12 @@ import { Copiable } from "~components/UI/Copiable/Copiable";
 import { Buttoneble } from "~components/UI/Buttoneble/Buttoneble";
 import { StationMetadata } from "~data/stations/metadata";
 import { Station } from "~data/stations/enums";
+import { useGlobalSearch } from "~components/search/hook/use-global-search";
 
 export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
   (props) => {
     const intlContext = useContext(IntlContext);
+    const globalSearch = useGlobalSearch();
     const navigate = useNavigate();
 
     return (
@@ -25,6 +27,7 @@ export const SearchCommodityStation: FC<ISearchCommodityStation> = memo(
           <Buttoneble onClick={() => {
             if (props.station !== Station.TurretFactorySupplier) {
               navigate(`/factories?station=${props.station}`)
+              globalSearch.setOpen(false);
             }
           }}>
             <Typography level="title-md">
