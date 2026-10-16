@@ -65,6 +65,7 @@ export const RU: Record<string, string> = {
   'Storage is full. Delete a tab or some blueprints to make room.':
     'Память заполнена. Удали вкладку или часть чертежей, чтобы освободить место.',
   Clear: 'Очистить',
+  'Where to get the seed': 'Где взять сид',
   'Reset hold and marks': 'Сбросить трюм и отметки',
   'IN HOLD': 'В ТРЮМЕ',
   Bought: 'Куплено',

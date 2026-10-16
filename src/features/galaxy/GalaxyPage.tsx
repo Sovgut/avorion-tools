@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { useGo } from '@/app/nav';
 import { type Plan, usePlan } from '@/features/planner/plan';
@@ -88,6 +88,18 @@ export function GalaxyPage() {
   const [rifts, setRifts] = useState(params?.rifts ?? DEFAULT_GALAXY.rifts);
   const [barrier, setBarrier] = useState(params?.barrier ?? DEFAULT_GALAXY.barrier);
   const [showServer, setShowServer] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+  const helpId = useId();
+  const seedField = useRef<HTMLDivElement>(null);
+  // touch browsers do not focus a tapped button, so a tap anywhere else closes the tip
+  useEffect(() => {
+    if (!showHelp) return;
+    const onDown = (e: PointerEvent) => {
+      if (!seedField.current?.contains(e.target as Node)) setShowHelp(false);
+    };
+    document.addEventListener('pointerdown', onDown);
+    return () => document.removeEventListener('pointerdown', onDown);
+  }, [showHelp]);
 
   const generate = () => {
     const seed = draft.trim();
@@ -153,24 +165,47 @@ export function GalaxyPage() {
   const seedBox = (
     <div className={mobile ? s.mSeedRow : s.seedBox}>
       {!mobile && <span className="label">{t('GALAXY SEED')}</span>}
-      <TextInput
-        className={mobile ? s.mSeed : s.seed}
-        value={draft}
-        onChange={(e) => setDraft(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && generate()}
-        placeholder={t('/seed in game')}
-        aria-label={t('GALAXY SEED')}
-        spellCheck={false}
-      />
-      <Button variant="primary" className={mobile ? s.mGenerate : s.generate} onClick={generate} disabled={!draft.trim()}>
-        {t('Generate')}
-      </Button>
-      {!mobile && (
-        <span className={s.help}>
-          {t('Type')} <span className="mono">/seed</span>{' '}
-          {t('in the game chat to get it. Shows the galaxy as it was generated, before players changed it.')}
-        </span>
-      )}
+      <div className={s.seedField} ref={seedField}>
+        <TextInput
+          className={mobile ? s.mSeed : s.seed}
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') generate();
+            if (e.key === 'Escape') setShowHelp(false);
+          }}
+          placeholder={t('/seed in game')}
+          aria-label={t('GALAXY SEED')}
+          aria-describedby={showHelp ? helpId : undefined}
+          spellCheck={false}
+        />
+        {/* hover, focus or a tap shows the tip; leaving, blurring or Escape hides it */}
+        <button
+          type="button"
+          className={s.seedHelp}
+          aria-label={t('Where to get the seed')}
+          aria-expanded={showHelp}
+          aria-describedby={showHelp ? helpId : undefined}
+          onMouseEnter={() => setShowHelp(true)}
+          onMouseLeave={() => setShowHelp(false)}
+          onFocus={() => setShowHelp(true)}
+          onBlur={() => setShowHelp(false)}
+          onClick={() => setShowHelp(true)}
+          onKeyDown={(e) => e.key === 'Escape' && setShowHelp(false)}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+            <circle cx="8" cy="8" r="6.5" />
+            <path d="M6.2 6.3a1.9 1.9 0 1 1 2.7 1.7c-.6.3-.9.7-.9 1.3v.3" strokeLinecap="round" />
+            <circle cx="8" cy="11.6" r="0.4" fill="currentColor" />
+          </svg>
+        </button>
+        {showHelp && (
+          <div role="tooltip" id={helpId} className={s.seedTip}>
+            {t('Type')} <span className="mono">/seed</span>{' '}
+            {t('in the game chat to get it. Shows the galaxy as it was generated, before players changed it.')}
+          </div>
+        )}
+      </div>
       <button type="button" className={s.serverToggle} aria-expanded={showServer} onClick={() => setShowServer((v) => !v)}>
         {t('Server settings')} {showServer ? '▴' : '▾'}
       </button>
@@ -190,6 +225,9 @@ export function GalaxyPage() {
           </div>
         </div>
       )}
+      <Button variant="primary" className={mobile ? s.mGenerate : s.generate} onClick={generate} disabled={!draft.trim()}>
+        {t('Generate')}
+      </Button>
     </div>
   );
 
@@ -270,8 +308,8 @@ export function GalaxyPage() {
       <div className={s.mPage}>
         {seedBox}
         {mapArea}
-        {layerList}
         <PositionBox plan={plan} mobile />
+        {layerList}
         {details}
         {bestList}
       </div>
@@ -282,8 +320,8 @@ export function GalaxyPage() {
     <div className={s.grid}>
       <aside className={s.rail}>
         {seedBox}
-        {layerList}
         <PositionBox plan={plan} />
+        {layerList}
       </aside>
       {mapArea}
       <aside className={s.panel}>
