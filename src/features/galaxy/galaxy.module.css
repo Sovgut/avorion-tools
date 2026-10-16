@@ -164,10 +164,11 @@
   color: var(--c-text);
 }
 
+/* square, like the filled cells the layer paints on the map */
 .layerDot {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: 2px;
   flex: none;
 }
 

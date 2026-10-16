@@ -20,7 +20,7 @@ import {
 import { resolveColor } from './queries';
 
 export interface MapMarkers {
-  /** Sector indices per layer color, drawn as dots. */
+  /** Sector indices per layer color, each drawn as a filled cell. */
   layers: { color: string; sectors: number[] }[];
   you: { x: number; y: number };
   selected: { x: number; y: number } | null;
@@ -202,7 +202,21 @@ export function GalaxyMap({
     ctx.fillStyle = '#85858b';
     ctx.fillText(t('CORE'), ox, oy + 4);
 
-    // grid and coordinates when zoomed in
+    // layer sectors fill their whole cell, bottom layer first; zoomed far out a cell stays 3px so it shows
+    const side = Math.max(3, v.scale);
+    const filled = new Set<number>();
+    for (const layer of [...markers.layers].reverse()) {
+      ctx.fillStyle = resolveColor(layer.color);
+      for (const i of layer.sectors) {
+        const px = sx(sectorX(i));
+        const py = sy(sectorY(i));
+        if (px < -side || py < -side || px > size.w + side || py > size.h + side) continue;
+        ctx.fillRect(px - side / 2, py - side / 2, side, side);
+        filled.add(i);
+      }
+    }
+
+    // grid and coordinates when zoomed in, over the fills
     if (v.scale >= 14) {
       ctx.strokeStyle = 'rgba(48,48,51,0.7)';
       ctx.lineWidth = 1;
@@ -222,27 +236,16 @@ export function GalaxyMap({
       ctx.stroke();
       if (v.scale >= 30) {
         ctx.font = '9px "JetBrains Mono", monospace';
-        ctx.fillStyle = '#85858b';
         for (let y = y0; y <= y1; y++)
-          for (let x = x0; x <= x1; x++)
-            if (inGalaxy(x, y) && (galaxy.flags[sectorIndex(x, y)] & 3) === KIND_REGULAR)
-              ctx.fillText(`${x}:${y}`, sx(x), sy(y) + v.scale * 0.42);
+          for (let x = x0; x <= x1; x++) {
+            if (!inGalaxy(x, y)) continue;
+            const i = sectorIndex(x, y);
+            if ((galaxy.flags[i] & 3) !== KIND_REGULAR) continue;
+            // dark text on a filled cell, grey on a plain one
+            ctx.fillStyle = filled.has(i) ? 'rgba(17,17,18,0.75)' : '#85858b';
+            ctx.fillText(`${x}:${y}`, sx(x), sy(y) + v.scale * 0.42);
+          }
       }
-    }
-
-    // layer dots, bottom layer first
-    const r = Math.max(1.3, Math.min(v.scale * 0.42 + 1, 9));
-    for (const layer of [...markers.layers].reverse()) {
-      ctx.fillStyle = resolveColor(layer.color);
-      ctx.beginPath();
-      for (const i of layer.sectors) {
-        const px = sx(sectorX(i));
-        const py = sy(sectorY(i));
-        if (px < -10 || py < -10 || px > size.w + 10 || py > size.h + 10) continue;
-        ctx.moveTo(px + r, py);
-        ctx.arc(px, py, r, 0, Math.PI * 2);
-      }
-      ctx.fill();
     }
 
     const cyan = resolveColor('var(--c-cyan)');
