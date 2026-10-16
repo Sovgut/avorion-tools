@@ -34,6 +34,10 @@ export interface Blueprint {
   name: string;
   rarity: RarityId;
   counts: Record<string, number>;
+  /** Turret price and the sector it is built in; absent on blueprints that never had them. */
+  price?: number;
+  x?: number;
+  y?: number;
 }
 
 export interface PlannerState {
@@ -132,6 +136,18 @@ const slice = createSlice({
     },
     saveBlueprint(state, a: PayloadAction<Omit<Blueprint, 'id'>>) {
       state.blueprints.push({ ...a.payload, id: `bp${state.seq++}`, name: a.payload.name.trim().slice(0, 60) });
+    },
+    /** Copies a blueprint's counts, and its price and sector when it has them, onto a turret. */
+    applyBlueprint(state, a: PayloadAction<{ turretId: string; blueprintId: string }>) {
+      const t = state.turrets.find((x) => x.id === a.payload.turretId);
+      const b = state.blueprints.find((x) => x.id === a.payload.blueprintId);
+      if (!t || !b) return;
+      for (const good of Object.keys(t.counts)) t.counts[good] = clamp(b.counts[good] ?? 0, 0, MAX_COUNT);
+      if (b.price !== undefined) t.price = clamp(b.price, 0, MAX_PRICE);
+      if (b.x !== undefined && b.y !== undefined) {
+        t.x = clamp(b.x, SECTOR_MIN, SECTOR_MAX);
+        t.y = clamp(b.y, SECTOR_MIN, SECTOR_MAX);
+      }
     },
     removeBlueprint(state, a: PayloadAction<string>) {
       state.blueprints = state.blueprints.filter((b) => b.id !== a.payload);

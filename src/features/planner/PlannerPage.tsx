@@ -252,8 +252,8 @@ function TurretCard({ turret }: { turret: PlannedTurret }) {
             type="button"
             className={s.bpChip}
             style={{ color: rarityColor(b.rarity) }}
-            title={t('Load counts')}
-            onClick={() => dispatch(plannerActions.setCounts({ id: turret.id, counts: b.counts }))}
+            title={t('Load blueprint')}
+            onClick={() => dispatch(plannerActions.applyBlueprint({ turretId: turret.id, blueprintId: b.id }))}
           >
             {b.name}
           </button>
@@ -663,7 +663,7 @@ function MobileTurretCard({ turret, open, onToggle }: { turret: PlannedTurret; o
                 type="button"
                 className={s.mChip}
                 style={{ color: rarityColor(b.rarity) }}
-                onClick={() => dispatch(plannerActions.setCounts({ id: turret.id, counts: b.counts }))}
+                onClick={() => dispatch(plannerActions.applyBlueprint({ turretId: turret.id, blueprintId: b.id }))}
               >
                 {b.name}
               </button>

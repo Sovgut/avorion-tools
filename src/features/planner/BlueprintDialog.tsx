@@ -45,7 +45,17 @@ export function BlueprintDialog() {
   const save = () => {
     if (!turret || !def) return;
     const n = name.trim() || `${gt.turret(def.id)} #${list.length + 1}`;
-    dispatch(plannerActions.saveBlueprint({ type: def.id, name: n, rarity, counts: { ...turret.counts } }));
+    dispatch(
+      plannerActions.saveBlueprint({
+        type: def.id,
+        name: n,
+        rarity,
+        counts: { ...turret.counts },
+        price: turret.price,
+        x: turret.x,
+        y: turret.y,
+      }),
+    );
     setName('');
     dispatch(uiActions.openBlueprints({ turretId: turret.id, mode: 'saved' }));
   };
@@ -116,6 +126,16 @@ export function BlueprintDialog() {
                     <span className="mono">{fmt(turret.counts[i.good] ?? 0)}</span>
                   </div>
                 ))}
+                <div className={`${s.previewRow} ${s.previewExtra}`}>
+                  <span>{t('Turret price, cr')}</span>
+                  <span className="mono">{fmt(turret.price)}</span>
+                </div>
+                <div className={`${s.previewRow} ${s.previewExtra}`}>
+                  <span>{t('Sector')}</span>
+                  <span className="mono">
+                    {turret.x}:{turret.y}
+                  </span>
+                </div>
               </div>
               <Button variant="primary" size="lg" onClick={save}>
                 {t('Save blueprint')}
@@ -139,12 +159,19 @@ export function BlueprintDialog() {
                       <div className={s.itemSum}>
                         {t(r.name)} · {def.ingredients.map((i) => b.counts[i.good] ?? 0).join(' · ')}
                       </div>
+                      {(b.price !== undefined || b.x !== undefined) && (
+                        <div className={s.itemSum}>
+                          {b.price !== undefined && `¢${fmt(b.price)}`}
+                          {b.price !== undefined && b.x !== undefined && ' · '}
+                          {b.x !== undefined && `${t('sector')} ${b.x}:${b.y}`}
+                        </div>
+                      )}
                     </div>
                     <Button
                       size="sm"
                       variant="outline"
                       onClick={() => {
-                        dispatch(plannerActions.setCounts({ id: turret.id, counts: b.counts }));
+                        dispatch(plannerActions.applyBlueprint({ turretId: turret.id, blueprintId: b.id }));
                         close();
                       }}
                     >

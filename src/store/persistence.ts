@@ -290,7 +290,16 @@ function migrateLegacy(): Partial<Persisted> | undefined {
       const good = legacyGood(c.type);
       if (good && good in counts) counts[good] = Math.max(0, Number(c.quantity) || 0);
     }
-    planner.blueprints.push({ id: String(b.id), type, name: String(b.name ?? def.name), rarity: b.rarity ?? 'common', counts });
+    planner.blueprints.push({
+      id: String(b.id),
+      type,
+      name: String(b.name ?? def.name),
+      rarity: b.rarity ?? 'common',
+      counts,
+      price: Math.max(0, Number(b.turret?.price) || 0),
+      x: coord(b.turret?.location?.x),
+      y: coord(b.turret?.location?.y),
+    });
   }
   const lang = legacy('lang');
   const settings: SettingsState = {
