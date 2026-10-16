@@ -101,6 +101,7 @@ export async function loadGalaxy(params: GenerateSettings): Promise<void> {
     if (run !== generation) return;
     data.factions = factions;
     data.stations.sort((a, b) => a.i - b.i);
+    data.bosses.sort((a, b) => a.i - b.i);
     setStatus({ state: 'ready', key, data });
     void writeCache(data);
   } catch (e) {

@@ -12,6 +12,7 @@ import { useGalaxy } from './client';
 import { GalaxyMap, type MapMarkers } from './GalaxyMap';
 import s from './galaxy.module.css';
 import {
+  claimableAsteroids,
   FLAG_ANCIENT_GATES,
   FLAG_GATES,
   FLAG_HOME,
@@ -20,9 +21,21 @@ import {
   KIND_BLOCKED,
   KIND_OFFGRID,
   KIND_REGULAR,
+  resourceAsteroids,
   sectorIndex,
 } from './model';
-import { ALL_LAYERS, hasLayer, nearestProducers, PLAN_LAYER, stationSectorAt } from './queries';
+import {
+  ALL_LAYERS,
+  BELTS_LAYER,
+  bossAt,
+  layerSectors,
+  materialsAt,
+  nearestProducers,
+  PLACE_LAYERS,
+  PLAN_LAYER,
+  STATION_LAYERS,
+  stationSectorAt,
+} from './queries';
 import { templateName } from './templates';
 
 function parseSel(v: string | null): { x: number; y: number } | null {
@@ -111,43 +124,35 @@ export function GalaxyPage() {
   const best = useBest(data, plan);
   const route = focus ? best.find((b) => b.good === focus) : undefined;
 
+  // sectors producing something the plan still needs; every other layer depends on the galaxy alone
+  const planSectors = useMemo(() => {
+    if (!data) return [];
+    const planGoods = new Set(plan.rows.filter((r) => r.buy > 0).map((r) => r.good));
+    return data.stations
+      .filter((st) => [...st.factories, ...st.mines].some((pi) => productionByIndex.get(pi)?.results.some((r) => planGoods.has(r.good))))
+      .map((st) => st.i);
+  }, [data, plan]);
+
   const markers = useMemo<MapMarkers>(() => {
     const out: MapMarkers['layers'] = [];
-    if (data) {
-      const planGoods = new Set(plan.rows.filter((r) => r.buy > 0).map((r) => r.good));
-      for (const layer of ALL_LAYERS) {
-        if (!layers.includes(layer.id)) continue;
-        const sectors: number[] = [];
-        for (const st of data.stations) {
-          if (layer === PLAN_LAYER) {
-            const hit = [...st.factories, ...st.mines].some((pi) => productionByIndex.get(pi)?.results.some((r) => planGoods.has(r.good)));
-            if (hit) sectors.push(st.i);
-          } else if (hasLayer(data, st, layer)) sectors.push(st.i);
-        }
-        out.push({ color: layer.color, sectors });
-      }
-    }
-    return { layers: out, you: plan.position, selected, route: route ? { x: route.x, y: route.y } : null };
-  }, [data, layers, plan, selected, route]);
+    if (data)
+      for (const layer of ALL_LAYERS)
+        if (layers.includes(layer.id))
+          out.push({ color: layer.color, sectors: layer === PLAN_LAYER ? planSectors : layerSectors(data, layer) });
+    return {
+      layers: out,
+      belts: layers.includes(BELTS_LAYER.id),
+      you: plan.position,
+      selected,
+      route: route ? { x: route.x, y: route.y } : null,
+    };
+  }, [data, layers, planSectors, plan.position, selected, route]);
 
   const counts = useMemo(() => {
     const c = new Map<string, number>();
-    if (!data) return c;
-    const planGoods = new Set(plan.rows.filter((r) => r.buy > 0).map((r) => r.good));
-    for (const layer of ALL_LAYERS) {
-      let n = 0;
-      for (const st of data.stations) {
-        if (
-          layer === PLAN_LAYER
-            ? [...st.factories, ...st.mines].some((pi) => productionByIndex.get(pi)?.results.some((r) => planGoods.has(r.good)))
-            : hasLayer(data, st, layer)
-        )
-          n++;
-      }
-      c.set(layer.id, n);
-    }
+    if (data) for (const layer of ALL_LAYERS) c.set(layer.id, (layer === PLAN_LAYER ? planSectors : layerSectors(data, layer)).length);
     return c;
-  }, [data, plan]);
+  }, [data, planSectors]);
 
   const select = (x: number, y: number) => {
     const next = new URLSearchParams(search);
@@ -231,26 +236,34 @@ export function GalaxyPage() {
     </div>
   );
 
+  const layerButton = (l: { id: string; name: string; color: string }, count: number | null) => {
+    const on = layers.includes(l.id);
+    return (
+      <button
+        key={l.id}
+        type="button"
+        className={mobile ? s.mLayer : s.layer}
+        aria-pressed={on}
+        onClick={() => dispatch(settingsActions.toggleLayer(l.id))}
+      >
+        <span className={s.layerDot} style={{ background: on ? l.color : 'var(--c-border-strong)' }} />
+        <span className={s.layerName}>{t(l.name)}</span>
+        {!mobile && data && count !== null && <span className={s.layerCount}>{fmt(count)}</span>}
+      </button>
+    );
+  };
   const layerList = (
-    <div className={mobile ? s.mLayers : s.layers}>
-      {!mobile && <span className={`label ${s.layersLabel}`}>{t('LAYERS')}</span>}
-      {ALL_LAYERS.map((l) => {
-        const on = layers.includes(l.id);
-        return (
-          <button
-            key={l.id}
-            type="button"
-            className={mobile ? s.mLayer : s.layer}
-            aria-pressed={on}
-            onClick={() => dispatch(settingsActions.toggleLayer(l.id))}
-          >
-            <span className={s.layerDot} style={{ background: on ? l.color : 'var(--c-border-strong)' }} />
-            <span className={s.layerName}>{t(l.name)}</span>
-            {!mobile && data && <span className={s.layerCount}>{fmt(counts.get(l.id) ?? 0)}</span>}
-          </button>
-        );
-      })}
-    </div>
+    <>
+      <div className={mobile ? s.mLayers : s.layers}>
+        <span className={`label ${mobile ? s.mLayersLabel : s.layersLabel}`}>{t('STATIONS')}</span>
+        {[PLAN_LAYER, ...STATION_LAYERS].map((l) => layerButton(l, counts.get(l.id) ?? 0))}
+      </div>
+      <div className={mobile ? s.mLayers : s.layers}>
+        <span className={`label ${mobile ? s.mLayersLabel : s.layersLabel}`}>{t('POINTS OF INTEREST')}</span>
+        {PLACE_LAYERS.map((l) => layerButton(l, counts.get(l.id) ?? 0))}
+        {layerButton(BELTS_LAYER, null)}
+      </div>
+    </>
   );
 
   const mapArea = (
@@ -374,6 +387,11 @@ function SectorPanel({
     : [];
   const prodList = st ? [...st.factories, ...st.mines] : [];
   const here = x === from.x && y === from.y;
+  const boss = bossAt(galaxy, i);
+  // asteroids, and so their materials, belong to sectors with something in them
+  const materials = kind === KIND_REGULAR || kind === KIND_OFFGRID ? materialsAt(Math.hypot(x, y)) : [];
+  const rich = resourceAsteroids(galaxy.asteroids[i]);
+  const claimable = claimableAsteroids(galaxy.asteroids[i]);
   // unnamed sectors are named by their coordinates, which the header already shows
   const name = st && st.name !== `${x} : ${y}` ? st.name : null;
   return (
@@ -412,6 +430,34 @@ function SectorPanel({
           </svg>
           {t('I’m here')}
         </button>
+      )}
+      {(boss || materials.length > 0 || rich > 0 || claimable > 0) && (
+        <dl className={s.facts}>
+          {boss && (
+            <>
+              <dt>{t('World boss')}</dt>
+              <dd className={s.bossName}>{gt.text(boss).replace(/\s*\$\{\w+\}/g, '')}</dd>
+            </>
+          )}
+          {materials.length > 0 && (
+            <>
+              <dt>{t('Asteroid materials')}</dt>
+              <dd>{materials.map((m) => gt.text(m)).join(' · ')}</dd>
+            </>
+          )}
+          {rich > 0 && (
+            <>
+              <dt>{t('Rich asteroids')}</dt>
+              <dd className="mono">{rich}</dd>
+            </>
+          )}
+          {claimable > 0 && (
+            <>
+              <dt>{t('Claimable asteroids')}</dt>
+              <dd className="mono">{claimable}</dd>
+            </>
+          )}
+        </dl>
       )}
       {(f & (FLAG_GATES | FLAG_ANCIENT_GATES | FLAG_HOME)) !== 0 && (
         <div className={s.flags}>

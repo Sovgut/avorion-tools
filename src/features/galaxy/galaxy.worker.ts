@@ -5,6 +5,7 @@ import { GalaxyGenerator, type SectorInfo, SectorKind } from '@/engine/galaxy/ge
 import { db } from '@/game/database';
 import meta from '@/generated/galaxy-meta.json';
 import {
+  type BossSector,
   type Faction,
   FLAG_ANCIENT_GATES,
   FLAG_CENTRAL,
@@ -12,6 +13,7 @@ import {
   FLAG_HOME,
   type GalaxyBlock,
   MIN,
+  packAsteroids,
   SIZE,
   type StationSector,
   sectorIndex,
@@ -30,7 +32,7 @@ export interface GenerateSettings {
 const api = {
   async init(settings: GenerateSettings): Promise<void> {
     const { modules } = await import('@/generated/galaxy-scripts.js');
-    generator = new GalaxyGenerator({ settings, modules, stubs: meta.stubs });
+    generator = new GalaxyGenerator({ settings, modules, stubs: meta.stubs, worldBosses: db.worldBosses.length });
   },
 
   factions(): Faction[] {
@@ -43,7 +45,9 @@ const api = {
     const flags = new Uint8Array(rows * SIZE);
     const template = new Uint8Array(rows * SIZE);
     const faction = new Int32Array(rows * SIZE);
+    const asteroids = new Uint8Array(rows * SIZE);
     const stations: StationSector[] = [];
+    const bosses: BossSector[] = [];
     for (let y = y0; y <= y1; y++) {
       for (let x = MIN; x < MIN + SIZE; x++) {
         const s = gen.sector(x, y);
@@ -56,12 +60,19 @@ const api = {
         flags[o] = f;
         template[o] = s.template ? (templateIndex.get(s.template.replace(/^data\/scripts\//, '')) ?? 0) : 0;
         faction[o] = s.faction ?? 0;
+        asteroids[o] = packAsteroids(s.resourceAsteroids ?? 0, s.claimableAsteroids ?? 0);
+        if (s.boss) bosses.push({ i: sectorIndex(x, y), boss: s.boss });
         if (s.stations)
           stations.push({ i: sectorIndex(x, y), name: s.name, counts: s.stations, factories: s.factories ?? [], mines: s.mines ?? [] });
       }
     }
     gen.clearCaches();
-    return Comlink.transfer({ y0, y1, flags, template, faction, stations }, [flags.buffer, template.buffer, faction.buffer]);
+    return Comlink.transfer({ y0, y1, flags, template, faction, asteroids, stations, bosses }, [
+      flags.buffer,
+      template.buffer,
+      faction.buffer,
+      asteroids.buffer,
+    ]);
   },
 
   /** Everything about one sector, for the details panel. */

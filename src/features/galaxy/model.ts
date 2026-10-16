@@ -15,6 +15,11 @@ export const FLAG_CENTRAL = 0x08;
 export const FLAG_GATES = 0x10;
 export const FLAG_ANCIENT_GATES = 0x20;
 
+/** Per-sector asteroid byte: rich resource asteroids in the low nibble, claimable ones in the high. */
+export const packAsteroids = (resource: number, claimable: number) => Math.min(15, resource) | (Math.min(15, claimable) << 4);
+export const resourceAsteroids = (a: number) => a & 15;
+export const claimableAsteroids = (a: number) => a >> 4;
+
 export const sectorIndex = (x: number, y: number) => (y - MIN) * SIZE + (x - MIN);
 export const sectorX = (i: number) => (i % SIZE) + MIN;
 export const sectorY = (i: number) => Math.floor(i / SIZE) + MIN;
@@ -29,6 +34,12 @@ export interface StationSector {
   /** Production indices of the factories and mines. */
   factories: number[];
   mines: number[];
+}
+
+/** A world boss sector and the boss it holds (1-based, in the database's worldBosses order). */
+export interface BossSector {
+  i: number;
+  boss: number;
 }
 
 export interface Faction {
@@ -54,7 +65,10 @@ export interface GalaxyData {
   template: Uint8Array;
   /** Map faction index, or 0 outside faction territory. */
   faction: Int32Array;
+  /** packAsteroids() per sector. */
+  asteroids: Uint8Array;
   stations: StationSector[];
+  bosses: BossSector[];
   factions: Faction[];
 }
 
@@ -64,11 +78,13 @@ export interface GalaxyBlock {
   flags: Uint8Array;
   template: Uint8Array;
   faction: Int32Array;
+  asteroids: Uint8Array;
   stations: StationSector[];
+  bosses: BossSector[];
 }
 
 /** Bumped whenever generated data changes shape or meaning, so cached galaxies are rebuilt. */
-export const DATA_REVISION = 3;
+export const DATA_REVISION = 4;
 
 export function cacheKey(k: GalaxyKey): string {
   return JSON.stringify([DATA_REVISION, k.version, k.seed, k.mapFactions, k.rifts, k.barrier]);
@@ -80,7 +96,9 @@ export function emptyGalaxy(key: GalaxyKey): GalaxyData {
     flags: new Uint8Array(SECTORS),
     template: new Uint8Array(SECTORS),
     faction: new Int32Array(SECTORS),
+    asteroids: new Uint8Array(SECTORS),
     stations: [],
+    bosses: [],
     factions: [],
   };
 }
@@ -90,5 +108,7 @@ export function mergeBlock(g: GalaxyData, b: GalaxyBlock): void {
   g.flags.set(b.flags, offset);
   g.template.set(b.template, offset);
   g.faction.set(b.faction, offset);
+  g.asteroids.set(b.asteroids, offset);
   for (const s of b.stations) g.stations.push(s);
+  for (const s of b.bosses) g.bosses.push(s);
 }

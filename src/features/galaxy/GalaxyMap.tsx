@@ -1,8 +1,10 @@
 // Pan/zoom canvas of the whole galaxy: one pixel per sector at the base, overlays drawn per frame.
 import { type PointerEvent as RPointerEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { useT } from '@/i18n';
+import { db } from '@/game/database';
+import { useGameText, useT } from '@/i18n';
 import s from './galaxy.module.css';
 import {
+  FLAG_CENTRAL,
   FLAG_HOME,
   type GalaxyData,
   inGalaxy,
@@ -22,6 +24,8 @@ import { resolveColor } from './queries';
 export interface MapMarkers {
   /** Sector indices per layer color, each drawn as a filled cell. */
   layers: { color: string; sectors: number[] }[];
+  /** Rings where each material's asteroids stop appearing. */
+  belts: boolean;
   you: { x: number; y: number };
   selected: { x: number; y: number } | null;
   /** Dashed route from you to a sector. */
@@ -45,13 +49,16 @@ const SNAP_PX = 8;
 /** Movement beyond this many pixels turns a press into a pan; a finger wobbles more than a mouse. */
 const DRAG_PX = { mouse: 6, touch: 10 } as const;
 
-function factionColor(index: number): [number, number, number] {
+/** Lightness of faction territory: the central area a faction controls strongly, then its outskirts. */
+const CENTRAL_LIGHT = 0.17;
+const OUTER_LIGHT = 0.1;
+
+function factionColor(index: number, light: number): [number, number, number] {
   // a stable, muted hue per faction
   let h = (index * 2654435761) >>> 0;
   h = (h ^ (h >>> 15)) >>> 0;
   const hue = (h % 360) / 360;
   const sat = 0.32;
-  const light = 0.13;
   const q = light < 0.5 ? light * (1 + sat) : light + sat - light * sat;
   const p = 2 * light - q;
   const tc = (t: number) => {
@@ -85,10 +92,13 @@ function renderBase(g: GalaxyData): HTMLCanvasElement {
     let b = 12;
     const fi = g.faction[i];
     if (fi) {
-      let tint = tints.get(fi);
+      // as on the game's map, the faction's central area is brighter than its outskirts
+      const central = (f & FLAG_CENTRAL) !== 0;
+      const key = fi * 2 + (central ? 1 : 0);
+      let tint = tints.get(key);
       if (!tint) {
-        tint = factionColor(fi);
-        tints.set(fi, tint);
+        tint = factionColor(fi, central ? CENTRAL_LIGHT : OUTER_LIGHT);
+        tints.set(key, tint);
       }
       [r, gg, b] = tint;
     }
@@ -132,6 +142,7 @@ export function GalaxyMap({
   focusOn: { x: number; y: number } | null;
 }) {
   const t = useT();
+  const gt = useGameText();
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const base = useMemo(() => renderBase(galaxy), [galaxy]);
@@ -186,6 +197,23 @@ export function GalaxyMap({
       ctx.beginPath();
       ctx.arc(ox, oy, r * v.scale, 0, Math.PI * 2);
       ctx.stroke();
+    }
+    // material belts: a dashed ring at the outer edge of each material that does not reach the rim
+    if (markers.belts) {
+      ctx.setLineDash([2, 5]);
+      ctx.lineWidth = 1;
+      ctx.font = '600 10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      for (const m of db.materials) {
+        if (m.max >= 707) continue;
+        ctx.strokeStyle = 'rgba(214,201,170,0.55)';
+        ctx.beginPath();
+        ctx.arc(ox, oy, m.max * v.scale, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(214,201,170,0.85)';
+        ctx.fillText(gt.text(m.name).toUpperCase(), ox, oy + m.max * v.scale - 4);
+      }
+      ctx.setLineDash([]);
     }
     const barrier = resolveColor('var(--c-barrier)');
     ctx.setLineDash([6, 6]);
@@ -292,7 +320,7 @@ export function GalaxyMap({
     ctx.textAlign = 'left';
     ctx.font = '600 11px "JetBrains Mono", monospace';
     ctx.fillText(`${t('YOU')} ${you.x}:${you.y}`, yx + 12, yy - 12);
-  }, [v, size, markers, galaxy, base, t]);
+  }, [v, size, markers, galaxy, base, t, gt]);
 
   const toSector = (at: View, clientX: number, clientY: number) => {
     const rect = canvas.current!.getBoundingClientRect();

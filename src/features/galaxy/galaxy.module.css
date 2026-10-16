@@ -142,6 +142,11 @@
   padding-bottom: 4px;
 }
 
+.mLayersLabel {
+  flex-basis: 100%;
+  padding: 4px 2px 0;
+}
+
 .layer {
   display: flex;
   align-items: center;
@@ -369,6 +374,29 @@
 
 .selName {
   font-size: 15px;
+  font-weight: 600;
+}
+
+/* boss, materials and asteroid counts: label on the left, value on the right */
+.facts {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 12px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.facts dt {
+  color: var(--c-muted);
+}
+
+.facts dd {
+  margin: 0;
+  color: var(--c-text);
+  text-align: right;
+}
+
+.bossName {
   font-weight: 600;
 }
 
