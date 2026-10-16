@@ -277,6 +277,10 @@ function migrateLegacy(): Partial<Persisted> | undefined {
     const good = legacyGood(Number(k));
     if (good && Number(v) > 0) planner.cargo[good] = Number(v);
   }
+  for (const [k, v] of Object.entries(legacy('checkbox')?.entities ?? {})) {
+    const good = legacyGood(Number(k));
+    if (good && v === true) planner.bought[good] = true;
+  }
   for (const b of legacy('blueprints')?.entities ?? []) {
     const type = LEGACY_TURRETS[b.turret?.type];
     const def = type ? turretById.get(type) : undefined;

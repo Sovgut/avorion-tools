@@ -3,14 +3,14 @@ import { useGo } from '@/app/nav';
 import { Disclaimer } from '@/app/Shell';
 import { type BuyHint, useBuyHints } from '@/features/galaxy/hints';
 import { goodIcon, iconUrl, rarityById, turretById, turrets as turretTypes } from '@/game/database';
-import { fmt, fmt2, useGameText, useT } from '@/i18n';
+import { fmt, fmt2, fmtShort, useGameText, useT } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { MAX_COUNT, MAX_PRICE, MAX_QUANTITY, MAX_TABS, type PlannedTurret, plannerActions } from '@/store/planner';
 import { PRICE_FACTOR_MAX, PRICE_FACTOR_MIN, settingsActions } from '@/store/settings';
 import { uiActions } from '@/store/ui';
-import { Button, CloseIcon, CoordInput, GameIcon, IconButton, NumberInput, Sheet, Switch, TextInput } from '@/ui';
+import { Button, Checkbox, CloseIcon, CoordInput, FitText, GameIcon, IconButton, NumberInput, Sheet, Switch, TextInput } from '@/ui';
 import { useIsMobile } from '@/ui/hooks';
-import { type Plan, usePlan } from './plan';
+import { type NeedRow, type Plan, usePlan } from './plan';
 import s from './planner.module.css';
 import { MobileTurretPicker, TurretPicker } from './TurretPicker';
 
@@ -277,7 +277,7 @@ function Estimate({ plan }: { plan: Plan }) {
   return (
     <div className={s.estimate}>
       <div className={s.estLabel}>{t('Estimated price')}</div>
-      <div className={s.estValue}>≈ {fmt(plan.estimate)}</div>
+      <FitText className={s.estValue} text={`≈ ${fmt(plan.estimate)}`} max={36} />
       <PriceSlider plan={plan} />
       <div className={`${s.kv} ${s.kvFirst}`}>
         <span>{t('Turret purchase')}</span>
@@ -337,7 +337,7 @@ function PriceSlider({ plan }: { plan: Plan }) {
       </div>
       <div className={s.priceNote}>
         {nothingToBuy ? (
-          t('No cargo to buy: the estimate is the turret purchase.')
+          t(plan.rows.length > 0 ? 'All cargo is bought or in the hold.' : 'No cargo to buy: the estimate is the turret purchase.')
         ) : (
           <>
             <span className={s.priceFactor}>×{fmt2(f)}</span> {t(priceNote(f))}
@@ -350,7 +350,6 @@ function PriceSlider({ plan }: { plan: Plan }) {
 
 function CargoTable({ plan }: { plan: Plan }) {
   const t = useT();
-  const gt = useGameText();
   const go = useGo();
   const dispatch = useAppDispatch();
   const hints = useBuyHints(plan);
@@ -359,41 +358,85 @@ function CargoTable({ plan }: { plan: Plan }) {
       <div className={s.cargoHead}>
         <span className={s.sectionTitle}>{t('Cargo required')}</span>
         <button type="button" className={s.linkBtn} onClick={() => dispatch(plannerActions.clearCargo())}>
-          {t('Clear "have"')}
+          {t('Reset hold and marks')}
         </button>
       </div>
       <div className={`label ${s.cargoGrid} ${s.cargoHeadRow}`}>
+        <span />
         <span>{t('COMMODITY')}</span>
         <span className={s.right}>{t('NEED')}</span>
-        <span className={s.right}>{t('HAVE')}</span>
+        <span className={s.right} title={t('Already in your hold; taken off what is left to buy.')}>
+          {t('IN HOLD')}
+        </span>
         <span className={s.right}>{t('BUY')}</span>
       </div>
       {plan.rows.map((r) => (
-        <div key={r.good} className={s.cargoItem}>
-          <div className={s.cargoGrid}>
-            <button type="button" className={s.goodBtn} title={t('Open in Database')} onClick={() => go.good(r.good)}>
-              <GameIcon src={goodIcon(r.good)} size={18} />
-              <span className={s.ellipsis}>{gt.good(r.good)}</span>
-            </button>
-            <span className={s.needNum}>{fmt(r.need)}</span>
-            <NumberInput
-              className={s.haveInput}
-              value={r.have}
-              emptyAsZero={false}
-              placeholder="0"
-              max={MAX_COUNT}
-              aria-label={`${t('HAVE')} ${gt.good(r.good)}`}
-              onValue={(count) => dispatch(plannerActions.setCargo({ good: r.good, count }))}
-            />
-            <span className={s.buyNum} style={{ color: r.buy === 0 ? 'var(--c-green)' : undefined }}>
-              {fmt(r.buy)}
-            </span>
-          </div>
-          {r.buy > 0 && hints.get(r.good) && <HintChip hint={hints.get(r.good)!} good={r.good} />}
-        </div>
+        <CargoRow key={r.good} row={r} hint={hints.get(r.good)} onOpenGood={() => go.good(r.good)} />
       ))}
       {plan.rows.length === 0 && <div className={s.note}>{t('Nothing to buy yet. Enter component counts on the turret cards.')}</div>}
+      {plan.rows.length > 0 && (
+        <div className={s.note}>
+          {t('Tick a good once it is bought in the game; it leaves the estimate. In hold is what you already carry.')}
+        </div>
+      )}
       <HintsFootnote plan={plan} hints={hints} />
+    </div>
+  );
+}
+
+function CargoRow({
+  row: r,
+  hint,
+  mobile,
+  onOpenGood,
+}: {
+  row: NeedRow;
+  hint: BuyHint | undefined;
+  mobile?: boolean;
+  onOpenGood: () => void;
+}) {
+  const t = useT();
+  const gt = useGameText();
+  const dispatch = useAppDispatch();
+  return (
+    <div className={s.cargoItem} data-bought={r.bought} style={mobile ? { padding: '4px 0', gap: 4 } : undefined}>
+      <div className={mobile ? s.sheetGrid : s.cargoGrid}>
+        <Checkbox
+          checked={r.bought}
+          label={`${t('Bought')}: ${gt.good(r.good)}`}
+          onChange={(bought) => dispatch(plannerActions.setBought({ good: r.good, bought }))}
+        />
+        <button
+          type="button"
+          className={s.goodBtn}
+          style={mobile ? { fontSize: 14 } : undefined}
+          title={t('Open in Database')}
+          onClick={onOpenGood}
+        >
+          <GameIcon src={goodIcon(r.good)} size={18} />
+          <span className={`${s.ellipsis} ${s.goodName}`}>{gt.good(r.good)}</span>
+        </button>
+        <span className={s.needNum} title={fmt(r.need)}>
+          {fmtShort(r.need)}
+        </span>
+        <NumberInput
+          className={mobile ? s.sheetHave : s.haveInput}
+          value={r.have}
+          emptyAsZero={false}
+          placeholder="0"
+          max={MAX_COUNT}
+          aria-label={`${t('IN HOLD')} ${gt.good(r.good)}`}
+          onValue={(count) => dispatch(plannerActions.setCargo({ good: r.good, count }))}
+        />
+        <span
+          className={s.buyNum}
+          title={fmt(r.buy)}
+          style={{ fontSize: mobile ? 14 : undefined, color: r.buy === 0 ? 'var(--c-green)' : undefined }}
+        >
+          {r.bought ? '✓' : fmtShort(r.buy)}
+        </span>
+      </div>
+      {r.buy > 0 && hint && <HintChip hint={hint} good={r.good} mobile={mobile} />}
     </div>
   );
 }
@@ -527,8 +570,8 @@ function MobilePlanner() {
       </div>
       <div className={s.mSummaryBar}>
         <button type="button" className={s.mSummaryBtn} onClick={() => setCargoOpen(true)}>
-          <div>
-            <div className={s.mAvg}>≈ {fmt(plan.estimate)}</div>
+          <div className={s.mSummaryText}>
+            <FitText className={s.mAvg} text={`≈ ${fmt(plan.estimate)}`} max={20} />
             <div className={s.mRange}>
               ×{fmt2(plan.priceFactor)} · {fmt2(plan.volume)} m³
             </div>
@@ -651,7 +694,6 @@ function MobileTurretCard({ turret, open, onToggle }: { turret: PlannedTurret; o
 
 function CargoSheet({ plan, open, onClose }: { plan: Plan; open: boolean; onClose: () => void }) {
   const t = useT();
-  const gt = useGameText();
   const go = useGo();
   const dispatch = useAppDispatch();
   const hints = useBuyHints(plan);
@@ -664,7 +706,7 @@ function CargoSheet({ plan, open, onClose }: { plan: Plan; open: boolean; onClos
             <CloseIcon size={12} />
           </button>
         </div>
-        <div className={s.sheetAvg}>≈ {fmt(plan.estimate)}</div>
+        <FitText className={s.sheetAvg} text={`≈ ${fmt(plan.estimate)}`} max={26} />
         <PriceSlider plan={plan} />
         <div className={s.rangeLabels}>
           <span>{t('Cargo volume')}</span>
@@ -672,47 +714,28 @@ function CargoSheet({ plan, open, onClose }: { plan: Plan; open: boolean; onClos
         </div>
       </div>
       <div className={`label ${s.sheetGrid} ${s.sheetHeadRow}`}>
+        <span />
         <span>{t('COMMODITY')}</span>
         <span className={s.right}>{t('NEED')}</span>
-        <span className={s.right}>{t('HAVE')}</span>
+        <span className={s.right}>{t('IN HOLD')}</span>
         <span className={s.right}>{t('BUY')}</span>
       </div>
       <div className={s.sheetBody}>
         {plan.rows.map((r) => (
-          <div key={r.good} className={s.cargoItem} style={{ padding: '4px 0', gap: 4 }}>
-            <div className={s.sheetGrid}>
-              <button
-                type="button"
-                className={s.goodBtn}
-                style={{ fontSize: 14 }}
-                onClick={() => {
-                  onClose();
-                  go.good(r.good);
-                }}
-              >
-                <GameIcon src={goodIcon(r.good)} size={18} />
-                <span className={s.ellipsis}>{gt.good(r.good)}</span>
-              </button>
-              <span className={s.needNum}>{fmt(r.need)}</span>
-              <NumberInput
-                className={s.sheetHave}
-                value={r.have}
-                emptyAsZero={false}
-                placeholder="0"
-                max={MAX_COUNT}
-                aria-label={`${t('HAVE')} ${gt.good(r.good)}`}
-                onValue={(count) => dispatch(plannerActions.setCargo({ good: r.good, count }))}
-              />
-              <span className={s.buyNum} style={{ fontSize: 14, color: r.buy === 0 ? 'var(--c-green)' : undefined }}>
-                {fmt(r.buy)}
-              </span>
-            </div>
-            {r.buy > 0 && hints.get(r.good) && <HintChip hint={hints.get(r.good)!} good={r.good} mobile />}
-          </div>
+          <CargoRow
+            key={r.good}
+            row={r}
+            hint={hints.get(r.good)}
+            mobile
+            onOpenGood={() => {
+              onClose();
+              go.good(r.good);
+            }}
+          />
         ))}
         {plan.rows.length === 0 && <div className={s.note}>{t('Nothing to buy yet. Enter component counts on the turret cards.')}</div>}
         <Button variant="outline" className={s.sheetClear} onClick={() => dispatch(plannerActions.clearCargo())}>
-          {t('Clear "have"')}
+          {t('Reset hold and marks')}
         </Button>
       </div>
     </Sheet>

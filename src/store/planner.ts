@@ -40,13 +40,15 @@ export interface PlannerState {
   tabs: Tab[];
   currentTabId: string | null;
   turrets: PlannedTurret[];
-  /** Cargo already on hand, per good id. */
+  /** Cargo already in the hold, per good id; it is taken off what is left to buy. */
   cargo: Record<string, number>;
+  /** Goods marked as bought in the game: nothing more is to buy for them. */
+  bought: Record<string, true>;
   blueprints: Blueprint[];
   seq: number;
 }
 
-export const initialPlanner: PlannerState = { tabs: [], currentTabId: null, turrets: [], cargo: {}, blueprints: [], seq: 1 };
+export const initialPlanner: PlannerState = { tabs: [], currentTabId: null, turrets: [], cargo: {}, bought: {}, blueprints: [], seq: 1 };
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, Math.trunc(Number.isFinite(v) ? v : 0)));
 
@@ -119,8 +121,14 @@ const slice = createSlice({
       if (v === 0) delete state.cargo[a.payload.good];
       else state.cargo[a.payload.good] = v;
     },
+    setBought(state, a: PayloadAction<{ good: string; bought: boolean }>) {
+      if (a.payload.bought) state.bought[a.payload.good] = true;
+      else delete state.bought[a.payload.good];
+    },
+    /** Empties the hold and clears every "bought" mark. */
     clearCargo(state) {
       state.cargo = {};
+      state.bought = {};
     },
     saveBlueprint(state, a: PayloadAction<Omit<Blueprint, 'id'>>) {
       state.blueprints.push({ ...a.payload, id: `bp${state.seq++}`, name: a.payload.name.trim().slice(0, 60) });

@@ -76,6 +76,13 @@ export function fmt(n: number): string {
   return nf.format(Math.round(n));
 }
 
+const nfShort = new Intl.NumberFormat('en-US', { notation: 'compact', maximumSignificantDigits: 3 });
+
+/** Like `fmt` below a million, then compact (`9.99B`), so it fits a narrow column. */
+export function fmtShort(n: number): string {
+  return Math.abs(n) < 1_000_000 ? fmt(n) : nfShort.format(n);
+}
+
 /** Up to two decimals. */
 export function fmt2(n: number): string {
   return nf2.format(n);

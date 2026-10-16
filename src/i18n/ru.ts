@@ -62,10 +62,15 @@ export const RU: Record<string, string> = {
   'Cargo volume': 'Объём груза',
   'Cargo required': 'Нужный груз',
   Cargo: 'Груз',
-  'Clear "have"': 'Очистить «есть»',
+  'All cargo is bought or in the hold.': 'Весь груз куплен или уже лежит в трюме.',
+  'Reset hold and marks': 'Сбросить трюм и отметки',
+  'IN HOLD': 'В ТРЮМЕ',
+  Bought: 'Куплено',
+  'Already in your hold; taken off what is left to buy.': 'Уже лежит в трюме; вычитается из того, что осталось купить.',
+  'Tick a good once it is bought in the game; it leaves the estimate. In hold is what you already carry.':
+    'Отметь товар галочкой, когда купишь его в игре: он уйдёт из оценки. «В трюме» - то, что у тебя уже есть.',
   COMMODITY: 'ТОВАР',
   NEED: 'НУЖНО',
-  HAVE: 'ЕСТЬ',
   BUY: 'КУПИТЬ',
   'Nothing to buy yet. Enter component counts on the turret cards.':
     'Пока нечего покупать. Введите количества компонентов на карточках турелей.',

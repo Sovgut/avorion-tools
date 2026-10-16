@@ -570,11 +570,10 @@
 
 .estValue {
   font-family: var(--font-mono);
-  font-size: 36px;
   font-weight: 600;
   line-height: 1;
   color: var(--c-accent);
-  word-break: break-all;
+  white-space: nowrap;
 }
 
 .price {
@@ -676,7 +675,9 @@
 
 .rangeLabels {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  column-gap: 12px;
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--c-secondary);
@@ -713,7 +714,7 @@
 
 .cargoGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 54px 64px 54px;
+  grid-template-columns: 18px minmax(0, 1fr) 54px 64px 54px;
   gap: 8px;
   align-items: center;
 }
@@ -764,6 +765,21 @@
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--c-secondary);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* a bought good stays listed, dimmed and struck through */
+.cargoItem[data-bought='true'] .goodBtn {
+  opacity: 0.5;
+}
+
+.cargoItem[data-bought='true'] .goodName {
+  text-decoration: line-through;
+}
+
+.cargoItem[data-bought='true'] .needNum {
+  color: var(--c-muted);
 }
 
 .buyNum {
@@ -771,6 +787,8 @@
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .haveInput {
@@ -1230,9 +1248,13 @@
   min-width: 0;
 }
 
+.mSummaryText {
+  flex: 1;
+  min-width: 0;
+}
+
 .mAvg {
   font-family: var(--font-mono);
-  font-size: 20px;
   font-weight: 600;
   color: var(--c-accent);
 }
@@ -1289,14 +1311,13 @@
 
 .sheetAvg {
   font-family: var(--font-mono);
-  font-size: 26px;
   font-weight: 600;
   color: var(--c-accent);
 }
 
 .sheetGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 52px 76px 48px;
+  grid-template-columns: 18px minmax(0, 1fr) 44px 68px 46px;
   gap: 8px;
   align-items: center;
 }

@@ -9,6 +9,8 @@ export interface NeedRow {
   good: string;
   need: number;
   have: number;
+  /** Marked as bought: nothing is left to buy. */
+  bought: boolean;
   buy: number;
   /** Cost to buy at base price. */
   cost: number;
@@ -39,6 +41,7 @@ export function computePlan(
   tab: Tab | undefined,
   allTurrets: PlannedTurret[],
   cargo: Record<string, number>,
+  bought: Record<string, true>,
   position: { x: number; y: number } | null = null,
   priceFactor = PRICE_FACTOR_DEFAULT,
 ): Plan {
@@ -50,11 +53,13 @@ export function computePlan(
   }
   const rows: NeedRow[] = [...need].map(([good, n]) => {
     const have = cargo[good] ?? 0;
-    const buy = Math.max(0, n - have);
+    const isBought = bought[good] === true;
+    const buy = isBought ? 0 : Math.max(0, n - have);
     const g = goodById.get(good);
-    return { good, need: n, have, buy, cost: buy * (g?.price ?? 0), volume: buy * (g?.volume ?? 0) };
+    return { good, need: n, have, bought: isBought, buy, cost: buy * (g?.price ?? 0), volume: buy * (g?.volume ?? 0) };
   });
-  rows.sort((a, b) => b.cost - a.cost || a.good.localeCompare(b.good));
+  // bought goods sink to the bottom, the rest go by cost to buy
+  rows.sort((a, b) => Number(a.bought) - Number(b.bought) || b.cost - a.cost || a.good.localeCompare(b.good));
   const cargoCost = rows.reduce((a, r) => a + r.cost, 0);
   const turretSum = enabled.reduce((a, t) => a + t.price * t.qty, 0);
   const me = enabled[0] ?? turrets[0];
@@ -77,7 +82,7 @@ export function computePlan(
 }
 
 export function usePlan(): Plan {
-  const { tabs, currentTabId, turrets, cargo } = useAppSelector((s) => s.planner);
+  const { tabs, currentTabId, turrets, cargo, bought } = useAppSelector((s) => s.planner);
   const position = useAppSelector((s) => s.settings.position);
   const priceFactor = useAppSelector((s) => s.settings.priceFactor);
   return useMemo(
@@ -86,9 +91,10 @@ export function usePlan(): Plan {
         tabs.find((t) => t.id === currentTabId),
         turrets,
         cargo,
+        bought,
         position,
         priceFactor,
       ),
-    [tabs, currentTabId, turrets, cargo, position, priceFactor],
+    [tabs, currentTabId, turrets, cargo, bought, position, priceFactor],
   );
 }

@@ -60,6 +60,43 @@ export function CloseIcon({ size = 10 }: { size?: number }) {
   );
 }
 
+/**
+ * One line of monospaced text that shrinks to fit its container's width, up to `max` px.
+ * The text must be set in the mono font, whose glyphs are all the same width.
+ */
+export function FitText({ text, max, className }: { text: string; max: number; className?: string }) {
+  return (
+    <div className={s.fitBox}>
+      <div className={clsx(s.fit, className)} style={{ '--chars': text.length, '--max': `${max}px` } as CSSProperties}>
+        {text}
+      </div>
+    </div>
+  );
+}
+
+export function Checkbox({
+  checked,
+  onChange,
+  label,
+  className,
+}: {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <input
+      type="checkbox"
+      className={clsx(s.checkbox, className)}
+      checked={checked}
+      aria-label={label}
+      title={label}
+      onChange={(e) => onChange(e.target.checked)}
+    />
+  );
+}
+
 export function IconButton({
   label,
   danger,
