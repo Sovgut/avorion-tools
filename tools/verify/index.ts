@@ -10,6 +10,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { GalaxyGenerator, type SectorInfo, SectorKind } from '../../src/engine/galaxy/generator';
+import database from '../../src/generated/database.json';
 import meta from '../../src/generated/galaxy-meta.json';
 import { modules } from '../../src/generated/galaxy-scripts.js';
 
@@ -155,6 +156,8 @@ interface Row {
   generationSeed: string;
   stations: string;
   productions: string;
+  /** "resource;claimable;boss" asteroid counts and world boss pick. */
+  extra: string;
 }
 
 function parseDump(file: string): Map<string, Row> {
@@ -179,6 +182,7 @@ function parseDump(file: string): Map<string, Row> {
       generationSeed: p[7] === 'nil' ? '' : p[7],
       stations,
       productions: p[9] === '|' ? '' : (p[9] ?? ''),
+      extra: p[10] ?? '',
     });
   }
   return rows;
@@ -202,6 +206,10 @@ function describe(s: SectorInfo): Row {
         : '',
     productions:
       s.kind === SectorKind.Regular && (s.factories || s.mines) ? `${(s.factories ?? []).join(';')}|${(s.mines ?? []).join(';')}` : '',
+    extra:
+      s.kind === SectorKind.Regular || s.kind === SectorKind.Offgrid
+        ? `${s.resourceAsteroids ?? 0};${s.claimableAsteroids ?? 0};${s.boss ?? ''}`
+        : '',
   };
 }
 
@@ -217,7 +225,7 @@ async function main() {
       const to = Math.min(o.to, y + ROWS_PER_RUN - 1);
       fs.writeFileSync(
         path.join(server.moddata, 'verify-galaxy.lua'),
-        `GT_FROM = ${y}\nGT_TO = ${to}\nGT_RESET = ${y === o.from}\n${source}`,
+        `GT_FROM = ${y}\nGT_TO = ${to}\nGT_RESET = ${y === o.from}\nGT_BOSSES = ${database.worldBosses.length}\n${source}`,
       );
       run(server, 'verify-galaxy.lua');
       await waitFor(server, `VERIFY ROWS DONE ${to}`, 600_000);
@@ -230,7 +238,12 @@ async function main() {
   }
 
   const truth = parseDump(path.join(server.moddata, 'verify-galaxy.tsv'));
-  const gen = new GalaxyGenerator({ settings: { seed: o.seed, mapFactions: 350, rifts: 200, barrier: true }, modules, stubs: meta.stubs });
+  const gen = new GalaxyGenerator({
+    settings: { seed: o.seed, mapFactions: 350, rifts: 200, barrier: true },
+    modules,
+    stubs: meta.stubs,
+    worldBosses: database.worldBosses.length,
+  });
   let sectors = 0;
   const mismatches: string[] = [];
   for (let y = o.from; y <= o.to; y++) {

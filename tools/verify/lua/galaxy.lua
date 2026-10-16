@@ -1,5 +1,5 @@
 -- Dumps rows GT_FROM..GT_TO of the running server's galaxy to moddata/verify-galaxy.tsv.
--- GT_FROM, GT_TO and GT_RESET are prepended by the verify tool.
+-- GT_FROM, GT_TO, GT_RESET and GT_BOSSES (the world boss count) are prepended by the verify tool.
 package.path = package.path .. ";data/scripts/lib/?.lua;data/scripts/?.lua"
 
 local SectorSpecifics = include("sectorspecifics")
@@ -31,18 +31,24 @@ for y = GT_FROM, GT_TO do
         specs:initialize(x, y, seed)
         if specs.regular or specs.offgrid or specs.blocked then
             local script = specs:getScript()
-            local contentsStr, prodStr = "", ""
-            if specs.regular and specs.generationTemplate and specs.generationTemplate.contents then
-                local ok, contents = pcall(specs.generationTemplate.contents, x, y)
+            local contentsStr, prodStr, extraStr = "", "", ""
+            if (specs.regular or specs.offgrid) and specs.generationTemplate and specs.generationTemplate.contents then
+                local ok, contents, random = pcall(specs.generationTemplate.contents, x, y)
                 if ok and contents then
-                    contentsStr = serializeContents(contents)
-                    local pf, pm = "", ""
-                    if (contents.factories or 0) > 0 then pf = productionIndices(FactoryPredictor.generateFactoryProductions(x, y, contents.factories)) end
-                    if (contents.mines or 0) > 0 then pm = productionIndices(FactoryPredictor.generateMineProductions(x, y, contents.mines)) end
-                    prodStr = pf .. "|" .. pm
+                    if specs.regular then
+                        contentsStr = serializeContents(contents)
+                        local pf, pm = "", ""
+                        if (contents.factories or 0) > 0 then pf = productionIndices(FactoryPredictor.generateFactoryProductions(x, y, contents.factories)) end
+                        if (contents.mines or 0) > 0 then pm = productionIndices(FactoryPredictor.generateMineProductions(x, y, contents.mines)) end
+                        prodStr = pf .. "|" .. pm
+                    end
+                    -- the boss pick generate() makes, from the same Random
+                    local boss = ""
+                    if script == "sectors/worldboss" and random then boss = tostring(random:getInt(1, GT_BOSSES)) end
+                    extraStr = string.format("%d;%d;%s", contents.resourceAsteroids or 0, contents.claimableAsteroids or 0, boss)
                 end
             end
-            out:write(string.format("%d\t%d\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
+            out:write(string.format("%d\t%d\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
                 x, y,
                 specs.regular and "R" or (specs.offgrid and "O" or "B"),
                 tostring(specs.factionIndex),
@@ -51,7 +57,8 @@ for y = GT_FROM, GT_TO do
                 tostring(specs.gates),
                 tostring(specs.generationSeed),
                 contentsStr,
-                prodStr))
+                prodStr,
+                extraStr))
         end
     end
 end

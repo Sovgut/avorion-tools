@@ -458,6 +458,9 @@ export function installNatives(G: LuaTable, opts: NativeOptions): void {
     const b = max as Vec2;
     return new LuaQuadTree(new QuadTree(a.x, a.y, b.x, b.y, num(level, 'QuadTree')));
   });
+  // the material count is the size of the MaterialType enum the server reported
+  const materialCount = Object.keys((enumData.enums as Record<string, Record<string, number>>).MaterialType ?? {}).length;
+  def('NumMaterials', () => materialCount);
   def('GameSettings', () => {
     const t = new LuaTable();
     t.set('seed', settings.seed);

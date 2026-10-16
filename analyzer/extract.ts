@@ -1,5 +1,6 @@
 // Builds the game database by running the game's data scripts and reading their tables.
 import path from 'node:path';
+import enumData from '../src/engine/avorion/enums.json';
 import { call, first, LuaTable, type LuaValue, method } from '../src/engine/lua/runtime';
 import type {
   Armament,
@@ -7,10 +8,12 @@ import type {
   GameDatabase,
   Good,
   GoodAmount,
+  MaterialBelt,
   Production,
   SectorTemplate,
   TurretIngredient,
   TurretType,
+  WorldBoss,
 } from '../src/game/schema';
 import type { GameFiles } from './game';
 import { createScriptVM } from './vm';
@@ -279,10 +282,63 @@ export function extractDatabase(game: GameFiles): ExtractResult {
   }
   if (Object.keys(stationTitles).length === 0) warnings.push('no station titles found in sectorspecifics.lua fillSectorView');
 
+  // world bosses: the scripts sectors/worldboss.lua picks from, and the title each gives its ship
+  const worldBosses: WorldBoss[] = [];
+  const bossSource = game.readBytes('data/scripts/sectors/worldboss.lua');
+  const bossList = /local bossScripts\s*=\s*\{([^}]*)\}/.exec(bossSource)?.[1] ?? '';
+  for (const m of bossList.matchAll(/"data\/scripts\/sector\/worldbosses\/(\w+)\.lua"/g)) {
+    const script = game.readBytes(`data/scripts/sector/worldbosses/${m[1]}.lua`);
+    const title = /local bossTitle = "([^"]+)"%_t/.exec(script)?.[1] ?? /boss\.name = "([^"]+)"%_[tT]/.exec(script)?.[1];
+    if (!title) warnings.push(`world boss ${m[1]} has no title`);
+    // kept as the game's string so it translates; "Sentinel ${serialNumber}" loses its number on display
+    const name = decodeUtf8(title ?? m[1]);
+    worldBosses.push({ id: m[1], name });
+    strings.add(name);
+  }
+  if (worldBosses.length === 0) warnings.push('no world bosses found in sectors/worldboss.lua');
+
+  // material belts, from the game's own probability function sampled along a radius
+  const materials: MaterialBelt[] = [];
+  include('galaxy');
+  const probabilityAt = vm.state.G.get('Balancing_GetMaterialProbability');
+  const materialNames = Object.entries((enumData.enums as Record<string, Record<string, number>>).MaterialType)
+    .sort((a, b) => a[1] - b[1])
+    .map(([name]) => name);
+  if (typeof probabilityAt === 'function') {
+    const ranges = materialNames.map(() => ({ min: Infinity, max: -Infinity }));
+    const STEP = 0.05;
+    for (let d = 0; d <= 710; d += STEP) {
+      const probs = first(call(probabilityAt, d, 0));
+      if (!(probs instanceof LuaTable)) continue;
+      materialNames.forEach((_, i) => {
+        if (num(probs.get(i)) > 0) {
+          ranges[i].min = Math.min(ranges[i].min, d);
+          ranges[i].max = Math.max(ranges[i].max, d);
+        }
+      });
+    }
+    materialNames.forEach((name, i) => {
+      if (ranges[i].min <= ranges[i].max)
+        materials.push({ name, min: Math.round(ranges[i].min * 100) / 100, max: Math.round(ranges[i].max * 100) / 100 });
+      strings.add(name);
+    });
+  } else warnings.push('Balancing_GetMaterialProbability not found');
+
   void missingIncludes;
 
   return {
-    db: { game: { version: game.version() }, goods, productions, turrets, consumers, templates, sizes: SIZE_LABELS, stationTitles },
+    db: {
+      game: { version: game.version() },
+      goods,
+      productions,
+      turrets,
+      consumers,
+      templates,
+      sizes: SIZE_LABELS,
+      stationTitles,
+      worldBosses,
+      materials,
+    },
     strings,
     icons,
     warnings,

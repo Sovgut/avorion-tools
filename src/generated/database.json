@@ -9778,5 +9778,84 @@
   "neighborTradingPosts": "Trading Post",
   "travelHubs": "Travel Hub",
   "riftResearchCenters": "Rift Research Center"
- }
+ },
+ "worldBosses": [
+  {
+   "id": "ancientsentinel",
+   "name": "Sentinel ${serialNumber}"
+  },
+  {
+   "id": "chemicalaccident",
+   "name": "Chemical Transport ${serialNumber}"
+  },
+  {
+   "id": "collector",
+   "name": "The Collector"
+  },
+  {
+   "id": "cryocolonyship",
+   "name": "Hope I"
+  },
+  {
+   "id": "cultship",
+   "name": "Opportunity"
+  },
+  {
+   "id": "deathmerchant",
+   "name": "The Merchant"
+  },
+  {
+   "id": "jester",
+   "name": "The Jester"
+  },
+  {
+   "id": "lostwmd",
+   "name": "Exterminatus"
+  },
+  {
+   "id": "revoltingprisonship",
+   "name": "Complex HSP"
+  },
+  {
+   "id": "scrapbot",
+   "name": "Jackpot the Scrap God"
+  }
+ ],
+ "materials": [
+  {
+   "name": "Iron",
+   "min": 0,
+   "max": 710
+  },
+  {
+   "name": "Titanium",
+   "min": 0,
+   "max": 710
+  },
+  {
+   "name": "Naonite",
+   "min": 0,
+   "max": 360.7
+  },
+  {
+   "name": "Trinium",
+   "min": 0,
+   "max": 289.25
+  },
+  {
+   "name": "Xanion",
+   "min": 0,
+   "max": 217.85
+  },
+  {
+   "name": "Ogonite",
+   "min": 0,
+   "max": 146.4
+  },
+  {
+   "name": "Avorion",
+   "min": 0,
+   "max": 75
+  }
+ ]
 }

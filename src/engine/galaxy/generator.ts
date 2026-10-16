@@ -38,6 +38,11 @@ export interface SectorInfo {
   /** Production indices (1-based, as in the game) of the factories, then the mines. */
   factories?: number[];
   mines?: number[];
+  /** Rich resource asteroids and asteroids a player can claim, as contents() reports them. */
+  resourceAsteroids?: number;
+  claimableAsteroids?: number;
+  /** For a world boss sector, which boss it holds: 1-based, in sectors/worldboss.lua's list order. */
+  boss?: number;
 }
 
 /** Template fields that are not station counts. */
@@ -60,7 +65,11 @@ export interface GeneratorOptions {
   settings: GalaxySettings;
   modules: Record<string, ModuleFactory>;
   stubs: string[];
+  /** How many bosses sectors/worldboss.lua picks from; without it, boss sectors report no boss. */
+  worldBosses?: number;
 }
+
+const WORLD_BOSS_TEMPLATE = 'sectors/worldboss';
 
 export class GalaxyGenerator {
   readonly vm: GameVM;
@@ -71,7 +80,10 @@ export class GalaxyGenerator {
   private readonly memo = new Map<number, LuaValue>();
   private passableCaches: Map<number, LuaValue>[] = [];
 
+  private readonly worldBosses: number;
+
   constructor(opts: GeneratorOptions) {
+    this.worldBosses = opts.worldBosses ?? 0;
     this.vm = new GameVM({ settings: opts.settings, modules: opts.modules, stubs: opts.stubs });
     const SectorSpecifics = this.vm.include('sectorspecifics');
     this.factoryPredictor = this.vm.include('factorypredictor') as LuaTable;
@@ -217,8 +229,18 @@ export class GalaxyGenerator {
   private addStations(info: SectorInfo): void {
     const template = index(this.specs.get('generationTemplate'), 'contents');
     if (typeof template !== 'function') return;
-    const contents = first(call(template, info.x, info.y));
+    const result = call(template, info.x, info.y);
+    const contents = first(result);
     if (!(contents instanceof LuaTable)) return;
+    const resource = contents.get('resourceAsteroids');
+    const claimable = contents.get('claimableAsteroids');
+    if (typeof resource === 'number' && resource > 0) info.resourceAsteroids = resource;
+    if (typeof claimable === 'number' && claimable > 0) info.claimableAsteroids = claimable;
+    // generate() draws the boss from the Random that contents() returns, before anything else
+    if (info.template === WORLD_BOSS_TEMPLATE && this.worldBosses > 0 && result instanceof LuaMulti) {
+      const n = first(method(result.v[1], 'getInt', 1, this.worldBosses));
+      if (typeof n === 'number') info.boss = n;
+    }
     const stations: StationCounts = {};
     let k: LuaValue;
     for (;;) {
