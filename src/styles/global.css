@@ -58,6 +58,11 @@
   box-sizing: border-box;
 }
 
+/* the scrollbar's room is kept even when the page fits, so content never shifts sideways */
+html {
+  scrollbar-gutter: stable;
+}
+
 html,
 body {
   margin: 0;

@@ -330,18 +330,21 @@ function PriceSlider({ plan }: { plan: Plan }) {
           {t('max')} {fmt(plan.max)}
         </span>
       </div>
-      {nothingToBuy ? (
-        <div className={s.priceNote}>
-          {t(plan.rows.length > 0 ? 'All cargo is bought or in the hold.' : 'No cargo to buy: the estimate is the turret purchase.')}
+      {/* one fixed-height line in every state, so the panel below never moves */}
+      <div className={s.priceLine}>
+        {!nothingToBuy && <span className={s.priceFactor}>×{fmt2(f)}</span>}
+        <div className={s.priceLineText}>
+          <FitText
+            className={s.priceNoteFit}
+            text={
+              nothingToBuy
+                ? t(plan.rows.length > 0 ? 'All cargo is bought or in the hold.' : 'No cargo to buy: turrets only.')
+                : t(priceNote(f))
+            }
+            max={12}
+          />
         </div>
-      ) : (
-        <div className={s.priceLine}>
-          <span className={s.priceFactor}>×{fmt2(f)}</span>
-          <div className={s.priceLineText}>
-            <FitText className={s.priceNoteFit} text={t(priceNote(f))} max={12} />
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -661,12 +661,6 @@
   opacity: 0.4;
 }
 
-.priceNote {
-  font-size: 12px;
-  color: var(--c-secondary);
-  line-height: 1.4;
-}
-
 /* the multiple keeps its size; only the description beside it shrinks to fit the line,
    and the line keeps a fixed height so nothing below it moves while the font shrinks */
 .priceLine {

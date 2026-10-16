@@ -56,7 +56,7 @@ export const RU: Record<string, string> = {
   'usual factory and trading post prices': 'обычные цены фабрик и торговых постов',
   'a shortage or poor relations': 'дефицит или плохие отношения',
   "the turret factory's supplier": 'поставщик при фабрике турелей',
-  'No cargo to buy: the estimate is the turret purchase.': 'Покупать груз не нужно: оценка равна покупке турелей.',
+  'No cargo to buy: turrets only.': 'Груз не нужен: только турели.',
   'Turret purchase': 'Покупка турелей',
   'Cargo volume': 'Объём груза',
   'Cargo required': 'Нужный груз',
