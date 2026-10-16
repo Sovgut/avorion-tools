@@ -667,11 +667,14 @@
   line-height: 1.4;
 }
 
-/* the multiple keeps its size; only the description beside it shrinks to fit the line */
+/* the multiple keeps its size; only the description beside it shrinks to fit the line,
+   and the line keeps a fixed height so nothing below it moves while the font shrinks */
 .priceLine {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 6px;
+  height: 17px;
+  line-height: 17px;
 }
 
 .priceLineText {
@@ -683,7 +686,7 @@
 .priceNoteFit {
   font-family: var(--font-mono);
   color: var(--c-secondary);
-  line-height: 1.4;
+  line-height: 17px;
 }
 
 .priceFactor {
