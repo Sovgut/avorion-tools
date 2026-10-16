@@ -5,7 +5,8 @@ export const MAX_TABS = 10;
 export const MAX_QUANTITY = 999_999;
 export const MAX_PRICE = 9_999_999_999;
 export const MAX_COUNT = 9_999_999;
-export const SECTOR_LIMIT = 500;
+export const SECTOR_MIN = -499;
+export const SECTOR_MAX = 500;
 
 export interface Tab {
   id: string;
@@ -100,8 +101,8 @@ const slice = createSlice({
       const p = a.payload;
       if (p.qty !== undefined) t.qty = clamp(p.qty, 1, MAX_QUANTITY);
       if (p.price !== undefined) t.price = clamp(p.price, 0, MAX_PRICE);
-      if (p.x !== undefined) t.x = clamp(p.x, -SECTOR_LIMIT, SECTOR_LIMIT);
-      if (p.y !== undefined) t.y = clamp(p.y, -SECTOR_LIMIT, SECTOR_LIMIT);
+      if (p.x !== undefined) t.x = clamp(p.x, SECTOR_MIN, SECTOR_MAX);
+      if (p.y !== undefined) t.y = clamp(p.y, SECTOR_MIN, SECTOR_MAX);
       if (p.enabled !== undefined) t.enabled = p.enabled;
     },
     setCount(state, a: PayloadAction<{ id: string; good: string; count: number }>) {

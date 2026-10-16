@@ -33,7 +33,7 @@ On Steam for Linux the game is usually at `~/.local/share/Steam/steamapps/common
 npm run verify -- <path to the Avorion installation> [--seed <seed>] [--rows -160:-61]
 ```
 
-Starts the game's dedicated server with a throwaway galaxy, has its own Lua dump the given rows of sectors and compares them with the app's generator, sector by sector. On Linux the server runs through Steam's Proton (set `PROTON` to a `proton` script if it is not found); on Windows it runs directly. Use it after a game update to confirm the map still matches.
+Starts the game's dedicated server with a throwaway galaxy, has its own Lua dump the given rows of sectors and compares them with the app's generator, sector by sector. On Linux the server runs through Steam's Proton (set `PROTON` to a `proton` script if it is not found), which limits the seed to printable ASCII; on Windows it runs directly. When sectors differ, the server's galaxy folder and the dump are kept and their paths printed. Use it after a game update to confirm the map still matches.
 
 ## How galaxy generation works
 

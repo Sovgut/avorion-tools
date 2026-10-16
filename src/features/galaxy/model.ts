@@ -68,7 +68,7 @@ export interface GalaxyBlock {
 }
 
 /** Bumped whenever generated data changes shape or meaning, so cached galaxies are rebuilt. */
-export const DATA_REVISION = 2;
+export const DATA_REVISION = 3;
 
 export function cacheKey(k: GalaxyKey): string {
   return JSON.stringify([DATA_REVISION, k.version, k.seed, k.mapFactions, k.rifts, k.barrier]);

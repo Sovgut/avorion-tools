@@ -71,14 +71,71 @@ function sanitize(name: string): string {
 }
 
 export function parseLua(source: string): Node {
-  return luaparse.parse(source, {
+  const ast = luaparse.parse(source, {
     luaVersion: '5.2',
     encodingMode: 'pseudo-latin1',
     comments: false,
     locations: true,
-    ranges: false,
+    ranges: true,
     scope: false,
   } as any);
+  markParenthesized(ast, source);
+  return ast;
+}
+
+const MULTI_TYPES = new Set(['CallExpression', 'TableCallExpression', 'StringCallExpression', 'VarargLiteral']);
+/** Keywords that can stand right before a parenthesized expression. */
+const KEYWORDS_BEFORE_EXPR = new Set([
+  'return',
+  'and',
+  'or',
+  'not',
+  'in',
+  'do',
+  'then',
+  'else',
+  'elseif',
+  'until',
+  'while',
+  'if',
+  'repeat',
+]);
+
+/**
+ * luaparse drops parentheses, but `(f())` and `(...)` yield exactly one value. Sets `inParens` on
+ * multi-valued nodes that sit directly inside a parenthesized expression, as opposed to call
+ * arguments such as `g(f())`.
+ */
+function markParenthesized(root: Node, src: string): void {
+  const isSpace = (c: string) => c === ' ' || c === '\t' || c === '\r' || c === '\n';
+  const isWord = (c: string) => /[A-Za-z0-9_]/.test(c);
+  const opensExpression = (open: number): boolean => {
+    let q = open - 1;
+    while (q >= 0 && isSpace(src[q])) q--;
+    if (q < 0) return true;
+    const c = src[q];
+    if (c === ')' || c === ']' || c === '}' || c === '"' || c === "'") return false;
+    if (!isWord(c)) return true;
+    let w = q;
+    while (w > 0 && isWord(src[w - 1])) w--;
+    return KEYWORDS_BEFORE_EXPR.has(src.slice(w, q + 1));
+  };
+  const visit = (n: Node) => {
+    if (n === null || typeof n !== 'object') return;
+    if (Array.isArray(n)) {
+      for (const x of n) visit(x);
+      return;
+    }
+    if (MULTI_TYPES.has(n.type) && n.range) {
+      let p = n.range[0] - 1;
+      while (p >= 0 && isSpace(src[p])) p--;
+      let q = n.range[1];
+      while (q < src.length && isSpace(src[q])) q++;
+      if (src[p] === '(' && src[q] === ')' && opensExpression(p)) n.inParens = true;
+    }
+    for (const k in n) if (k !== 'loc' && k !== 'range') visit(n[k]);
+  };
+  visit(root);
 }
 
 export class Compiler {
@@ -578,10 +635,7 @@ function push<K, V>(m: Map<K, V[]>, k: K, v: V) {
 }
 
 function isMulti(e: Node | undefined): boolean {
-  return (
-    e !== undefined &&
-    (e.type === 'CallExpression' || e.type === 'TableCallExpression' || e.type === 'StringCallExpression' || e.type === 'VarargLiteral')
-  );
+  return e !== undefined && MULTI_TYPES.has(e.type) && !e.inParens;
 }
 
 function numberLiteral(v: number): string {

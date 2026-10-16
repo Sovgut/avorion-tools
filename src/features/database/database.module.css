@@ -126,11 +126,12 @@
   line-height: 1.1;
 }
 
-.tags {
+/* Tags share the title's line, so the header is the same height with or without them. */
+.titleRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
+  align-items: center;
+  gap: 6px 12px;
 }
 
 .desc {
@@ -242,12 +243,15 @@
 }
 
 .recipeOut {
-  border-color: var(--c-accent);
+  border-color: var(--c-accent-2);
+  background: var(--c-accent-2);
+  color: var(--c-on-accent-2);
   font-weight: 600;
 }
 
 .recipeOut:hover {
-  border-color: var(--c-accent-hover);
+  border-color: var(--c-accent-2-hover);
+  background: var(--c-accent-2-hover);
 }
 
 .usedGrid {

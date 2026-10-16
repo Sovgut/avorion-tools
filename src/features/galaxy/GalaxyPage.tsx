@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import { DEFAULT_GALAXY, settingsActions } from '@/store/settings';
 import { Button, CoordInput, GameIcon, NumberInput, Switch, TextInput } from '@/ui';
 import { useIsMobile } from '@/ui/hooks';
-import { loadGalaxy, useGalaxy } from './client';
+import { useGalaxy } from './client';
 import { GalaxyMap, type MapMarkers } from './GalaxyMap';
 import s from './galaxy.module.css';
 import {
@@ -69,8 +69,14 @@ export function GalaxyPage() {
   const [search, setSearch] = useSearchParams();
   const selected = parseSel(search.get('sel'));
   const focus = search.get('focus');
-  // a link from elsewhere flies the map to the sector once
-  const [jump, setFly] = useState(() => (search.get('go') ? parseSel(search.get('sel')) : null));
+  // a link with `go` flies the map to the sector once, from another page or from this one
+  const goTo = search.get('go') ? search.get('sel') : null;
+  const [jump, setFly] = useState<{ x: number; y: number } | null>(null);
+  const [seenGo, setSeenGo] = useState<string | null>(null);
+  if (goTo !== seenGo) {
+    setSeenGo(goTo);
+    if (goTo) setFly(parseSel(goTo));
+  }
   useEffect(() => {
     if (!search.get('go')) return;
     const next = new URLSearchParams(search);
@@ -83,14 +89,10 @@ export function GalaxyPage() {
   const [barrier, setBarrier] = useState(params?.barrier ?? DEFAULT_GALAXY.barrier);
   const [showServer, setShowServer] = useState(false);
 
-  useEffect(() => {
-    if (params) void loadGalaxy(params);
-  }, [params]);
-
   const generate = () => {
     const seed = draft.trim();
     if (!seed) return;
-    dispatch(settingsActions.setGalaxy({ seed, mapFactions: factions || DEFAULT_GALAXY.mapFactions, rifts, barrier }));
+    dispatch(settingsActions.setGalaxy({ seed, mapFactions: factions, rifts, barrier }));
   };
 
   const data = galaxy.state === 'ready' ? galaxy.data : undefined;

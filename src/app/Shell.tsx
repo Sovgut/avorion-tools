@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router';
+import { loadGalaxy } from '@/features/galaxy/client';
 import { BlueprintDialog } from '@/features/planner/BlueprintDialog';
 import { GlobalSearch } from '@/features/search/GlobalSearch';
 import { useLang, useT } from '@/i18n';
-import { useAppDispatch } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/store';
 import { settingsActions } from '@/store/settings';
 import { uiActions } from '@/store/ui';
 import { Segmented } from '@/ui';
@@ -22,6 +23,7 @@ export function Shell() {
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
   const location = useLocation();
+  const galaxy = useAppSelector((st) => st.settings.galaxy);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -37,6 +39,11 @@ export function Shell() {
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
+
+  // the planner's buy hints need the galaxy too, so it loads on every page
+  useEffect(() => {
+    if (galaxy) void loadGalaxy(galaxy);
+  }, [galaxy]);
 
   const openSearch = () => dispatch(uiActions.setSearchOpen(true));
 

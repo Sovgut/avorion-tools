@@ -53,7 +53,7 @@ export function DatabasePage() {
   const mobile = useIsMobile();
   const section = (params.section as Section) ?? 'commodities';
   if (!['commodities', 'stations', 'consumers'].includes(section)) return <Navigate to="/database/commodities" replace />;
-  const id = params.id ? decodeURIComponent(params.id) : undefined;
+  const id = params.id;
   if (mobile) return id ? <MobileDetail section={section} id={id} /> : <ListPane section={section} mobile />;
   const fallback = section === 'commodities' ? goods[0]?.id : section === 'stations' ? stations[0]?.id : consumers[0]?.id;
   const current = id ?? fallback;
@@ -179,7 +179,7 @@ function Recipe({ p, gt, size = 0 }: { p: Production; gt: GameText; size?: numbe
       {p.ingredients.length > 0 && <span className={s.arrow}>→</span>}
       {p.results.map((r) => (
         <button key={r.good} type="button" className={`${s.recipeChip} ${s.recipeOut}`} onClick={() => go.good(r.good)}>
-          <GameIcon src={goodIcon(r.good)} size={14} color="var(--c-accent)" />
+          <GameIcon src={goodIcon(r.good)} size={14} color="var(--c-on-accent-2)" />
           {fmt(r.amount * mult)} × {gt.good(r.good)}
         </button>
       ))}
@@ -280,16 +280,14 @@ function CommodityDetail({ good }: { good: Good }) {
             <GameIcon src={goodIcon(good.id)} size={60} color="var(--c-accent)" />
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <h1 className={s.title}>{gt.good(good.id)}</h1>
-            {tags.length > 0 && (
-              <div className={s.tags}>
-                {tags.map((tag) => (
-                  <Tag key={tag.name} color={tag.color}>
-                    {tag.name}
-                  </Tag>
-                ))}
-              </div>
-            )}
+            <div className={s.titleRow}>
+              <h1 className={s.title}>{gt.good(good.id)}</h1>
+              {tags.map((tag) => (
+                <Tag key={tag.name} color={tag.color}>
+                  {tag.name}
+                </Tag>
+              ))}
+            </div>
             {gt.description(good.id) && <p className={s.desc}>{gt.description(good.id)}</p>}
           </div>
         </div>

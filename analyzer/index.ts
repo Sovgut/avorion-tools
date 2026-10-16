@@ -58,15 +58,22 @@ function main() {
   });
 
   step('Copying icons', () => {
-    fs.rmSync(ICON_DIR, { recursive: true, force: true });
+    // Only changed files are written and only unused ones removed: a running dev server drops
+    // files from its public index when the whole folder is recreated under it.
     fs.mkdirSync(ICON_DIR, { recursive: true });
+    const wanted = new Set<string>();
     for (const icon of [...icons].sort()) {
       if (!game.exists(icon)) {
         warnings.push(`icon ${icon} is missing`);
         continue;
       }
-      fs.writeFileSync(path.join(ICON_DIR, path.posix.basename(icon)), game.readBuffer(icon));
+      const name = path.posix.basename(icon);
+      wanted.add(name);
+      const target = path.join(ICON_DIR, name);
+      const data = game.readBuffer(icon);
+      if (!fs.existsSync(target) || !fs.readFileSync(target).equals(data)) fs.writeFileSync(target, data);
     }
+    for (const name of fs.readdirSync(ICON_DIR)) if (!wanted.has(name)) fs.rmSync(path.join(ICON_DIR, name));
   });
 
   const closure = step('Compiling galaxy generation scripts', () => {

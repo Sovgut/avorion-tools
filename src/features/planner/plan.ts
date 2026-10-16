@@ -4,7 +4,7 @@ import { goodById } from '@/game/database';
 import { useAppSelector } from '@/store';
 import type { PlannedTurret, Tab } from '@/store/planner';
 
-/** Cargo bought at traders costs between base price and this many times more on top of it. */
+/** Cargo bought at traders costs between its base price and this many times the base price. */
 export const MAX_PRICE_FACTOR = 4;
 
 export interface NeedRow {

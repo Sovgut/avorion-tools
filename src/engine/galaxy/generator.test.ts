@@ -22,6 +22,7 @@ for (const line of raw.split('\n')) {
 
 const KIND = { [SectorKind.Regular]: 'R', [SectorKind.Offgrid]: 'O', [SectorKind.Blocked]: 'B', [SectorKind.Empty]: '' } as const;
 const IGNORED = new Set([
+  'xsotan',
   'faction',
   'neighbor',
   'neighborTradingPosts',

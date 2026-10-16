@@ -42,6 +42,7 @@ export interface SectorInfo {
 
 /** Template fields that are not station counts. */
 const NON_STATION_FIELDS = new Set([
+  'xsotan',
   'ships',
   'stations',
   'defenders',

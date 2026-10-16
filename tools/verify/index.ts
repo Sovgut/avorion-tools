@@ -17,6 +17,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const ROWS_PER_RUN = 50;
 /** Contents fields that are not stations, or that only the server can know. */
 const IGNORED = new Set([
+  'xsotan',
   'faction',
   'neighbor',
   'neighborTradingPosts',
@@ -49,7 +50,13 @@ function parseArgs(): Options {
     return i === -1 ? undefined : args[i + 1];
   };
   const [from, to] = (opt('rows') ?? '-160:-120').split(':').map(Number);
-  return { game: path.resolve(game), seed: opt('seed') ?? 'avorion-tools-verify', from: Math.max(-499, from), to: Math.min(500, to) };
+  const seed = opt('seed') ?? 'avorion-tools-verify';
+  // Wine passes command-line arguments through the ANSI code page, so the server would get "?" for each such character
+  if (process.platform !== 'win32' && /[^\x20-\x7e]/.test(seed)) {
+    console.error('Under Proton the seed must be printable ASCII: the server receives other characters as "?".');
+    process.exit(2);
+  }
+  return { game: path.resolve(game), seed, from: Math.max(-499, from), to: Math.min(500, to) };
 }
 
 interface Server {
@@ -238,7 +245,8 @@ async function main() {
   }
   console.log(`\nCompared ${sectors} sectors with the game: ${sectors - mismatches.length} match, ${mismatches.length} differ.`);
   for (const m of mismatches.slice(0, 20)) console.log(`  ${m}`);
-  fs.rmSync(work, { recursive: true, force: true });
+  if (mismatches.length === 0) fs.rmSync(work, { recursive: true, force: true });
+  else console.log(`\nServer log and galaxy kept in ${work}; the dump is ${path.join(server.moddata, 'verify-galaxy.tsv')}.`);
   process.exit(mismatches.length === 0 ? 0 : 1);
 }
 

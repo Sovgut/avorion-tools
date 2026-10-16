@@ -251,7 +251,8 @@ export function extractDatabase(game: GameFiles): ExtractResult {
     }
     const id = String(fname);
     const name = CONSUMER_TITLES[id] ?? id.replace(/([a-z])([A-Z])/g, '$1 $2');
-    consumers.push({ id, name, goods: goodsList });
+    // the sampled lists repeat goods (a repeat weights the draw); a station buys each good once
+    consumers.push({ id, name, goods: [...new Set(goodsList)] });
     strings.add(name);
   }
   consumers.sort((a, b) => (a.id < b.id ? -1 : 1));

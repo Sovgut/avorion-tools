@@ -27,6 +27,10 @@
   --c-accent: oklch(0.8 0.13 75);
   --c-accent-hover: oklch(0.88 0.1 75);
   --c-on-accent: #111112;
+  /* second accent: rare, only for finished products */
+  --c-accent-2: oklch(0.78 0.11 265);
+  --c-accent-2-hover: oklch(0.86 0.08 265);
+  --c-on-accent-2: #111112;
   --c-cyan: oklch(0.8 0.13 200);
   --c-green: oklch(0.8 0.13 150);
   --c-violet: oklch(0.75 0.13 300);

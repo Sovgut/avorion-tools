@@ -95,9 +95,9 @@ export function NumberInput({
       onFocus={(e) => e.currentTarget.select()}
       onChange={(e) => {
         const d = digits(e.target.value).slice(0, 13);
-        setDraft(d);
         let n = d === '' ? 0 : parseInt(d, 10);
         if (max !== undefined) n = Math.min(n, max);
+        setDraft(d === '' ? '' : String(n));
         onValue(n);
       }}
       onBlur={() => setDraft(null)}
@@ -106,7 +106,7 @@ export function NumberInput({
   );
 }
 
-/** Sector coordinate, -500..500; a lone "-" is allowed while typing. */
+/** Sector coordinate, -499..500; a lone "-" is allowed while typing. */
 export function CoordInput({
   value,
   onValue,
@@ -128,7 +128,7 @@ export function CoordInput({
           .slice(0, 4);
         setDraft(raw);
         const n = parseInt(raw, 10);
-        onValue(Number.isNaN(n) ? 0 : Math.max(-500, Math.min(500, n)));
+        onValue(Number.isNaN(n) ? 0 : Math.max(-499, Math.min(500, n)));
       }}
       onBlur={() => setDraft(null)}
       {...rest}

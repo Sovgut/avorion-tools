@@ -12,7 +12,17 @@ export const store = configureStore({ reducer, preloadedState: loadPersisted() }
 let pending: ReturnType<typeof setTimeout> | undefined;
 store.subscribe(() => {
   clearTimeout(pending);
-  pending = setTimeout(() => savePersisted(store.getState()), 200);
+  pending = setTimeout(() => {
+    pending = undefined;
+    savePersisted(store.getState());
+  }, 200);
+});
+// a change made right before the tab closes would otherwise be lost in the debounce
+window.addEventListener('pagehide', () => {
+  if (pending === undefined) return;
+  clearTimeout(pending);
+  pending = undefined;
+  savePersisted(store.getState());
 });
 
 export type RootState = ReturnType<typeof reducer>;

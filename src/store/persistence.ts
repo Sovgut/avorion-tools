@@ -1,6 +1,6 @@
 // Saves the planner and settings to localStorage, and reads data saved by the previous app version.
 import { goods, turretById } from '@/game/database';
-import { type Blueprint, initialPlanner, type PlannedTurret, type PlannerState } from './planner';
+import { type Blueprint, initialPlanner, type PlannedTurret, type PlannerState, SECTOR_MAX, SECTOR_MIN } from './planner';
 import { initialSettings, type SettingsState } from './settings';
 
 const KEY = 'avorion-tools:v2';
@@ -225,14 +225,21 @@ const LEGACY_COMMODITIES: string[] = [
   'Zinc',
 ];
 
+const coord = (v: unknown) => Math.max(SECTOR_MIN, Math.min(SECTOR_MAX, Math.trunc(Number(v)) || 0));
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 const goodByNorm = new Map(goods.map((g) => [norm(g.id), g.id]));
 const legacyGood = (n: number) => goodByNorm.get(norm(LEGACY_COMMODITIES[n] ?? ''));
 
+/** A key saved by the previous version. Most are JSON, `lang` is a bare string such as `en-US`. */
 function legacy(key: string): any {
   for (const v of ['v5', 'v4']) {
     const raw = localStorage.getItem(`cache:${v}:${key}`);
-    if (raw) return JSON.parse(raw);
+    if (!raw) continue;
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return raw;
+    }
   }
   return undefined;
 }
@@ -260,8 +267,8 @@ function migrateLegacy(): Partial<Persisted> | undefined {
       type,
       qty: Math.max(1, Number(t.quantity) || 1),
       price: Math.max(0, Number(t.price) || 0),
-      x: Number(t.location?.x) || 0,
-      y: Number(t.location?.y) || 0,
+      x: coord(t.location?.x),
+      y: coord(t.location?.y),
       enabled: t.enabled !== false,
       counts,
     });
