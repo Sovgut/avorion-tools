@@ -29,6 +29,7 @@ import {
   BELTS_LAYER,
   bossAt,
   layerSectors,
+  MATERIAL_RGB,
   materialsAt,
   nearestProducers,
   PLACE_LAYERS,
@@ -435,12 +436,6 @@ function SectorPanel({
               <dd className={s.bossName}>{gt.text(boss).replace(/\s*\$\{\w+\}/g, '')}</dd>
             </>
           )}
-          {materials.length > 0 && (
-            <>
-              <dt>{t('Asteroid materials')}</dt>
-              <dd>{materials.map((m) => gt.text(m)).join(' · ')}</dd>
-            </>
-          )}
           {rich > 0 && (
             <>
               <dt>{t('Rich asteroids')}</dt>
@@ -451,6 +446,19 @@ function SectorPanel({
             <>
               <dt>{t('Claimable asteroids')}</dt>
               <dd className="mono">{claimable}</dd>
+            </>
+          )}
+          {materials.length > 0 && (
+            <>
+              <dt className={s.factWide}>{t('Asteroid materials')}</dt>
+              <dd className={`${s.factWide} ${s.materials}`}>
+                {materials.map((m) => (
+                  <span key={m} className={s.material}>
+                    <span className={s.materialSwatch} style={{ background: `rgb(${MATERIAL_RGB[m] ?? '214,201,170'})` }} />
+                    {gt.text(m)}
+                  </span>
+                ))}
+              </dd>
             </>
           )}
         </dl>

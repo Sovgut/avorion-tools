@@ -2,7 +2,7 @@
 .grid {
   flex: 1;
   display: grid;
-  grid-template-columns: var(--rail-w) minmax(0, 1fr) 380px;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--panel-w);
 }
 
 .rail {
@@ -1430,7 +1430,7 @@
 /* tablet: the tabs run along the top, turrets and the summary share the width below */
 @media (min-width: 760px) and (max-width: 1199px) {
   .grid {
-    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-columns: minmax(0, 1fr) var(--panel-w);
     grid-template-rows: auto 1fr;
   }
 
@@ -1491,10 +1491,6 @@
 }
 
 @media (min-width: 760px) and (max-width: 1023px) {
-  .grid {
-    grid-template-columns: minmax(0, 1fr) 330px;
-  }
-
   .cargoGrid {
     grid-template-columns: 18px minmax(0, 1fr) 44px 58px 44px;
     gap: 6px;
