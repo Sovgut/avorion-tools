@@ -3,7 +3,7 @@ import { useGo } from '@/app/nav';
 import { Disclaimer } from '@/app/Shell';
 import { type BuyHint, useBuyHints } from '@/features/galaxy/hints';
 import { goodIcon, iconUrl, rarityById, turretById, turrets as turretTypes } from '@/game/database';
-import { fmt, fmt2, fmtShort, useGameText, useT } from '@/i18n';
+import { fmt, fmt2, fmtShort, useGameText, useT, useTx } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { MAX_COUNT, MAX_PRICE, MAX_QUANTITY, type PlannedTurret, plannerActions } from '@/store/planner';
 import { PRICE_FACTOR_MAX, PRICE_FACTOR_MIN, settingsActions } from '@/store/settings';
@@ -26,7 +26,7 @@ function useConfirmRemoveTab() {
   const t = useT();
   const dispatch = useAppDispatch();
   return (id: string, name: string) => {
-    if (window.confirm(`${t('Remove')} "${name}"? ${t('All turrets in this tab will be deleted.')}`))
+    if (window.confirm(`${t('Remove "{tab}"?', { tab: name })} ${t('All turrets in this tab will be deleted.')}`))
       dispatch(plannerActions.removeTab(id));
   };
 }
@@ -36,7 +36,8 @@ function useConfirmRemoveTurret() {
   const gt = useGameText();
   const dispatch = useAppDispatch();
   return (turret: PlannedTurret) => {
-    if (window.confirm(`${t('Remove')} ${gt.turret(turret.type)} ${t('from this tab?')}`)) dispatch(plannerActions.removeTurret(turret.id));
+    if (window.confirm(t('Remove {turret} from this tab?', { turret: gt.turret(turret.type) })))
+      dispatch(plannerActions.removeTurret(turret.id));
   };
 }
 
@@ -83,7 +84,7 @@ function DesktopPlanner() {
           <div style={{ minWidth: 0 }}>
             {plan.tab && <TabTitle id={plan.tab.id} name={plan.tab.name} />}
             <div className={s.meta}>
-              {plan.turrets.length} {t('turret types')} · {plan.enabled.length} {t('counted in estimate')}
+              {t('{n} turret types', { n: plan.turrets.length })} · {t('{n} counted in estimate', { n: plan.enabled.length })}
             </div>
           </div>
           <Button variant="primary" onClick={() => setAddOpen((o) => !o)} aria-expanded={addOpen}>
@@ -454,23 +455,20 @@ function HintChip({ hint, good, mobile }: { hint: BuyHint; good: string; mobile?
       <span className={s.cyan}>
         {hint.x}:{hint.y}
       </span>
-      {!mobile && (
-        <span className={s.mutedMono}>
-          {fmt(hint.distance)} {t('sec')}
-        </span>
-      )}
+      {!mobile && <span className={s.mutedMono}>{t('{n} sec', { n: fmt(hint.distance) })}</span>}
     </button>
   );
 }
 
 function HintsFootnote({ plan, hints }: { plan: Plan; hints: ReturnType<typeof useBuyHints> }) {
   const t = useT();
+  const tx = useTx();
   const seed = useAppSelector((st) => st.settings.galaxy?.seed);
   if (!plan.rows.some((r) => r.buy > 0)) return null;
   if (hints.size > 0) {
     return (
       <div className={s.footNote}>
-        {t('Nearest producers from galaxy seed')} <span className={s.seedValue}>{seed}</span>
+        {tx('Nearest producers from galaxy seed {seed}', { seed: <span className={s.seedValue}>{seed}</span> })}
       </div>
     );
   }
@@ -514,7 +512,7 @@ function MobilePlanner() {
         <div style={{ minWidth: 0 }}>
           <div className={s.mTabTitle}>{plan.tab?.name}</div>
           <div className={s.mMeta}>
-            {plan.turrets.length} {t('turret types')} · {plan.enabled.length} {t('counted in estimate')}
+            {t('{n} turret types', { n: plan.turrets.length })} · {t('{n} counted in estimate', { n: plan.enabled.length })}
           </div>
         </div>
         <div style={{ display: 'flex', gap: 6 }}>

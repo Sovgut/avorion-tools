@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { detectLang, isLang, type Lang } from '@/i18n/languages';
 
-export type Lang = 'en' | 'ru';
+export type { Lang };
 
 export interface GalaxyParams {
   /** The server seed string as `/seed` prints it. */
@@ -34,7 +35,7 @@ export interface SettingsState {
 export const DEFAULT_GALAXY = { mapFactions: 350, rifts: 200, barrier: true };
 
 export const initialSettings: SettingsState = {
-  lang: typeof navigator !== 'undefined' && navigator.language.toLowerCase().startsWith('ru') ? 'ru' : 'en',
+  lang: typeof navigator !== 'undefined' ? detectLang(navigator.languages ?? [navigator.language]) : 'en',
   galaxy: null,
   layers: ['plan', 'turretFactories'],
   position: null,
@@ -46,7 +47,7 @@ const slice = createSlice({
   initialState: initialSettings,
   reducers: {
     setLang(state, a: PayloadAction<Lang>) {
-      state.lang = a.payload;
+      if (isLang(a.payload)) state.lang = a.payload;
     },
     setGalaxy(state, a: PayloadAction<GalaxyParams>) {
       state.galaxy = a.payload;

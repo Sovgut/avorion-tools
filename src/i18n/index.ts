@@ -1,24 +1,45 @@
 // UI strings and game names in the selected language.
-import { useCallback, useMemo } from 'react';
+import { createElement, Fragment, type ReactNode, useCallback, useMemo } from 'react';
 import { db, goodById, type StationType, turretById } from '@/game/database';
 import type { Production } from '@/game/schema';
-import ruGame from '@/generated/i18n/ru.json';
 import { useAppSelector } from '@/store';
-import type { Lang } from '@/store/settings';
-import { RU } from './ru';
+import { catalog, useCatalog } from './catalogs';
+import type { Lang } from './languages';
 
-const GAME: Record<Lang, Record<string, string> | undefined> = { en: undefined, ru: ruGame as Record<string, string> };
+export { loadLanguage } from './catalogs';
+export { detectLang, htmlLang, isLang, LANGUAGES, type Lang } from './languages';
 
 export function useLang(): Lang {
   return useAppSelector((s) => s.settings.lang);
 }
 
-export type T = (en: string) => string;
+/** Values for a string's {name} placeholders; word order differs between languages, so phrases are never glued. */
+export type Vars = Record<string, string | number>;
+export type T = (en: string, vars?: Vars) => string;
 
-/** Translates an English UI string. */
+/** Translates an English UI string and fills its {name} placeholders; English shows until the catalog loads. */
 export function useT(): T {
-  const lang = useLang();
-  return useCallback((en: string) => (lang === 'ru' ? (RU[en] ?? en) : en), [lang]);
+  const ui = useCatalog(useLang())?.ui;
+  return useCallback(
+    (en: string, vars?: Vars) => {
+      const s = ui?.[en] ?? en;
+      return vars ? s.replace(/\{(\w+)\}/g, (m, k: string) => (k in vars ? String(vars[k]) : m)) : s;
+    },
+    [ui],
+  );
+}
+
+/** Like useT, for placeholders filled with markup (a link, a highlighted value). */
+export function useTx(): (en: string, parts: Record<string, ReactNode>) => ReactNode {
+  const ui = useCatalog(useLang())?.ui;
+  return useCallback(
+    (en: string, parts: Record<string, ReactNode>) =>
+      (ui?.[en] ?? en).split(/(\{\w+\})/).map((piece, i) => {
+        const name = /^\{(\w+)\}$/.exec(piece)?.[1];
+        return createElement(Fragment, { key: i }, name && name in parts ? parts[name] : piece);
+      }),
+    [ui],
+  );
 }
 
 export interface GameText {
@@ -35,8 +56,7 @@ export interface GameText {
   text(en: string): string;
 }
 
-export function gameText(lang: Lang): GameText {
-  const tr = GAME[lang];
+export function gameText(lang: Lang, tr: Record<string, string> | undefined = catalog(lang)?.game): GameText {
   const text = (en: string) => tr?.[en] || en;
   const good = (id: string) => text(goodById.get(id)?.name ?? id);
   const factory = (pattern: string, g: string, size = 0) => {
@@ -65,7 +85,8 @@ export function gameText(lang: Lang): GameText {
 
 export function useGameText(): GameText {
   const lang = useLang();
-  return useMemo(() => gameText(lang), [lang]);
+  const game = useCatalog(lang)?.game;
+  return useMemo(() => gameText(lang, game), [lang, game]);
 }
 
 const nf = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });

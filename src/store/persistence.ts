@@ -1,5 +1,6 @@
 // Saves the planner and settings to localStorage, and reads data saved by the previous app version.
 import { goods, turretById } from '@/game/database';
+import { detectLang, isLang } from '@/i18n/languages';
 import { type Blueprint, initialPlanner, type PlannedTurret, type PlannerState, SECTOR_MAX, SECTOR_MIN } from './planner';
 import { initialSettings, type SettingsState } from './settings';
 
@@ -42,7 +43,9 @@ function sanitize(data: any): Partial<Persisted> {
   planner.turrets = (planner.turrets ?? []).filter((t: PlannedTurret) => turretById.has(t.type));
   planner.blueprints = (planner.blueprints ?? []).filter((b: Blueprint) => turretById.has(b.type));
   if (planner.currentTabId && !planner.tabs.some((t) => t.id === planner.currentTabId)) planner.currentTabId = planner.tabs[0]?.id ?? null;
-  return { planner, settings: { ...initialSettings, ...data.settings } };
+  const settings: SettingsState = { ...initialSettings, ...data.settings };
+  if (!isLang(settings.lang)) settings.lang = initialSettings.lang;
+  return { planner, settings };
 }
 
 // ---------------------------------------------------------------- previous version (cache:v5:*)
@@ -310,7 +313,7 @@ function migrateLegacy(): Partial<Persisted> | undefined {
   const lang = legacy('lang');
   const settings: SettingsState = {
     ...initialSettings,
-    lang: typeof lang === 'string' && lang.toLowerCase().startsWith('ru') ? 'ru' : initialSettings.lang,
+    lang: typeof lang === 'string' ? detectLang([lang]) : initialSettings.lang,
   };
   return { planner, settings };
 }

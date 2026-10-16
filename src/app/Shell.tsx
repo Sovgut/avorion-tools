@@ -1,15 +1,49 @@
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router';
 import { loadGalaxy } from '@/features/galaxy/client';
 import { BlueprintDialog } from '@/features/planner/BlueprintDialog';
 import { GlobalSearch } from '@/features/search/GlobalSearch';
-import { useLang, useT } from '@/i18n';
+import { htmlLang, LANGUAGES, loadLanguage, useLang, useT, useTx } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { settingsActions } from '@/store/settings';
 import { uiActions } from '@/store/ui';
-import { Segmented } from '@/ui';
 import { useIsMobile } from '@/ui/hooks';
 import s from './Shell.module.css';
+
+/** The short code shown on the language button: the standard tag's language part. */
+const langCode = (tag: string) => htmlLang(tag).split('-')[0].toUpperCase();
+
+/** Every language the app has, by its own name; the button shows the current one's code. */
+function LanguageMenu({ mobile }: { mobile?: boolean }) {
+  const t = useT();
+  const lang = useLang();
+  const dispatch = useAppDispatch();
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger className={mobile ? s.mIconBtn : s.langBtn} aria-label={t('Language')}>
+        <span className="mono">{langCode(lang)}</span>
+        {!mobile && (
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+            <path d="M1 2.5l3 3 3-3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        )}
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content className={s.langMenu} align="end" sideOffset={6} collisionPadding={8}>
+          <DropdownMenu.RadioGroup value={lang} onValueChange={(v) => dispatch(settingsActions.setLang(v))}>
+            {LANGUAGES.map((l) => (
+              <DropdownMenu.RadioItem key={l.tag} value={l.tag} className={s.langItem} lang={htmlLang(l.tag)}>
+                <span>{l.native}</span>
+                <span className={s.langItemCode}>{langCode(l.tag)}</span>
+              </DropdownMenu.RadioItem>
+            ))}
+          </DropdownMenu.RadioGroup>
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
+}
 
 const NAV = [
   { to: '/planner', label: 'Turret planner' },
@@ -37,7 +71,8 @@ export function Shell() {
   }, [dispatch]);
 
   useEffect(() => {
-    document.documentElement.lang = lang;
+    document.documentElement.lang = htmlLang(lang);
+    void loadLanguage(lang);
   }, [lang]);
 
   // the planner's buy hints need the galaxy too, so it loads on every page
@@ -67,9 +102,7 @@ export function Shell() {
               <line x1="11.5" y1="11.5" x2="16" y2="16" />
             </svg>
           </button>
-          <button type="button" className={s.mIconBtn} onClick={() => dispatch(settingsActions.setLang(lang === 'ru' ? 'en' : 'ru'))}>
-            <span className="mono">{lang.toUpperCase()}</span>
-          </button>
+          <LanguageMenu mobile />
         </header>
         <main className={s.mContent} key={location.pathname.split('/')[1]}>
           <Outlet />
@@ -103,16 +136,7 @@ export function Shell() {
           <kbd className={s.kbd}>F2</kbd>
         </button>
         <div className={s.right}>
-          <Segmented
-            className={s.lang}
-            segmentClassName={s.langSeg}
-            options={[
-              { value: 'en', label: 'EN' },
-              { value: 'ru', label: 'RU' },
-            ]}
-            value={lang}
-            onChange={(v) => dispatch(settingsActions.setLang(v))}
-          />
+          <LanguageMenu />
           <a href="https://github.com/Sovgut/avorion-tools" target="_blank" rel="noreferrer" className={s.github}>
             GitHub ↗
           </a>
@@ -137,14 +161,17 @@ function Logo({ small }: { small?: boolean }) {
 }
 
 export function Disclaimer() {
-  const t = useT();
+  const tx = useTx();
   return (
     <div className={s.disclaimer}>
-      <span className={s.brand}>Avorion Tools</span> {t('is a community work, and not officially created or maintained by')}{' '}
-      <a href="https://boxelware.de/" target="_blank" rel="noreferrer">
-        Boxelware
-      </a>
-      .
+      {tx('{brand} is a community work, and not officially created or maintained by {company}.', {
+        brand: <span className={s.brand}>Avorion Tools</span>,
+        company: (
+          <a href="https://boxelware.de/" target="_blank" rel="noreferrer">
+            Boxelware
+          </a>
+        ),
+      })}
     </div>
   );
 }

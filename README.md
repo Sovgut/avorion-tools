@@ -9,7 +9,7 @@ Live: https://sovgut.github.io/avorion-tools/
 - **Turret planner.** Group turrets into tabs (one per ship, for example), copy the component counts from the in-game turret factory, and get the cargo to buy, its volume and its cost at a price level you choose, from a cheap factory to the turret factory's supplier. Enter what is already in your hold and tick goods off as you buy them in the game; both come off the estimate. Save a turret's component counts, price and sector as a blueprint and load them onto another turret of the same type. With a galaxy loaded, every good still to buy shows its nearest producer.
 - **Galaxy.** Type `/seed` in the game chat and enter the result. The app generates all 1,000,000 sectors the way the server does: faction territories, rifts, the barrier, every sector's template and name, and the stations in each sector, factory productions included. Faction territory is brighter where a faction's control is strong. Layers show stations (shipyards, equipment docks, turret factories, trading posts and more) and places worth a flight: bosses, with the world boss each sector holds, rich and claimable asteroids, wreckage, container fields, pirates, Xsotan, wormholes and ancient gates, and the belts where each material's asteroids end. The map shows the galaxy as it was generated, before players changed it.
 - **Database.** Every good with price, volume and tags, the factories and mines that make it (all recipe variants and sizes, founding and upgrade costs from the game's own formulas), and what uses it: turrets, factories and consumer stations.
-- Search (F2), English and Russian (names come from the game's own translations), and layouts for phones and tablets.
+- Search (F2), every language the game ships (English, German, Spanish, French, Japanese, Brazilian Portuguese, Russian and Simplified Chinese; game names come from the game's own translations), and layouts for phones and tablets.
 
 ## How the data is built
 
@@ -20,10 +20,12 @@ npm run analyze -- <path to the Avorion installation>
 Run it whenever the game updates, review the diff and commit it. The analyzer:
 
 1. runs the game's data scripts (`goods`, `productions`, `turretingredients`, `weapontype`, `consumergoods`, `sectorspecifics`) and writes `src/generated/database.json`;
-2. reads `data/localization/ru.po` into `src/generated/i18n/ru.json`;
+2. finds the game's languages from `data/localization/*.xml` and writes each one's translations of the names the app shows to `src/generated/i18n/<tag>.json`, with the list in `src/generated/languages.json`;
 3. copies the referenced icons to `public/game-icons`;
 4. compiles the galaxy generation scripts and everything they include to JavaScript (`src/generated/galaxy-scripts.js`);
 5. checks the API documentation for enum members the app does not know, and generates a test region to catch scripts that no longer run.
+
+A language the game adds shows up in the app with the game's names translated; the app's own strings stay in English until `src/i18n/locales` has a file for its tag.
 
 On Steam for Linux the game is usually at `~/.local/share/Steam/steamapps/common/Avorion`.
 
@@ -68,6 +70,7 @@ Stack: Vite, React 19 with React Compiler, Redux Toolkit, React Router, Radix di
 | `src/engine/avorion` | Avorion natives |
 | `src/engine/galaxy` | the generator that drives the compiled scripts |
 | `src/features` | planner, galaxy, database and search screens |
+| `src/i18n/locales` | the app's own UI strings, one file per language, keyed by the English text |
 | `src/generated` | analyzer output (do not edit) |
 | `analyzer` | `npm run analyze` |
 | `tools/verify` | `npm run verify` |

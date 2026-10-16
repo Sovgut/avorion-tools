@@ -121,15 +121,66 @@
   gap: 12px;
 }
 
-.lang {
-  font-family: var(--font-mono);
-}
-
-.langSeg {
-  font-family: var(--font-mono);
+/* language: a code button that opens the list of languages by their own names */
+.langBtn {
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px 0 10px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  background: var(--c-card);
+  color: var(--c-text);
   font-size: 11px;
   font-weight: 500;
-  padding: 4px 8px;
+}
+
+.langBtn:hover,
+.langBtn[data-state='open'] {
+  border-color: var(--c-border-strong);
+}
+
+.langBtn svg {
+  color: var(--c-muted);
+}
+
+.langMenu {
+  z-index: 50;
+  min-width: 200px;
+  padding: 4px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-md);
+  background: var(--c-callout);
+  box-shadow: var(--shadow-overlay);
+}
+
+.langItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  color: var(--c-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.langItem[data-highlighted] {
+  background: var(--c-active);
+  color: var(--c-text);
+}
+
+.langItem[data-state='checked'] {
+  color: var(--c-accent);
+}
+
+.langItemCode {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-muted);
 }
 
 .github {

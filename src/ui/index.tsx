@@ -72,6 +72,16 @@ export function CloseIcon({ size = 10 }: { size?: number }) {
   );
 }
 
+/** East Asian wide characters: they fall back to a CJK font, about 1em wide instead of the mono 0.6em. */
+const WIDE = /[\u1100-\u115f\u2e80-\ua4cf\uac00-\ud7a3\uf900-\ufaff\ufe30-\ufe4f\uff00-\uff60\uffe0-\uffe6]/;
+
+/** A string's width in mono glyph widths, counting a wide character as 1.7 of them. */
+export function monoUnits(text: string): number {
+  let n = 0;
+  for (const ch of text) n += WIDE.test(ch) ? 1.7 : 1;
+  return n;
+}
+
 /**
  * One line of monospaced text that shrinks to fit its container's width, up to `max` px.
  * The text must be set in the mono font, whose glyphs are all the same width. Marked-up content
@@ -89,7 +99,7 @@ export function FitText({
 } & ({ text: string; chars?: undefined; children?: undefined } | { text?: undefined; chars: number; children: ReactNode })) {
   return (
     <div className={s.fitBox}>
-      <div className={clsx(s.fit, className)} style={{ '--chars': chars ?? text?.length, '--max': `${max}px` } as CSSProperties}>
+      <div className={clsx(s.fit, className)} style={{ '--chars': chars ?? monoUnits(text ?? ''), '--max': `${max}px` } as CSSProperties}>
         {children ?? text}
       </div>
     </div>

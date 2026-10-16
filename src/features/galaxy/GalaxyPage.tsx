@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router';
 import { useGo } from '@/app/nav';
 import { type Plan, usePlan } from '@/features/planner/plan';
 import { db, goodById, goodIcon, productionByIndex, stationByProduction } from '@/game/database';
-import { fmt, useGameText, useT } from '@/i18n';
+import { fmt, useGameText, useT, useTx } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { DEFAULT_GALAXY, settingsActions } from '@/store/settings';
 import { Button, CoordInput, GameIcon, NumberInput, Switch, TextInput } from '@/ui';
@@ -73,6 +73,7 @@ function useBest(galaxy: GalaxyData | undefined, plan: Plan): Best[] {
 
 export function GalaxyPage() {
   const t = useT();
+  const tx = useTx();
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
   const params = useAppSelector((st) => st.settings.galaxy);
@@ -206,8 +207,9 @@ export function GalaxyPage() {
         </button>
         {showHelp && (
           <div role="tooltip" id={helpId} className={s.seedTip}>
-            {t('Type')} <span className="mono">/seed</span>{' '}
-            {t('in the game chat to get it. Shows the galaxy as it was generated, before players changed it.')}
+            {tx('Type {command} in the game chat to get it. Shows the galaxy as it was generated, before players changed it.', {
+              command: <span className="mono">/seed</span>,
+            })}
           </div>
         )}
       </div>
@@ -274,12 +276,7 @@ export function GalaxyPage() {
             {params ? (
               <>
                 {t('SEED')} <span className={s.seedValue}>{params.seed}</span>
-                {data && (
-                  <>
-                    {' '}
-                    · {fmt(data.stations.length)} {t('sectors with stations')}
-                  </>
-                )}
+                {data && <> · {t('{n} sectors with stations', { n: fmt(data.stations.length) })}</>}
               </>
             ) : null}
           </span>
@@ -359,6 +356,7 @@ function SectorPanel({
   mobile: boolean;
 }) {
   const t = useT();
+  const tx = useTx();
   const gt = useGameText();
   const dispatch = useAppDispatch();
   const go = useGo();
@@ -374,10 +372,10 @@ function SectorPanel({
     kind === KIND_BLOCKED
       ? t('Rift')
       : kind === KIND_OFFGRID
-        ? `${t('Hidden sector')}${template ? ` · ${templateName(template, gt.lang)}` : ''}`
+        ? `${t('Hidden sector')}${template ? ` · ${t(templateName(template))}` : ''}`
         : kind === KIND_REGULAR
           ? template
-            ? templateName(template, gt.lang)
+            ? t(templateName(template))
             : ''
           : t('Empty space');
   const generic = st
@@ -403,24 +401,21 @@ function SectorPanel({
         {here ? (
           <span className={s.hereTag}>{t('You are here')}</span>
         ) : (
-          <span className={s.selAway}>
-            {fmt(Math.hypot(x - from.x, y - from.y))} {t('sectors away')}
-          </span>
+          <span className={s.selAway}>{t('{n} sectors away', { n: fmt(Math.hypot(x - from.x, y - from.y)) })}</span>
         )}
       </div>
       {name && <div className={s.selName}>{name}</div>}
       <div className={s.selMeta}>
         {kindText && <>{kindText} · </>}
-        {faction ? (
-          <>
-            {t('Faction territory, home')}{' '}
-            <button type="button" className={s.linkXY} onClick={() => go.map(faction.x, faction.y)}>
-              {faction.x}:{faction.y}
-            </button>
-          </>
-        ) : (
-          t('No faction')
-        )}
+        {faction
+          ? tx('Faction territory, home {home}', {
+              home: (
+                <button type="button" className={s.linkXY} onClick={() => go.map(faction.x, faction.y)}>
+                  {faction.x}:{faction.y}
+                </button>
+              ),
+            })
+          : t('No faction')}
       </div>
       {!here && (
         <button type="button" className={s.hereBtn} onClick={() => dispatch(settingsActions.setPosition({ x, y }))}>
@@ -541,7 +536,7 @@ function BestList({
               {b.x}:{b.y}
             </div>
             <div className={s.mutedMono}>
-              {fmt(b.distance)} {t('sec')} · ¢{fmt(goodById.get(b.good)?.price ?? 0)}
+              {t('{n} sec', { n: fmt(b.distance) })} · ¢{fmt(goodById.get(b.good)?.price ?? 0)}
             </div>
           </div>
         </button>

@@ -41,7 +41,7 @@ function usePicker() {
     [gt, q],
   );
   const selected = turrets.find((tt) => tt.id === pick) ?? turrets[0];
-  const defName = first ? t('Main fleet') : `${t('Tab')} ${tabs.length + 1}`;
+  const defName = first ? t('Main fleet') : t('Tab {n}', { n: tabs.length + 1 });
   const store = useStore<RootState>();
   const [storageFull, setStorageFull] = useState(false);
   const create = () => {
@@ -202,7 +202,7 @@ export function TurretPicker() {
             />
           </label>
           <Button variant="primary" size="lg" onClick={p.create}>
-            {t('Create tab with')} {p.selected ? gt.turret(p.selected.id) : ''}
+            {t('Create tab with {turret}', { turret: p.selected ? gt.turret(p.selected.id) : '' })}
           </Button>
           {p.storageFull && <div className={s.storageFull}>{t('Storage is full. Delete a tab or some blueprints to make room.')}</div>}
           <div style={{ marginTop: 6 }}>
@@ -270,7 +270,7 @@ export function MobileTurretPicker() {
             maxLength={60}
           />
           <Button variant="primary" className={s.mBigBtn} onClick={p.create}>
-            {t('Create tab with')} {gt.turret(p.selected.id)}
+            {t('Create tab with {turret}', { turret: gt.turret(p.selected.id) })}
           </Button>
           {p.storageFull && <div className={s.storageFull}>{t('Storage is full. Delete a tab or some blueprints to make room.')}</div>}
         </div>
