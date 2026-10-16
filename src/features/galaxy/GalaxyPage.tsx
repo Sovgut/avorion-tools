@@ -222,7 +222,7 @@ export function GalaxyPage() {
           <span>
             {params ? (
               <>
-                {t('SEED')} {params.seed}
+                {t('SEED')} <span className={s.seedValue}>{params.seed}</span>
                 {data && (
                   <>
                     {' '}

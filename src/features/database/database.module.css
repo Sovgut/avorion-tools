@@ -381,6 +381,12 @@ button.used:hover {
   flex: none;
 }
 
+/* the seed and the position in the subtitle, coloured like the sector coordinates below */
+.subValue {
+  font-family: var(--font-mono);
+  color: var(--c-cyan);
+}
+
 .nearName {
   flex: 1;
   min-width: 0;

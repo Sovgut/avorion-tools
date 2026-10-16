@@ -857,6 +857,11 @@
   color: var(--c-muted);
 }
 
+/* a seed is coloured like sector coordinates */
+.seedValue {
+  color: var(--c-cyan);
+}
+
 .note {
   padding: 14px 0;
   font-size: 13px;

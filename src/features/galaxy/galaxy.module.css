@@ -488,6 +488,11 @@
   color: var(--c-cyan);
 }
 
+/* a seed is coloured like sector coordinates */
+.seedValue {
+  color: var(--c-cyan);
+}
+
 /* mobile */
 .mPage {
   padding: 12px;

@@ -228,7 +228,10 @@ function NearbyProducers({ good }: { good: string }) {
       {galaxy.state === 'ready' ? (
         <>
           <div className={s.sideSub}>
-            {t('Seed')} {seed} · {t('nearest to')} {plan.position.x}:{plan.position.y}
+            {t('Seed')} <span className={s.subValue}>{seed}</span> · {t('nearest to')}{' '}
+            <span className={s.subValue}>
+              {plan.position.x}:{plan.position.y}
+            </span>
           </div>
           {near.map((n) => (
             <button key={n.sector.i} type="button" className={s.nearRow} onClick={() => go.map(n.x, n.y, good)}>

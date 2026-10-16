@@ -470,7 +470,7 @@ function HintsFootnote({ plan, hints }: { plan: Plan; hints: ReturnType<typeof u
   if (hints.size > 0) {
     return (
       <div className={s.footNote}>
-        {t('Nearest producers from galaxy seed')} {seed}
+        {t('Nearest producers from galaxy seed')} <span className={s.seedValue}>{seed}</span>
       </div>
     );
   }
