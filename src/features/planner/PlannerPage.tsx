@@ -330,15 +330,15 @@ function PriceSlider({ plan }: { plan: Plan }) {
           {t('max')} {fmt(plan.max)}
         </span>
       </div>
-      <div className={s.priceNote}>
-        {nothingToBuy ? (
-          t(plan.rows.length > 0 ? 'All cargo is bought or in the hold.' : 'No cargo to buy: the estimate is the turret purchase.')
-        ) : (
-          <>
-            <span className={s.priceFactor}>×{fmt2(f)}</span> {t(priceNote(f))}
-          </>
-        )}
-      </div>
+      {nothingToBuy ? (
+        <div className={s.priceNote}>
+          {t(plan.rows.length > 0 ? 'All cargo is bought or in the hold.' : 'No cargo to buy: the estimate is the turret purchase.')}
+        </div>
+      ) : (
+        <FitText className={s.priceNoteFit} chars={`×${fmt2(f)} ${t(priceNote(f))}`.length} max={12}>
+          <span className={s.priceFactor}>×{fmt2(f)}</span> {t(priceNote(f))}
+        </FitText>
+      )}
     </div>
   );
 }

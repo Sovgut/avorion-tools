@@ -667,6 +667,13 @@
   line-height: 1.4;
 }
 
+/* sized by FitText, so it sets no font size of its own */
+.priceNoteFit {
+  font-family: var(--font-mono);
+  color: var(--c-secondary);
+  line-height: 1.4;
+}
+
 .priceFactor {
   font-family: var(--font-mono);
   color: var(--c-text);

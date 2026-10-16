@@ -62,13 +62,23 @@ export function CloseIcon({ size = 10 }: { size?: number }) {
 
 /**
  * One line of monospaced text that shrinks to fit its container's width, up to `max` px.
- * The text must be set in the mono font, whose glyphs are all the same width.
+ * The text must be set in the mono font, whose glyphs are all the same width. Marked-up content
+ * passes its length in characters as `chars`.
  */
-export function FitText({ text, max, className }: { text: string; max: number; className?: string }) {
+export function FitText({
+  text,
+  chars,
+  max,
+  className,
+  children,
+}: {
+  max: number;
+  className?: string;
+} & ({ text: string; chars?: undefined; children?: undefined } | { text?: undefined; chars: number; children: ReactNode })) {
   return (
     <div className={s.fitBox}>
-      <div className={clsx(s.fit, className)} style={{ '--chars': text.length, '--max': `${max}px` } as CSSProperties}>
-        {text}
+      <div className={clsx(s.fit, className)} style={{ '--chars': chars ?? text?.length, '--max': `${max}px` } as CSSProperties}>
+        {children ?? text}
       </div>
     </div>
   );
