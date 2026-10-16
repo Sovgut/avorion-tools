@@ -3,14 +3,14 @@
 .grid {
   flex: none;
   display: grid;
-  grid-template-columns: 240px minmax(0, 1fr) 360px;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr) 360px;
   grid-template-rows: minmax(0, 1fr);
-  height: calc(100dvh - var(--header-h));
+  height: calc(100dvh - var(--header-h) - var(--footer-h));
 }
 
 .rail {
   border-right: 1px solid var(--c-border);
-  padding: 20px 14px;
+  padding: var(--rail-pad);
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -553,9 +553,6 @@
   font-size: 11px;
   color: var(--c-secondary);
   margin-top: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .mutedMono {
@@ -703,7 +700,7 @@
 /* landscape tablet: the desktop columns, narrower */
 @media (min-width: 1024px) and (max-width: 1199px) {
   .grid {
-    grid-template-columns: 220px minmax(0, 1fr) 300px;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr) 300px;
   }
 
   .mapArea {
@@ -718,8 +715,8 @@
 /* portrait tablet: controls beside a near-square map, the sector and best places below */
 @media (min-width: 760px) and (max-width: 1023px) {
   .grid {
-    grid-template-columns: 220px minmax(0, 1fr);
-    grid-template-rows: clamp(520px, calc(100vw - 220px), 780px) auto;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr);
+    grid-template-rows: clamp(520px, calc(100vw - var(--rail-w)), 780px) auto;
     height: auto;
   }
 

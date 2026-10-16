@@ -218,7 +218,7 @@ export default {
   Factories: 'Фабрики',
   Mines: 'Шахты',
   'Buys goods': 'Покупает товары',
-  'Nearest in your galaxy': 'Ближайшие в вашей галактике',
+  'Nearest in your galaxy': 'Ближайшие к вам',
 
   // search
   VOLUME: 'ОБЪЁМ',

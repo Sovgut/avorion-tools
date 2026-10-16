@@ -114,6 +114,9 @@ export function Shell() {
             </NavLink>
           ))}
         </nav>
+        <footer className={s.mFooter}>
+          <Disclaimer />
+        </footer>
         <GlobalSearch mobile />
         <BlueprintDialog />
       </div>
@@ -145,6 +148,9 @@ export function Shell() {
       <main className={s.main}>
         <Outlet />
       </main>
+      <footer className={s.footer}>
+        <Disclaimer />
+      </footer>
       <GlobalSearch />
       <BlueprintDialog />
     </div>
@@ -160,10 +166,11 @@ function Logo({ small }: { small?: boolean }) {
   );
 }
 
-export function Disclaimer() {
+/** Boxelware requires every community tool to carry this notice, on every page and screen size. */
+function Disclaimer() {
   const tx = useTx();
   return (
-    <div className={s.disclaimer}>
+    <p className={s.disclaimer}>
       {tx('{brand} is a community work, and not officially created or maintained by {company}.', {
         brand: <span className={s.brand}>Avorion Tools</span>,
         company: (
@@ -172,6 +179,6 @@ export function Disclaimer() {
           </a>
         ),
       })}
-    </div>
+    </p>
   );
 }

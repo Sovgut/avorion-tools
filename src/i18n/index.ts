@@ -99,9 +99,9 @@ export function fmt(n: number): string {
 
 const nfShort = new Intl.NumberFormat('en-US', { notation: 'compact', maximumSignificantDigits: 3 });
 
-/** Like `fmt` below a million, then compact (`9.99B`), so it fits a narrow column. */
-export function fmtShort(n: number): string {
-  return Math.abs(n) < 1_000_000 ? fmt(n) : nfShort.format(n);
+/** Like `fmt` below `from` (a million by default), then compact (`32.3K`, `9.99B`), so it fits a narrow column. */
+export function fmtShort(n: number, from = 1_000_000): string {
+  return Math.abs(n) < from ? fmt(n) : nfShort.format(n);
 }
 
 /** Up to two decimals. */

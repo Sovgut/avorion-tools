@@ -2,7 +2,6 @@
 import { useMemo, useState } from 'react';
 import { useStore } from 'react-redux';
 import { useGo } from '@/app/nav';
-import { Disclaimer } from '@/app/Shell';
 import { goodById, goodIcon, iconUrl, turrets } from '@/game/database';
 import type { Armament } from '@/game/schema';
 import { fmt, useGameText, useT } from '@/i18n';
@@ -98,7 +97,7 @@ export function TurretPicker() {
   const { t, gt } = p;
   return (
     <div className={s.grid}>
-      <aside className={s.rail}>
+      <aside className={p.first ? `${s.rail} ${s.railIntro}` : s.rail}>
         <div className={`label ${s.railLabel}`}>{t('TABS')}</div>
         {p.first ? (
           <div className={s.railHint}>{t('Tabs group turrets, e.g. one per ship. Your first one is created with your first turret.')}</div>
@@ -205,9 +204,6 @@ export function TurretPicker() {
             {t('Create tab with {turret}', { turret: p.selected ? gt.turret(p.selected.id) : '' })}
           </Button>
           {p.storageFull && <div className={s.storageFull}>{t('Storage is full. Delete a tab or some blueprints to make room.')}</div>}
-          <div style={{ marginTop: 6 }}>
-            <Disclaimer />
-          </div>
         </div>
       </aside>
     </div>

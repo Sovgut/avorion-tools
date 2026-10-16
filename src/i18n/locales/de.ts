@@ -82,7 +82,7 @@ export default {
   'World boss': 'Weltboss',
   'Asteroid materials': 'Asteroidenmaterialien',
   'Reset hold and marks': 'Frachtraum und Markierungen zurücksetzen',
-  'IN HOLD': 'IM FRACHTRAUM',
+  'IN HOLD': 'AN BORD',
   Bought: 'Gekauft',
   'Already in your hold; taken off what is left to buy.': 'Schon in deinem Frachtraum; wird von dem abgezogen, was noch zu kaufen ist.',
   COMMODITY: 'WARE',

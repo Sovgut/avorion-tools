@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useGo } from '@/app/nav';
-import { Disclaimer } from '@/app/Shell';
 import { type BuyHint, useBuyHints } from '@/features/galaxy/hints';
 import { goodIcon, iconUrl, rarityById, turretById, turrets as turretTypes } from '@/game/database';
 import { fmt, fmt2, fmtShort, useGameText, useT, useTx } from '@/i18n';
@@ -120,9 +119,6 @@ function DesktopPlanner() {
       <aside className={`${s.panel} ${s.summary}`}>
         <Estimate plan={plan} />
         <CargoTable plan={plan} />
-        <div style={{ marginTop: 'auto' }}>
-          <Disclaimer />
-        </div>
       </aside>
     </div>
   );
@@ -411,10 +407,10 @@ function CargoRow({
           onClick={onOpenGood}
         >
           <GameIcon src={goodIcon(r.good)} size={18} />
-          <span className={`${s.ellipsis} ${s.goodName}`}>{gt.good(r.good)}</span>
+          <span className={s.goodName}>{gt.good(r.good)}</span>
         </button>
         <span className={s.needNum} title={fmt(r.need)}>
-          {fmtShort(r.need)}
+          {fmtShort(r.need, mobile ? 10_000 : undefined)}
         </span>
         <NumberInput
           className={mobile ? s.sheetHave : s.haveInput}
@@ -430,7 +426,7 @@ function CargoRow({
           title={fmt(r.buy)}
           style={{ fontSize: mobile ? 14 : undefined, color: r.buy === 0 ? 'var(--c-green)' : undefined }}
         >
-          {r.bought ? '✓' : fmtShort(r.buy)}
+          {r.bought ? '✓' : fmtShort(r.buy, mobile ? 10_000 : undefined)}
         </span>
       </div>
       {r.buy > 0 && hint && <HintChip hint={hint} good={r.good} mobile={mobile} />}
@@ -449,9 +445,7 @@ function HintChip({ hint, good, mobile }: { hint: BuyHint; good: string; mobile?
       onClick={() => go.map(hint.x, hint.y, good)}
     >
       <span className={s.dot} />
-      <span className={s.ellipsis} style={{ flex: 1 }}>
-        {hint.station}
-      </span>
+      <span className={s.hintStation}>{hint.station}</span>
       <span className={s.cyan}>
         {hint.x}:{hint.y}
       </span>
@@ -509,27 +503,20 @@ function MobilePlanner() {
         </button>
       </div>
       <div className={s.mHead}>
-        <div style={{ minWidth: 0 }}>
+        <div className={s.mHeadText}>
           <div className={s.mTabTitle}>{plan.tab?.name}</div>
           <div className={s.mMeta}>
             {t('{n} turret types', { n: plan.turrets.length })} · {t('{n} counted in estimate', { n: plan.enabled.length })}
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 6 }}>
-          {plan.tab && (
-            <button
-              type="button"
-              className={s.mSquare}
-              aria-label={t('Remove tab')}
-              onClick={() => removeTab(plan.tab!.id, plan.tab!.name)}
-            >
-              <CloseIcon size={12} />
-            </button>
-          )}
-          <Button variant="primary" style={{ height: 44, borderRadius: 10 }} onClick={() => setAddOpen((o) => !o)}>
-            {t('+ Add turret')}
-          </Button>
-        </div>
+        {plan.tab && (
+          <button type="button" className={s.mSquare} aria-label={t('Remove tab')} onClick={() => removeTab(plan.tab!.id, plan.tab!.name)}>
+            <CloseIcon size={12} />
+          </button>
+        )}
+        <Button variant="primary" className={s.mAddTurret} onClick={() => setAddOpen((o) => !o)}>
+          {t('+ Add turret')}
+        </Button>
       </div>
       {addOpen && (
         <div className={s.mAddGrid}>

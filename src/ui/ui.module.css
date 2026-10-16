@@ -271,6 +271,7 @@
   font-size: 13px;
   font-weight: 600;
   padding: 6px 10px;
+  white-space: nowrap;
 }
 
 .segment[aria-pressed='true'] {

@@ -62,9 +62,13 @@
   gap: 4px;
 }
 
+/* the nav links, the search field and the language button share one height */
 .navItem,
 .navActive {
-  padding: 8px 12px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
   border-radius: var(--r-sm);
   font-size: 14px;
   font-weight: 500;
@@ -123,11 +127,11 @@
 
 /* language: a code button that opens the list of languages by their own names */
 .langBtn {
-  height: 28px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 0 8px 0 10px;
+  padding: 0 10px 0 12px;
   border: 1px solid var(--c-border);
   border-radius: var(--r-sm);
   background: var(--c-card);
@@ -193,7 +197,24 @@
   flex-direction: column;
 }
 
+/* pinned to the bottom of the window, so the notice stays in view on long pages */
+.footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  flex: none;
+  height: var(--footer-h);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 24px;
+  background: var(--c-panel);
+  border-top: 1px solid var(--c-border);
+  white-space: nowrap;
+}
+
 .disclaimer {
+  margin: 0;
   font-size: 12px;
   line-height: 1.5;
   color: var(--c-muted);
@@ -248,11 +269,24 @@
   flex-direction: column;
 }
 
+/* outside the scroll and under the tab bar, so the notice is always in view */
+.mFooter {
+  flex: none;
+  padding: 6px 16px max(8px, env(safe-area-inset-bottom));
+  background: var(--c-panel);
+  border-top: 1px solid var(--c-divider);
+}
+
+.mFooter .disclaimer {
+  font-size: 11px;
+  line-height: 1.4;
+}
+
 .mNav {
   flex: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 4px 4px max(8px, env(safe-area-inset-bottom));
+  padding: 4px;
   background: var(--c-panel);
   border-top: 1px solid var(--c-border);
 }

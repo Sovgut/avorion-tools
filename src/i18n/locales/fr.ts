@@ -82,10 +82,10 @@ export default {
   'World boss': 'Boss mondial',
   'Asteroid materials': 'Matériaux des astéroïdes',
   'Reset hold and marks': 'Réinitialiser la soute et les coches',
-  'IN HOLD': 'EN SOUTE',
+  'IN HOLD': 'À BORD',
   Bought: 'Acheté',
   'Already in your hold; taken off what is left to buy.': 'Déjà dans votre soute ; déduit de ce qu’il reste à acheter.',
-  COMMODITY: 'MARCHANDISE',
+  COMMODITY: 'PRODUIT',
   NEED: 'BESOIN',
   BUY: 'ACHAT',
   'Nothing to buy yet. Enter component counts on the turret cards.':
@@ -218,7 +218,7 @@ export default {
   Factories: 'Usines',
   Mines: 'Mines',
   'Buys goods': 'Achète des marchandises',
-  'Nearest in your galaxy': 'Les plus proches dans votre galaxie',
+  'Nearest in your galaxy': 'Les plus proches',
 
   // search
   VOLUME: 'VOLUME',

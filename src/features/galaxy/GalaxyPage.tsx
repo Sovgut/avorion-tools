@@ -513,7 +513,13 @@ function BestList({
       <div className={s.bestTitle}>{t('Best places to buy')}</div>
       {!mobile && (
         <div className={s.help} style={{ marginBottom: 6 }}>
-          {t('Nearest producer for each commodity still needed')} · <span className={s.tabName}>{plan.tab?.name ?? '-'}</span>
+          {t('Nearest producer for each commodity still needed')}
+          {plan.tab && (
+            <>
+              {' · '}
+              <span className={s.tabName}>{plan.tab.name}</span>
+            </>
+          )}
         </div>
       )}
       {best.map((b) => (

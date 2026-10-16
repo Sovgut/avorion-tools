@@ -46,12 +46,29 @@
   --shadow-overlay: 0 24px 60px rgba(0, 0, 0, 0.5);
   --backdrop: rgba(8, 8, 9, 0.72);
   --header-h: 60px;
+  --footer-h: 36px;
+  /* the left column is the same width on every page */
+  --rail-w: 250px;
+  --rail-pad: 20px 14px;
+}
+
+@media (max-width: 1199px) {
+  :root {
+    --rail-w: 240px;
+  }
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+/* long compound words (German, Russian) break at syllables, in the document's language, instead of
+   spilling out of their box; a word that still does not fit breaks anywhere */
+html {
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 html,
