@@ -42,6 +42,24 @@ export function Button({ variant = 'outline', size = 'md', className, type = 'bu
   return <button type={type} className={clsx(s.btn, s[variant], s[size], className)} {...rest} />;
 }
 
+/** A cross drawn as two strokes, so it sits in the exact center of its box at any font. */
+export function CloseIcon({ size = 10 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 10 10"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <path d="M1 1l8 8M9 1l-8 8" />
+    </svg>
+  );
+}
+
 export function IconButton({
   label,
   danger,
@@ -51,7 +69,7 @@ export function IconButton({
 }: ButtonHTMLAttributes<HTMLButtonElement> & { label: string; danger?: boolean }) {
   return (
     <button type="button" aria-label={label} title={label} className={clsx(s.iconBtn, danger && s.danger, className)} {...rest}>
-      {children ?? '×'}
+      {children ?? <CloseIcon />}
     </button>
   );
 }

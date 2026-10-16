@@ -7,7 +7,7 @@ import { fmt, fmt2, useGameText, useT } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { MAX_COUNT, MAX_PRICE, MAX_QUANTITY, MAX_TABS, type PlannedTurret, plannerActions } from '@/store/planner';
 import { uiActions } from '@/store/ui';
-import { Button, CoordInput, GameIcon, IconButton, NumberInput, Sheet, Switch, TextInput } from '@/ui';
+import { Button, CloseIcon, CoordInput, GameIcon, IconButton, NumberInput, Sheet, Switch, TextInput } from '@/ui';
 import { useIsMobile } from '@/ui/hooks';
 import { type Plan, usePlan } from './plan';
 import s from './planner.module.css';
@@ -442,7 +442,7 @@ function MobilePlanner() {
               aria-label={t('Remove tab')}
               onClick={() => removeTab(plan.tab!.id, plan.tab!.name)}
             >
-              ×
+              <CloseIcon size={12} />
             </button>
           )}
           <Button variant="primary" style={{ height: 44, borderRadius: 10 }} onClick={() => setAddOpen((o) => !o)}>
@@ -594,7 +594,7 @@ function MobileTurretCard({ turret, open, onToggle }: { turret: PlannedTurret; o
               {t('Blueprints')}
             </button>
             <button type="button" className={s.mRemove} aria-label={t('Remove turret')} onClick={() => removeTurret(turret)}>
-              ×
+              <CloseIcon size={12} />
             </button>
           </div>
         </div>
@@ -615,7 +615,7 @@ function CargoSheet({ plan, open, onClose }: { plan: Plan; open: boolean; onClos
         <div className={s.sheetTitleRow}>
           <span className={s.sheetTitle}>{t('Cargo required')}</span>
           <button type="button" className={s.sheetClose} aria-label={t('Cancel')} onClick={onClose}>
-            ×
+            <CloseIcon size={12} />
           </button>
         </div>
         <div className={s.sheetAvg}>≈ {fmt(plan.avg)}</div>
