@@ -174,8 +174,9 @@ export const RU: Record<string, string> = {
   'Not produced by any factory.': 'Не производится ни одной фабрикой.',
   'Used by': 'Используется в',
   'Nothing uses it.': 'Ничто это не использует.',
-  'Source: game data · prices are base values before faction and sector modifiers':
-    'Источник: данные игры · цены базовые, без модификаторов фракции и сектора',
+  'Base prices from': 'Базовые цены из',
+  'At stations the price also depends on supply and demand and on relations.':
+    'На станциях цена зависит ещё от спроса и предложения и от отношений.',
   'In your plan': 'В вашем плане',
   'In your galaxy': 'В вашей галактике',
   'Not produced anywhere in this galaxy.': 'В этой галактике не производится.',
@@ -193,8 +194,9 @@ export const RU: Record<string, string> = {
   GARBAGE: 'ОТХОДЫ',
   '/ CYCLE': '/ ЦИКЛ',
   'UPGRADE COST': 'СТОИМОСТЬ УЛУЧШЕНИЯ',
-  'Costs and amounts come from the game scripts; a cycle produces once per parallel production (size + 1).':
-    'Стоимость и количества взяты из скриптов игры; за цикл каждая параллельная линия (размер + 1) производит один раз.',
+  'Data from': 'Данные из',
+  'Per-cycle amounts include every parallel production of this size.':
+    'Количество за цикл учитывает все параллельные производства этого размера.',
   Suppliers: 'Поставщики',
   Consumers: 'Потребители',
   'Nothing in the game buys it.': 'В игре это никто не покупает.',

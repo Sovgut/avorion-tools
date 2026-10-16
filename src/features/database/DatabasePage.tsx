@@ -358,7 +358,7 @@ function Source() {
   const t = useT();
   return (
     <div className={s.source}>
-      {t('Source: game data · prices are base values before faction and sector modifiers')} · Avorion {db.game.version}
+      {t('Base prices from')} Avorion {db.game.version}. {t('At stations the price also depends on supply and demand and on relations.')}
     </div>
   );
 }
@@ -460,7 +460,7 @@ function StationDetail({ station }: { station: StationType }) {
           </div>
         </div>
         <div className={s.source}>
-          {t('Costs and amounts come from the game scripts; a cycle produces once per parallel production (size + 1).')}
+          {t('Data from')} Avorion {db.game.version}. {t('Per-cycle amounts include every parallel production of this size.')}
         </div>
       </section>
       <aside className={s.panel}>
