@@ -468,12 +468,13 @@ function StationDetail({ station }: { station: StationType }) {
           {p.ingredients.map((i) => {
             const st = producersOf.get(i.good)?.[0];
             return (
-              <div key={i.good} className={s.supplier}>
-                <span>{gt.good(i.good)}</span>
-                <button type="button" className={st ? s.chipAccent : s.chip} onClick={() => (st ? go.station(st.id) : go.good(i.good))}>
-                  {st ? gt.station(st) : gt.good(i.good)}
-                </button>
-              </div>
+              <button key={i.good} type="button" className={s.supplier} onClick={() => (st ? go.station(st.id) : go.good(i.good))}>
+                <GameIcon src={goodIcon(i.good)} size={20} />
+                <span className={s.supplierText}>
+                  <span className={s.supplierGood}>{gt.good(i.good)}</span>
+                  <span className={s.supplierStation}>{st ? gt.station(st) : t('Not produced by any factory.')}</span>
+                </span>
+              </button>
             );
           })}
           {p.ingredients.length === 0 && <div className={s.muted}>{t('No ingredients: it extracts its goods.')}</div>}

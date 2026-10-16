@@ -10,11 +10,17 @@ interface Persisted {
   settings: SettingsState;
 }
 
-export function savePersisted(state: Persisted): void {
+export type SaveResult = 'saved' | 'full' | 'unavailable';
+
+/** Writes the state. When storage is full or disabled the session keeps working, it just is not saved. */
+export function savePersisted(state: Persisted): SaveResult {
   try {
     localStorage.setItem(KEY, JSON.stringify({ v: 2, planner: state.planner, settings: state.settings }));
-  } catch {
-    // storage full or disabled: the session keeps working, it just is not saved
+    return 'saved';
+  } catch (e) {
+    // Firefox names it NS_ERROR_DOM_QUOTA_REACHED
+    const full = e instanceof DOMException && (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED');
+    return full ? 'full' : 'unavailable';
   }
 }
 

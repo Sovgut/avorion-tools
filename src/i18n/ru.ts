@@ -15,7 +15,6 @@ export const RU: Record<string, string> = {
   'Tabs group turrets, e.g. one per ship. Your first one is created with your first turret.':
     'Вкладки группируют турели, например по одной на корабль. Первая создаётся вместе с первой турелью.',
   '+ New tab': '+ Новая вкладка',
-  tabs: 'вкладок',
   'Add your first turret': 'Добавьте первую турель',
   'New tab': 'Новая вкладка',
   "Pick the turret you're building. You'll then copy the component counts from the in-game turret factory, and the planner works out what to buy.":
@@ -63,12 +62,12 @@ export const RU: Record<string, string> = {
   'Cargo required': 'Нужный груз',
   Cargo: 'Груз',
   'All cargo is bought or in the hold.': 'Весь груз куплен или уже лежит в трюме.',
+  'Storage is full. Delete a tab or some blueprints to make room.':
+    'Память заполнена. Удали вкладку или часть чертежей, чтобы освободить место.',
   'Reset hold and marks': 'Сбросить трюм и отметки',
   'IN HOLD': 'В ТРЮМЕ',
   Bought: 'Куплено',
   'Already in your hold; taken off what is left to buy.': 'Уже лежит в трюме; вычитается из того, что осталось купить.',
-  'Tick a good once it is bought in the game; it leaves the estimate. In hold is what you already carry.':
-    'Отметь товар галочкой, когда купишь его в игре: он уйдёт из оценки. «В трюме» - то, что у тебя уже есть.',
   COMMODITY: 'ТОВАР',
   NEED: 'НУЖНО',
   BUY: 'КУПИТЬ',
@@ -96,7 +95,6 @@ export const RU: Record<string, string> = {
   'e.g. Rail Mk III': 'например, Rail Mk III',
   Rarity: 'Редкость',
   'Save blueprint': 'Сохранить чертёж',
-  'Local storage': 'Локальное хранилище',
   Load: 'Загрузить',
   'No saved blueprints for this turret.': 'Для этой турели нет сохранённых чертежей.',
   'Delete blueprint': 'Удалить чертёж',
@@ -123,12 +121,6 @@ export const RU: Record<string, string> = {
   'YOUR POSITION': 'ВАША ПОЗИЦИЯ',
   'I’m here': 'Я здесь',
   'You are here': 'Вы здесь',
-  'Set by you. Select a sector and press “I’m here” to move.': 'Задана вами. Чтобы сменить, выберите сектор и нажмите «Я здесь».',
-  'Select a sector and press “I’m here” to set it.': 'Чтобы задать свою, выберите сектор и нажмите «Я здесь».',
-  'Select a sector on the map and press “I’m here”, or type the coordinates.':
-    'Выберите сектор на карте и нажмите «Я здесь» или введите координаты.',
-  'Use the turret sector instead': 'Брать сектор турели',
-  'From the turret sector in': 'Сектор турели во вкладке',
   'No turret yet, using 0:0': 'Турелей нет, используется 0:0',
   SEED: 'СИД',
   'sectors with stations': 'секторов со станциями',

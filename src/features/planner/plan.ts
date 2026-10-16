@@ -25,7 +25,6 @@ export interface Plan {
   rows: NeedRow[];
   /** Position used for distances: the one set on the map, else the first enabled turret's sector, else 0:0. */
   position: { x: number; y: number };
-  positionSource: 'map' | 'turret' | 'default';
   /** Cargo cost at the base price. */
   cargoCost: number;
   /** Totals with the cargo at the lowest, chosen and highest price multiple. */
@@ -70,7 +69,6 @@ export function computePlan(
     need,
     rows,
     position: position ?? (me ? { x: me.x, y: me.y } : { x: 0, y: 0 }),
-    positionSource: position ? 'map' : me ? 'turret' : 'default',
     cargoCost,
     min: cargoCost * PRICE_FACTOR_MIN + turretSum,
     estimate: cargoCost * priceFactor + turretSum,

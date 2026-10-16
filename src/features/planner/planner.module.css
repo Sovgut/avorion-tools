@@ -108,11 +108,10 @@
   font-weight: 500;
 }
 
-.tabsUsed {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--c-muted);
-  padding: 6px 12px;
+.storageFull {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--c-red);
 }
 
 /* picker center */

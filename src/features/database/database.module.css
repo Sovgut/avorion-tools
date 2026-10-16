@@ -545,34 +545,37 @@ button.tableRow:hover {
   color: var(--c-secondary);
 }
 
+/* a good the station needs, with the station that makes it underneath */
 .supplier {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
+  border: 0;
+  background: transparent;
+  padding: 2px 0;
+  color: var(--c-text);
+  text-align: left;
+}
+
+.supplierText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.supplierGood {
   font-size: 13px;
 }
 
-.supplier > span {
+.supplierStation {
+  font-size: 11px;
   color: var(--c-secondary);
-}
-
-.chip,
-.chipAccent {
-  padding: 4px 10px;
-  border-radius: var(--r-pill);
-  border: 1px solid var(--c-border);
-  background: transparent;
-  color: var(--c-secondary);
-  font-size: 12px;
-  max-width: 60%;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.chipAccent {
-  border-color: var(--c-accent);
+.supplier:hover .supplierGood {
   color: var(--c-accent);
 }
 

@@ -1,7 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RarityId } from '@/game/database';
 
-export const MAX_TABS = 10;
 export const MAX_QUANTITY = 999_999;
 export const MAX_PRICE = 9_999_999_999;
 export const MAX_COUNT = 9_999_999;
@@ -76,7 +75,6 @@ const slice = createSlice({
   reducers: {
     /** Creates a tab with its first turret and makes it current. */
     createTab(state, a: PayloadAction<{ name: string; type: string; components: string[] }>) {
-      if (state.tabs.length >= MAX_TABS) return;
       const tab = { id: `tab${state.seq++}`, name: a.payload.name.trim().slice(0, 60) };
       state.tabs.push(tab);
       state.currentTabId = tab.id;

@@ -7,19 +7,6 @@ import { uiActions } from '@/store/ui';
 import { Button, Dialog, GameIcon, IconButton, Segmented, TextInput } from '@/ui';
 import s from './blueprints.module.css';
 
-function storageKb(): string {
-  try {
-    let bytes = 0;
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i)!;
-      bytes += (k.length + (localStorage.getItem(k)?.length ?? 0)) * 2;
-    }
-    return (bytes / 1024).toFixed(1);
-  } catch {
-    return '?';
-  }
-}
-
 export function BlueprintDialog() {
   const t = useT();
   const gt = useGameText();
@@ -140,10 +127,6 @@ export function BlueprintDialog() {
               <Button variant="primary" size="lg" onClick={save}>
                 {t('Save blueprint')}
               </Button>
-              <div className={s.storage}>
-                <span>{t('Local storage')}</span>
-                <span>{storageKb()} KB / 5 MB</span>
-              </div>
             </div>
           ) : (
             <div className={s.list}>

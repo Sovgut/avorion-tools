@@ -471,12 +471,6 @@ function PositionBox({ plan, mobile }: { plan: Plan; mobile?: boolean }) {
   const t = useT();
   const dispatch = useAppDispatch();
   const set = (p: { x: number; y: number }) => dispatch(settingsActions.setPosition(p));
-  const note =
-    plan.positionSource === 'map'
-      ? t('Set by you. Select a sector and press “I’m here” to move.')
-      : plan.positionSource === 'turret'
-        ? `${t('From the turret sector in')} ${plan.tab?.name ?? ''}. ${t('Select a sector and press “I’m here” to set it.')}`
-        : t('Select a sector on the map and press “I’m here”, or type the coordinates.');
   return (
     <div className={mobile ? s.mPosition : s.position}>
       <span className="label">{t('YOUR POSITION')}</span>
@@ -495,12 +489,6 @@ function PositionBox({ plan, mobile }: { plan: Plan; mobile?: boolean }) {
           aria-label={`${t('YOUR POSITION')} y`}
         />
       </div>
-      <span className={s.help}>{note}</span>
-      {plan.positionSource === 'map' && plan.turrets.length > 0 && (
-        <button type="button" className={s.serverToggle} onClick={() => dispatch(settingsActions.setPosition(null))}>
-          {t('Use the turret sector instead')}
-        </button>
-      )}
     </div>
   );
 }

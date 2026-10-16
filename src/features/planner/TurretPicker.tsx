@@ -1,12 +1,14 @@
 // First visit and "+ New tab": pick a turret type, name the tab, create it.
 import { useMemo, useState } from 'react';
+import { useStore } from 'react-redux';
 import { useGo } from '@/app/nav';
 import { Disclaimer } from '@/app/Shell';
 import { goodById, goodIcon, iconUrl, turrets } from '@/game/database';
 import type { Armament } from '@/game/schema';
 import { fmt, useGameText, useT } from '@/i18n';
-import { useAppDispatch, useAppSelector } from '@/store';
-import { MAX_TABS, plannerActions } from '@/store/planner';
+import { type RootState, useAppDispatch, useAppSelector } from '@/store';
+import { savePersisted } from '@/store/persistence';
+import { plannerActions, plannerReducer } from '@/store/planner';
 import { uiActions } from '@/store/ui';
 import { Button, GameIcon, TextInput } from '@/ui';
 import s from './planner.module.css';
@@ -40,11 +42,23 @@ function usePicker() {
   );
   const selected = turrets.find((tt) => tt.id === pick) ?? turrets[0];
   const defName = first ? t('Main fleet') : `${t('Tab')} ${tabs.length + 1}`;
+  const store = useStore<RootState>();
+  const [storageFull, setStorageFull] = useState(false);
   const create = () => {
-    if (tabs.length >= MAX_TABS || !selected) return;
-    dispatch(
-      plannerActions.createTab({ name: tabName.trim() || defName, type: selected.id, components: selected.ingredients.map((i) => i.good) }),
-    );
+    if (!selected) return;
+    const action = plannerActions.createTab({
+      name: tabName.trim() || defName,
+      type: selected.id,
+      components: selected.ingredients.map((i) => i.good),
+    });
+    // a tab is only created if the state with it still fits in local storage
+    const state = store.getState();
+    if (savePersisted({ ...state, planner: plannerReducer(state.planner, action) }) === 'full') {
+      setStorageFull(true);
+      return;
+    }
+    setStorageFull(false);
+    dispatch(action);
     dispatch(uiActions.setPicking(false));
   };
   return {
@@ -63,7 +77,7 @@ function usePicker() {
     selected,
     defName,
     create,
-    canCreate: tabs.length < MAX_TABS,
+    storageFull,
     title: t(first ? 'Add your first turret' : 'New tab'),
     sub: t(
       first
@@ -101,9 +115,6 @@ export function TurretPicker() {
             <div className={s.newTabActive}>{t('+ New tab')}</div>
           </>
         )}
-        <div className={s.tabsUsed}>
-          {p.tabs.length} / {MAX_TABS} {t('tabs')}
-        </div>
       </aside>
 
       <section className={s.pickerMain}>
@@ -190,9 +201,10 @@ export function TurretPicker() {
               onKeyDown={(e) => e.key === 'Enter' && p.create()}
             />
           </label>
-          <Button variant="primary" size="lg" onClick={p.create} disabled={!p.canCreate}>
+          <Button variant="primary" size="lg" onClick={p.create}>
             {t('Create tab with')} {p.selected ? gt.turret(p.selected.id) : ''}
           </Button>
+          {p.storageFull && <div className={s.storageFull}>{t('Storage is full. Delete a tab or some blueprints to make room.')}</div>}
           <div style={{ marginTop: 6 }}>
             <Disclaimer />
           </div>
@@ -257,9 +269,10 @@ export function MobileTurretPicker() {
             placeholder={p.defName}
             maxLength={60}
           />
-          <Button variant="primary" className={s.mBigBtn} onClick={p.create} disabled={!p.canCreate}>
+          <Button variant="primary" className={s.mBigBtn} onClick={p.create}>
             {t('Create tab with')} {gt.turret(p.selected.id)}
           </Button>
+          {p.storageFull && <div className={s.storageFull}>{t('Storage is full. Delete a tab or some blueprints to make room.')}</div>}
         </div>
       )}
     </>

@@ -117,14 +117,6 @@
   border-top: 1px solid var(--c-divider);
 }
 
-.storage {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--c-muted);
-  display: flex;
-  justify-content: space-between;
-}
-
 .list {
   padding: 14px 12px 16px;
   display: flex;

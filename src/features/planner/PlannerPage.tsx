@@ -5,7 +5,7 @@ import { type BuyHint, useBuyHints } from '@/features/galaxy/hints';
 import { goodIcon, iconUrl, rarityById, turretById, turrets as turretTypes } from '@/game/database';
 import { fmt, fmt2, fmtShort, useGameText, useT } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { MAX_COUNT, MAX_PRICE, MAX_QUANTITY, MAX_TABS, type PlannedTurret, plannerActions } from '@/store/planner';
+import { MAX_COUNT, MAX_PRICE, MAX_QUANTITY, type PlannedTurret, plannerActions } from '@/store/planner';
 import { PRICE_FACTOR_MAX, PRICE_FACTOR_MIN, settingsActions } from '@/store/settings';
 import { uiActions } from '@/store/ui';
 import { Button, Checkbox, CloseIcon, CoordInput, FitText, GameIcon, IconButton, NumberInput, Sheet, Switch, TextInput } from '@/ui';
@@ -73,14 +73,9 @@ function DesktopPlanner() {
             <IconButton label={t('Remove tab')} danger className={s.tabRemove} onClick={() => removeTab(tab.id, tab.name)} />
           </div>
         ))}
-        {tabs.length < MAX_TABS && (
-          <button type="button" className={s.newTab} onClick={() => dispatch(uiActions.setPicking(true))}>
-            {t('+ New tab')}
-          </button>
-        )}
-        <div className={s.tabsUsed}>
-          {tabs.length} / {MAX_TABS} {t('tabs')}
-        </div>
+        <button type="button" className={s.newTab} onClick={() => dispatch(uiActions.setPicking(true))}>
+          {t('+ New tab')}
+        </button>
       </aside>
 
       <section className={s.main}>
@@ -374,11 +369,6 @@ function CargoTable({ plan }: { plan: Plan }) {
         <CargoRow key={r.good} row={r} hint={hints.get(r.good)} onOpenGood={() => go.good(r.good)} />
       ))}
       {plan.rows.length === 0 && <div className={s.note}>{t('Nothing to buy yet. Enter component counts on the turret cards.')}</div>}
-      {plan.rows.length > 0 && (
-        <div className={s.note}>
-          {t('Tick a good once it is bought in the game; it leaves the estimate. In hold is what you already carry.')}
-        </div>
-      )}
       <HintsFootnote plan={plan} hints={hints} />
     </div>
   );
@@ -510,11 +500,9 @@ function MobilePlanner() {
             {tab.name} <span className={s.count}>{turrets.filter((x) => x.tabId === tab.id).length}</span>
           </button>
         ))}
-        {tabs.length < MAX_TABS && (
-          <button type="button" className={s.mPlus} aria-label={t('New tab')} onClick={() => dispatch(uiActions.setPicking(true))}>
-            +
-          </button>
-        )}
+        <button type="button" className={s.mPlus} aria-label={t('New tab')} onClick={() => dispatch(uiActions.setPicking(true))}>
+          +
+        </button>
       </div>
       <div className={s.mHead}>
         <div style={{ minWidth: 0 }}>
