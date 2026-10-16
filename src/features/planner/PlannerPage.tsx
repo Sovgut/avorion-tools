@@ -6,6 +6,7 @@ import { goodIcon, iconUrl, rarityById, turretById, turrets as turretTypes } fro
 import { fmt, fmt2, useGameText, useT } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { MAX_COUNT, MAX_PRICE, MAX_QUANTITY, MAX_TABS, type PlannedTurret, plannerActions } from '@/store/planner';
+import { PRICE_FACTOR_MAX, PRICE_FACTOR_MIN, settingsActions } from '@/store/settings';
 import { uiActions } from '@/store/ui';
 import { Button, CloseIcon, CoordInput, GameIcon, IconButton, NumberInput, Sheet, Switch, TextInput } from '@/ui';
 import { useIsMobile } from '@/ui/hooks';
@@ -276,20 +277,8 @@ function Estimate({ plan }: { plan: Plan }) {
   return (
     <div className={s.estimate}>
       <div className={s.estLabel}>{t('Estimated price')}</div>
-      <div className={s.estValue}>≈ {fmt(plan.avg)}</div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
-        <div className={s.range}>
-          <div className={s.rangeTick} />
-        </div>
-        <div className={s.rangeLabels}>
-          <span>
-            {t('min')} {fmt(plan.min)}
-          </span>
-          <span>
-            {t('max')} {fmt(plan.max)}
-          </span>
-        </div>
-      </div>
+      <div className={s.estValue}>≈ {fmt(plan.estimate)}</div>
+      <PriceSlider plan={plan} />
       <div className={`${s.kv} ${s.kvFirst}`}>
         <span>{t('Turret purchase')}</span>
         <span>{fmt(plan.turretSum)}</span>
@@ -297,6 +286,63 @@ function Estimate({ plan }: { plan: Plan }) {
       <div className={s.kv}>
         <span>{t('Cargo volume')}</span>
         <span>{fmt2(plan.volume)} m³</span>
+      </div>
+    </div>
+  );
+}
+
+const pricePct = (f: number) => ((f - PRICE_FACTOR_MIN) / (PRICE_FACTOR_MAX - PRICE_FACTOR_MIN)) * 100;
+/** Price multiples the game produces: base price, and the turret factory's supplier. */
+const PRICE_MARKS = [1, 3.25];
+
+function priceNote(f: number): string {
+  if (f < 1) return 'below base: a surplus and good relations';
+  if (f <= 1.35) return 'usual factory and trading post prices';
+  if (f < 3.25) return 'a shortage or poor relations';
+  return "the turret factory's supplier";
+}
+
+/** Chooses what cargo costs at stations, as a multiple of its base price. */
+function PriceSlider({ plan }: { plan: Plan }) {
+  const t = useT();
+  const dispatch = useAppDispatch();
+  const f = plan.priceFactor;
+  const nothingToBuy = plan.cargoCost === 0;
+  return (
+    <div className={s.price}>
+      <div className={s.priceTrack}>
+        {PRICE_MARKS.map((m) => (
+          <span key={m} className={s.priceMark} style={{ left: `${pricePct(m)}%` }} />
+        ))}
+        <input
+          type="range"
+          className={s.priceRange}
+          min={PRICE_FACTOR_MIN}
+          max={PRICE_FACTOR_MAX}
+          step={0.05}
+          value={f}
+          disabled={nothingToBuy}
+          aria-label={t('Cargo price at stations')}
+          aria-valuetext={`×${fmt2(f)}`}
+          onChange={(e) => dispatch(settingsActions.setPriceFactor(Number(e.target.value)))}
+        />
+      </div>
+      <div className={s.rangeLabels}>
+        <span>
+          {t('min')} {fmt(plan.min)}
+        </span>
+        <span>
+          {t('max')} {fmt(plan.max)}
+        </span>
+      </div>
+      <div className={s.priceNote}>
+        {nothingToBuy ? (
+          t('No cargo to buy: the estimate is the turret purchase.')
+        ) : (
+          <>
+            <span className={s.priceFactor}>×{fmt2(f)}</span> {t(priceNote(f))}
+          </>
+        )}
       </div>
     </div>
   );
@@ -482,9 +528,9 @@ function MobilePlanner() {
       <div className={s.mSummaryBar}>
         <button type="button" className={s.mSummaryBtn} onClick={() => setCargoOpen(true)}>
           <div>
-            <div className={s.mAvg}>≈ {fmt(plan.avg)}</div>
+            <div className={s.mAvg}>≈ {fmt(plan.estimate)}</div>
             <div className={s.mRange}>
-              {fmt(plan.min)} - {fmt(plan.max)} · {fmt2(plan.volume)} m³
+              ×{fmt2(plan.priceFactor)} · {fmt2(plan.volume)} m³
             </div>
           </div>
           <span className={s.mCargoBadge}>
@@ -618,11 +664,10 @@ function CargoSheet({ plan, open, onClose }: { plan: Plan; open: boolean; onClos
             <CloseIcon size={12} />
           </button>
         </div>
-        <div className={s.sheetAvg}>≈ {fmt(plan.avg)}</div>
+        <div className={s.sheetAvg}>≈ {fmt(plan.estimate)}</div>
+        <PriceSlider plan={plan} />
         <div className={s.rangeLabels}>
-          <span>
-            {fmt(plan.min)} - {fmt(plan.max)}
-          </span>
+          <span>{t('Cargo volume')}</span>
           <span>{fmt2(plan.volume)} m³</span>
         </div>
       </div>

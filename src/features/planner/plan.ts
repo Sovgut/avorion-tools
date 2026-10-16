@@ -3,9 +3,7 @@ import { useMemo } from 'react';
 import { goodById } from '@/game/database';
 import { useAppSelector } from '@/store';
 import type { PlannedTurret, Tab } from '@/store/planner';
-
-/** Cargo bought at traders costs between its base price and this many times the base price. */
-export const MAX_PRICE_FACTOR = 4;
+import { PRICE_FACTOR_DEFAULT, PRICE_FACTOR_MAX, PRICE_FACTOR_MIN } from '@/store/settings';
 
 export interface NeedRow {
   good: string;
@@ -26,9 +24,13 @@ export interface Plan {
   /** Position used for distances: the one set on the map, else the first enabled turret's sector, else 0:0. */
   position: { x: number; y: number };
   positionSource: 'map' | 'turret' | 'default';
+  /** Cargo cost at the base price. */
+  cargoCost: number;
+  /** Totals with the cargo at the lowest, chosen and highest price multiple. */
   min: number;
+  estimate: number;
   max: number;
-  avg: number;
+  priceFactor: number;
   turretSum: number;
   volume: number;
 }
@@ -38,6 +40,7 @@ export function computePlan(
   allTurrets: PlannedTurret[],
   cargo: Record<string, number>,
   position: { x: number; y: number } | null = null,
+  priceFactor = PRICE_FACTOR_DEFAULT,
 ): Plan {
   const turrets = tab ? allTurrets.filter((t) => t.tabId === tab.id) : [];
   const enabled = turrets.filter((t) => t.enabled);
@@ -52,7 +55,7 @@ export function computePlan(
     return { good, need: n, have, buy, cost: buy * (g?.price ?? 0), volume: buy * (g?.volume ?? 0) };
   });
   rows.sort((a, b) => b.cost - a.cost || a.good.localeCompare(b.good));
-  const min = rows.reduce((a, r) => a + r.cost, 0);
+  const cargoCost = rows.reduce((a, r) => a + r.cost, 0);
   const turretSum = enabled.reduce((a, t) => a + t.price * t.qty, 0);
   const me = enabled[0] ?? turrets[0];
   return {
@@ -63,9 +66,11 @@ export function computePlan(
     rows,
     position: position ?? (me ? { x: me.x, y: me.y } : { x: 0, y: 0 }),
     positionSource: position ? 'map' : me ? 'turret' : 'default',
-    min: min + turretSum,
-    max: min * MAX_PRICE_FACTOR + turretSum,
-    avg: (min + min * MAX_PRICE_FACTOR) / 2 + turretSum,
+    cargoCost,
+    min: cargoCost * PRICE_FACTOR_MIN + turretSum,
+    estimate: cargoCost * priceFactor + turretSum,
+    max: cargoCost * PRICE_FACTOR_MAX + turretSum,
+    priceFactor,
     turretSum,
     volume: rows.reduce((a, r) => a + r.volume, 0),
   };
@@ -74,6 +79,7 @@ export function computePlan(
 export function usePlan(): Plan {
   const { tabs, currentTabId, turrets, cargo } = useAppSelector((s) => s.planner);
   const position = useAppSelector((s) => s.settings.position);
+  const priceFactor = useAppSelector((s) => s.settings.priceFactor);
   return useMemo(
     () =>
       computePlan(
@@ -81,7 +87,8 @@ export function usePlan(): Plan {
         turrets,
         cargo,
         position,
+        priceFactor,
       ),
-    [tabs, currentTabId, turrets, cargo, position],
+    [tabs, currentTabId, turrets, cargo, position, priceFactor],
   );
 }
