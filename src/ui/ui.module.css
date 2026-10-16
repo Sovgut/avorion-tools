@@ -205,26 +205,35 @@
 /* switch */
 /* drawn like the inputs: a framed track with a small square knob, gold when on */
 .switch {
-  position: relative;
   width: 36px;
   height: 20px;
   flex: none;
   padding: 0;
-  border: 1px solid var(--c-border-strong);
+  border: 0;
   border-radius: var(--r-xs);
-  background: var(--c-card);
+  background: transparent;
+  display: block;
+}
+
+.switch svg {
+  display: block;
+}
+
+.track {
+  fill: var(--c-card);
+  stroke: var(--c-border-strong);
   transition:
-    background-color 0.12s,
-    border-color 0.12s;
+    fill 0.12s,
+    stroke 0.12s;
 }
 
-.switch:hover {
-  border-color: var(--c-secondary);
+.switch:hover .track {
+  stroke: var(--c-secondary);
 }
 
-.switch[aria-checked='true'] {
-  border-color: var(--c-accent);
-  background: color-mix(in oklch, var(--c-accent) 16%, var(--c-card));
+.switch[aria-checked='true'] .track {
+  fill: color-mix(in oklch, var(--c-accent) 16%, var(--c-card));
+  stroke: var(--c-accent);
 }
 
 .switch:focus-visible {
@@ -233,21 +242,15 @@
 }
 
 .knob {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-  background: var(--c-muted);
+  fill: var(--c-muted);
   transition:
     transform 0.12s,
-    background-color 0.12s;
+    fill 0.12s;
 }
 
 .switch[aria-checked='true'] .knob {
   transform: translateX(16px);
-  background: var(--c-accent);
+  fill: var(--c-accent);
 }
 
 /* segmented */

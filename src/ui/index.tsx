@@ -244,7 +244,11 @@ export function Switch({
       className={clsx(s.switch, className)}
       onClick={() => onChange(!checked)}
     >
-      <span className={s.knob} />
+      {/* one SVG, so the knob stays centred in the track at any page zoom */}
+      <svg width="36" height="20" viewBox="0 0 36 20" aria-hidden="true">
+        <rect className={s.track} x="0.5" y="0.5" width="35" height="19" rx="3.5" />
+        <rect className={s.knob} x="4" y="4" width="12" height="12" rx="2" />
+      </svg>
     </button>
   );
 }
