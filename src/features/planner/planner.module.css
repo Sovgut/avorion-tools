@@ -1352,3 +1352,64 @@
   width: 100%;
   border-radius: var(--r-lg);
 }
+
+/* tablet: the tabs run along the top, turrets and the summary share the width below */
+@media (min-width: 760px) and (max-width: 1199px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-rows: auto 1fr;
+  }
+
+  .rail {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-right: 0;
+    border-bottom: 1px solid var(--c-border);
+    overflow-x: auto;
+  }
+
+  .railLabel,
+  .railHint {
+    display: none;
+  }
+
+  .tabRow {
+    flex: none;
+    max-width: 220px;
+  }
+
+  .newTab,
+  .newTabActive {
+    flex: none;
+    margin-top: 0;
+    padding: 8px 12px;
+    white-space: nowrap;
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  .pickerMain {
+    padding: 24px 20px;
+  }
+
+  .panel,
+  .summary {
+    padding: 20px 16px;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 1023px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) 330px;
+  }
+
+  .cargoGrid {
+    grid-template-columns: 18px minmax(0, 1fr) 44px 58px 44px;
+    gap: 6px;
+  }
+}

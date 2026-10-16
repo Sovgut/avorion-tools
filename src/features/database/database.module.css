@@ -658,6 +658,70 @@ button.consumer:hover > span:nth-child(2) {
   font-size: 15px;
 }
 
+/* tablet: narrower columns; recipe tables stack, stats and upgrade costs wrap */
+@media (min-width: 760px) and (max-width: 1199px) {
+  .grid {
+    grid-template-columns: 230px minmax(0, 1fr) 280px;
+  }
+
+  .main {
+    padding: 24px;
+  }
+
+  .panel {
+    padding: 20px 18px;
+  }
+
+  .hero {
+    flex-wrap: wrap;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  /* size and variant pickers get their own row under the title */
+  .pickers {
+    flex-basis: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .stats4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .flowArrow {
+    height: auto;
+    transform: rotate(90deg);
+  }
+
+  .upgrades {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+/* portrait tablet: the side panel moves under the content */
+@media (min-width: 760px) and (max-width: 1023px) {
+  .grid {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .panel {
+    grid-column: 2;
+    border-left: 0;
+    border-top: 1px solid var(--c-border);
+    background: transparent;
+    padding: 24px;
+  }
+}
+
 @media (max-width: 759px) {
   .main {
     padding: 0;

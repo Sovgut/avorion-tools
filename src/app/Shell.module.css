@@ -1,6 +1,5 @@
 .desktop {
   min-height: 100dvh;
-  min-width: 1180px;
   display: flex;
   flex-direction: column;
 }
@@ -221,4 +220,23 @@
 .mNavActive,
 .mNavActive:hover {
   color: var(--c-accent);
+}
+
+/* tablet: the search field gives way first, then the GitHub link */
+@media (min-width: 760px) and (max-width: 1199px) {
+  .header {
+    gap: 14px;
+    padding: 0 16px;
+  }
+
+  .searchTrigger {
+    min-width: 0;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 1023px) {
+  .kbd,
+  .github {
+    display: none;
+  }
 }
