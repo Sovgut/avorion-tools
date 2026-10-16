@@ -23,9 +23,9 @@ export interface Plan {
   enabled: PlannedTurret[];
   need: Map<string, number>;
   rows: NeedRow[];
-  /** Position used for distances: the first enabled turret's sector. */
+  /** Position used for distances: the one set on the map, else the first enabled turret's sector, else 0:0. */
   position: { x: number; y: number };
-  hasPosition: boolean;
+  positionSource: 'map' | 'turret' | 'default';
   min: number;
   max: number;
   avg: number;
@@ -33,7 +33,12 @@ export interface Plan {
   volume: number;
 }
 
-export function computePlan(tab: Tab | undefined, allTurrets: PlannedTurret[], cargo: Record<string, number>): Plan {
+export function computePlan(
+  tab: Tab | undefined,
+  allTurrets: PlannedTurret[],
+  cargo: Record<string, number>,
+  position: { x: number; y: number } | null = null,
+): Plan {
   const turrets = tab ? allTurrets.filter((t) => t.tabId === tab.id) : [];
   const enabled = turrets.filter((t) => t.enabled);
   const need = new Map<string, number>();
@@ -56,8 +61,8 @@ export function computePlan(tab: Tab | undefined, allTurrets: PlannedTurret[], c
     enabled,
     need,
     rows,
-    position: me ? { x: me.x, y: me.y } : { x: 0, y: 0 },
-    hasPosition: !!me,
+    position: position ?? (me ? { x: me.x, y: me.y } : { x: 0, y: 0 }),
+    positionSource: position ? 'map' : me ? 'turret' : 'default',
     min: min + turretSum,
     max: min * MAX_PRICE_FACTOR + turretSum,
     avg: (min + min * MAX_PRICE_FACTOR) / 2 + turretSum,
@@ -68,13 +73,15 @@ export function computePlan(tab: Tab | undefined, allTurrets: PlannedTurret[], c
 
 export function usePlan(): Plan {
   const { tabs, currentTabId, turrets, cargo } = useAppSelector((s) => s.planner);
+  const position = useAppSelector((s) => s.settings.position);
   return useMemo(
     () =>
       computePlan(
         tabs.find((t) => t.id === currentTabId),
         turrets,
         cargo,
+        position,
       ),
-    [tabs, currentTabId, turrets, cargo],
+    [tabs, currentTabId, turrets, cargo, position],
   );
 }

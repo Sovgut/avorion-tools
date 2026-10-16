@@ -109,6 +109,13 @@ export const RU: Record<string, string> = {
   Barrier: 'Барьер',
   LAYERS: 'СЛОИ',
   'YOUR POSITION': 'ВАША ПОЗИЦИЯ',
+  'I’m here': 'Я здесь',
+  'You are here': 'Вы здесь',
+  'Set by you. Select a sector and press “I’m here” to move.': 'Задана вами. Чтобы сменить, выберите сектор и нажмите «Я здесь».',
+  'Select a sector and press “I’m here” to set it.': 'Чтобы задать свою, выберите сектор и нажмите «Я здесь».',
+  'Select a sector on the map and press “I’m here”, or type the coordinates.':
+    'Выберите сектор на карте и нажмите «Я здесь» или введите координаты.',
+  'Use the turret sector instead': 'Брать сектор турели',
   'From the turret sector in': 'Сектор турели во вкладке',
   'No turret yet, using 0:0': 'Турелей нет, используется 0:0',
   SEED: 'СИД',

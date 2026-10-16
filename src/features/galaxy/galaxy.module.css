@@ -136,8 +136,42 @@
   gap: 6px;
 }
 
-.posValue {
+.posRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.posInput {
+  width: 72px;
+  height: 34px;
+  font-size: 15px;
+}
+
+.posColon {
   font-family: var(--font-mono);
+  color: var(--c-muted);
+}
+
+.hereTag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-cyan);
+}
+
+.mPosition {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border-radius: var(--r-xl);
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+}
+
+.mPosition .posInput {
+  width: 88px;
+  height: 44px;
   font-size: 16px;
 }
 

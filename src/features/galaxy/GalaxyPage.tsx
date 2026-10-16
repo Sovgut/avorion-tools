@@ -6,7 +6,7 @@ import { db, goodById, goodIcon, productionByIndex, stationByProduction } from '
 import { fmt, useGameText, useT } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { DEFAULT_GALAXY, settingsActions } from '@/store/settings';
-import { Button, GameIcon, NumberInput, Switch, TextInput } from '@/ui';
+import { Button, CoordInput, GameIcon, NumberInput, Switch, TextInput } from '@/ui';
 import { useIsMobile } from '@/ui/hooks';
 import { loadGalaxy, useGalaxy } from './client';
 import { GalaxyMap, type MapMarkers } from './GalaxyMap';
@@ -269,6 +269,7 @@ export function GalaxyPage() {
         {seedBox}
         {mapArea}
         {layerList}
+        <PositionBox plan={plan} mobile />
         {details}
         {bestList}
       </div>
@@ -280,15 +281,7 @@ export function GalaxyPage() {
       <aside className={s.rail}>
         {seedBox}
         {layerList}
-        <div className={s.position}>
-          <span className="label">{t('YOUR POSITION')}</span>
-          <div className={s.posValue}>
-            {plan.position.x}:{plan.position.y}
-          </div>
-          <span className={s.help}>
-            {plan.hasPosition ? `${t('From the turret sector in')} ${plan.tab?.name ?? ''}` : t('No turret yet, using 0:0')}
-          </span>
-        </div>
+        <PositionBox plan={plan} />
       </aside>
       {mapArea}
       <aside className={s.panel}>
@@ -314,6 +307,7 @@ function SectorPanel({
 }) {
   const t = useT();
   const gt = useGameText();
+  const dispatch = useAppDispatch();
   const go = useGo();
   const i = sectorIndex(x, y);
   const f = galaxy.flags[i];
@@ -345,6 +339,13 @@ function SectorPanel({
         <span className={s.selXY}>
           {x}:{y}
         </span>
+        {x === from.x && y === from.y ? (
+          <span className={s.hereTag}>{t('You are here')}</span>
+        ) : (
+          <Button size="sm" variant="outline" onClick={() => dispatch(settingsActions.setPosition({ x, y }))}>
+            {t('I’m here')}
+          </Button>
+        )}
         <span className={s.help}>
           {fmt(Math.hypot(x - from.x, y - from.y))} {t('sectors away')}
         </span>
@@ -451,6 +452,44 @@ function BestList({
         </button>
       ))}
       {best.length === 0 && <div className={s.help}>{t('Nothing to buy in the active tab. Add turrets and counts in the planner.')}</div>}
+    </div>
+  );
+}
+
+function PositionBox({ plan, mobile }: { plan: Plan; mobile?: boolean }) {
+  const t = useT();
+  const dispatch = useAppDispatch();
+  const set = (p: { x: number; y: number }) => dispatch(settingsActions.setPosition(p));
+  const note =
+    plan.positionSource === 'map'
+      ? t('Set by you. Select a sector and press “I’m here” to move.')
+      : plan.positionSource === 'turret'
+        ? `${t('From the turret sector in')} ${plan.tab?.name ?? ''}. ${t('Select a sector and press “I’m here” to set it.')}`
+        : t('Select a sector on the map and press “I’m here”, or type the coordinates.');
+  return (
+    <div className={mobile ? s.mPosition : s.position}>
+      <span className="label">{t('YOUR POSITION')}</span>
+      <div className={s.posRow}>
+        <CoordInput
+          className={s.posInput}
+          value={plan.position.x}
+          onValue={(x) => set({ x, y: plan.position.y })}
+          aria-label={`${t('YOUR POSITION')} x`}
+        />
+        <span className={s.posColon}>:</span>
+        <CoordInput
+          className={s.posInput}
+          value={plan.position.y}
+          onValue={(y) => set({ x: plan.position.x, y })}
+          aria-label={`${t('YOUR POSITION')} y`}
+        />
+      </div>
+      <span className={s.help}>{note}</span>
+      {plan.positionSource === 'map' && plan.turrets.length > 0 && (
+        <button type="button" className={s.serverToggle} onClick={() => dispatch(settingsActions.setPosition(null))}>
+          {t('Use the turret sector instead')}
+        </button>
+      )}
     </div>
   );
 }
