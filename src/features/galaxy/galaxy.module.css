@@ -716,8 +716,13 @@
 @media (min-width: 760px) and (max-width: 1023px) {
   .grid {
     grid-template-columns: var(--rail-w) minmax(0, 1fr);
-    grid-template-rows: clamp(520px, calc(100vw - var(--rail-w)), 780px) auto;
+    /* the map height depends on the window only, never on the panel below, so picking a sector
+       does not resize it; it leaves the first 220px of the panel in view */
+    grid-template-rows:
+      max(clamp(520px, calc(100vw - var(--rail-w)), 780px), calc(100dvh - var(--header-h) - var(--footer-h) - 220px))
+      auto;
     height: auto;
+    flex: 1 0 auto;
   }
 
   .rail {
@@ -738,6 +743,11 @@
     border-left: 0;
     border-top: 1px solid var(--c-border);
     overflow: visible;
+  }
+
+  /* with no sector picked, the best places have the whole width */
+  .panel > :only-child {
+    grid-column: 1 / -1;
   }
 
   .panel .sel {

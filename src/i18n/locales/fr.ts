@@ -1,7 +1,8 @@
 // French UI strings, keyed by the English text; game terms follow the game's own French catalog.
 export default {
-  'Turret planner': 'Planificateur de tourelles',
+  'Turret planner': 'Planificateur',
   Galaxy: 'Galaxie',
+  'Galaxy map': 'Carte de la galaxie',
   Database: 'Base de données',
   'Stations & commodities…': 'Stations et marchandises…',
   Search: 'Rechercher',

@@ -1,7 +1,8 @@
 // Spanish UI strings, keyed by the English text; game terms follow the game's own Spanish catalog.
 export default {
-  'Turret planner': 'Planificador de torretas',
+  'Turret planner': 'Planificador',
   Galaxy: 'Galaxia',
+  'Galaxy map': 'Mapa de la galaxia',
   Database: 'Base de datos',
   'Stations & commodities…': 'Estaciones y mercancías…',
   Search: 'Buscar',

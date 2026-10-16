@@ -1,7 +1,8 @@
 // Brazilian Portuguese UI strings, keyed by the English text; game terms follow the game's own catalog.
 export default {
-  'Turret planner': 'Planejador de torretas',
+  'Turret planner': 'Planejador',
   Galaxy: 'Galáxia',
+  'Galaxy map': 'Mapa da galáxia',
   Database: 'Banco de dados',
   'Stations & commodities…': 'Estações e mercadorias…',
   Search: 'Procurar',

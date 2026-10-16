@@ -27,7 +27,7 @@ import type { ConsumerStation, Good, Production } from '@/game/schema';
 import { fmt, fmt2, type GameText, type T, useGameText, useT, useTx } from '@/i18n';
 import { useAppSelector } from '@/store';
 import { GameIcon, Segmented, Tag, TextInput } from '@/ui';
-import { useIsMobile } from '@/ui/hooks';
+import { useDocumentTitle, useIsMobile } from '@/ui/hooks';
 import s from './database.module.css';
 
 type Section = 'commodities' | 'stations' | 'consumers';
@@ -52,6 +52,7 @@ export function DatabasePage() {
   const params = useParams();
   const mobile = useIsMobile();
   const section = (params.section as Section) ?? 'commodities';
+  useDocumentTitle(useItemTitle(section, params.id));
   if (!['commodities', 'stations', 'consumers'].includes(section)) return <Navigate to="/database/commodities" replace />;
   const id = params.id;
   if (mobile) return id ? <MobileDetail section={section} id={id} /> : <ListPane section={section} mobile />;
@@ -63,6 +64,23 @@ export function DatabasePage() {
       {current && <Detail section={section} id={current} />}
     </div>
   );
+}
+
+/** "Acid · Database" for an open item, "Database" for the list. */
+function useItemTitle(section: Section, id: string | undefined) {
+  const t = useT();
+  const gt = useGameText();
+  const station = id && section === 'stations' ? stationById.get(id) : undefined;
+  const name = !id
+    ? ''
+    : section === 'commodities'
+      ? goodById.has(id)
+        ? gt.good(id)
+        : ''
+      : station
+        ? gt.station(station)
+        : gt.text(consumerById.get(id)?.name ?? '');
+  return name ? `${name} · ${t('Database')}` : t('Database');
 }
 
 function ListPane({ section, current, mobile }: { section: Section; current?: string; mobile?: boolean }) {

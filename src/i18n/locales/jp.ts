@@ -2,6 +2,7 @@
 export default {
   'Turret planner': 'タレットプランナー',
   Galaxy: '銀河',
+  'Galaxy map': '銀河マップ',
   Database: 'データベース',
   'Stations & commodities…': 'ステーションと商品…',
   Search: '検索',

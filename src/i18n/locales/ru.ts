@@ -2,6 +2,7 @@
 export default {
   'Turret planner': 'Планировщик',
   Galaxy: 'Галактика',
+  'Galaxy map': 'Карта галактики',
   Database: 'База',
   'Stations & commodities…': 'Станции и товары…',
   Search: 'Поиск',

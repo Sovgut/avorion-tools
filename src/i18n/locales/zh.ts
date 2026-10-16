@@ -2,6 +2,7 @@
 export default {
   'Turret planner': '炮塔规划器',
   Galaxy: '宇宙',
+  'Galaxy map': '星系地图',
   Database: '数据库',
   'Stations & commodities…': '空间站与商品…',
   Search: '搜索',

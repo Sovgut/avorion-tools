@@ -7,7 +7,7 @@ import { fmt, useGameText, useT, useTx } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { DEFAULT_GALAXY, settingsActions } from '@/store/settings';
 import { Button, CoordInput, GameIcon, NumberInput, Switch, TextInput } from '@/ui';
-import { useIsMobile } from '@/ui/hooks';
+import { useDocumentTitle, useIsMobile } from '@/ui/hooks';
 import { useGalaxy } from './client';
 import { GalaxyMap, type MapMarkers } from './GalaxyMap';
 import s from './galaxy.module.css';
@@ -73,6 +73,7 @@ function useBest(galaxy: GalaxyData | undefined, plan: Plan): Best[] {
 
 export function GalaxyPage() {
   const t = useT();
+  useDocumentTitle(t('Galaxy map'));
   const tx = useTx();
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();

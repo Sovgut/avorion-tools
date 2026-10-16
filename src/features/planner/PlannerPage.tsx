@@ -8,12 +8,14 @@ import { MAX_COUNT, MAX_PRICE, MAX_QUANTITY, type PlannedTurret, plannerActions 
 import { PRICE_FACTOR_MAX, PRICE_FACTOR_MIN, settingsActions } from '@/store/settings';
 import { uiActions } from '@/store/ui';
 import { Button, Checkbox, CloseIcon, CoordInput, FitText, GameIcon, IconButton, NumberInput, Sheet, Switch, TextInput } from '@/ui';
-import { useIsMobile } from '@/ui/hooks';
+import { useDocumentTitle, useIsMobile } from '@/ui/hooks';
 import { type NeedRow, type Plan, usePlan } from './plan';
 import s from './planner.module.css';
 import { MobileTurretPicker, TurretPicker } from './TurretPicker';
 
 export function PlannerPage() {
+  const t = useT();
+  useDocumentTitle(t('Turret planner'));
   const mobile = useIsMobile();
   const tabs = useAppSelector((st) => st.planner.tabs);
   const picking = useAppSelector((st) => st.ui.picking);

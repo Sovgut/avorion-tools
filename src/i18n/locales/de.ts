@@ -2,6 +2,7 @@
 export default {
   'Turret planner': 'Geschützplaner',
   Galaxy: 'Galaxie',
+  'Galaxy map': 'Galaxiekarte',
   Database: 'Datenbank',
   'Stations & commodities…': 'Stationen & Waren…',
   Search: 'Suchen',
