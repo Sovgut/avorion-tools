@@ -289,7 +289,7 @@
 .sel {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   padding-bottom: 18px;
   border-bottom: 1px solid var(--c-border);
 }
@@ -307,9 +307,47 @@
   font-weight: 600;
 }
 
+.selAway {
+  font-size: 12px;
+  color: var(--c-secondary);
+  white-space: nowrap;
+}
+
 .selName {
   font-size: 15px;
   font-weight: 600;
+}
+
+.selMeta {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--c-secondary);
+}
+
+.hereBtn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-secondary);
+  font-size: 12px;
+  transition:
+    color 0.12s,
+    border-color 0.12s;
+}
+
+.hereBtn svg {
+  color: var(--c-cyan);
+}
+
+.hereBtn:hover {
+  color: var(--c-text);
+  border-color: color-mix(in oklch, var(--c-cyan) 45%, transparent);
 }
 
 .linkXY {
@@ -319,6 +357,10 @@
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--c-cyan);
+}
+
+.selMeta .linkXY {
+  font-size: 13px;
 }
 
 .flags {
@@ -558,4 +600,10 @@
 
 .mBestRow[aria-pressed='true'] {
   background: var(--c-active);
+}
+
+.mSel .hereBtn {
+  height: 36px;
+  padding: 0 12px;
+  font-size: 13px;
 }

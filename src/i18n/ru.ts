@@ -152,8 +152,8 @@ export const RU: Record<string, string> = {
   'Enter the server seed to map your galaxy.': 'Введите сид сервера, чтобы построить карту галактики.',
   'The map is computed by the game’s own generation scripts, sector by sector, the way the server creates them.':
     'Карта считается собственными скриптами генерации игры, сектор за сектором, так же как их создаёт сервер.',
-  Faction: 'Фракция',
   'No faction': 'Ничьё пространство',
+  'Faction territory, home': 'Территория фракции, столица',
   'Faction home': 'Родина фракции',
   'Hidden sector': 'Скрытый сектор',
   Rift: 'Разлом',

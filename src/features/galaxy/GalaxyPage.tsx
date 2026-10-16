@@ -335,29 +335,29 @@ function SectorPanel({
         .map(([k, n]) => ({ key: k, title: gt.text(titles[k]), n }))
     : [];
   const prodList = st ? [...st.factories, ...st.mines] : [];
+  const here = x === from.x && y === from.y;
+  // unnamed sectors are named by their coordinates, which the header already shows
+  const name = st && st.name !== `${x} : ${y}` ? st.name : null;
   return (
     <div className={mobile ? s.mSel : s.sel}>
       <div className={s.selHead}>
         <span className={s.selXY}>
           {x}:{y}
         </span>
-        {x === from.x && y === from.y ? (
+        {here ? (
           <span className={s.hereTag}>{t('You are here')}</span>
         ) : (
-          <Button size="sm" variant="outline" onClick={() => dispatch(settingsActions.setPosition({ x, y }))}>
-            {t('I’m here')}
-          </Button>
+          <span className={s.selAway}>
+            {fmt(Math.hypot(x - from.x, y - from.y))} {t('sectors away')}
+          </span>
         )}
-        <span className={s.help}>
-          {fmt(Math.hypot(x - from.x, y - from.y))} {t('sectors away')}
-        </span>
       </div>
-      {st && <div className={s.selName}>{st.name}</div>}
-      <div className={s.help}>{kindText}</div>
-      <div className={s.help}>
+      {name && <div className={s.selName}>{name}</div>}
+      <div className={s.selMeta}>
+        {kindText && <>{kindText} · </>}
         {faction ? (
           <>
-            {t('Faction')} · {t('Faction home')}{' '}
+            {t('Faction territory, home')}{' '}
             <button type="button" className={s.linkXY} onClick={() => go.map(faction.x, faction.y)}>
               {faction.x}:{faction.y}
             </button>
@@ -366,6 +366,15 @@ function SectorPanel({
           t('No faction')
         )}
       </div>
+      {!here && (
+        <button type="button" className={s.hereBtn} onClick={() => dispatch(settingsActions.setPosition({ x, y }))}>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
+            <circle cx="6" cy="6" r="3.5" />
+            <path d="M6 0v2.5M6 9.5V12M0 6h2.5M9.5 6H12" strokeLinecap="round" />
+          </svg>
+          {t('I’m here')}
+        </button>
+      )}
       {(f & (FLAG_GATES | FLAG_ANCIENT_GATES | FLAG_HOME)) !== 0 && (
         <div className={s.flags}>
           {f & FLAG_HOME ? <span className={s.flag}>{t('Faction home')}</span> : null}
