@@ -222,7 +222,7 @@ function TurretCard({ turret }: { turret: PlannedTurret }) {
         {def.ingredients.map((ing) => (
           <div key={ing.good} className={s.compRow}>
             <GameIcon src={goodIcon(ing.good)} size={20} />
-            <button type="button" className={s.compName} title={t('Open in Database')} onClick={() => go.good(ing.good)}>
+            <button type="button" className={s.compName} tabIndex={-1} title={t('Open in Database')} onClick={() => go.good(ing.good)}>
               {gt.good(ing.good)}
             </button>
             <NumberInput
@@ -553,7 +553,7 @@ function MobileTurretCard({ turret, open, onToggle }: { turret: PlannedTurret; o
           {def.ingredients.map((ing) => (
             <div key={ing.good} className={s.compRow}>
               <GameIcon src={goodIcon(ing.good)} size={20} />
-              <button type="button" className={s.mCompName} onClick={() => go.good(ing.good)}>
+              <button type="button" className={s.mCompName} tabIndex={-1} onClick={() => go.good(ing.good)}>
                 {gt.good(ing.good)}
               </button>
               <NumberInput

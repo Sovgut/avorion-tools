@@ -14,6 +14,10 @@
   overflow-y: auto;
 }
 
+.rail > * {
+  flex-shrink: 0;
+}
+
 .seedBox {
   display: flex;
   flex-direction: column;

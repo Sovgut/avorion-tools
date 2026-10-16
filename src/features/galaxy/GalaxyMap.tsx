@@ -87,9 +87,10 @@ function renderBase(g: GalaxyData): HTMLCanvasElement {
       [r, gg, b] = tint;
     }
     if (kind === KIND_BLOCKED) {
-      r = 92;
-      gg = 30;
-      b = 30;
+      // rifts are black voids, as on the game's map
+      r = 0;
+      gg = 0;
+      b = 0;
     } else if (kind === KIND_OFFGRID) {
       r += 16;
       gg += 16;

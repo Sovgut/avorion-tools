@@ -16,12 +16,17 @@
   overflow-y: auto;
 }
 
+.rail > * {
+  flex-shrink: 0;
+}
+
 .seg {
   margin-bottom: 10px;
 }
 
 .filter {
   height: 34px;
+  padding: 0 10px;
   font-size: 13px;
   margin-bottom: 6px;
 }
@@ -237,16 +242,12 @@
 }
 
 .recipeOut {
-  border: 0;
-  background: transparent;
-  padding: 0;
-  color: var(--c-text);
-  font-size: 12px;
+  border-color: var(--c-accent);
   font-weight: 600;
 }
 
 .recipeOut:hover {
-  color: var(--c-accent);
+  border-color: var(--c-accent-hover);
 }
 
 .usedGrid {
