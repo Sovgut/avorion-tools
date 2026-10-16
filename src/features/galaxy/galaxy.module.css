@@ -3,14 +3,14 @@
 .grid {
   flex: none;
   display: grid;
-  grid-template-columns: 240px minmax(0, 1fr) 360px;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--panel-w);
   grid-template-rows: minmax(0, 1fr);
-  height: calc(100dvh - var(--header-h));
+  height: calc(100dvh - var(--header-h) - var(--footer-h));
 }
 
 .rail {
   border-right: 1px solid var(--c-border);
-  padding: 20px 14px;
+  padding: var(--rail-pad);
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -377,7 +377,7 @@
   font-weight: 600;
 }
 
-/* boss, materials and asteroid counts: label on the left, value on the right */
+/* boss and asteroid counts: label on the left, value on the right; the materials list below */
 .facts {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -398,6 +398,36 @@
 
 .bossName {
   font-weight: 600;
+}
+
+/* a fact whose value is a list: the label on its own row, the list below it */
+.facts .factWide {
+  grid-column: 1 / -1;
+}
+
+.facts .materials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  text-align: left;
+}
+
+.material {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-border);
+  color: var(--c-secondary);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.materialSwatch {
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
 }
 
 .selMeta {
@@ -553,9 +583,6 @@
   font-size: 11px;
   color: var(--c-secondary);
   margin-top: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .mutedMono {
@@ -703,7 +730,7 @@
 /* landscape tablet: the desktop columns, narrower */
 @media (min-width: 1024px) and (max-width: 1199px) {
   .grid {
-    grid-template-columns: 220px minmax(0, 1fr) 300px;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--panel-w);
   }
 
   .mapArea {
@@ -718,9 +745,14 @@
 /* portrait tablet: controls beside a near-square map, the sector and best places below */
 @media (min-width: 760px) and (max-width: 1023px) {
   .grid {
-    grid-template-columns: 220px minmax(0, 1fr);
-    grid-template-rows: clamp(520px, calc(100vw - 220px), 780px) auto;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr);
+    /* the map height depends on the window only, never on the panel below, so picking a sector
+       does not resize it; it leaves the first 220px of the panel in view */
+    grid-template-rows:
+      max(clamp(520px, calc(100vw - var(--rail-w)), 780px), calc(100dvh - var(--header-h) - var(--footer-h) - 220px))
+      auto;
     height: auto;
+    flex: 1 0 auto;
   }
 
   .rail {
@@ -741,6 +773,11 @@
     border-left: 0;
     border-top: 1px solid var(--c-border);
     overflow: visible;
+  }
+
+  /* with no sector picked, the best places have the whole width */
+  .panel > :only-child {
+    grid-column: 1 / -1;
   }
 
   .panel .sel {

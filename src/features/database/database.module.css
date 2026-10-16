@@ -1,18 +1,18 @@
 .grid {
   flex: 1;
   display: grid;
-  grid-template-columns: 250px minmax(0, 1fr) 340px;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--panel-w);
 }
 
 .rail {
   border-right: 1px solid var(--c-border);
-  padding: 16px 12px;
+  padding: var(--rail-pad);
   display: flex;
   flex-direction: column;
   gap: 4px;
   position: sticky;
   top: var(--header-h);
-  max-height: calc(100dvh - var(--header-h));
+  max-height: calc(100dvh - var(--header-h) - var(--footer-h));
   overflow-y: auto;
 }
 
@@ -70,12 +70,11 @@
   color: var(--c-text);
 }
 
+/* a long name wraps rather than losing its end to an ellipsis */
 .itemLabel {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.3;
 }
 
 .main {
@@ -397,9 +396,6 @@ button.used:hover {
   min-width: 0;
   font-size: 12px;
   color: var(--c-secondary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .nearDist {
@@ -464,6 +460,7 @@ button.used:hover {
   height: 100%;
   color: var(--c-border-strong);
   font-size: 20px;
+  pointer-events: none;
 }
 
 .table,
@@ -525,9 +522,7 @@ button.tableRow:hover {
 
 .cellName {
   min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.3;
 }
 
 .right {
@@ -583,8 +578,12 @@ button.tableRow:hover {
     gap: 4px;
   }
 
+  /* turned to point down; kept glyph-sized, since a full-width box turned upright would lie
+     across the tables */
   .flowArrow {
-    height: auto;
+    width: 24px;
+    height: 24px;
+    justify-self: center;
     transform: rotate(90deg);
   }
 }
@@ -668,6 +667,7 @@ button.tableRow:hover {
 
 .consumer > span:nth-child(2) {
   flex: 1;
+  min-width: 0;
 }
 
 button.consumer:hover > span:nth-child(2) {
@@ -736,7 +736,7 @@ button.consumer:hover > span:nth-child(2) {
 /* tablet: narrower columns; recipe tables stack, stats and upgrade costs wrap */
 @media (min-width: 760px) and (max-width: 1199px) {
   .grid {
-    grid-template-columns: 230px minmax(0, 1fr) 280px;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--panel-w);
   }
 
   .main {
@@ -751,7 +751,7 @@ button.consumer:hover > span:nth-child(2) {
 /* portrait tablet: the side panel moves under the content */
 @media (min-width: 760px) and (max-width: 1023px) {
   .grid {
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns: var(--rail-w) minmax(0, 1fr);
   }
 
   .panel {
@@ -840,8 +840,10 @@ button.consumer:hover > span:nth-child(2) {
   }
 
   .flowArrow {
-    transform: rotate(90deg);
+    width: 24px;
     height: 24px;
+    justify-self: center;
+    transform: rotate(90deg);
   }
 
   .upgrades {

@@ -13,7 +13,27 @@ import { smokeTestGalaxy } from './smoke';
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(repo, 'src/generated');
 const ICON_DIR = path.join(repo, 'public/game-icons');
-const LANGUAGES: Record<string, string> = { ru: 'ru.po' };
+
+/** A language the game ships, from its data/localization/*.xml descriptor. */
+interface GameLanguage {
+  /** The game's own tag: de, es, fr, jp, pt-br, ru, zh. */
+  tag: string;
+  /** English name, as the descriptor gives it. */
+  name: string;
+  po: string;
+}
+
+function gameLanguages(game: GameFiles): GameLanguage[] {
+  const out: GameLanguage[] = [];
+  for (const rel of game.list('data/localization', '.xml')) {
+    const xml = game.readText(rel);
+    const tag = /<tag>([^<]+)<\/tag>/.exec(xml)?.[1]?.trim();
+    const name = /<displayName>([^<]+)<\/displayName>/.exec(xml)?.[1]?.trim();
+    const po = /<poFile>([^<]+)<\/poFile>/.exec(xml)?.[1]?.trim();
+    if (tag && name && po) out.push({ tag, name, po: `data/localization/${po}` });
+  }
+  return out.sort((a, b) => a.tag.localeCompare(b.tag));
+}
 
 function write(file: string, content: string) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -44,17 +64,30 @@ function main() {
   write(path.join(OUT_DIR, 'database.json'), `${JSON.stringify(db, null, 1)}\n`);
 
   step('Collecting translations', () => {
-    for (const [lang, file] of Object.entries(LANGUAGES)) {
-      const rel = `data/localization/${file}`;
-      if (!game.exists(rel)) {
-        warnings.push(`no ${rel}; ${lang} names stay in English`);
-        continue;
-      }
-      const { translations, missing } = selectTranslations(parsePo(game.readText(rel)), strings);
+    const languages = gameLanguages(game).filter((l) => {
+      if (game.exists(l.po)) return true;
+      warnings.push(`no ${l.po}; ${l.tag} names stay in English`);
+      return false;
+    });
+    if (languages.length === 0) warnings.push('no languages found in data/localization');
+    // catalogs of languages the game no longer ships are removed with it
+    const dir = path.join(OUT_DIR, 'i18n');
+    if (fs.existsSync(dir))
+      for (const f of fs.readdirSync(dir)) if (!languages.some((l) => `${l.tag}.json` === f)) fs.rmSync(path.join(dir, f));
+    for (const l of languages) {
+      const { translations, missing } = selectTranslations(parsePo(game.readText(l.po)), strings);
       if (missing.length > 0)
-        warnings.push(`${lang}: ${missing.length} strings have no translation (e.g. ${missing.slice(0, 3).join(', ')})`);
-      write(path.join(OUT_DIR, 'i18n', `${lang}.json`), `${JSON.stringify(translations, null, 1)}\n`);
+        warnings.push(`${l.tag}: ${missing.length} strings have no translation (e.g. ${missing.slice(0, 3).join(', ')})`);
+      write(path.join(dir, `${l.tag}.json`), `${JSON.stringify(translations, null, 1)}\n`);
     }
+    write(
+      path.join(OUT_DIR, 'languages.json'),
+      `${JSON.stringify(
+        languages.map(({ tag, name }) => ({ tag, name })),
+        null,
+        1,
+      )}\n`,
+    );
   });
 
   step('Copying icons', () => {

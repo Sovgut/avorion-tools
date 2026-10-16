@@ -2,12 +2,12 @@
 .grid {
   flex: 1;
   display: grid;
-  grid-template-columns: 210px minmax(0, 1fr) 380px;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--panel-w);
 }
 
 .rail {
   border-right: 1px solid var(--c-border);
-  padding: 20px 12px;
+  padding: var(--rail-pad);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -717,11 +717,18 @@
   border-top: 1px solid var(--c-active);
 }
 
+/* the title and the reset link each stay on one line; in a narrow column the link moves below */
 .cargoHead {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
+  column-gap: 12px;
   padding-bottom: 8px;
+}
+
+.cargoHead > * {
+  white-space: nowrap;
 }
 
 .sectionTitle {
@@ -738,8 +745,16 @@
 
 .cargoHeadRow {
   padding: 6px 0;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   border-bottom: 1px solid var(--c-border);
+}
+
+/* column headings stay on one line; the translations keep them short enough for their columns */
+.cargoHeadRow > span,
+.sheetHeadRow > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .right {
@@ -759,6 +774,11 @@
   gap: 5px;
 }
 
+.goodName {
+  min-width: 0;
+  line-height: 1.25;
+}
+
 .goodBtn {
   display: flex;
   align-items: center;
@@ -774,12 +794,6 @@
 
 .goodBtn:hover {
   color: var(--c-accent);
-}
-
-.ellipsis {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .needNum {
@@ -832,6 +846,17 @@
   color: var(--c-secondary);
   font-size: 11px;
   text-align: left;
+}
+
+/* the station name wraps if it must; coordinates and distance stay whole */
+.hintStation {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.buyHint > span:not(.hintStation) {
+  white-space: nowrap;
 }
 
 .buyHint:hover {
@@ -998,12 +1023,24 @@
   font-size: 18px;
 }
 
+/* the tab's name and remove button on one row, adding a turret below at full width,
+   so a long button label in any language never squeezes the name */
 .mHead {
   padding: 10px 16px 6px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 10px;
+}
+
+.mHeadText {
+  min-width: 0;
+}
+
+.mAddTurret {
+  grid-column: 1 / -1;
+  height: 44px;
+  border-radius: var(--r-md);
 }
 
 .mTabTitle {
@@ -1360,7 +1397,7 @@
 
 .sheetHeadRow {
   padding: 10px 16px 4px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
 }
 
 .sheetBody {
@@ -1393,7 +1430,7 @@
 /* tablet: the tabs run along the top, turrets and the summary share the width below */
 @media (min-width: 760px) and (max-width: 1199px) {
   .grid {
-    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-columns: minmax(0, 1fr) var(--panel-w);
     grid-template-rows: auto 1fr;
   }
 
@@ -1411,6 +1448,19 @@
   .railLabel,
   .railHint {
     display: none;
+  }
+
+  /* before the first tab there is nothing to put in the strip; the columns keep the second,
+     stretching row so they still run the full height */
+  .railIntro {
+    display: none;
+  }
+
+  .main,
+  .pickerMain,
+  .panel,
+  .summary {
+    grid-row: 2;
   }
 
   .tabRow {
@@ -1441,10 +1491,6 @@
 }
 
 @media (min-width: 760px) and (max-width: 1023px) {
-  .grid {
-    grid-template-columns: minmax(0, 1fr) 330px;
-  }
-
   .cargoGrid {
     grid-template-columns: 18px minmax(0, 1fr) 44px 58px 44px;
     gap: 6px;

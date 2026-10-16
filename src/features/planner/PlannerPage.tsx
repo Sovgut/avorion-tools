@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { useGo } from '@/app/nav';
-import { Disclaimer } from '@/app/Shell';
 import { type BuyHint, useBuyHints } from '@/features/galaxy/hints';
 import { goodIcon, iconUrl, rarityById, turretById, turrets as turretTypes } from '@/game/database';
-import { fmt, fmt2, fmtShort, useGameText, useT } from '@/i18n';
+import { fmt, fmt2, fmtShort, useGameText, useT, useTx } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { MAX_COUNT, MAX_PRICE, MAX_QUANTITY, type PlannedTurret, plannerActions } from '@/store/planner';
 import { PRICE_FACTOR_MAX, PRICE_FACTOR_MIN, settingsActions } from '@/store/settings';
 import { uiActions } from '@/store/ui';
 import { Button, Checkbox, CloseIcon, CoordInput, FitText, GameIcon, IconButton, NumberInput, Sheet, Switch, TextInput } from '@/ui';
-import { useIsMobile } from '@/ui/hooks';
+import { useDocumentTitle, useIsMobile } from '@/ui/hooks';
 import { type NeedRow, type Plan, usePlan } from './plan';
 import s from './planner.module.css';
 import { MobileTurretPicker, TurretPicker } from './TurretPicker';
 
 export function PlannerPage() {
+  const t = useT();
+  useDocumentTitle(t('Turret planner'));
   const mobile = useIsMobile();
   const tabs = useAppSelector((st) => st.planner.tabs);
   const picking = useAppSelector((st) => st.ui.picking);
@@ -26,7 +27,7 @@ function useConfirmRemoveTab() {
   const t = useT();
   const dispatch = useAppDispatch();
   return (id: string, name: string) => {
-    if (window.confirm(`${t('Remove')} "${name}"? ${t('All turrets in this tab will be deleted.')}`))
+    if (window.confirm(`${t('Remove "{tab}"?', { tab: name })} ${t('All turrets in this tab will be deleted.')}`))
       dispatch(plannerActions.removeTab(id));
   };
 }
@@ -36,7 +37,8 @@ function useConfirmRemoveTurret() {
   const gt = useGameText();
   const dispatch = useAppDispatch();
   return (turret: PlannedTurret) => {
-    if (window.confirm(`${t('Remove')} ${gt.turret(turret.type)} ${t('from this tab?')}`)) dispatch(plannerActions.removeTurret(turret.id));
+    if (window.confirm(t('Remove {turret} from this tab?', { turret: gt.turret(turret.type) })))
+      dispatch(plannerActions.removeTurret(turret.id));
   };
 }
 
@@ -83,7 +85,7 @@ function DesktopPlanner() {
           <div style={{ minWidth: 0 }}>
             {plan.tab && <TabTitle id={plan.tab.id} name={plan.tab.name} />}
             <div className={s.meta}>
-              {plan.turrets.length} {t('turret types')} · {plan.enabled.length} {t('counted in estimate')}
+              {t('{n} turret types', { n: plan.turrets.length })} · {t('{n} counted in estimate', { n: plan.enabled.length })}
             </div>
           </div>
           <Button variant="primary" onClick={() => setAddOpen((o) => !o)} aria-expanded={addOpen}>
@@ -119,9 +121,6 @@ function DesktopPlanner() {
       <aside className={`${s.panel} ${s.summary}`}>
         <Estimate plan={plan} />
         <CargoTable plan={plan} />
-        <div style={{ marginTop: 'auto' }}>
-          <Disclaimer />
-        </div>
       </aside>
     </div>
   );
@@ -410,10 +409,10 @@ function CargoRow({
           onClick={onOpenGood}
         >
           <GameIcon src={goodIcon(r.good)} size={18} />
-          <span className={`${s.ellipsis} ${s.goodName}`}>{gt.good(r.good)}</span>
+          <span className={s.goodName}>{gt.good(r.good)}</span>
         </button>
         <span className={s.needNum} title={fmt(r.need)}>
-          {fmtShort(r.need)}
+          {fmtShort(r.need, mobile ? 10_000 : undefined)}
         </span>
         <NumberInput
           className={mobile ? s.sheetHave : s.haveInput}
@@ -429,7 +428,7 @@ function CargoRow({
           title={fmt(r.buy)}
           style={{ fontSize: mobile ? 14 : undefined, color: r.buy === 0 ? 'var(--c-green)' : undefined }}
         >
-          {r.bought ? '✓' : fmtShort(r.buy)}
+          {r.bought ? '✓' : fmtShort(r.buy, mobile ? 10_000 : undefined)}
         </span>
       </div>
       {r.buy > 0 && hint && <HintChip hint={hint} good={r.good} mobile={mobile} />}
@@ -448,29 +447,24 @@ function HintChip({ hint, good, mobile }: { hint: BuyHint; good: string; mobile?
       onClick={() => go.map(hint.x, hint.y, good)}
     >
       <span className={s.dot} />
-      <span className={s.ellipsis} style={{ flex: 1 }}>
-        {hint.station}
-      </span>
+      <span className={s.hintStation}>{hint.station}</span>
       <span className={s.cyan}>
         {hint.x}:{hint.y}
       </span>
-      {!mobile && (
-        <span className={s.mutedMono}>
-          {fmt(hint.distance)} {t('sec')}
-        </span>
-      )}
+      {!mobile && <span className={s.mutedMono}>{t('{n} sec', { n: fmt(hint.distance) })}</span>}
     </button>
   );
 }
 
 function HintsFootnote({ plan, hints }: { plan: Plan; hints: ReturnType<typeof useBuyHints> }) {
   const t = useT();
+  const tx = useTx();
   const seed = useAppSelector((st) => st.settings.galaxy?.seed);
   if (!plan.rows.some((r) => r.buy > 0)) return null;
   if (hints.size > 0) {
     return (
       <div className={s.footNote}>
-        {t('Nearest producers from galaxy seed')} <span className={s.seedValue}>{seed}</span>
+        {tx('Nearest producers from galaxy seed {seed}', { seed: <span className={s.seedValue}>{seed}</span> })}
       </div>
     );
   }
@@ -511,27 +505,20 @@ function MobilePlanner() {
         </button>
       </div>
       <div className={s.mHead}>
-        <div style={{ minWidth: 0 }}>
+        <div className={s.mHeadText}>
           <div className={s.mTabTitle}>{plan.tab?.name}</div>
           <div className={s.mMeta}>
-            {plan.turrets.length} {t('turret types')} · {plan.enabled.length} {t('counted in estimate')}
+            {t('{n} turret types', { n: plan.turrets.length })} · {t('{n} counted in estimate', { n: plan.enabled.length })}
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 6 }}>
-          {plan.tab && (
-            <button
-              type="button"
-              className={s.mSquare}
-              aria-label={t('Remove tab')}
-              onClick={() => removeTab(plan.tab!.id, plan.tab!.name)}
-            >
-              <CloseIcon size={12} />
-            </button>
-          )}
-          <Button variant="primary" style={{ height: 44, borderRadius: 10 }} onClick={() => setAddOpen((o) => !o)}>
-            {t('+ Add turret')}
-          </Button>
-        </div>
+        {plan.tab && (
+          <button type="button" className={s.mSquare} aria-label={t('Remove tab')} onClick={() => removeTab(plan.tab!.id, plan.tab!.name)}>
+            <CloseIcon size={12} />
+          </button>
+        )}
+        <Button variant="primary" className={s.mAddTurret} onClick={() => setAddOpen((o) => !o)}>
+          {t('+ Add turret')}
+        </Button>
       </div>
       {addOpen && (
         <div className={s.mAddGrid}>

@@ -156,6 +156,17 @@ export function layerSectors(g: GalaxyData, layer: LayerDef): number[] {
   return list;
 }
 
+/** Each material's colour, after the game's, as "r,g,b" for use with any alpha. */
+export const MATERIAL_RGB: Record<string, string> = {
+  Iron: '196,140,96',
+  Titanium: '225,228,235',
+  Naonite: '90,210,110',
+  Trinium: '80,170,255',
+  Xanion: '255,215,70',
+  Ogonite: '255,130,50',
+  Avorion: '255,60,90',
+};
+
 /** The materials whose asteroids can appear at a distance from the core, iron first. */
 export function materialsAt(distance: number): string[] {
   return db.materials.filter((m) => distance >= m.min && distance <= m.max).map((m) => m.name);

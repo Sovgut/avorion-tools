@@ -1,5 +1,14 @@
 import { useEffect, useState } from 'react';
 
+const SITE = 'Avorion Tools';
+
+/** The browser tab title: the page's own name, then the site. */
+export function useDocumentTitle(title: string) {
+  useEffect(() => {
+    document.title = title ? `${title} · ${SITE}` : SITE;
+  }, [title]);
+}
+
 const MOBILE_QUERY = '(max-width: 759px)';
 
 export function useIsMobile(): boolean {

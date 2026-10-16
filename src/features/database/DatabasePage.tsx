@@ -24,10 +24,10 @@ import {
   turretsUsing,
 } from '@/game/database';
 import type { ConsumerStation, Good, Production } from '@/game/schema';
-import { fmt, fmt2, type GameText, type T, useGameText, useT } from '@/i18n';
+import { fmt, fmt2, type GameText, type T, useGameText, useT, useTx } from '@/i18n';
 import { useAppSelector } from '@/store';
 import { GameIcon, Segmented, Tag, TextInput } from '@/ui';
-import { useIsMobile } from '@/ui/hooks';
+import { useDocumentTitle, useIsMobile } from '@/ui/hooks';
 import s from './database.module.css';
 
 type Section = 'commodities' | 'stations' | 'consumers';
@@ -52,6 +52,7 @@ export function DatabasePage() {
   const params = useParams();
   const mobile = useIsMobile();
   const section = (params.section as Section) ?? 'commodities';
+  useDocumentTitle(useItemTitle(section, params.id));
   if (!['commodities', 'stations', 'consumers'].includes(section)) return <Navigate to="/database/commodities" replace />;
   const id = params.id;
   if (mobile) return id ? <MobileDetail section={section} id={id} /> : <ListPane section={section} mobile />;
@@ -63,6 +64,23 @@ export function DatabasePage() {
       {current && <Detail section={section} id={current} />}
     </div>
   );
+}
+
+/** "Acid · Database" for an open item, "Database" for the list. */
+function useItemTitle(section: Section, id: string | undefined) {
+  const t = useT();
+  const gt = useGameText();
+  const station = id && section === 'stations' ? stationById.get(id) : undefined;
+  const name = !id
+    ? ''
+    : section === 'commodities'
+      ? goodById.has(id)
+        ? gt.good(id)
+        : ''
+      : station
+        ? gt.station(station)
+        : gt.text(consumerById.get(id)?.name ?? '');
+  return name ? `${name} · ${t('Database')}` : t('Database');
 }
 
 function ListPane({ section, current, mobile }: { section: Section; current?: string; mobile?: boolean }) {
@@ -202,6 +220,7 @@ function Stat({ label, value, tone, small }: { label: string; value: string; ton
 }
 
 function PlanCallout({ good, t, gt }: { good: string; t: T; gt: GameText }) {
+  const tx = useTx();
   const plan = usePlan();
   const need = plan.need.get(good);
   if (!need) return null;
@@ -209,7 +228,11 @@ function PlanCallout({ good, t, gt }: { good: string; t: T; gt: GameText }) {
     <div className={s.callout}>
       <div className={s.calloutTitle}>{t('In your plan')}</div>
       <div className={s.calloutText}>
-        <span className={s.tabName}>{plan.tab?.name}</span> {t('needs')} {fmt(need)} × {gt.good(good)}.
+        {tx('{tab} needs {count} × {good}.', {
+          tab: <span className={s.tabName}>{plan.tab?.name}</span>,
+          count: fmt(need),
+          good: gt.good(good),
+        })}
       </div>
     </div>
   );
@@ -217,6 +240,7 @@ function PlanCallout({ good, t, gt }: { good: string; t: T; gt: GameText }) {
 
 function NearbyProducers({ good }: { good: string }) {
   const t = useT();
+  const tx = useTx();
   const go = useGo();
   const galaxy = useGalaxy();
   const plan = usePlan();
@@ -228,10 +252,14 @@ function NearbyProducers({ good }: { good: string }) {
       {galaxy.state === 'ready' ? (
         <>
           <div className={s.sideSub}>
-            {t('Seed')} <span className={s.subValue}>{seed}</span> · {t('nearest to')}{' '}
-            <span className={s.subValue}>
-              {plan.position.x}:{plan.position.y}
-            </span>
+            {tx('Seed {seed} · nearest to {position}', {
+              seed: <span className={s.subValue}>{seed}</span>,
+              position: (
+                <span className={s.subValue}>
+                  {plan.position.x}:{plan.position.y}
+                </span>
+              ),
+            })}
           </div>
           {near.map((n) => (
             <button key={n.sector.i} type="button" className={s.nearRow} onClick={() => go.map(n.x, n.y, good)}>
@@ -361,7 +389,8 @@ function Source() {
   const t = useT();
   return (
     <div className={s.source}>
-      {t('Base prices from')} Avorion {db.game.version}. {t('At stations the price also depends on supply and demand and on relations.')}
+      {t('Base prices from Avorion {version}.', { version: db.game.version })}{' '}
+      {t('At stations the price also depends on supply and demand and on relations.')}
     </div>
   );
 }
@@ -443,7 +472,7 @@ function StationDetail({ station }: { station: StationType }) {
         <div className={s.stats4}>
           <Stat small label={t('Founding cost')} value={`¢${fmt(p.cost)}`} />
           <Stat small label={t('Profit / cycle')} value={`¢${fmt(profit)}`} tone="green" />
-          <Stat small label={t('Payback')} value={profit > 0 ? `${fmt(p.cost / profit)} ${t('cycles')}` : '-'} />
+          <Stat small label={t('Payback')} value={profit > 0 ? t('{n} cycles', { n: fmt(p.cost / profit) }) : '-'} />
           <Stat small label={t('Required cargo')} value={`${fmt2(cargo)} m³`} />
         </div>
         <div className={s.flow}>
@@ -463,7 +492,8 @@ function StationDetail({ station }: { station: StationType }) {
           </div>
         </div>
         <div className={s.source}>
-          {t('Data from')} Avorion {db.game.version}. {t('Per-cycle amounts include every parallel production of this size.')}
+          {t('Data from Avorion {version}.', { version: db.game.version })}{' '}
+          {t('Per-cycle amounts include every parallel production of this size.')}
         </div>
       </section>
       <aside className={s.panel}>
