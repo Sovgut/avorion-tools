@@ -1,0 +1,9861 @@
+{
+ "game": {
+  "version": "2.5.13"
+ },
+ "goods": [
+  {
+   "id": "Acid",
+   "name": "Acid",
+   "plural": "Acid",
+   "description": "A tank filled with vitriolic acid.",
+   "icon": "acid.png",
+   "price": 402,
+   "volume": 1,
+   "level": 3,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Acron Drug",
+   "name": "Acron Drug",
+   "plural": "Acron Drugs",
+   "description": "A highly addictive drug.",
+   "icon": "powder.png",
+   "price": 6000,
+   "volume": 0.1,
+   "level": null,
+   "importance": 0,
+   "illegal": true,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Adhesive",
+   "name": "Adhesive",
+   "plural": "Adhesive",
+   "description": "Common adhesive. Used on smaller parts where there's no space for screws.",
+   "icon": "adhesive.png",
+   "price": 402,
+   "volume": 0.25,
+   "level": 3,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Aluminum",
+   "name": "Aluminum",
+   "plural": "Aluminum",
+   "description": "A container full of pure aluminum.",
+   "icon": "aluminium.png",
+   "price": 200,
+   "volume": 1,
+   "level": 0,
+   "importance": 7,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Ammunition",
+   "name": "Ammunition",
+   "plural": "Ammunition",
+   "description": "Ammunition for projectile weapons.",
+   "icon": "ammo-box.png",
+   "price": 3786,
+   "volume": 3,
+   "level": 5,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Ammunition L",
+   "name": "Ammunition L",
+   "plural": "Ammunition L",
+   "description": "Ammunition for turrets.",
+   "icon": "ammunition-l.png",
+   "price": 422,
+   "volume": 2.5,
+   "level": 4,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Ammunition M",
+   "name": "Ammunition M",
+   "plural": "Ammunition M",
+   "description": "Ammunition for large handheld guns.",
+   "icon": "ammunition-m.png",
+   "price": 422,
+   "volume": 1.5,
+   "level": 4,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Ammunition S",
+   "name": "Ammunition S",
+   "plural": "Ammunition S",
+   "description": "Ammunition for small handguns.",
+   "icon": "ammunition-s.png",
+   "price": 422,
+   "volume": 0.5,
+   "level": 4,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Antigrav Generator",
+   "name": "Antigrav Generator",
+   "plural": "Antigrav Generators",
+   "description": "A generator that creates a field where gravity has no effect.",
+   "icon": "anti-grav-generator.png",
+   "price": 71632,
+   "volume": 2.5,
+   "level": 8,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Antigrav Unit",
+   "name": "Antigrav Unit",
+   "plural": "Antigrav Units",
+   "description": "This device generates antigrav fields for easier transportation of objects.",
+   "icon": "antigrav-unit.png",
+   "price": 25391,
+   "volume": 2.5,
+   "level": 7,
+   "importance": 4,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Avorion Ore",
+   "name": "Avorion Ore",
+   "plural": "Avorion Ore",
+   "description": "Avorion ore that can be refined into Avorion.",
+   "icon": "rock.png",
+   "price": 12,
+   "volume": 0.025,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "avorion",
+    "basic",
+    "ore"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Beer",
+   "name": "Beer",
+   "plural": "Beer",
+   "description": "A box of beer.",
+   "icon": "beer-stein.png",
+   "price": 216,
+   "volume": 0.5,
+   "level": 4,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Bio Gas",
+   "name": "Bio Gas",
+   "plural": "Bio Gas",
+   "description": "Biological gas. Probably toxic.",
+   "icon": "bio-gas.png",
+   "price": 213,
+   "volume": 1,
+   "level": 2,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Body Armor",
+   "name": "Body Armor",
+   "plural": "Body Armors",
+   "description": "Exoskeleton armor for elite soldiers.",
+   "icon": "kevlar-vest.png",
+   "price": 95906,
+   "volume": 1.5,
+   "level": 9,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Book",
+   "name": "Book",
+   "plural": "Books",
+   "description": "A book with an exciting, procedurally generated story.",
+   "icon": "open-book.png",
+   "price": 319,
+   "volume": 0.2,
+   "level": 3,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Carbon",
+   "name": "Carbon",
+   "plural": "Carbon",
+   "description": "A container of carbon.",
+   "icon": "carbon.png",
+   "price": 423,
+   "volume": 1,
+   "level": 2,
+   "importance": 5,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Cattle",
+   "name": "Cattle",
+   "plural": "Cattle",
+   "description": "Cattle.",
+   "icon": "cattle.png",
+   "price": 254,
+   "volume": 1.5,
+   "level": 2,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Chemicals",
+   "name": "Chemicals",
+   "plural": "Chemicals",
+   "description": "Multitank containing all sorts of different chemicals, most of them toxic.",
+   "icon": "chemical.png",
+   "price": 402,
+   "volume": 1,
+   "level": 3,
+   "importance": 6,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Chlorine",
+   "name": "Chlorine",
+   "plural": "Chlorine",
+   "description": "A pressure container filled with pure chlorine.",
+   "icon": "chlorine.png",
+   "price": 150,
+   "volume": 1,
+   "level": 0,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Clothes",
+   "name": "Clothes",
+   "plural": "Clothes",
+   "description": "Normal looking clothing.",
+   "icon": "trousers.png",
+   "price": 102,
+   "volume": 1,
+   "level": 4,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Coal",
+   "name": "Coal",
+   "plural": "Coal",
+   "description": "Fossil fuel. Still used in some factories.",
+   "icon": "fossil-fuel.png",
+   "price": 200,
+   "volume": 2,
+   "level": 0,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Cocoa",
+   "name": "Cocoa",
+   "plural": "Cocoa",
+   "description": "A bag of roasted cocoa beans.",
+   "icon": "cocoa.png",
+   "price": 87,
+   "volume": 0.2,
+   "level": 5,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Coffee",
+   "name": "Coffee",
+   "plural": "Coffee",
+   "description": "A bag of roasted coffee beans.",
+   "icon": "coffee-beans.png",
+   "price": 187,
+   "volume": 0.2,
+   "level": 5,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Computation Mainframe",
+   "name": "Computation Mainframe",
+   "plural": "Computation Mainframes",
+   "description": "A high speed computer used as infrastructure for stations and ships.",
+   "icon": "computation-mainframe.png",
+   "price": 37940,
+   "volume": 1,
+   "level": 7,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Conductor",
+   "name": "Conductor",
+   "plural": "Conductors",
+   "description": "Thick cables used for transmitting electrical energy.",
+   "icon": "conductor.png",
+   "price": 168,
+   "volume": 0.15,
+   "level": 4,
+   "importance": 9,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Coolant",
+   "name": "Coolant",
+   "plural": "Coolant",
+   "description": "A canister full of coolant for the most common engines.",
+   "icon": "snowflake-2.png",
+   "price": 402,
+   "volume": 0.5,
+   "level": 3,
+   "importance": 4,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Copper",
+   "name": "Copper",
+   "plural": "Copper",
+   "description": "A medium sized crate full of copper bars.",
+   "icon": "copper.png",
+   "price": 350,
+   "volume": 1,
+   "level": 0,
+   "importance": 5,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Corn",
+   "name": "Corn",
+   "plural": "Corn",
+   "description": "A container full of corn.",
+   "icon": "corn.png",
+   "price": 28,
+   "volume": 1,
+   "level": 1,
+   "importance": 5,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Crystal",
+   "name": "Crystal",
+   "plural": "Crystals",
+   "description": "Naturally grown crystals.",
+   "icon": "crystal.png",
+   "price": 190,
+   "volume": 1.5,
+   "level": 0,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Dairy",
+   "name": "Dairy",
+   "plural": "Dairy",
+   "description": "A tank full of dairy products, like yoghurt or butter.",
+   "icon": "udder.png",
+   "price": 19,
+   "volume": 1,
+   "level": 3,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Diamond",
+   "name": "Diamond",
+   "plural": "Diamonds",
+   "description": "A handful of diamonds. Useless unless you know where to sell them.",
+   "icon": "diamond.png",
+   "price": 750,
+   "volume": 0.05,
+   "level": 0,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "consumer",
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Display",
+   "name": "Display",
+   "plural": "Displays",
+   "description": "A touch display for computers.",
+   "icon": "checkbox-tree.png",
+   "price": 7858,
+   "volume": 1,
+   "level": 6,
+   "importance": 5,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Drill",
+   "name": "Drill",
+   "plural": "Drills",
+   "description": "Mining drill, often used in asteroid mines.",
+   "icon": "drill.png",
+   "price": 20443,
+   "volume": 20,
+   "level": 7,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Drone",
+   "name": "Drone",
+   "plural": "Drones",
+   "description": "Unmanned little ships for everyday purposes.",
+   "icon": "spoutnik.png",
+   "price": 7754,
+   "volume": 10,
+   "level": 5,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Electro Magnet",
+   "name": "Electro Magnet",
+   "plural": "Electro Magnets",
+   "description": "High power multi-purpose electromagnets.",
+   "icon": "electro-magnet.png",
+   "price": 483,
+   "volume": 0.75,
+   "level": 5,
+   "importance": 4,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Electromagnetic Charge",
+   "name": "Electromagnetic Charge",
+   "plural": "Electromagnetic Charges",
+   "description": "One-time use charge that can set free a strong electromagnetic pulse.",
+   "icon": "electromagnetic-charge.png",
+   "price": 13985,
+   "volume": 1,
+   "level": 6,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Electron Accelerator",
+   "name": "Electron Accelerator",
+   "plural": "Electron Accelerators",
+   "description": "A device that accelerates electrons to near light speed.",
+   "icon": "electron-accelerator.png",
+   "price": 125431,
+   "volume": 12,
+   "level": 8,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Energy Cell",
+   "name": "Energy Cell",
+   "plural": "Energy Cells",
+   "description": "Small blue canisters with a high voltage charge inside them.",
+   "icon": "battery-pack-alt.png",
+   "price": 50,
+   "volume": 1,
+   "level": 0,
+   "importance": 43,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Energy Container",
+   "name": "Energy Container",
+   "plural": "Energy Containers",
+   "description": "Bigger than energy cells, these devices can hold up to 1000x more energy.",
+   "icon": "electric.png",
+   "price": 1087,
+   "volume": 4.5,
+   "level": 5,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Energy Generator",
+   "name": "Energy Generator",
+   "plural": "Energy Generators",
+   "description": "A device that generates energy from an antimatter core.",
+   "icon": "energy-generator.png",
+   "price": 15957,
+   "volume": 2,
+   "level": 6,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Energy Inverter",
+   "name": "Energy Inverter",
+   "plural": "Energy Inverters",
+   "description": "Converts electron flow into positron flow.",
+   "icon": "energy-inverter.png",
+   "price": 1277,
+   "volume": 3,
+   "level": 6,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Energy Tube",
+   "name": "Energy Tube",
+   "plural": "Energy Tubes",
+   "description": "Long tubes that are used to transport high amounts of energy.",
+   "icon": "energy-tube.png",
+   "price": 2895,
+   "volume": 1.5,
+   "level": 5,
+   "importance": 7,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Explosive Charge",
+   "name": "Explosive Charge",
+   "plural": "Explosive Charges",
+   "description": "A military grade explosive.",
+   "icon": "explosive-charge.png",
+   "price": 1423,
+   "volume": 1.5,
+   "level": 4,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": true,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Fabric",
+   "name": "Fabric",
+   "plural": "Fabric",
+   "description": "Raw fabric used for clothing or bandages.",
+   "icon": "fabric.png",
+   "price": 91,
+   "volume": 1,
+   "level": 3,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Fertilizer",
+   "name": "Fertilizer",
+   "plural": "Fertilizer",
+   "description": "A tank with fertilizer, important for more exotic plants.",
+   "icon": "fertilizer.png",
+   "price": 319,
+   "volume": 1,
+   "level": 1,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "consumer",
+    "industrial"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Fish",
+   "name": "Fish",
+   "plural": "Fish",
+   "description": "A barrel full of fish.",
+   "icon": "fish.png",
+   "price": 152,
+   "volume": 0.5,
+   "level": 2,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Fluorine",
+   "name": "Fluorine",
+   "plural": "Fluorine",
+   "description": "A pressure container filled with pure fluorine.",
+   "icon": "fluorine.png",
+   "price": 250,
+   "volume": 1,
+   "level": 0,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": true,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Food",
+   "name": "Food",
+   "plural": "Food",
+   "description": "Healthy food packaged in one-man portions.",
+   "icon": "chicken-leg.png",
+   "price": 300,
+   "volume": 0.5,
+   "level": 4,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Food Bar",
+   "name": "Food Bar",
+   "plural": "Food Bars",
+   "description": "Bars of compressed food.",
+   "icon": "bar.png",
+   "price": 223,
+   "volume": 0.5,
+   "level": 2,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Force Generator",
+   "name": "Force Generator",
+   "plural": "Force Generators",
+   "description": "A generator that creates a force field that pushes or pulls objects.",
+   "icon": "force-generator.png",
+   "price": 49576,
+   "volume": 4,
+   "level": 7,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Fruit",
+   "name": "Fruit",
+   "plural": "Fruits",
+   "description": "A specially engineered fruit, containing a wide range of important vitamins.",
+   "icon": "shiny-apple.png",
+   "price": 56,
+   "volume": 0.5,
+   "level": 1,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Fuel",
+   "name": "Fuel",
+   "plural": "Fuel",
+   "description": "A tank with fuel for vehicles or space ships.",
+   "icon": "fuel.png",
+   "price": 1232,
+   "volume": 1,
+   "level": 2,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Fungus",
+   "name": "Fungus",
+   "plural": "Fungi",
+   "description": "A container with fungus, used for making alcohol.",
+   "icon": "mushroom.png",
+   "price": 46,
+   "volume": 1,
+   "level": 3,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Fusion Core",
+   "name": "Fusion Core",
+   "plural": "Fusion Cores",
+   "description": "Highly advanced portable fusion generator.",
+   "icon": "fusion-core.png",
+   "price": 5114,
+   "volume": 2.5,
+   "level": 6,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Fusion Generator",
+   "name": "Fusion Generator",
+   "plural": "Fusion Generators",
+   "description": "The bigger, better and more advanced variant of the fusion core.",
+   "icon": "fusion-generator.png",
+   "price": 39553,
+   "volume": 2.5,
+   "level": 7,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Gauss Rail",
+   "name": "Gauss Rail",
+   "plural": "Gauss Rail",
+   "description": "A rail for immense acceleration of projectiles with magnetic fields.",
+   "icon": "gauss-rail.png",
+   "price": 7735,
+   "volume": 2,
+   "level": 6,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Gem",
+   "name": "Gem",
+   "plural": "Gems",
+   "description": "A big gem. It's worth a lot, but you have to sell it first.",
+   "icon": "saphir.png",
+   "price": 400,
+   "volume": 0.05,
+   "level": 0,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Glass",
+   "name": "Glass",
+   "plural": "Glass",
+   "description": "A box containing several plates of glass.",
+   "icon": "metal-disc.png",
+   "price": 182,
+   "volume": 1,
+   "level": 1,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Gold",
+   "name": "Gold",
+   "plural": "Gold",
+   "description": "A small box containing gold bars.",
+   "icon": "metal-bar.png",
+   "price": 600,
+   "volume": 0.5,
+   "level": 0,
+   "importance": 8,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Gun",
+   "name": "Gun",
+   "plural": "Guns",
+   "description": "Hand guns. Used by robots and living beings.",
+   "icon": "bolter-gun.png",
+   "price": 1232,
+   "volume": 0.5,
+   "level": 6,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": true,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Helium",
+   "name": "Helium",
+   "plural": "Helium",
+   "description": "A pressure container filled with pure helium gas.",
+   "icon": "helium.png",
+   "price": 50,
+   "volume": 1,
+   "level": 0,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "High Capacity Lens",
+   "name": "High Capacity Lens",
+   "plural": "High Capacity Lenses",
+   "description": "A focal lens designed for high capacity lasers.",
+   "icon": "high-capacity-lens.png",
+   "price": 4689,
+   "volume": 1,
+   "level": 3,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "High Pressure Tube",
+   "name": "High Pressure Tube",
+   "plural": "High Pressure Tubes",
+   "description": "Tubes that can sustain extremely high pressure. Most commonly used in factories or weapons.",
+   "icon": "high-pressure-tube.png",
+   "price": 1650,
+   "volume": 2,
+   "level": 5,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Hydrogen",
+   "name": "Hydrogen",
+   "plural": "Hydrogen",
+   "description": "A pressure container filled with pure hydrogen.",
+   "icon": "hydrogen.png",
+   "price": 150,
+   "volume": 1,
+   "level": 0,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Industrial Tesla Coil",
+   "name": "Industrial Tesla Coil",
+   "plural": "Industrial Tesla Coils",
+   "description": "Tesla coil used for melting of metals in factories.",
+   "icon": "industrial-tesla-coil.png",
+   "price": 10314,
+   "volume": 5.5,
+   "level": 7,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": true,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Iron Ore",
+   "name": "Iron Ore",
+   "plural": "Iron Ore",
+   "description": "Iron ore that can be refined into Iron.",
+   "icon": "rock.png",
+   "price": 2,
+   "volume": 0.025,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "iron",
+    "ore"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Jewelry",
+   "name": "Jewelry",
+   "plural": "Jewelry",
+   "description": "Beautiful and very expensive jewelry.",
+   "icon": "gem-chain.png",
+   "price": 1260,
+   "volume": 0.2,
+   "level": 1,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Laser Compressor",
+   "name": "Laser Compressor",
+   "plural": "Laser Compressors",
+   "description": "A device that can bundle energy and emit a laser beam.",
+   "icon": "laser-compressor.png",
+   "price": 6577,
+   "volume": 1.5,
+   "level": 6,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Laser Head",
+   "name": "Laser Head",
+   "plural": "Laser Heads",
+   "description": "A device used to focus laser beams.",
+   "icon": "laser-head.png",
+   "price": 4690,
+   "volume": 2,
+   "level": 5,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Laser Modulator",
+   "name": "Laser Modulator",
+   "plural": "Laser Modulators",
+   "description": "A device that changes various properties of lasers beams passing through it.",
+   "icon": "laser-modulator.png",
+   "price": 16742,
+   "volume": 3,
+   "level": 6,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Lead",
+   "name": "Lead",
+   "plural": "Lead",
+   "description": "A medium sized crate filled with lead bars.",
+   "icon": "lead.png",
+   "price": 200,
+   "volume": 1,
+   "level": 0,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Leather",
+   "name": "Leather",
+   "plural": "Leather",
+   "description": "Treated leather, made from various animal hides.",
+   "icon": "animal-hide.png",
+   "price": 37,
+   "volume": 0.5,
+   "level": 3,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Liquor",
+   "name": "Liquor",
+   "plural": "Liquor",
+   "description": "A box of high quality liquor.",
+   "icon": "martini.png",
+   "price": 1867,
+   "volume": 1.25,
+   "level": 2,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Luxury Food",
+   "name": "Luxury Food",
+   "plural": "Luxury Food",
+   "description": "Luxurious food, made for the rich only.",
+   "icon": "luxury-food.png",
+   "price": 6452,
+   "volume": 2.5,
+   "level": 6,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Meat",
+   "name": "Meat",
+   "plural": "Meat",
+   "description": "A box full of fresh meat.",
+   "icon": "meat.png",
+   "price": 37,
+   "volume": 0.5,
+   "level": 3,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Medical Supplies",
+   "name": "Medical Supplies",
+   "plural": "Medical Supplies",
+   "description": "A box with everyday medical supplies containing bandages, antibiotics and germicides.",
+   "icon": "medical-supplies.png",
+   "price": 3006,
+   "volume": 1,
+   "level": 4,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer",
+    "technology"
+   ],
+   "chains": [
+    "consumer",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Metal Plate",
+   "name": "Metal Plate",
+   "plural": "Metal Plates",
+   "description": "Big metal plates used for building platings of vehicles or ships.",
+   "icon": "metal-scales.png",
+   "price": 792,
+   "volume": 3,
+   "level": 4,
+   "importance": 5,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Microchip",
+   "name": "Microchip",
+   "plural": "Microchips",
+   "description": "Microchips are the most basic parts of computers.",
+   "icon": "microchip.png",
+   "price": 896,
+   "volume": 0.1,
+   "level": 5,
+   "importance": 7,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Military Tesla Coil",
+   "name": "Military Tesla Coil",
+   "plural": "Military Tesla Coils",
+   "description": "A repurposed tesla coil that can shoot directed high-intensity beams of electricity.",
+   "icon": "industrial-tesla-coil.png",
+   "price": 10314,
+   "volume": 4.5,
+   "level": 7,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": true,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Mineral",
+   "name": "Mineral",
+   "plural": "Minerals",
+   "description": "A canister full of mineral powder.",
+   "icon": "spices.png",
+   "price": 500,
+   "volume": 1.5,
+   "level": 0,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Mining Robot",
+   "name": "Mining Robot",
+   "plural": "Mining Robots",
+   "description": "A big robot used for mining in asteroid shafts where human beings would not survive.",
+   "icon": "robot-golem.png",
+   "price": 145977,
+   "volume": 8,
+   "level": 9,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Morn Drug",
+   "name": "Morn Drug",
+   "plural": "Morn Drugs",
+   "description": "An addictive drug that gives the user strong hallucinations.",
+   "icon": "powder.png",
+   "price": 5000,
+   "volume": 0.1,
+   "level": null,
+   "importance": 0,
+   "illegal": true,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Nanobot",
+   "name": "Nanobot",
+   "plural": "Nanobots",
+   "description": "Tiny robots that are able to get into almost everything.",
+   "icon": "nanobots.png",
+   "price": 1338,
+   "volume": 0.5,
+   "level": 5,
+   "importance": 4,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Naonite Ore",
+   "name": "Naonite Ore",
+   "plural": "Naonite Ore",
+   "description": "Naonite ore that can be refined into Naonite.",
+   "icon": "rock.png",
+   "price": 4,
+   "volume": 0.025,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "naonite",
+    "ore"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Neon",
+   "name": "Neon",
+   "plural": "Neon",
+   "description": "A pressure container filled with pure neon.",
+   "icon": "neon.png",
+   "price": 200,
+   "volume": 1,
+   "level": 0,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Neutron Accelerator",
+   "name": "Neutron Accelerator",
+   "plural": "Neutron Accelerators",
+   "description": "A device that accelerates neutrons to near light speed.",
+   "icon": "neutron-accelerator.png",
+   "price": 125431,
+   "volume": 15,
+   "level": 8,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Nitrogen",
+   "name": "Nitrogen",
+   "plural": "Nitrogen",
+   "description": "A pressure container filled with pure nitrogen.",
+   "icon": "nitrogen.png",
+   "price": 40,
+   "volume": 1,
+   "level": 0,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Ogonite Ore",
+   "name": "Ogonite Ore",
+   "plural": "Ogonite Ore",
+   "description": "Ogonite ore that can be refined into Ogonite.",
+   "icon": "rock.png",
+   "price": 9,
+   "volume": 0.025,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "ogonite",
+    "ore"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Oil",
+   "name": "Oil",
+   "plural": "Oil",
+   "description": "A barrel of refined oil.",
+   "icon": "oil-drum.png",
+   "price": 490,
+   "volume": 1,
+   "level": 1,
+   "importance": 4,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Ore",
+   "name": "Ore",
+   "plural": "Ore",
+   "description": "Raw ore containing some kind of metal.",
+   "icon": "rock.png",
+   "price": 70,
+   "volume": 2,
+   "level": 0,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Oxygen",
+   "name": "Oxygen",
+   "plural": "Oxygen",
+   "description": "A pressure container filled with pure oxygen.",
+   "icon": "oxygen.png",
+   "price": 80,
+   "volume": 1,
+   "level": 0,
+   "importance": 6,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Paint",
+   "name": "Paint",
+   "plural": "Paint",
+   "description": "A container full of paint.",
+   "icon": "paint.png",
+   "price": 481,
+   "volume": 1,
+   "level": 4,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Paper",
+   "name": "Paper",
+   "plural": "Paper",
+   "description": "A big stash of paper.",
+   "icon": "papers.png",
+   "price": 46,
+   "volume": 1,
+   "level": 2,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Plankton",
+   "name": "Plankton",
+   "plural": "Plankton",
+   "description": "A tank full of live plankton.",
+   "icon": "turtle-shell.png",
+   "price": 50,
+   "volume": 1,
+   "level": 0,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer",
+    "industrial"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Plant",
+   "name": "Plant",
+   "plural": "Plants",
+   "description": "A container with soil and a wide range of green plants.",
+   "icon": "plant.png",
+   "price": 14,
+   "volume": 1.5,
+   "level": 1,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Plasma Cell",
+   "name": "Plasma Cell",
+   "plural": "Plasma Cells",
+   "description": "A battery that can emit a short but strong pulse of energy.",
+   "icon": "plasma-cell.png",
+   "price": 174,
+   "volume": 0.25,
+   "level": 4,
+   "importance": 8,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Plastic",
+   "name": "Plastic",
+   "plural": "Plastic",
+   "description": "A container with plastic. This is melted when used.",
+   "icon": "cargo-hold.png",
+   "price": 137,
+   "volume": 0.5,
+   "level": 2,
+   "importance": 9,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Platinum",
+   "name": "Platinum",
+   "plural": "Platinum",
+   "description": "A small box containing platinum bars.",
+   "icon": "metal-bar.png",
+   "price": 750,
+   "volume": 0.5,
+   "level": 0,
+   "importance": 7,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Potato",
+   "name": "Potato",
+   "plural": "Potatoes",
+   "description": "A container full of potatoes.",
+   "icon": "potato.png",
+   "price": 24,
+   "volume": 1,
+   "level": 1,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Power Unit",
+   "name": "Power Unit",
+   "plural": "Power Units",
+   "description": "A big device that can create a huge amount of energy over a long period of time.",
+   "icon": "power-unit.png",
+   "price": 1211,
+   "volume": 5,
+   "level": 5,
+   "importance": 8,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Processor",
+   "name": "Processor",
+   "plural": "Processors",
+   "description": "The heart of a computer or any device that does some kind of calculation.",
+   "icon": "processor.png",
+   "price": 7858,
+   "volume": 0.1,
+   "level": 6,
+   "importance": 8,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Protein",
+   "name": "Protein",
+   "plural": "Protein",
+   "description": "Protein for quickly restoring one's energy.",
+   "icon": "bar.png",
+   "price": 34,
+   "volume": 0.1,
+   "level": 4,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Proton Accelerator",
+   "name": "Proton Accelerator",
+   "plural": "Proton Accelerators",
+   "description": "A device that accelerates protons to near light speed.",
+   "icon": "proton-accelerator.png",
+   "price": 125431,
+   "volume": 15,
+   "level": 8,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Raw Oil",
+   "name": "Raw Oil",
+   "plural": "Raw Oil",
+   "description": "A barrel of unrefined oil.",
+   "icon": "oil-drum.png",
+   "price": 150,
+   "volume": 1,
+   "level": 0,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Rice",
+   "name": "Rice",
+   "plural": "Rice",
+   "description": "A container full of rice.",
+   "icon": "powder.png",
+   "price": 15,
+   "volume": 1,
+   "level": 1,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Rift Avorion Ore",
+   "name": "Rift Avorion Ore",
+   "plural": "Rift Avorion Ore",
+   "description": "Very rich Avorion ore that can only be found in rifts. Can be refined into Avorion. Yields 4x as much as normal Avorion Ore.",
+   "icon": "rift-rock.png",
+   "price": 12,
+   "volume": 0.05,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "avorion",
+    "basic",
+    "ore",
+    "rich",
+    "rift"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Rift Iron Ore",
+   "name": "Rift Iron Ore",
+   "plural": "Rift Iron Ore",
+   "description": "Very rich Iron ore that can only be found in rifts. Can be refined into Iron. Yields 4x as much as normal Iron Ore.",
+   "icon": "rift-rock.png",
+   "price": 2,
+   "volume": 0.05,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "iron",
+    "ore",
+    "rich",
+    "rift"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Rift Naonite Ore",
+   "name": "Rift Naonite Ore",
+   "plural": "Rift Naonite Ore",
+   "description": "Very rich Naonite ore that can only be found in rifts. Can be refined into Naonite. Yields 4x as much as normal Naonite Ore.",
+   "icon": "rift-rock.png",
+   "price": 4,
+   "volume": 0.05,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "naonite",
+    "ore",
+    "rich",
+    "rift"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Rift Ogonite Ore",
+   "name": "Rift Ogonite Ore",
+   "plural": "Rift Ogonite Ore",
+   "description": "Very rich Ogonite ore that can only be found in rifts. Can be refined into Ogonite. Yields 4x as much as normal Ogonite Ore.",
+   "icon": "rift-rock.png",
+   "price": 9,
+   "volume": 0.05,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "ogonite",
+    "ore",
+    "rich",
+    "rift"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Rift Research Data",
+   "name": "Rift Research Data",
+   "plural": "Rift Research Data",
+   "description": "A memory device with valuable research data about subspace rifts. Can be traded for equipment or sold for money at a Rift Research Center.",
+   "icon": "info-chip.png",
+   "price": 5000,
+   "volume": 0.5,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "mission_relevant",
+    "rare",
+    "technology"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Rift Titanium Ore",
+   "name": "Rift Titanium Ore",
+   "plural": "Rift Titanium Ore",
+   "description": "Very rich Titanium ore that can only be found in rifts. Can be refined into Titanium. Yields 4x as much as normal Titanium Ore.",
+   "icon": "rift-rock.png",
+   "price": 3,
+   "volume": 0.05,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "ore",
+    "rich",
+    "rift",
+    "titanium"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Rift Trinium Ore",
+   "name": "Rift Trinium Ore",
+   "plural": "Rift Trinium Ore",
+   "description": "Very rich Trinium ore that can only be found in rifts. Can be refined into Trinium. Yields 4x as much as normal Trinium Ore.",
+   "icon": "rift-rock.png",
+   "price": 5,
+   "volume": 0.05,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "ore",
+    "rich",
+    "rift",
+    "trinium"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Rift Xanion Ore",
+   "name": "Rift Xanion Ore",
+   "plural": "Rift Xanion Ore",
+   "description": "Very rich Xanion ore that can only be found in rifts. Can be refined into Xanion. Yields 4x as much as normal Xanion Ore.",
+   "icon": "rift-rock.png",
+   "price": 7,
+   "volume": 0.05,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "ore",
+    "rich",
+    "rift",
+    "xanion"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Rocket",
+   "name": "Rocket",
+   "plural": "Rockets",
+   "description": "Ammunition for rocket launchers.",
+   "icon": "rocket.png",
+   "price": 11250,
+   "volume": 4,
+   "level": 6,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": true,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Rubber",
+   "name": "Rubber",
+   "plural": "Rubber",
+   "description": "A bouncing block of rubber.",
+   "icon": "cubes.png",
+   "price": 686,
+   "volume": 1,
+   "level": 2,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Satellite",
+   "name": "Satellite",
+   "plural": "Satellites",
+   "description": "A satellite used for research or spying.",
+   "icon": "satellite.png",
+   "price": 65714,
+   "volume": 15,
+   "level": 7,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Scrap Avorion",
+   "name": "Scrap Avorion",
+   "plural": "Scrap Avorion",
+   "description": "Scrap Avorion that can be refined into Avorion.",
+   "icon": "scrap-metal.png",
+   "price": 24,
+   "volume": 0.04,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "avorion",
+    "basic",
+    "scrap"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Scrap Iron",
+   "name": "Scrap Iron",
+   "plural": "Scrap Iron",
+   "description": "Scrap Iron that can be refined into Iron.",
+   "icon": "scrap-metal.png",
+   "price": 4,
+   "volume": 0.04,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "iron",
+    "scrap"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Scrap Metal",
+   "name": "Scrap Metal",
+   "plural": "Scrap Metal",
+   "description": "A container full of metal junk.",
+   "icon": "scrap-metal.png",
+   "price": 25,
+   "volume": 3,
+   "level": 0,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Scrap Naonite",
+   "name": "Scrap Naonite",
+   "plural": "Scrap Naonite",
+   "description": "Scrap Naonite that can be refined into Naonite.",
+   "icon": "scrap-metal.png",
+   "price": 7,
+   "volume": 0.04,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "naonite",
+    "scrap"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Scrap Ogonite",
+   "name": "Scrap Ogonite",
+   "plural": "Scrap Ogonite",
+   "description": "Scrap Ogonite that can be refined into Ogonite.",
+   "icon": "scrap-metal.png",
+   "price": 18,
+   "volume": 0.04,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "ogonite",
+    "scrap"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Scrap Titanium",
+   "name": "Scrap Titanium",
+   "plural": "Scrap Titanium",
+   "description": "Scrap Titanium that can be refined into Titanium.",
+   "icon": "scrap-metal.png",
+   "price": 5,
+   "volume": 0.04,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "scrap",
+    "titanium"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Scrap Trinium",
+   "name": "Scrap Trinium",
+   "plural": "Scrap Trinium",
+   "description": "Scrap Trinium that can be refined into Trinium.",
+   "icon": "scrap-metal.png",
+   "price": 10,
+   "volume": 0.04,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "scrap",
+    "trinium"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Scrap Xanion",
+   "name": "Scrap Xanion",
+   "plural": "Scrap Xanion",
+   "description": "Scrap Xanion that can be refined into Xanion.",
+   "icon": "scrap-metal.png",
+   "price": 13,
+   "volume": 0.04,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "scrap",
+    "xanion"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Semi Conductor",
+   "name": "Semi Conductor",
+   "plural": "Semi Conductors",
+   "description": "Used for building microchips and other sorts of electric things.",
+   "icon": "semi-conductor.png",
+   "price": 129,
+   "volume": 0.1,
+   "level": 4,
+   "importance": 5,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Servo",
+   "name": "Servo",
+   "plural": "Servos",
+   "description": "Little multi-purpose machines that can be used in moving parts.",
+   "icon": "servo.png",
+   "price": 1387,
+   "volume": 0.25,
+   "level": 5,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Sheep",
+   "name": "Sheep",
+   "plural": "Sheep",
+   "description": "Sheep.",
+   "icon": "sheep.png",
+   "price": 130,
+   "volume": 1,
+   "level": 2,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Silicon",
+   "name": "Silicon",
+   "plural": "Silicon",
+   "description": "A box with shards of silicon.",
+   "icon": "silicium.png",
+   "price": 500,
+   "volume": 1,
+   "level": 0,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Silver",
+   "name": "Silver",
+   "plural": "Silver",
+   "description": "A small box containing silver bars.",
+   "icon": "metal-bar.png",
+   "price": 300,
+   "volume": 0.5,
+   "level": 0,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Slave",
+   "name": "Slave",
+   "plural": "Slaves",
+   "description": "An unfree life form forced to work for almost no food.",
+   "icon": "slave.png",
+   "price": 15000,
+   "volume": 1,
+   "level": null,
+   "importance": 0,
+   "illegal": true,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Solar Cell",
+   "name": "Solar Cell",
+   "plural": "Solar Cells",
+   "description": "Electric cells for generating energy from sunlight.",
+   "icon": "solar-cell.png",
+   "price": 469,
+   "volume": 2,
+   "level": 1,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Solar Panel",
+   "name": "Solar Panel",
+   "plural": "Solar Panels",
+   "description": "Solar panels that can generate electricity from sunlight.",
+   "icon": "satellite.png",
+   "price": 6858,
+   "volume": 6,
+   "level": 5,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Solvent",
+   "name": "Solvent",
+   "plural": "Solvent",
+   "description": "A tank filled with a common industrial solvent, found all over the galaxy.",
+   "icon": "solvent.png",
+   "price": 402,
+   "volume": 1,
+   "level": 3,
+   "importance": 2,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "consumer",
+    "industrial",
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Spices",
+   "name": "Spices",
+   "plural": "Spices",
+   "description": "A box with various little bags of spices.",
+   "icon": "spices.png",
+   "price": 268,
+   "volume": 0.3,
+   "level": 5,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Steel",
+   "name": "Steel",
+   "plural": "Steel",
+   "description": "Raw steel.",
+   "icon": "i-beam.png",
+   "price": 277,
+   "volume": 1,
+   "level": 1,
+   "importance": 22,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Steel Tube",
+   "name": "Steel Tube",
+   "plural": "Steel Tubes",
+   "description": "Long multi-purpose steel tubes.",
+   "icon": "steel-tube.png",
+   "price": 704,
+   "volume": 3,
+   "level": 4,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Targeting Card",
+   "name": "Targeting Card",
+   "plural": "Targeting Cards",
+   "description": "Multi-purpose chip with targeting software for missiles or turrets.",
+   "icon": "targeting-card.png",
+   "price": 11873,
+   "volume": 0.5,
+   "level": 6,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Targeting System",
+   "name": "Targeting System",
+   "plural": "Targeting Systems",
+   "description": "Computer system that is able to track multiple targets.",
+   "icon": "targeting-system.png",
+   "price": 29674,
+   "volume": 0.75,
+   "level": 8,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Tea",
+   "name": "Tea",
+   "plural": "Tea",
+   "description": "A bag of various dried teas.",
+   "icon": "tea.png",
+   "price": 37,
+   "volume": 0.2,
+   "level": 1,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Teleporter",
+   "name": "Teleporter",
+   "plural": "Teleporters",
+   "description": "Short range one-man hyperspace teleporters.",
+   "icon": "teleport.png",
+   "price": 39365,
+   "volume": 12,
+   "level": 8,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Titanium Ore",
+   "name": "Titanium Ore",
+   "plural": "Titanium Ore",
+   "description": "Titanium ore that can be refined into Titanium.",
+   "icon": "rock.png",
+   "price": 3,
+   "volume": 0.025,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "ore",
+    "titanium"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Tools",
+   "name": "Tools",
+   "plural": "Tools",
+   "description": "A set of tools used by mechanics.",
+   "icon": "tools.png",
+   "price": 214,
+   "volume": 0.4,
+   "level": 4,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Toxic Waste",
+   "name": "Toxic Waste",
+   "plural": "Toxic Waste",
+   "description": "A tank full of some glowing liquid. Highly toxic.",
+   "icon": "toxic-waste.png",
+   "price": 15,
+   "volume": 4,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": true,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [],
+   "spawnable": true
+  },
+  {
+   "id": "Transformator",
+   "name": "Transformator",
+   "plural": "Transformators",
+   "description": "A small item for transforming all kinds of energy.",
+   "icon": "grenade.png",
+   "price": 209,
+   "volume": 0.2,
+   "level": 4,
+   "importance": 11,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Trinium Ore",
+   "name": "Trinium Ore",
+   "plural": "Trinium Ore",
+   "description": "Trinium ore that can be refined into Trinium.",
+   "icon": "rock.png",
+   "price": 5,
+   "volume": 0.025,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "ore",
+    "trinium"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Turbine",
+   "name": "Turbine",
+   "plural": "Turbines",
+   "description": "Multi-purpose turbine.",
+   "icon": "turbine.png",
+   "price": 16729,
+   "volume": 7.5,
+   "level": 6,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Vegetable",
+   "name": "Vegetable",
+   "plural": "Vegetables",
+   "description": "A container with different sorts of vegetables.",
+   "icon": "vegetables.png",
+   "price": 32,
+   "volume": 1,
+   "level": 1,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Vehicle",
+   "name": "Vehicle",
+   "plural": "Vehicles",
+   "description": "A vehicle used for planetary exploration missions.",
+   "icon": "apc.png",
+   "price": 77087,
+   "volume": 25,
+   "level": 8,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial"
+   ],
+   "chains": [
+    "industrial"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "War Robot",
+   "name": "War Robot",
+   "plural": "War Robots",
+   "description": "A big robot that is highly armed and very deadly.",
+   "icon": "missile-mech.png",
+   "price": 92186,
+   "volume": 8,
+   "level": 9,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": true,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Warhead",
+   "name": "Warhead",
+   "plural": "Warheads",
+   "description": "Explosive heads for rockets.",
+   "icon": "warhead.png",
+   "price": 5630,
+   "volume": 3,
+   "level": 5,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": true,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "military"
+   ],
+   "chains": [
+    "military"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Water",
+   "name": "Water",
+   "plural": "Water",
+   "description": "A tank full of clear water.",
+   "icon": "water.png",
+   "price": 20,
+   "volume": 0.35,
+   "level": 0,
+   "importance": 24,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Wheat",
+   "name": "Wheat",
+   "plural": "Wheat",
+   "description": "A container full of wheat.",
+   "icon": "wheat.png",
+   "price": 23,
+   "volume": 1,
+   "level": 1,
+   "importance": 9,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Wine",
+   "name": "Wine",
+   "plural": "Wine",
+   "description": "A box of wine.",
+   "icon": "wine-glass.png",
+   "price": 182,
+   "volume": 0.5,
+   "level": 4,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Wire",
+   "name": "Wire",
+   "plural": "Wires",
+   "description": "Around 100 meters of thin wire.",
+   "icon": "wire.png",
+   "price": 95,
+   "volume": 0.5,
+   "level": 4,
+   "importance": 6,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "industrial",
+    "technology"
+   ],
+   "chains": [
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Wood",
+   "name": "Wood",
+   "plural": "Wood",
+   "description": "A big block of compressed wood.",
+   "icon": "log.png",
+   "price": 350,
+   "volume": 2.5,
+   "level": 1,
+   "importance": 1,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "consumer"
+   ],
+   "chains": [
+    "consumer"
+   ],
+   "spawnable": true
+  },
+  {
+   "id": "Xanion Ore",
+   "name": "Xanion Ore",
+   "plural": "Xanion Ore",
+   "description": "Xanion ore that can be refined into Xanion.",
+   "icon": "rock.png",
+   "price": 7,
+   "volume": 0.025,
+   "level": null,
+   "importance": 0,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic",
+    "ore",
+    "xanion"
+   ],
+   "chains": [],
+   "spawnable": false
+  },
+  {
+   "id": "Zinc",
+   "name": "Zinc",
+   "plural": "Zinc",
+   "description": "A medium sized crate filled with zinc fragments.",
+   "icon": "zinc.png",
+   "price": 250,
+   "volume": 1,
+   "level": 0,
+   "importance": 3,
+   "illegal": false,
+   "dangerous": false,
+   "suspicious": false,
+   "stolen": false,
+   "tags": [
+    "basic"
+   ],
+   "chains": [
+    "basic",
+    "consumer",
+    "industrial",
+    "military",
+    "technology"
+   ],
+   "spawnable": true
+  }
+ ],
+ "productions": [
+  {
+   "index": 1,
+   "factory": "${good} Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Silicon",
+     "amount": 4
+    }
+   ],
+   "garbages": [],
+   "cost": 9500000,
+   "upgradeCosts": [
+    2000000,
+    4000000,
+    6000000,
+    8000000,
+    10000000
+   ]
+  },
+  {
+   "index": 2,
+   "factory": "Gas Collector ${size}",
+   "style": "Collector",
+   "mine": false,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Helium",
+     "amount": 3
+    },
+    {
+     "good": "Hydrogen",
+     "amount": 3
+    },
+    {
+     "good": "Neon",
+     "amount": 3
+    },
+    {
+     "good": "Chlorine",
+     "amount": 3
+    }
+   ],
+   "garbages": [],
+   "cost": 8275000,
+   "upgradeCosts": [
+    1650000,
+    3300000,
+    4950000,
+    6600000,
+    8250000
+   ]
+  },
+  {
+   "index": 3,
+   "factory": "Gas Collector ${size}",
+   "style": "Collector",
+   "mine": false,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Helium",
+     "amount": 3
+    },
+    {
+     "good": "Nitrogen",
+     "amount": 3
+    },
+    {
+     "good": "Neon",
+     "amount": 3
+    },
+    {
+     "good": "Chlorine",
+     "amount": 3
+    },
+    {
+     "good": "Fluorine",
+     "amount": 3
+    }
+   ],
+   "garbages": [],
+   "cost": 9745000,
+   "upgradeCosts": [
+    2070000,
+    4140000,
+    6210000,
+    8280000,
+    10350000
+   ]
+  },
+  {
+   "index": 4,
+   "factory": "Gas Collector ${size}",
+   "style": "Collector",
+   "mine": false,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Oxygen",
+     "amount": 8
+    },
+    {
+     "good": "Hydrogen",
+     "amount": 8
+    },
+    {
+     "good": "Nitrogen",
+     "amount": 8
+    }
+   ],
+   "garbages": [],
+   "cost": 10060000,
+   "upgradeCosts": [
+    2160000,
+    4320000,
+    6480000,
+    8640000,
+    10800000
+   ]
+  },
+  {
+   "index": 5,
+   "factory": "Gas Collector ${size}",
+   "style": "Collector",
+   "mine": false,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Helium",
+     "amount": 3
+    },
+    {
+     "good": "Hydrogen",
+     "amount": 3
+    },
+    {
+     "good": "Chlorine",
+     "amount": 3
+    },
+    {
+     "good": "Fluorine",
+     "amount": 3
+    }
+   ],
+   "garbages": [],
+   "cost": 8800000,
+   "upgradeCosts": [
+    1800000,
+    3600000,
+    5400000,
+    7200000,
+    9000000
+   ]
+  },
+  {
+   "index": 6,
+   "factory": "${good} Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Ore",
+     "amount": 30
+    }
+   ],
+   "garbages": [],
+   "cost": 9850000,
+   "upgradeCosts": [
+    2100000,
+    4200000,
+    6300000,
+    8400000,
+    10500000
+   ]
+  },
+  {
+   "index": 7,
+   "factory": "${good} Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Coal",
+     "amount": 4
+    }
+   ],
+   "garbages": [],
+   "cost": 5300000,
+   "upgradeCosts": [
+    800000,
+    1600000,
+    2400000,
+    3200000,
+    4000000
+   ]
+  },
+  {
+   "index": 8,
+   "factory": "Oil Rig ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Raw Oil",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 5125000,
+   "upgradeCosts": [
+    750000,
+    1500000,
+    2250000,
+    3000000,
+    3750000
+   ]
+  },
+  {
+   "index": 9,
+   "factory": "${good} Farm ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Crystal",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 9150000,
+   "upgradeCosts": [
+    1900000,
+    3800000,
+    5700000,
+    7600000,
+    9500000
+   ]
+  },
+  {
+   "index": 10,
+   "factory": "${good} Extractor ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Mineral",
+     "amount": 4
+    }
+   ],
+   "garbages": [],
+   "cost": 9500000,
+   "upgradeCosts": [
+    2000000,
+    4000000,
+    6000000,
+    8000000,
+    10000000
+   ]
+  },
+  {
+   "index": 11,
+   "factory": "${good} Trader ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Scrap Metal",
+     "amount": 60
+    }
+   ],
+   "garbages": [],
+   "cost": 7750000,
+   "upgradeCosts": [
+    1500000,
+    3000000,
+    4500000,
+    6000000,
+    7500000
+   ]
+  },
+  {
+   "index": 12,
+   "factory": "${good} Refinery ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 5
+    },
+    {
+     "good": "Raw Oil",
+     "amount": 10
+    }
+   ],
+   "results": [
+    {
+     "good": "Oil",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 4950000,
+   "upgradeCosts": [
+    700000,
+    1400000,
+    2100000,
+    2800000,
+    3500000
+   ]
+  },
+  {
+   "index": 13,
+   "factory": "Noble Metal Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Gold",
+     "amount": 1
+    },
+    {
+     "good": "Platinum",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 7225000,
+   "upgradeCosts": [
+    1350000,
+    2700000,
+    4050000,
+    5400000,
+    6750000
+   ]
+  },
+  {
+   "index": 14,
+   "factory": "Noble Metal Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Silver",
+     "amount": 1
+    },
+    {
+     "good": "Platinum",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 6175000,
+   "upgradeCosts": [
+    1050000,
+    2100000,
+    3150000,
+    4200000,
+    5250000
+   ]
+  },
+  {
+   "index": 15,
+   "factory": "Noble Metal Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Silver",
+     "amount": 1
+    },
+    {
+     "good": "Gold",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 5650000,
+   "upgradeCosts": [
+    900000,
+    1800000,
+    2700000,
+    3600000,
+    4500000
+   ]
+  },
+  {
+   "index": 16,
+   "factory": "${good} Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Zinc",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 11250000,
+   "upgradeCosts": [
+    2500000,
+    5000000,
+    7500000,
+    10000000,
+    12500000
+   ]
+  },
+  {
+   "index": 17,
+   "factory": "${good} Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Copper",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 8625000,
+   "upgradeCosts": [
+    1750000,
+    3500000,
+    5250000,
+    7000000,
+    8750000
+   ]
+  },
+  {
+   "index": 18,
+   "factory": "${good} Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Lead",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 9500000,
+   "upgradeCosts": [
+    2000000,
+    4000000,
+    6000000,
+    8000000,
+    10000000
+   ]
+  },
+  {
+   "index": 19,
+   "factory": "${good} Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Aluminum",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 9500000,
+   "upgradeCosts": [
+    2000000,
+    4000000,
+    6000000,
+    8000000,
+    10000000
+   ]
+  },
+  {
+   "index": 20,
+   "factory": "Ice Mine ${size}",
+   "style": "Mine",
+   "mine": true,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Water",
+     "amount": 75
+    }
+   ],
+   "garbages": [],
+   "cost": 7750000,
+   "upgradeCosts": [
+    1500000,
+    3000000,
+    4500000,
+    6000000,
+    7500000
+   ]
+  },
+  {
+   "index": 21,
+   "factory": "Solar Power Plant ${size}",
+   "style": "SolarPowerPlant",
+   "mine": false,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Energy Cell",
+     "amount": 25
+    }
+   ],
+   "garbages": [],
+   "cost": 6875000,
+   "upgradeCosts": [
+    1250000,
+    2500000,
+    3750000,
+    5000000,
+    6250000
+   ]
+  },
+  {
+   "index": 22,
+   "factory": "${good} Extractor ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Corn",
+     "amount": 52
+    }
+   ],
+   "results": [
+    {
+     "good": "Carbon",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 4806500,
+   "upgradeCosts": [
+    659000,
+    1318000,
+    1977000,
+    2636000,
+    3295000
+   ]
+  },
+  {
+   "index": 23,
+   "factory": "${good} Extractor ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Rice",
+     "amount": 95
+    }
+   ],
+   "results": [
+    {
+     "good": "Carbon",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 4915000,
+   "upgradeCosts": [
+    690000,
+    1380000,
+    2070000,
+    2760000,
+    3450000
+   ]
+  },
+  {
+   "index": 24,
+   "factory": "${good} Extractor ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Wheat",
+     "amount": 64
+    }
+   ],
+   "results": [
+    {
+     "good": "Carbon",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 4750500,
+   "upgradeCosts": [
+    643000,
+    1286000,
+    1929000,
+    2572000,
+    3215000
+   ]
+  },
+  {
+   "index": 25,
+   "factory": "${good} Extractor ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Potato",
+     "amount": 63
+    }
+   ],
+   "results": [
+    {
+     "good": "Carbon",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 4610500,
+   "upgradeCosts": [
+    603000,
+    1206000,
+    1809000,
+    2412000,
+    3015000
+   ]
+  },
+  {
+   "index": 26,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Copper",
+     "amount": 1
+    },
+    {
+     "good": "Conductor",
+     "amount": 2
+    },
+    {
+     "good": "Transformator",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Electro Magnet",
+     "amount": 4
+    }
+   ],
+   "garbages": [],
+   "cost": 4428500,
+   "upgradeCosts": [
+    551000,
+    1102000,
+    1653000,
+    2204000,
+    2755000
+   ]
+  },
+  {
+   "index": 27,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Tube",
+     "amount": 1
+    },
+    {
+     "good": "Conductor",
+     "amount": 2
+    },
+    {
+     "good": "Transformator",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Energy Inverter",
+     "amount": 4
+    }
+   ],
+   "garbages": [],
+   "cost": 7606500,
+   "upgradeCosts": [
+    1459000,
+    2918000,
+    4377000,
+    5836000,
+    7295000
+   ]
+  },
+  {
+   "index": 28,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 4
+    },
+    {
+     "good": "Aluminum",
+     "amount": 2
+    },
+    {
+     "good": "Conductor",
+     "amount": 2
+    },
+    {
+     "good": "Plastic",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Servo",
+     "amount": 2
+    }
+   ],
+   "garbages": [],
+   "cost": 5275500,
+   "upgradeCosts": [
+    793000,
+    1586000,
+    2379000,
+    3172000,
+    3965000
+   ]
+  },
+  {
+   "index": 29,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 4
+    },
+    {
+     "good": "Aluminum",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Steel Tube",
+     "amount": 3
+    }
+   ],
+   "garbages": [],
+   "cost": 4614000,
+   "upgradeCosts": [
+    604000,
+    1208000,
+    1812000,
+    2416000,
+    3020000
+   ]
+  },
+  {
+   "index": 30,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    },
+    {
+     "good": "Oil",
+     "amount": 3
+    }
+   ],
+   "results": [
+    {
+     "good": "Rubber",
+     "amount": 3
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Toxic Waste",
+     "amount": 1
+    },
+    {
+     "good": "Acid",
+     "amount": 1
+    }
+   ],
+   "cost": 4383000,
+   "upgradeCosts": [
+    955000,
+    1910000,
+    2865000,
+    3820000,
+    4775000
+   ]
+  },
+  {
+   "index": 31,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Zinc",
+     "amount": 2
+    },
+    {
+     "good": "Steel",
+     "amount": 2
+    },
+    {
+     "good": "Platinum",
+     "amount": 1
+    },
+    {
+     "good": "Gold",
+     "amount": 1
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Conductor",
+     "amount": 20
+    }
+   ],
+   "garbages": [],
+   "cost": 5671000,
+   "upgradeCosts": [
+    906000,
+    1812000,
+    2718000,
+    3624000,
+    4530000
+   ]
+  },
+  {
+   "index": 32,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 2
+    },
+    {
+     "good": "Plastic",
+     "amount": 1
+    },
+    {
+     "good": "Silicon",
+     "amount": 1
+    },
+    {
+     "good": "Silver",
+     "amount": 1
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Transformator",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 4421500,
+   "upgradeCosts": [
+    549000,
+    1098000,
+    1647000,
+    2196000,
+    2745000
+   ]
+  },
+  {
+   "index": 33,
+   "factory": "${good} Manufacturer ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Oil",
+     "amount": 3
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 3,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Plastic",
+     "amount": 15
+    }
+   ],
+   "garbages": [],
+   "cost": 4022500,
+   "upgradeCosts": [
+    435000,
+    870000,
+    1305000,
+    1740000,
+    2175000
+   ]
+  },
+  {
+   "index": 34,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Zinc",
+     "amount": 1
+    },
+    {
+     "good": "Silicon",
+     "amount": 2
+    },
+    {
+     "good": "Platinum",
+     "amount": 2
+    },
+    {
+     "good": "Gold",
+     "amount": 1
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Solar Cell",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 7015000,
+   "upgradeCosts": [
+    1290000,
+    2580000,
+    3870000,
+    5160000,
+    6450000
+   ]
+  },
+  {
+   "index": 35,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Platinum",
+     "amount": 1
+    },
+    {
+     "good": "Silver",
+     "amount": 1
+    },
+    {
+     "good": "Aluminum",
+     "amount": 1
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Tools",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 4470500,
+   "upgradeCosts": [
+    563000,
+    1126000,
+    1689000,
+    2252000,
+    2815000
+   ]
+  },
+  {
+   "index": 36,
+   "factory": "${good} Manufacturer ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Silicon",
+     "amount": 1
+    },
+    {
+     "good": "Gold",
+     "amount": 1
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Semi Conductor",
+     "amount": 15
+    }
+   ],
+   "garbages": [],
+   "cost": 4278000,
+   "upgradeCosts": [
+    508000,
+    1016000,
+    1524000,
+    2032000,
+    2540000
+   ]
+  },
+  {
+   "index": 37,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Wire",
+     "amount": 4
+    },
+    {
+     "good": "Semi Conductor",
+     "amount": 12
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 4,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Microchip",
+     "amount": 3
+    }
+   ],
+   "garbages": [],
+   "cost": 4460000,
+   "upgradeCosts": [
+    560000,
+    1120000,
+    1680000,
+    2240000,
+    2800000
+   ]
+  },
+  {
+   "index": 38,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Plastic",
+     "amount": 1
+    },
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Platinum",
+     "amount": 1
+    },
+    {
+     "good": "Neon",
+     "amount": 1
+    },
+    {
+     "good": "Steel Tube",
+     "amount": 1
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Energy Tube",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 5219500,
+   "upgradeCosts": [
+    777000,
+    1554000,
+    2331000,
+    3108000,
+    3885000
+   ]
+  },
+  {
+   "index": 39,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Ore",
+     "amount": 8
+    },
+    {
+     "good": "Coal",
+     "amount": 3
+    },
+    {
+     "good": "Carbon",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Steel",
+     "amount": 8
+    }
+   ],
+   "garbages": [],
+   "cost": 4715500,
+   "upgradeCosts": [
+    633000,
+    1266000,
+    1899000,
+    2532000,
+    3165000
+   ]
+  },
+  {
+   "index": 40,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Scrap Metal",
+     "amount": 12
+    },
+    {
+     "good": "Coal",
+     "amount": 4
+    }
+   ],
+   "results": [
+    {
+     "good": "Steel",
+     "amount": 6
+    }
+   ],
+   "garbages": [],
+   "cost": 4467000,
+   "upgradeCosts": [
+    562000,
+    1124000,
+    1686000,
+    2248000,
+    2810000
+   ]
+  },
+  {
+   "index": 41,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 10
+    },
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Bio Gas",
+     "amount": 1
+    },
+    {
+     "good": "Neon",
+     "amount": 1
+    },
+    {
+     "good": "Helium",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Plasma Cell",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 4250000,
+   "upgradeCosts": [
+    500000,
+    1000000,
+    1500000,
+    2000000,
+    2500000
+   ]
+  },
+  {
+   "index": 42,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 2
+    },
+    {
+     "good": "Oil",
+     "amount": 1
+    },
+    {
+     "good": "Nitrogen",
+     "amount": 1
+    },
+    {
+     "good": "Fluorine",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Fuel",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Toxic Waste",
+     "amount": 1
+    }
+   ],
+   "cost": 3732000,
+   "upgradeCosts": [
+    367000,
+    734000,
+    1101000,
+    1468000,
+    1835000
+   ]
+  },
+  {
+   "index": 43,
+   "factory": "${good} Manufacturer ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Ore",
+     "amount": 4
+    },
+    {
+     "good": "Crystal",
+     "amount": 4
+    }
+   ],
+   "results": [
+    {
+     "good": "Glass",
+     "amount": 8
+    }
+   ],
+   "garbages": [],
+   "cost": 3956000,
+   "upgradeCosts": [
+    416000,
+    832000,
+    1248000,
+    1664000,
+    2080000
+   ]
+  },
+  {
+   "index": 44,
+   "factory": "Chemical Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Water",
+     "amount": 5
+    },
+    {
+     "good": "Nitrogen",
+     "amount": 5
+    },
+    {
+     "good": "Hydrogen",
+     "amount": 5
+    },
+    {
+     "good": "Oxygen",
+     "amount": 5
+    },
+    {
+     "good": "Bio Gas",
+     "amount": 1
+    },
+    {
+     "good": "Carbon",
+     "amount": 1
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 10
+    }
+   ],
+   "results": [
+    {
+     "good": "Chemicals",
+     "amount": 2
+    },
+    {
+     "good": "Adhesive",
+     "amount": 1
+    },
+    {
+     "good": "Coolant",
+     "amount": 2
+    },
+    {
+     "good": "Solvent",
+     "amount": 2
+    },
+    {
+     "good": "Acid",
+     "amount": 2
+    }
+   ],
+   "garbages": [],
+   "cost": 6112000,
+   "upgradeCosts": [
+    1032000,
+    2064000,
+    3096000,
+    4128000,
+    5160000
+   ]
+  },
+  {
+   "index": 45,
+   "factory": "${good} Manufacturer ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Plastic",
+     "amount": 1
+    },
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Gold",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Wire",
+     "amount": 15
+    }
+   ],
+   "garbages": [],
+   "cost": 3938500,
+   "upgradeCosts": [
+    411000,
+    822000,
+    1233000,
+    1644000,
+    2055000
+   ]
+  },
+  {
+   "index": 46,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 3
+    },
+    {
+     "good": "Silver",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Metal Plate",
+     "amount": 2
+    }
+   ],
+   "garbages": [],
+   "cost": 4085500,
+   "upgradeCosts": [
+    453000,
+    906000,
+    1359000,
+    1812000,
+    2265000
+   ]
+  },
+  {
+   "index": 47,
+   "factory": "${good} Manufacturer ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Oil",
+     "amount": 1
+    },
+    {
+     "good": "Water",
+     "amount": 1
+    },
+    {
+     "good": "Chemicals",
+     "amount": 1
+    },
+    {
+     "good": "Solvent",
+     "amount": 1
+    },
+    {
+     "good": "Acid",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Paint",
+     "amount": 5
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Toxic Waste",
+     "amount": 1
+    }
+   ],
+   "cost": 4911500,
+   "upgradeCosts": [
+    704000,
+    1408000,
+    2112000,
+    2816000,
+    3520000
+   ]
+  },
+  {
+   "index": 48,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Chemicals",
+     "amount": 2
+    },
+    {
+     "good": "Mineral",
+     "amount": 3
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    },
+    {
+     "good": "Solvent",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Fertilizer",
+     "amount": 11
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Toxic Waste",
+     "amount": 1
+    }
+   ],
+   "cost": 5135500,
+   "upgradeCosts": [
+    768000,
+    1536000,
+    2304000,
+    3072000,
+    3840000
+   ]
+  },
+  {
+   "index": 49,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Plankton",
+     "amount": 1
+    },
+    {
+     "good": "Mineral",
+     "amount": 4
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Fertilizer",
+     "amount": 9
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Toxic Waste",
+     "amount": 1
+    }
+   ],
+   "cost": 5198500,
+   "upgradeCosts": [
+    786000,
+    1572000,
+    2358000,
+    3144000,
+    3930000
+   ]
+  },
+  {
+   "index": 50,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Fluorine",
+     "amount": 4
+    },
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 2
+    },
+    {
+     "good": "Plastic",
+     "amount": 2
+    },
+    {
+     "good": "Chemicals",
+     "amount": 2
+    },
+    {
+     "good": "Acid",
+     "amount": 2
+    },
+    {
+     "good": "Adhesive",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Explosive Charge",
+     "amount": 4
+    }
+   ],
+   "garbages": [],
+   "cost": 8201500,
+   "upgradeCosts": [
+    1629000,
+    3258000,
+    4887000,
+    6516000,
+    8145000
+   ]
+  },
+  {
+   "index": 51,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Hydrogen",
+     "amount": 1
+    },
+    {
+     "good": "Gold",
+     "amount": 1
+    },
+    {
+     "good": "Plasma Cell",
+     "amount": 2
+    },
+    {
+     "good": "Transformator",
+     "amount": 2
+    },
+    {
+     "good": "Energy Tube",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Fusion Core",
+     "amount": 2
+    }
+   ],
+   "garbages": [],
+   "cost": 12727000,
+   "upgradeCosts": [
+    2922000,
+    5844000,
+    8766000,
+    11688000,
+    14610000
+   ]
+  },
+  {
+   "index": 52,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Aluminum",
+     "amount": 1
+    },
+    {
+     "good": "Carbon",
+     "amount": 2
+    },
+    {
+     "good": "Adhesive",
+     "amount": 2
+    },
+    {
+     "good": "Steel Tube",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "High Pressure Tube",
+     "amount": 3
+    }
+   ],
+   "garbages": [],
+   "cost": 7452500,
+   "upgradeCosts": [
+    1415000,
+    2830000,
+    4245000,
+    5660000,
+    7075000
+   ]
+  },
+  {
+   "index": 53,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Microchip",
+     "amount": 1
+    },
+    {
+     "good": "Copper",
+     "amount": 1
+    },
+    {
+     "good": "Processor",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Targeting Card",
+     "amount": 2
+    }
+   ],
+   "garbages": [],
+   "cost": 26244000,
+   "upgradeCosts": [
+    6784000,
+    13568000,
+    20352000,
+    27136000,
+    33920000
+   ]
+  },
+  {
+   "index": 54,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Container",
+     "amount": 10
+    },
+    {
+     "good": "Electro Magnet",
+     "amount": 6
+    },
+    {
+     "good": "Energy Tube",
+     "amount": 2
+    },
+    {
+     "good": "Transformator",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Electromagnetic Charge",
+     "amount": 2
+    }
+   ],
+   "garbages": [],
+   "cost": 30479000,
+   "upgradeCosts": [
+    7994000,
+    15988000,
+    23982000,
+    31976000,
+    39970000
+   ]
+  },
+  {
+   "index": 55,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 10
+    },
+    {
+     "good": "Electro Magnet",
+     "amount": 6
+    },
+    {
+     "good": "Energy Tube",
+     "amount": 2
+    },
+    {
+     "good": "High Pressure Tube",
+     "amount": 1
+    },
+    {
+     "good": "Transformator",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Gauss Rail",
+     "amount": 2
+    }
+   ],
+   "garbages": [],
+   "cost": 17980500,
+   "upgradeCosts": [
+    4423000,
+    8846000,
+    13269000,
+    17692000,
+    22115000
+   ]
+  },
+  {
+   "index": 56,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 15
+    },
+    {
+     "good": "Microchip",
+     "amount": 10
+    },
+    {
+     "good": "Conductor",
+     "amount": 10
+    }
+   ],
+   "results": [
+    {
+     "good": "Energy Generator",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 18484500,
+   "upgradeCosts": [
+    4567000,
+    9134000,
+    13701000,
+    18268000,
+    22835000
+   ]
+  },
+  {
+   "index": 57,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Glass",
+     "amount": 1
+    },
+    {
+     "good": "Microchip",
+     "amount": 5
+    },
+    {
+     "good": "Semi Conductor",
+     "amount": 3
+    },
+    {
+     "good": "Plasma Cell",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Display",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 11722500,
+   "upgradeCosts": [
+    2635000,
+    5270000,
+    7905000,
+    10540000,
+    13175000
+   ]
+  },
+  {
+   "index": 58,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Microchip",
+     "amount": 7
+    },
+    {
+     "good": "Semi Conductor",
+     "amount": 5
+    },
+    {
+     "good": "Copper",
+     "amount": 5
+    },
+    {
+     "good": "Platinum",
+     "amount": 5
+    },
+    {
+     "good": "Gold",
+     "amount": 5
+    }
+   ],
+   "results": [
+    {
+     "good": "Processor",
+     "amount": 3
+    }
+   ],
+   "garbages": [],
+   "cost": 31049500,
+   "upgradeCosts": [
+    8157000,
+    16314000,
+    24471000,
+    32628000,
+    40785000
+   ]
+  },
+  {
+   "index": 59,
+   "factory": "Computer Component Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Wire",
+     "amount": 15
+    },
+    {
+     "good": "Microchip",
+     "amount": 7
+    },
+    {
+     "good": "Semi Conductor",
+     "amount": 5
+    },
+    {
+     "good": "Copper",
+     "amount": 5
+    },
+    {
+     "good": "Platinum",
+     "amount": 5
+    },
+    {
+     "good": "Gold",
+     "amount": 5
+    }
+   ],
+   "results": [
+    {
+     "good": "Display",
+     "amount": 1
+    },
+    {
+     "good": "Targeting Card",
+     "amount": 1
+    },
+    {
+     "good": "Processor",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 40114500,
+   "upgradeCosts": [
+    10747000,
+    21494000,
+    32241000,
+    42988000,
+    53735000
+   ]
+  },
+  {
+   "index": 60,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Crystal",
+     "amount": 15
+    },
+    {
+     "good": "Semi Conductor",
+     "amount": 15
+    }
+   ],
+   "results": [
+    {
+     "good": "Nanobot",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 9167500,
+   "upgradeCosts": [
+    1905000,
+    3810000,
+    5715000,
+    7620000,
+    9525000
+   ]
+  },
+  {
+   "index": 61,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Plasma Cell",
+     "amount": 1
+    },
+    {
+     "good": "Transformator",
+     "amount": 1
+    },
+    {
+     "good": "Energy Tube",
+     "amount": 1
+    },
+    {
+     "good": "Wire",
+     "amount": 15
+    }
+   ],
+   "results": [
+    {
+     "good": "Laser Compressor",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Scrap Metal",
+     "amount": 1
+    }
+   ],
+   "cost": 9059000,
+   "upgradeCosts": [
+    1899000,
+    3798000,
+    5697000,
+    7596000,
+    9495000
+   ]
+  },
+  {
+   "index": 62,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Glass",
+     "amount": 1
+    },
+    {
+     "good": "Conductor",
+     "amount": 1
+    },
+    {
+     "good": "Aluminum",
+     "amount": 15
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Laser Head",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Toxic Waste",
+     "amount": 1
+    }
+   ],
+   "cost": 7015000,
+   "upgradeCosts": [
+    1305000,
+    2610000,
+    3915000,
+    5220000,
+    6525000
+   ]
+  },
+  {
+   "index": 63,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Fuel",
+     "amount": 1
+    },
+    {
+     "good": "Plasma Cell",
+     "amount": 2
+    },
+    {
+     "good": "Metal Plate",
+     "amount": 5
+    }
+   ],
+   "results": [
+    {
+     "good": "Drone",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Scrap Metal",
+     "amount": 1
+    }
+   ],
+   "cost": 10249000,
+   "upgradeCosts": [
+    2239000,
+    4478000,
+    6717000,
+    8956000,
+    11195000
+   ]
+  },
+  {
+   "index": 64,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Conductor",
+     "amount": 5
+    },
+    {
+     "good": "Chemicals",
+     "amount": 2
+    },
+    {
+     "good": "Metal Plate",
+     "amount": 3
+    }
+   ],
+   "results": [
+    {
+     "good": "Warhead",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Scrap Metal",
+     "amount": 1
+    }
+   ],
+   "cost": 8135000,
+   "upgradeCosts": [
+    1635000,
+    3270000,
+    4905000,
+    6540000,
+    8175000
+   ]
+  },
+  {
+   "index": 65,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Transformator",
+     "amount": 2
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 2
+    },
+    {
+     "good": "Plasma Cell",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Power Unit",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 3707500,
+   "upgradeCosts": [
+    345000,
+    690000,
+    1035000,
+    1380000,
+    1725000
+   ]
+  },
+  {
+   "index": 66,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Power Unit",
+     "amount": 2
+    },
+    {
+     "good": "Processor",
+     "amount": 2
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Antigrav Unit",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 27710500,
+   "upgradeCosts": [
+    7203000,
+    14406000,
+    21609000,
+    28812000,
+    36015000
+   ]
+  },
+  {
+   "index": 67,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 9
+    },
+    {
+     "good": "Transformator",
+     "amount": 9
+    }
+   ],
+   "results": [
+    {
+     "good": "Energy Container",
+     "amount": 3
+    }
+   ],
+   "garbages": [],
+   "cost": 5755000,
+   "upgradeCosts": [
+    930000,
+    1860000,
+    2790000,
+    3720000,
+    4650000
+   ]
+  },
+  {
+   "index": 68,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Solar Cell",
+     "amount": 10
+    },
+    {
+     "good": "Transformator",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Solar Panel",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 9356500,
+   "upgradeCosts": [
+    1959000,
+    3918000,
+    5877000,
+    7836000,
+    9795000
+   ]
+  },
+  {
+   "index": 69,
+   "factory": "Accelerator Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Turbine",
+     "amount": 3
+    },
+    {
+     "good": "Plasma Cell",
+     "amount": 3
+    },
+    {
+     "good": "Fusion Generator",
+     "amount": 3
+    },
+    {
+     "good": "Energy Tube",
+     "amount": 6
+    },
+    {
+     "good": "High Pressure Tube",
+     "amount": 6
+    },
+    {
+     "good": "Conductor",
+     "amount": 15
+    },
+    {
+     "good": "Gauss Rail",
+     "amount": 9
+    }
+   ],
+   "results": [
+    {
+     "good": "Neutron Accelerator",
+     "amount": 1
+    },
+    {
+     "good": "Proton Accelerator",
+     "amount": 1
+    },
+    {
+     "good": "Electron Accelerator",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 378820000,
+   "upgradeCosts": [
+    107520000,
+    215040000,
+    322560000,
+    430080000,
+    537600000
+   ]
+  },
+  {
+   "index": 70,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Targeting Card",
+     "amount": 1
+    },
+    {
+     "good": "Processor",
+     "amount": 1
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 3
+    },
+    {
+     "good": "Conductor",
+     "amount": 5
+    },
+    {
+     "good": "Wire",
+     "amount": 5
+    }
+   ],
+   "results": [
+    {
+     "good": "Targeting System",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 32173000,
+   "upgradeCosts": [
+    8478000,
+    16956000,
+    25434000,
+    33912000,
+    42390000
+   ]
+  },
+  {
+   "index": 71,
+   "factory": "Ammunition Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Lead",
+     "amount": 10
+    },
+    {
+     "good": "Aluminum",
+     "amount": 10
+    },
+    {
+     "good": "Steel",
+     "amount": 10
+    },
+    {
+     "good": "Adhesive",
+     "amount": 5
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 5
+    }
+   ],
+   "results": [
+    {
+     "good": "Ammunition S",
+     "amount": 15
+    },
+    {
+     "good": "Ammunition M",
+     "amount": 10
+    },
+    {
+     "good": "Ammunition L",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 15205000,
+   "upgradeCosts": [
+    3630000,
+    7260000,
+    10890000,
+    14520000,
+    18150000
+   ]
+  },
+  {
+   "index": 72,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Glass",
+     "amount": 4
+    },
+    {
+     "good": "Carbon",
+     "amount": 2
+    },
+    {
+     "good": "Plastic",
+     "amount": 2
+    },
+    {
+     "good": "Diamond",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "High Capacity Lens",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 7193500,
+   "upgradeCosts": [
+    1341000,
+    2682000,
+    4023000,
+    5364000,
+    6705000
+   ]
+  },
+  {
+   "index": 73,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 4
+    },
+    {
+     "good": "Energy Tube",
+     "amount": 2
+    },
+    {
+     "good": "Transformator",
+     "amount": 2
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 4
+    }
+   ],
+   "results": [
+    {
+     "good": "Laser Modulator",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 19251000,
+   "upgradeCosts": [
+    4786000,
+    9572000,
+    14358000,
+    19144000,
+    23930000
+   ]
+  },
+  {
+   "index": 74,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Electro Magnet",
+     "amount": 4
+    },
+    {
+     "good": "Steel",
+     "amount": 10
+    },
+    {
+     "good": "Plastic",
+     "amount": 10
+    },
+    {
+     "good": "Nanobot",
+     "amount": 10
+    },
+    {
+     "good": "Energy Generator",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Force Generator",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 52084500,
+   "upgradeCosts": [
+    14167000,
+    28334000,
+    42501000,
+    56668000,
+    70835000
+   ]
+  },
+  {
+   "index": 75,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Electro Magnet",
+     "amount": 4
+    },
+    {
+     "good": "Servo",
+     "amount": 5
+    },
+    {
+     "good": "Wire",
+     "amount": 10
+    },
+    {
+     "good": "Antigrav Unit",
+     "amount": 1
+    },
+    {
+     "good": "Energy Generator",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Antigrav Generator",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 74134500,
+   "upgradeCosts": [
+    20467000,
+    40934000,
+    61401000,
+    81868000,
+    102335000
+   ]
+  },
+  {
+   "index": 76,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Fusion Core",
+     "amount": 4
+    },
+    {
+     "good": "Steel",
+     "amount": 10
+    },
+    {
+     "good": "Plasma Cell",
+     "amount": 15
+    },
+    {
+     "good": "Power Unit",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Fusion Generator",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 42032500,
+   "upgradeCosts": [
+    11295000,
+    22590000,
+    33885000,
+    45180000,
+    56475000
+   ]
+  },
+  {
+   "index": 77,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 4
+    },
+    {
+     "good": "Steel",
+     "amount": 10
+    },
+    {
+     "good": "Coolant",
+     "amount": 3
+    },
+    {
+     "good": "Power Unit",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Turbine",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 19240500,
+   "upgradeCosts": [
+    4783000,
+    9566000,
+    14349000,
+    19132000,
+    23915000
+   ]
+  },
+  {
+   "index": 78,
+   "factory": "Tesla Coil Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 10
+    },
+    {
+     "good": "Copper",
+     "amount": 3
+    },
+    {
+     "good": "Fusion Core",
+     "amount": 2
+    },
+    {
+     "good": "Plastic",
+     "amount": 5
+    }
+   ],
+   "results": [
+    {
+     "good": "Military Tesla Coil",
+     "amount": 1
+    },
+    {
+     "good": "Industrial Tesla Coil",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 23132500,
+   "upgradeCosts": [
+    5895000,
+    11790000,
+    17685000,
+    23580000,
+    29475000
+   ]
+  },
+  {
+   "index": 79,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Water",
+     "amount": 5
+    },
+    {
+     "good": "Chemicals",
+     "amount": 15
+    },
+    {
+     "good": "Fabric",
+     "amount": 5
+    },
+    {
+     "good": "Zinc",
+     "amount": 5
+    },
+    {
+     "good": "Chlorine",
+     "amount": 5
+    }
+   ],
+   "results": [
+    {
+     "good": "Medical Supplies",
+     "amount": 4
+    }
+   ],
+   "garbages": [],
+   "cost": 14536500,
+   "upgradeCosts": [
+    3439000,
+    6878000,
+    10317000,
+    13756000,
+    17195000
+   ]
+  },
+  {
+   "index": 80,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Solar Panel",
+     "amount": 2
+    },
+    {
+     "good": "Processor",
+     "amount": 2
+    },
+    {
+     "good": "Display",
+     "amount": 2
+    },
+    {
+     "good": "Energy Container",
+     "amount": 1
+    },
+    {
+     "good": "Steel Tube",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Satellite",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Scrap Metal",
+     "amount": 1
+    }
+   ],
+   "cost": 68212500,
+   "upgradeCosts": [
+    18800000,
+    37600000,
+    56400000,
+    75200000,
+    94000000
+   ]
+  },
+  {
+   "index": 81,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Laser Head",
+     "amount": 1
+    },
+    {
+     "good": "Processor",
+     "amount": 1
+    },
+    {
+     "good": "Steel",
+     "amount": 2
+    },
+    {
+     "good": "Diamond",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Drill",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Scrap Metal",
+     "amount": 1
+    }
+   ],
+   "cost": 22943500,
+   "upgradeCosts": [
+    5866000,
+    11732000,
+    17598000,
+    23464000,
+    29330000
+   ]
+  },
+  {
+   "index": 82,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Chemicals",
+     "amount": 15
+    },
+    {
+     "good": "Paint",
+     "amount": 15
+    }
+   ],
+   "results": [
+    {
+     "good": "Ammunition",
+     "amount": 5
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Toxic Waste",
+     "amount": 1
+    }
+   ],
+   "cost": 21428000,
+   "upgradeCosts": [
+    5423000,
+    10846000,
+    16269000,
+    21692000,
+    27115000
+   ]
+  },
+  {
+   "index": 83,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Metal Plate",
+     "amount": 1
+    },
+    {
+     "good": "Power Unit",
+     "amount": 1
+    },
+    {
+     "good": "Antigrav Unit",
+     "amount": 1
+    },
+    {
+     "good": "Plasma Cell",
+     "amount": 2
+    },
+    {
+     "good": "Conductor",
+     "amount": 1
+    },
+    {
+     "good": "Transformator",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Teleporter",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Scrap Metal",
+     "amount": 1
+    }
+   ],
+   "cost": 41861000,
+   "upgradeCosts": [
+    11271000,
+    22542000,
+    33813000,
+    45084000,
+    56355000
+   ]
+  },
+  {
+   "index": 84,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Processor",
+     "amount": 2
+    },
+    {
+     "good": "Power Unit",
+     "amount": 1
+    },
+    {
+     "good": "Microchip",
+     "amount": 1
+    },
+    {
+     "good": "Display",
+     "amount": 1
+    },
+    {
+     "good": "Wire",
+     "amount": 15
+    }
+   ],
+   "results": [
+    {
+     "good": "Computation Mainframe",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 40419000,
+   "upgradeCosts": [
+    10834000,
+    21668000,
+    32502000,
+    43336000,
+    54170000
+   ]
+  },
+  {
+   "index": 85,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Rubber",
+     "amount": 1
+    },
+    {
+     "good": "Power Unit",
+     "amount": 1
+    },
+    {
+     "good": "Energy Generator",
+     "amount": 1
+    },
+    {
+     "good": "Metal Plate",
+     "amount": 5
+    },
+    {
+     "good": "Antigrav Unit",
+     "amount": 1
+    },
+    {
+     "good": "Display",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Vehicle",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Scrap Metal",
+     "amount": 1
+    }
+   ],
+   "cost": 79584000,
+   "upgradeCosts": [
+    22049000,
+    44098000,
+    66147000,
+    88196000,
+    110245000
+   ]
+  },
+  {
+   "index": 86,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Ammunition",
+     "amount": 1
+    },
+    {
+     "good": "Aluminum",
+     "amount": 1
+    },
+    {
+     "good": "Plastic",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Gun",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 8660000,
+   "upgradeCosts": [
+    1760000,
+    3520000,
+    5280000,
+    7040000,
+    8800000
+   ]
+  },
+  {
+   "index": 87,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Warhead",
+     "amount": 1
+    },
+    {
+     "good": "Fuel",
+     "amount": 1
+    },
+    {
+     "good": "Steel",
+     "amount": 1
+    },
+    {
+     "good": "Microchip",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Rocket",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 13752500,
+   "upgradeCosts": [
+    3215000,
+    6430000,
+    9645000,
+    12860000,
+    16075000
+   ]
+  },
+  {
+   "index": 88,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Power Unit",
+     "amount": 1
+    },
+    {
+     "good": "Processor",
+     "amount": 1
+    },
+    {
+     "good": "Display",
+     "amount": 1
+    },
+    {
+     "good": "Nanobot",
+     "amount": 5
+    },
+    {
+     "good": "Drill",
+     "amount": 2
+    },
+    {
+     "good": "Coolant",
+     "amount": 1
+    },
+    {
+     "good": "Teleporter",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Mining Robot",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Scrap Metal",
+     "amount": 1
+    }
+   ],
+   "cost": 148474500,
+   "upgradeCosts": [
+    41732000,
+    83464000,
+    125196000,
+    166928000,
+    208660000
+   ]
+  },
+  {
+   "index": 89,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Power Unit",
+     "amount": 1
+    },
+    {
+     "good": "Processor",
+     "amount": 1
+    },
+    {
+     "good": "Display",
+     "amount": 1
+    },
+    {
+     "good": "Nanobot",
+     "amount": 5
+    },
+    {
+     "good": "Gun",
+     "amount": 2
+    },
+    {
+     "good": "Teleporter",
+     "amount": 1
+    },
+    {
+     "good": "Coolant",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "War Robot",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Scrap Metal",
+     "amount": 1
+    }
+   ],
+   "cost": 94683000,
+   "upgradeCosts": [
+    26363000,
+    52726000,
+    79089000,
+    105452000,
+    131815000
+   ]
+  },
+  {
+   "index": 90,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Metal Plate",
+     "amount": 2
+    },
+    {
+     "good": "Coolant",
+     "amount": 1
+    },
+    {
+     "good": "Teleporter",
+     "amount": 1
+    },
+    {
+     "good": "Antigrav Unit",
+     "amount": 1
+    },
+    {
+     "good": "Carbon",
+     "amount": 1
+    },
+    {
+     "good": "Nanobot",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Body Armor",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 98410500,
+   "upgradeCosts": [
+    27403000,
+    54806000,
+    82209000,
+    109612000,
+    137015000
+   ]
+  },
+  {
+   "index": 91,
+   "factory": "${good} Collector ${size}",
+   "style": "Collector",
+   "mine": false,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Water",
+     "amount": 75
+    }
+   ],
+   "garbages": [],
+   "cost": 7750000,
+   "upgradeCosts": [
+    1500000,
+    3000000,
+    4500000,
+    6000000,
+    7500000
+   ]
+  },
+  {
+   "index": 92,
+   "factory": "${good} Collector ${size}",
+   "style": "Collector",
+   "mine": false,
+   "ingredients": [],
+   "results": [
+    {
+     "good": "Plankton",
+     "amount": 35
+    }
+   ],
+   "garbages": [],
+   "cost": 8625000,
+   "upgradeCosts": [
+    1750000,
+    3500000,
+    5250000,
+    7000000,
+    8750000
+   ]
+  },
+  {
+   "index": 93,
+   "factory": "Fish Farm ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Water",
+     "amount": 23
+    },
+    {
+     "good": "Wheat",
+     "amount": 5
+    },
+    {
+     "good": "Oxygen",
+     "amount": 5
+    }
+   ],
+   "results": [
+    {
+     "good": "Fish",
+     "amount": 8
+    },
+    {
+     "good": "Bio Gas",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Plankton",
+     "amount": 1
+    }
+   ],
+   "cost": 4089000,
+   "upgradeCosts": [
+    504000,
+    1008000,
+    1512000,
+    2016000,
+    2520000
+   ]
+  },
+  {
+   "index": 94,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 6,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 30
+    }
+   ],
+   "results": [
+    {
+     "good": "Plant",
+     "amount": 60
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 6
+    }
+   ],
+   "cost": 2290000,
+   "upgradeCosts": [
+    420000,
+    840000,
+    1260000,
+    1680000,
+    2100000
+   ]
+  },
+  {
+   "index": 95,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 4,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 40
+    }
+   ],
+   "results": [
+    {
+     "good": "Rice",
+     "amount": 76
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 4
+    }
+   ],
+   "cost": 2990000,
+   "upgradeCosts": [
+    460000,
+    920000,
+    1380000,
+    1840000,
+    2300000
+   ]
+  },
+  {
+   "index": 96,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 6,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 30
+    }
+   ],
+   "results": [
+    {
+     "good": "Potato",
+     "amount": 35
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 8
+    }
+   ],
+   "cost": 2290000,
+   "upgradeCosts": [
+    580000,
+    1160000,
+    1740000,
+    2320000,
+    2900000
+   ]
+  },
+  {
+   "index": 97,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 4,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 40
+    }
+   ],
+   "results": [
+    {
+     "good": "Wheat",
+     "amount": 48
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 4
+    }
+   ],
+   "cost": 2864000,
+   "upgradeCosts": [
+    424000,
+    848000,
+    1272000,
+    1696000,
+    2120000
+   ]
+  },
+  {
+   "index": 98,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 4,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 60
+    }
+   ],
+   "results": [
+    {
+     "good": "Corn",
+     "amount": 60
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 4
+    }
+   ],
+   "cost": 3480000,
+   "upgradeCosts": [
+    600000,
+    1200000,
+    1800000,
+    2400000,
+    3000000
+   ]
+  },
+  {
+   "index": 99,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 3,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 75
+    }
+   ],
+   "results": [
+    {
+     "good": "Wood",
+     "amount": 6
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 3
+    }
+   ],
+   "cost": 4075000,
+   "upgradeCosts": [
+    690000,
+    1380000,
+    2070000,
+    2760000,
+    3450000
+   ]
+  },
+  {
+   "index": 100,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 4,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 80
+    }
+   ],
+   "results": [
+    {
+     "good": "Fruit",
+     "amount": 40
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 4
+    }
+   ],
+   "cost": 4040000,
+   "upgradeCosts": [
+    760000,
+    1520000,
+    2280000,
+    3040000,
+    3800000
+   ]
+  },
+  {
+   "index": 101,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 35
+    },
+    {
+     "good": "Fertilizer",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Coffee",
+     "amount": 10
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 1
+    }
+   ],
+   "cost": 4187000,
+   "upgradeCosts": [
+    562000,
+    1124000,
+    1686000,
+    2248000,
+    2810000
+   ]
+  },
+  {
+   "index": 102,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 30
+    },
+    {
+     "good": "Fertilizer",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Cocoa",
+     "amount": 20
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 1
+    }
+   ],
+   "cost": 4082000,
+   "upgradeCosts": [
+    532000,
+    1064000,
+    1596000,
+    2128000,
+    2660000
+   ]
+  },
+  {
+   "index": 103,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 4,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 100
+    }
+   ],
+   "results": [
+    {
+     "good": "Tea",
+     "amount": 75
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 4
+    }
+   ],
+   "cost": 4512500,
+   "upgradeCosts": [
+    895000,
+    1790000,
+    2685000,
+    3580000,
+    4475000
+   ]
+  },
+  {
+   "index": 104,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 4,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 40
+    }
+   ],
+   "results": [
+    {
+     "good": "Vegetable",
+     "amount": 35
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 4
+    }
+   ],
+   "cost": 2920000,
+   "upgradeCosts": [
+    440000,
+    880000,
+    1320000,
+    1760000,
+    2200000
+   ]
+  },
+  {
+   "index": 105,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    },
+    {
+     "good": "Water",
+     "amount": 35
+    },
+    {
+     "good": "Fertilizer",
+     "amount": 5
+    }
+   ],
+   "results": [
+    {
+     "good": "Spices",
+     "amount": 12
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Oxygen",
+     "amount": 1
+    }
+   ],
+   "cost": 5548500,
+   "upgradeCosts": [
+    951000,
+    1902000,
+    2853000,
+    3804000,
+    4755000
+   ]
+  },
+  {
+   "index": 106,
+   "factory": "Sheep Ranch ${size}",
+   "style": "Ranch",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 2,
+     "optional": true
+    },
+    {
+     "good": "Oxygen",
+     "amount": 10
+    },
+    {
+     "good": "Wheat",
+     "amount": 18
+    },
+    {
+     "good": "Water",
+     "amount": 12
+    }
+   ],
+   "results": [
+    {
+     "good": "Sheep",
+     "amount": 15
+    },
+    {
+     "good": "Bio Gas",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Fabric",
+     "amount": 2
+    }
+   ],
+   "cost": 4631500,
+   "upgradeCosts": [
+    791000,
+    1582000,
+    2373000,
+    3164000,
+    3955000
+   ]
+  },
+  {
+   "index": 107,
+   "factory": "Sheep Ranch ${size}",
+   "style": "Ranch",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    },
+    {
+     "good": "Corn",
+     "amount": 10
+    },
+    {
+     "good": "Oxygen",
+     "amount": 10
+    },
+    {
+     "good": "Water",
+     "amount": 20
+    }
+   ],
+   "results": [
+    {
+     "good": "Sheep",
+     "amount": 15
+    },
+    {
+     "good": "Bio Gas",
+     "amount": 1
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Fabric",
+     "amount": 2
+    }
+   ],
+   "cost": 4715500,
+   "upgradeCosts": [
+    815000,
+    1630000,
+    2445000,
+    3260000,
+    4075000
+   ]
+  },
+  {
+   "index": 108,
+   "factory": "${good} Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Bio Gas",
+     "amount": 1
+    },
+    {
+     "good": "Water",
+     "amount": 5
+    },
+    {
+     "good": "Mineral",
+     "amount": 1
+    }
+   ],
+   "results": [
+    {
+     "good": "Fungus",
+     "amount": 25
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Toxic Waste",
+     "amount": 1
+    }
+   ],
+   "cost": 3679500,
+   "upgradeCosts": [
+    352000,
+    704000,
+    1056000,
+    1408000,
+    1760000
+   ]
+  },
+  {
+   "index": 109,
+   "factory": "Cattle Ranch ${size}",
+   "style": "Ranch",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Wheat",
+     "amount": 15
+    },
+    {
+     "good": "Oxygen",
+     "amount": 10
+    },
+    {
+     "good": "Water",
+     "amount": 15
+    }
+   ],
+   "results": [
+    {
+     "good": "Cattle",
+     "amount": 8
+    }
+   ],
+   "garbages": [
+    {
+     "good": "Bio Gas",
+     "amount": 1
+    }
+   ],
+   "cost": 4554500,
+   "upgradeCosts": [
+    800000,
+    1600000,
+    2400000,
+    3200000,
+    4000000
+   ]
+  },
+  {
+   "index": 110,
+   "factory": "Cattle Ranch ${size}",
+   "style": "Ranch",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Corn",
+     "amount": 15
+    },
+    {
+     "good": "Oxygen",
+     "amount": 10
+    },
+    {
+     "good": "Water",
+     "amount": 15
+    }
+   ],
+   "results": [
+    {
+     "good": "Cattle",
+     "amount": 8
+    },
+    {
+     "good": "Bio Gas",
+     "amount": 2
+    }
+   ],
+   "garbages": [],
+   "cost": 5783000,
+   "upgradeCosts": [
+    938000,
+    1876000,
+    2814000,
+    3752000,
+    4690000
+   ]
+  },
+  {
+   "index": 111,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Meat",
+     "amount": 25
+    },
+    {
+     "good": "Dairy",
+     "amount": 80
+    }
+   ],
+   "results": [
+    {
+     "good": "Protein",
+     "amount": 100
+    }
+   ],
+   "garbages": [],
+   "cost": 5842500,
+   "upgradeCosts": [
+    955000,
+    1910000,
+    2865000,
+    3820000,
+    4775000
+   ]
+  },
+  {
+   "index": 112,
+   "factory": "Meat Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Cattle",
+     "amount": 10
+    }
+   ],
+   "results": [
+    {
+     "good": "Meat",
+     "amount": 85
+    },
+    {
+     "good": "Leather",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 5912500,
+   "upgradeCosts": [
+    975000,
+    1950000,
+    2925000,
+    3900000,
+    4875000
+   ]
+  },
+  {
+   "index": 113,
+   "factory": "Dairy Farm ${size}",
+   "style": "Farm",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Cattle",
+     "amount": 10
+    }
+   ],
+   "results": [
+    {
+     "good": "Dairy",
+     "amount": 180
+    },
+    {
+     "good": "Leather",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 6875000,
+   "upgradeCosts": [
+    1250000,
+    2500000,
+    3750000,
+    5000000,
+    6250000
+   ]
+  },
+  {
+   "index": 114,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Sheep",
+     "amount": 15
+    }
+   ],
+   "results": [
+    {
+     "good": "Fabric",
+     "amount": 30
+    }
+   ],
+   "garbages": [],
+   "cost": 5230000,
+   "upgradeCosts": [
+    780000,
+    1560000,
+    2340000,
+    3120000,
+    3900000
+   ]
+  },
+  {
+   "index": 115,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Fabric",
+     "amount": 80
+    }
+   ],
+   "results": [
+    {
+     "good": "Clothes",
+     "amount": 100
+    }
+   ],
+   "garbages": [],
+   "cost": 12720000,
+   "upgradeCosts": [
+    2920000,
+    5840000,
+    8760000,
+    11680000,
+    14600000
+   ]
+  },
+  {
+   "index": 116,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Water",
+     "amount": 30
+    },
+    {
+     "good": "Wood",
+     "amount": 2
+    }
+   ],
+   "results": [
+    {
+     "good": "Paper",
+     "amount": 40
+    }
+   ],
+   "garbages": [],
+   "cost": 4390000,
+   "upgradeCosts": [
+    540000,
+    1080000,
+    1620000,
+    2160000,
+    2700000
+   ]
+  },
+  {
+   "index": 117,
+   "factory": "Brewery ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Water",
+     "amount": 150
+    },
+    {
+     "good": "Wheat",
+     "amount": 50
+    },
+    {
+     "good": "Fungus",
+     "amount": 10
+    }
+   ],
+   "results": [
+    {
+     "good": "Beer",
+     "amount": 30
+    }
+   ],
+   "garbages": [],
+   "cost": 9045000,
+   "upgradeCosts": [
+    1870000,
+    3740000,
+    5610000,
+    7480000,
+    9350000
+   ]
+  },
+  {
+   "index": 118,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Fruit",
+     "amount": 50
+    },
+    {
+     "good": "Fungus",
+     "amount": 10
+    }
+   ],
+   "results": [
+    {
+     "good": "Wine",
+     "amount": 25
+    }
+   ],
+   "garbages": [],
+   "cost": 7015000,
+   "upgradeCosts": [
+    1290000,
+    2580000,
+    3870000,
+    5160000,
+    6450000
+   ]
+  },
+  {
+   "index": 119,
+   "factory": "Distillery ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 10
+    },
+    {
+     "good": "Wheat",
+     "amount": 50
+    },
+    {
+     "good": "Water",
+     "amount": 250
+    }
+   ],
+   "results": [
+    {
+     "good": "Liquor",
+     "amount": 5
+    }
+   ],
+   "garbages": [],
+   "cost": 11897500,
+   "upgradeCosts": [
+    2685000,
+    5370000,
+    8055000,
+    10740000,
+    13425000
+   ]
+  },
+  {
+   "index": 120,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Wheat",
+     "amount": 50
+    },
+    {
+     "good": "Meat",
+     "amount": 10
+    },
+    {
+     "good": "Corn",
+     "amount": 10
+    },
+    {
+     "good": "Vegetable",
+     "amount": 10
+    }
+   ],
+   "results": [
+    {
+     "good": "Food",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 5580000,
+   "upgradeCosts": [
+    880000,
+    1760000,
+    2640000,
+    3520000,
+    4400000
+   ]
+  },
+  {
+   "index": 121,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    },
+    {
+     "good": "Wheat",
+     "amount": 50
+    },
+    {
+     "good": "Corn",
+     "amount": 10
+    },
+    {
+     "good": "Rice",
+     "amount": 10
+    }
+   ],
+   "results": [
+    {
+     "good": "Food Bar",
+     "amount": 10
+    }
+   ],
+   "garbages": [],
+   "cost": 4600000,
+   "upgradeCosts": [
+    600000,
+    1200000,
+    1800000,
+    2400000,
+    3000000
+   ]
+  },
+  {
+   "index": 122,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    },
+    {
+     "good": "Wheat",
+     "amount": 50
+    },
+    {
+     "good": "Fruit",
+     "amount": 10
+    },
+    {
+     "good": "Spices",
+     "amount": 6
+    },
+    {
+     "good": "Wine",
+     "amount": 7
+    }
+   ],
+   "results": [
+    {
+     "good": "Luxury Food",
+     "amount": 1
+    }
+   ],
+   "garbages": [],
+   "cost": 8835000,
+   "upgradeCosts": [
+    1810000,
+    3620000,
+    5430000,
+    7240000,
+    9050000
+   ]
+  },
+  {
+   "index": 123,
+   "factory": "${good} Factory ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Paper",
+     "amount": 20
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 1,
+     "optional": true
+    }
+   ],
+   "results": [
+    {
+     "good": "Book",
+     "amount": 4
+    }
+   ],
+   "garbages": [],
+   "cost": 3571000,
+   "upgradeCosts": [
+    306000,
+    612000,
+    918000,
+    1224000,
+    1530000
+   ]
+  },
+  {
+   "index": 124,
+   "factory": "${good} Manufacturer ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Platinum",
+     "amount": 2
+    },
+    {
+     "good": "Gem",
+     "amount": 5
+    }
+   ],
+   "results": [
+    {
+     "good": "Jewelry",
+     "amount": 4
+    }
+   ],
+   "garbages": [],
+   "cost": 7890000,
+   "upgradeCosts": [
+    1540000,
+    3080000,
+    4620000,
+    6160000,
+    7700000
+   ]
+  },
+  {
+   "index": 125,
+   "factory": "${good} Manufacturer ${size}",
+   "style": "Factory",
+   "mine": false,
+   "ingredients": [
+    {
+     "good": "Gold",
+     "amount": 1
+    },
+    {
+     "good": "Diamond",
+     "amount": 4
+    }
+   ],
+   "results": [
+    {
+     "good": "Jewelry",
+     "amount": 4
+    }
+   ],
+   "garbages": [],
+   "cost": 7540000,
+   "upgradeCosts": [
+    1440000,
+    2880000,
+    4320000,
+    5760000,
+    7200000
+   ]
+  }
+ ],
+ "turrets": [
+  {
+   "id": "ChainGun",
+   "index": 0,
+   "name": "Chaingun",
+   "armament": "armed",
+   "icon": "chaingun.png",
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 15,
+     "investable": 10,
+     "minimum": 3,
+     "rarityFactor": 0.75,
+     "weaponStat": "fireRate",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel Tube",
+     "amount": 6,
+     "investable": 7,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Ammunition S",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Aluminum",
+     "amount": 7,
+     "investable": 5,
+     "minimum": 3
+    },
+    {
+     "good": "Lead",
+     "amount": 10,
+     "investable": 10,
+     "minimum": 1
+    }
+   ]
+  },
+  {
+   "id": "PointDefenseChainGun",
+   "index": 1,
+   "name": "Point Defense Cannon",
+   "armament": "defensive",
+   "icon": "point-defense-chaingun.png",
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 17,
+     "investable": 8,
+     "minimum": 10,
+     "rarityFactor": 0.75,
+     "weaponStat": "fireRate",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel Tube",
+     "amount": 8,
+     "investable": 5,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Ammunition S",
+     "amount": 5,
+     "investable": 5,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel",
+     "amount": 3,
+     "investable": 7,
+     "minimum": 3
+    },
+    {
+     "good": "Aluminum",
+     "amount": 7,
+     "investable": 5,
+     "minimum": 3
+    },
+    {
+     "good": "Lead",
+     "amount": 10,
+     "investable": 10,
+     "minimum": 1
+    }
+   ]
+  },
+  {
+   "id": "PointDefenseLaser",
+   "index": 2,
+   "name": "Point Defense Laser",
+   "armament": "defensive",
+   "icon": "point-defense-laser.png",
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 17,
+     "investable": 8,
+     "minimum": 10,
+     "rarityFactor": 0.75,
+     "weaponStat": "fireRate",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Laser Head",
+     "amount": 2,
+     "investable": 2,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Laser Compressor",
+     "amount": 2,
+     "investable": 1,
+     "minimum": 0,
+     "weaponStat": "damage",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "High Capacity Lens",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Laser Modulator",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 0
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Crystal",
+     "amount": 2,
+     "investable": 10,
+     "minimum": 1
+    }
+   ]
+  },
+  {
+   "id": "Laser",
+   "index": 3,
+   "name": "Laser",
+   "armament": "armed",
+   "icon": "laser-gun.png",
+   "ingredients": [
+    {
+     "good": "Laser Head",
+     "amount": 4,
+     "investable": 4,
+     "minimum": 0,
+     "weaponStat": "damage",
+     "investFactor": 0.1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Laser Compressor",
+     "amount": 2,
+     "investable": 2,
+     "minimum": 0,
+     "weaponStat": "damage",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "High Capacity Lens",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Laser Modulator",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 2
+    },
+    {
+     "good": "Power Unit",
+     "amount": 5,
+     "investable": 3,
+     "minimum": 3,
+     "turretStat": "maxHeat",
+     "investFactor": 0.75,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Crystal",
+     "amount": 2,
+     "investable": 10,
+     "minimum": 1
+    }
+   ]
+  },
+  {
+   "id": "MiningLaser",
+   "index": 4,
+   "name": "Mining Laser",
+   "armament": "unarmed",
+   "icon": "mining-laser.png",
+   "ingredients": [
+    {
+     "good": "Laser Compressor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.075,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Laser Modulator",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 0,
+     "weaponStat": "stoneRefinedEfficiency",
+     "investFactor": 0.075,
+     "changeType": "flat"
+    },
+    {
+     "good": "High Capacity Lens",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Conductor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 2
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "RawMiningLaser",
+   "index": 5,
+   "name": "Raw Mining Laser",
+   "armament": "unarmed",
+   "icon": "r-mining-laser.png",
+   "ingredients": [
+    {
+     "good": "Laser Compressor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.075,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Laser Modulator",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 0,
+     "weaponStat": "stoneRawEfficiency",
+     "investFactor": 0.075,
+     "changeType": "flat"
+    },
+    {
+     "good": "High Capacity Lens",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Conductor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 2
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "SalvagingLaser",
+   "index": 6,
+   "name": "Salvaging Laser",
+   "armament": "unarmed",
+   "icon": "salvage-laser.png",
+   "ingredients": [
+    {
+     "good": "Laser Compressor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Laser Modulator",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 0,
+     "weaponStat": "metalRefinedEfficiency",
+     "investFactor": 0.075,
+     "changeType": "flat"
+    },
+    {
+     "good": "High Capacity Lens",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Conductor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 2
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "RawSalvagingLaser",
+   "index": 7,
+   "name": "Raw Salvaging Laser",
+   "armament": "unarmed",
+   "icon": "r-salvaging-laser.png",
+   "ingredients": [
+    {
+     "good": "Laser Compressor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Laser Modulator",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 0,
+     "weaponStat": "metalRawEfficiency",
+     "investFactor": 0.075,
+     "changeType": "flat"
+    },
+    {
+     "good": "High Capacity Lens",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Conductor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 2
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "PlasmaGun",
+   "index": 8,
+   "name": "Plasma",
+   "armament": "armed",
+   "icon": "plasma-gun.png",
+   "ingredients": [
+    {
+     "good": "Plasma Cell",
+     "amount": 8,
+     "investable": 4,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Energy Tube",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "reach",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Conductor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1
+    },
+    {
+     "good": "Energy Container",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1
+    },
+    {
+     "good": "Power Unit",
+     "amount": 5,
+     "investable": 3,
+     "minimum": 3,
+     "turretStat": "maxHeat",
+     "investFactor": 0.75,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel",
+     "amount": 4,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Crystal",
+     "amount": 2,
+     "investable": 10,
+     "minimum": 1
+    }
+   ]
+  },
+  {
+   "id": "RocketLauncher",
+   "index": 9,
+   "name": "Launcher",
+   "armament": "armed",
+   "icon": "rocket-launcher.png",
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 15,
+     "investable": 10,
+     "minimum": 5,
+     "weaponStat": "fireRate",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Rocket",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "High Pressure Tube",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "reach",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Fuel",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "reach",
+     "investFactor": 0.5,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Targeting Card",
+     "amount": 5,
+     "investable": 5,
+     "minimum": 0,
+     "weaponStat": "seeker",
+     "investFactor": 1,
+     "changeType": "flat"
+    },
+    {
+     "good": "Steel",
+     "amount": 8,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Wire",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "Cannon",
+   "index": 10,
+   "name": "Cannon",
+   "armament": "armed",
+   "icon": "cannon.png",
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 15,
+     "investable": 10,
+     "minimum": 5,
+     "weaponStat": "fireRate",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Warhead",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "High Pressure Tube",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "reach",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Explosive Charge",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.2,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel",
+     "amount": 8,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Wire",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "RailGun",
+   "index": 11,
+   "name": "Railgun",
+   "armament": "armed",
+   "icon": "rail-gun.png",
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 15,
+     "investable": 10,
+     "minimum": 6,
+     "weaponStat": "fireRate",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Electromagnetic Charge",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Electro Magnet",
+     "amount": 8,
+     "investable": 10,
+     "minimum": 3,
+     "weaponStat": "reach",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Gauss Rail",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "High Pressure Tube",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "reach",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Copper",
+     "amount": 2,
+     "investable": 10,
+     "minimum": 1
+    }
+   ]
+  },
+  {
+   "id": "RepairBeam",
+   "index": 12,
+   "name": "Repair",
+   "armament": "unarmed",
+   "icon": "repair-beam.png",
+   "ingredients": [
+    {
+     "good": "Nanobot",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "hullRepair",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Transformator",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "shieldRepair",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Laser Modulator",
+     "amount": 2,
+     "investable": 5,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 0.75,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Conductor",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 0,
+     "turretStat": "energyIncreasePerSecond",
+     "investFactor": -0.5,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Gold",
+     "amount": 3,
+     "investable": 10,
+     "minimum": 1
+    },
+    {
+     "good": "Steel",
+     "amount": 8,
+     "investable": 10,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "Bolter",
+   "index": 13,
+   "name": "Bolter",
+   "armament": "armed",
+   "icon": "bolter.png",
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 15,
+     "investable": 8,
+     "minimum": 5,
+     "rarityFactor": 0.75,
+     "weaponStat": "fireRate",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "High Pressure Tube",
+     "amount": 1,
+     "investable": 3,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Ammunition M",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Explosive Charge",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Aluminum",
+     "amount": 7,
+     "investable": 5,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "LightningGun",
+   "index": 14,
+   "name": "Lightning Gun",
+   "armament": "armed",
+   "icon": "lightning-gun.png",
+   "ingredients": [
+    {
+     "good": "Military Tesla Coil",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.45,
+     "changeType": "percentage"
+    },
+    {
+     "good": "High Capacity Lens",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 1,
+     "weaponStat": "reach",
+     "investFactor": 0.2,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Electromagnetic Charge",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 1
+    },
+    {
+     "good": "Conductor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 2
+    },
+    {
+     "good": "Power Unit",
+     "amount": 5,
+     "investable": 3,
+     "minimum": 3,
+     "turretStat": "maxHeat",
+     "investFactor": 0.75,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Copper",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "TeslaGun",
+   "index": 15,
+   "name": "Tesla Gun",
+   "armament": "armed",
+   "icon": "tesla-gun.png",
+   "ingredients": [
+    {
+     "good": "Industrial Tesla Coil",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Electromagnetic Charge",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 1,
+     "weaponStat": "reach",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Energy Inverter",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 1
+    },
+    {
+     "good": "Conductor",
+     "amount": 5,
+     "investable": 6,
+     "minimum": 2
+    },
+    {
+     "good": "Power Unit",
+     "amount": 5,
+     "investable": 3,
+     "minimum": 3,
+     "turretStat": "maxHeat",
+     "investFactor": 0.75,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Copper",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "ForceGun",
+   "index": 16,
+   "name": "Force Gun",
+   "armament": "unarmed",
+   "icon": "force-gun.png",
+   "ingredients": [
+    {
+     "good": "Force Generator",
+     "amount": 5,
+     "investable": 3,
+     "minimum": 1,
+     "weaponStat": "holdingForce",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Energy Tube",
+     "amount": 2,
+     "investable": 6,
+     "minimum": 1,
+     "weaponStat": "reach",
+     "investFactor": 1,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Conductor",
+     "amount": 10,
+     "investable": 6,
+     "minimum": 2
+    },
+    {
+     "good": "Steel",
+     "amount": 7,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Zinc",
+     "amount": 3,
+     "investable": 10,
+     "minimum": 3
+    }
+   ]
+  },
+  {
+   "id": "PulseCannon",
+   "index": 17,
+   "name": "Pulse Cannon",
+   "armament": "armed",
+   "icon": "pulsecannon.png",
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 8,
+     "investable": 8,
+     "minimum": 3,
+     "rarityFactor": 0.75,
+     "weaponStat": "fireRate",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel Tube",
+     "amount": 6,
+     "investable": 7,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Ammunition S",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 4
+    },
+    {
+     "good": "Copper",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Energy Cell",
+     "amount": 3,
+     "investable": 5,
+     "minimum": 2
+    }
+   ]
+  },
+  {
+   "id": "AntiFighter",
+   "index": 18,
+   "name": "Anti Fighter",
+   "armament": "defensive",
+   "icon": "anti-fighter-gun.png",
+   "ingredients": [
+    {
+     "good": "Servo",
+     "amount": 17,
+     "investable": 8,
+     "minimum": 10,
+     "rarityFactor": 0.75,
+     "weaponStat": "fireRate",
+     "investFactor": 0.3,
+     "changeType": "percentage"
+    },
+    {
+     "good": "High Pressure Tube",
+     "amount": 1,
+     "investable": 3,
+     "minimum": 0,
+     "weaponStat": "reach",
+     "investFactor": 0.5,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Ammunition M",
+     "amount": 5,
+     "investable": 5,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.2,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Explosive Charge",
+     "amount": 2,
+     "investable": 4,
+     "minimum": 1,
+     "weaponStat": "damage",
+     "investFactor": 0.4,
+     "changeType": "percentage"
+    },
+    {
+     "good": "Steel",
+     "amount": 5,
+     "investable": 10,
+     "minimum": 3
+    },
+    {
+     "good": "Aluminum",
+     "amount": 7,
+     "investable": 5,
+     "minimum": 3
+    }
+   ]
+  }
+ ],
+ "consumers": [
+  {
+   "id": "Biotope",
+   "name": "Biotope",
+   "goods": [
+    "Food",
+    "Food Bar",
+    "Fungus",
+    "Wood",
+    "Glass",
+    "Sheep",
+    "Cattle",
+    "Wheat",
+    "Corn",
+    "Rice",
+    "Vegetable",
+    "Water",
+    "Coal",
+    "Plant",
+    "Fish"
+   ]
+  },
+  {
+   "id": "Casino",
+   "name": "Casino",
+   "goods": [
+    "Beer",
+    "Wine",
+    "Liquor",
+    "Food",
+    "Luxury Food",
+    "Water",
+    "Gem",
+    "Medical Supplies"
+   ]
+  },
+  {
+   "id": "EquipmentDock",
+   "name": "Equipment Dock",
+   "goods": [
+    "Fuel",
+    "Rocket",
+    "Tools",
+    "Laser Compressor",
+    "Laser Head",
+    "Fusion Core",
+    "Warhead",
+    "Satellite",
+    "Drone",
+    "Antigrav Generator",
+    "Ammunition",
+    "Ammunition S",
+    "Ammunition M",
+    "Ammunition L"
+   ]
+  },
+  {
+   "id": "Habitat",
+   "name": "Habitat",
+   "goods": [
+    "Beer",
+    "Wine",
+    "Liquor",
+    "Food",
+    "Tea",
+    "Leather",
+    "Spices",
+    "Gem",
+    "Fruit",
+    "Cocoa",
+    "Coffee",
+    "Wood",
+    "Meat",
+    "Water",
+    "Fish",
+    "Book"
+   ]
+  },
+  {
+   "id": "MilitaryOutpost",
+   "name": "Military Outpost",
+   "goods": [
+    "War Robot",
+    "Body Armor",
+    "Vehicle",
+    "Gun",
+    "Ammunition",
+    "Ammunition S",
+    "Ammunition M",
+    "Ammunition L",
+    "Medical Supplies",
+    "Explosive Charge",
+    "Electromagnetic Charge",
+    "Food Bar",
+    "Targeting System",
+    "Military Tesla Coil"
+   ]
+  },
+  {
+   "id": "Mine",
+   "name": "Mine",
+   "goods": [
+    "Mining Robot",
+    "Medical Supplies",
+    "Antigrav Unit",
+    "Fusion Generator",
+    "Acid",
+    "Solvent",
+    "Drill"
+   ]
+  },
+  {
+   "id": "RepairDock",
+   "name": "Repair Dock",
+   "goods": [
+    "Fuel",
+    "Steel",
+    "Wire",
+    "Metal Plate",
+    "Nanobot",
+    "Solar Cell",
+    "Solar Panel",
+    "Oxygen",
+    "Force Generator",
+    "Medical Supplies"
+   ]
+  },
+  {
+   "id": "ResearchStation",
+   "name": "Research Station",
+   "goods": [
+    "Turbine",
+    "High Capacity Lens",
+    "Neutron Accelerator",
+    "Electron Accelerator",
+    "Proton Accelerator",
+    "Fusion Generator",
+    "Antigrav Generator",
+    "Force Generator",
+    "Teleporter",
+    "Drill",
+    "Satellite"
+   ]
+  },
+  {
+   "id": "RiftResearchStation",
+   "name": "Rift Research Center",
+   "goods": [
+    "Rift Research Data",
+    "Turbine",
+    "High Capacity Lens",
+    "Neutron Accelerator",
+    "Electron Accelerator",
+    "Proton Accelerator",
+    "Fusion Generator",
+    "Antigrav Generator",
+    "Force Generator",
+    "Teleporter",
+    "Drill",
+    "Satellite"
+   ]
+  },
+  {
+   "id": "Shipyard",
+   "name": "Shipyard",
+   "goods": [
+    "Energy Tube",
+    "Aluminum",
+    "Display",
+    "Metal Plate",
+    "Fusion Core",
+    "Computation Mainframe",
+    "Medical Supplies",
+    "Industrial Tesla Coil",
+    "Antigrav Generator",
+    "Turbine",
+    "Energy Container"
+   ]
+  },
+  {
+   "id": "TravelHub",
+   "name": "Travel Hub",
+   "goods": [
+    "Turbine",
+    "Neutron Accelerator",
+    "Electron Accelerator",
+    "Proton Accelerator",
+    "Fusion Generator",
+    "Force Generator",
+    "Plasma Cell",
+    "Energy Cell",
+    "Fusion Core"
+   ]
+  },
+  {
+   "id": "TurretFactory",
+   "name": "Turret Factory",
+   "goods": [
+    "Servo",
+    "Steel Tube",
+    "Ammunition S",
+    "Steel",
+    "Aluminum",
+    "Lead",
+    "High Pressure Tube",
+    "Ammunition M",
+    "Explosive Charge",
+    "Laser Head",
+    "Laser Compressor",
+    "High Capacity Lens",
+    "Laser Modulator",
+    "Crystal",
+    "Plasma Cell",
+    "Energy Tube",
+    "Conductor",
+    "Energy Container",
+    "Warhead",
+    "Wire",
+    "Rocket",
+    "Fuel",
+    "Targeting Card",
+    "Electromagnetic Charge",
+    "Electro Magnet",
+    "Gauss Rail",
+    "Copper",
+    "Nanobot",
+    "Transformator",
+    "Gold",
+    "Force Generator",
+    "Energy Inverter",
+    "Zinc",
+    "Industrial Tesla Coil",
+    "Energy Cell",
+    "Military Tesla Coil"
+   ]
+  }
+ ],
+ "templates": [
+  {
+   "id": "sectors/colony",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/asteroidfieldminer",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/loneconsumer",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/lonescrapyard",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/loneshipyard",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/lonetrader",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/lonetradingpost",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/lonewormhole",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/factoryfield",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/miningfield",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/gates",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/ancientgates",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/neutralzone",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/riftinvasionbase",
+   "offgrid": false
+  },
+  {
+   "id": "sectors/pirateasteroidfield",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/piratefight",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/piratestation",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/asteroidfield",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/containerfield",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/massivecontainerfield",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/smallasteroidfield",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/defenderasteroidfield",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/wreckagefield",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/stationwreckage",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/smugglerhideout",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/cultists",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/wreckageasteroidfield",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/researchsatellite",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/functionalwreckage",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/asteroidshieldboss",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/xsotanasteroids",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/xsotantransformed",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/xsotanbreeders",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/resistancecell",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/teleporter",
+   "offgrid": true
+  },
+  {
+   "id": "sectors/worldboss",
+   "offgrid": true
+  }
+ ],
+ "sizes": [
+  "S",
+  "M",
+  "L",
+  "XL",
+  "XXL"
+ ],
+ "stationTitles": {
+  "shipyards": "Shipyard",
+  "repairDocks": "Repair Dock",
+  "scrapyards": "Scrapyard",
+  "resourceDepots": "Resource Depot",
+  "equipmentDocks": "Equipment Dock",
+  "turretFactories": "Turret Factory",
+  "turretFactorySuppliers": "Turret Factory Supplier",
+  "fighterFactories": "Fighter Factory",
+  "headquarters": "Headquarter",
+  "casinos": "Casino",
+  "biotopes": "Biotope",
+  "habitats": "Habitat",
+  "researchStations": "Research Station",
+  "militaryOutposts": "Military Outpost",
+  "resistanceOutposts": "Resistance Outpost",
+  "planetaryTradingPosts": "Planetary Trading Post",
+  "smugglersMarkets": "Smuggler's Market",
+  "tradingPosts": "Trading Post",
+  "neighborTradingPosts": "Trading Post",
+  "travelHubs": "Travel Hub",
+  "riftResearchCenters": "Rift Research Center"
+ },
+ "worldBosses": [
+  {
+   "id": "ancientsentinel",
+   "name": "Sentinel ${serialNumber}"
+  },
+  {
+   "id": "chemicalaccident",
+   "name": "Chemical Transport ${serialNumber}"
+  },
+  {
+   "id": "collector",
+   "name": "The Collector"
+  },
+  {
+   "id": "cryocolonyship",
+   "name": "Hope I"
+  },
+  {
+   "id": "cultship",
+   "name": "Opportunity"
+  },
+  {
+   "id": "deathmerchant",
+   "name": "The Merchant"
+  },
+  {
+   "id": "jester",
+   "name": "The Jester"
+  },
+  {
+   "id": "lostwmd",
+   "name": "Exterminatus"
+  },
+  {
+   "id": "revoltingprisonship",
+   "name": "Complex HSP"
+  },
+  {
+   "id": "scrapbot",
+   "name": "Jackpot the Scrap God"
+  }
+ ],
+ "materials": [
+  {
+   "name": "Iron",
+   "min": 0,
+   "max": 710
+  },
+  {
+   "name": "Titanium",
+   "min": 0,
+   "max": 710
+  },
+  {
+   "name": "Naonite",
+   "min": 0,
+   "max": 360.7
+  },
+  {
+   "name": "Trinium",
+   "min": 0,
+   "max": 289.25
+  },
+  {
+   "name": "Xanion",
+   "min": 0,
+   "max": 217.85
+  },
+  {
+   "name": "Ogonite",
+   "min": 0,
+   "max": 146.4
+  },
+  {
+   "name": "Avorion",
+   "min": 0,
+   "max": 75
+  }
+ ]
+}

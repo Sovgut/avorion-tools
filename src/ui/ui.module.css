@@ -1,0 +1,418 @@
+.icon {
+  display: inline-block;
+  flex: none;
+  background: var(--icon-color, var(--c-secondary));
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-mode: luminance;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+/* buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: var(--r-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background 0.12s,
+    color 0.12s,
+    border-color 0.12s;
+}
+
+/* Barlow sits low in its line box; trimmed to cap height and baseline, the label centres on its letters */
+.btnLabel {
+  display: block;
+  text-box: trim-both cap alphabetic;
+}
+
+.primary {
+  background: var(--c-accent);
+  color: var(--c-on-accent);
+  font-weight: 600;
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--c-accent-hover);
+}
+
+.primary:disabled {
+  background: var(--c-border-strong);
+  color: var(--c-muted);
+}
+
+.outline {
+  background: transparent;
+  border: 1px solid var(--c-border-strong);
+  color: var(--c-text);
+}
+
+.outline:hover:not(:disabled) {
+  background: var(--c-active);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--c-secondary);
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--c-text);
+  background: var(--c-active);
+}
+
+.dashed {
+  background: transparent;
+  border: 1px dashed var(--c-border-strong);
+  color: var(--c-secondary);
+}
+
+.dashed:hover:not(:disabled) {
+  color: var(--c-text);
+  border-color: var(--c-muted);
+}
+
+.sm {
+  height: 30px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.md {
+  height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+.lg {
+  height: 46px;
+  padding: 0 18px;
+  font-size: 15px;
+}
+
+.iconBtn {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 0.12s,
+    background-color 0.12s,
+    border-color 0.12s;
+}
+
+.iconBtn:hover {
+  color: var(--c-text);
+  background: var(--c-active);
+}
+
+.iconBtn.danger:hover {
+  color: var(--c-red);
+  background: color-mix(in oklch, var(--c-red) 12%, transparent);
+  border-color: color-mix(in oklch, var(--c-red) 30%, transparent);
+}
+
+.iconBtn:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 1px;
+}
+
+/* FitText: the mono font's advance is 0.6em, so a line of N glyphs is 0.6 * N em wide */
+.fitBox {
+  container-type: inline-size;
+  width: 100%;
+  min-width: 0;
+}
+
+.fit {
+  font-size: min(var(--max), calc(100cqi / (var(--chars) * 0.6)));
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.checkbox {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  margin: 0;
+  border: 1.5px solid var(--c-border-strong);
+  border-radius: var(--r-xs);
+  background: transparent center / 10px 10px no-repeat;
+  cursor: pointer;
+  transition:
+    background-color 0.12s,
+    border-color 0.12s;
+}
+
+.checkbox:hover {
+  border-color: var(--c-secondary);
+}
+
+.checkbox:checked {
+  background-color: var(--c-green);
+  border-color: var(--c-green);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='%23111112' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1.5 5.2l2.3 2.3 4.7-5'/%3E%3C/svg%3E");
+}
+
+.checkbox:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+}
+
+/* inputs */
+.input {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  background: var(--c-card);
+  color: var(--c-text);
+  font-size: 14px;
+  outline: none;
+  min-width: 0;
+  width: 100%;
+}
+
+.input:hover {
+  border-color: var(--c-border-strong);
+}
+
+.num {
+  font-family: var(--font-mono);
+  text-align: right;
+  background: var(--c-app);
+}
+
+.attention {
+  border-color: var(--c-accent);
+}
+
+/* switch */
+/* drawn like the inputs: a framed track with a small square knob, gold when on */
+.switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  flex: none;
+  padding: 0;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-xs);
+  background: var(--c-card);
+  transition:
+    background-color 0.12s,
+    border-color 0.12s;
+}
+
+.switch:hover {
+  border-color: var(--c-secondary);
+}
+
+.switch[aria-checked='true'] {
+  border-color: var(--c-accent);
+  background: color-mix(in oklch, var(--c-accent) 16%, var(--c-card));
+}
+
+.switch:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+}
+
+.knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--c-muted);
+  transition:
+    transform 0.12s,
+    background-color 0.12s;
+}
+
+.switch[aria-checked='true'] .knob {
+  transform: translateX(16px);
+  background: var(--c-accent);
+}
+
+/* segmented */
+.segmented {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--r-sm);
+  background: var(--c-card);
+}
+
+.segment {
+  flex: 1;
+  border: 0;
+  border-radius: var(--r-xs);
+  background: transparent;
+  color: var(--c-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 10px;
+}
+
+.segment[aria-pressed='true'] {
+  background: var(--c-border);
+  color: var(--c-text);
+}
+
+.segment:hover:not([aria-pressed='true']) {
+  color: var(--c-text);
+}
+
+/* tags & chips */
+.tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 3px 7px;
+  border-radius: var(--r-xs);
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-secondary);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+button.chip:hover {
+  border-color: var(--c-border-strong);
+  color: var(--c-text);
+}
+
+.chipAccent {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+}
+
+button.chipAccent:hover {
+  color: var(--c-accent-hover);
+  border-color: var(--c-accent-hover);
+}
+
+/* overlays */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--backdrop);
+  z-index: 40;
+  animation: fade 0.12s ease-out;
+}
+
+.dialog {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 41;
+  width: 520px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 48px);
+  overflow: auto;
+  border-radius: var(--r-xl);
+  background: var(--c-card);
+  border: 1px solid var(--c-border-strong);
+  box-shadow: var(--shadow-overlay);
+  animation: pop 0.14s ease-out;
+}
+
+.dialog:focus {
+  outline: none;
+}
+
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 41;
+  max-height: 88dvh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px 20px 0 0;
+  background: var(--c-app);
+  border-top: 1px solid var(--c-border-strong);
+  animation: slide 0.15s ease-out;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.sheet:focus {
+  outline: none;
+}
+
+/* the whole strip around the handle can be dragged, not just the 4px bar */
+.grabZone {
+  flex: none;
+  padding: 10px 0 8px;
+  touch-action: none;
+  cursor: grab;
+}
+
+.grabZone:active {
+  cursor: grabbing;
+}
+
+.grabber {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--c-border-strong);
+  margin: 0 auto;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.98);
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

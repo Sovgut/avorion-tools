@@ -1,0 +1,578 @@
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router';
+import { useGo } from '@/app/nav';
+import { type Plan, usePlan } from '@/features/planner/plan';
+import { db, goodById, goodIcon, productionByIndex, stationByProduction } from '@/game/database';
+import { fmt, useGameText, useT } from '@/i18n';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { DEFAULT_GALAXY, settingsActions } from '@/store/settings';
+import { Button, CoordInput, GameIcon, NumberInput, Switch, TextInput } from '@/ui';
+import { useIsMobile } from '@/ui/hooks';
+import { useGalaxy } from './client';
+import { GalaxyMap, type MapMarkers } from './GalaxyMap';
+import s from './galaxy.module.css';
+import {
+  claimableAsteroids,
+  FLAG_ANCIENT_GATES,
+  FLAG_GATES,
+  FLAG_HOME,
+  type GalaxyData,
+  inGalaxy,
+  KIND_BLOCKED,
+  KIND_OFFGRID,
+  KIND_REGULAR,
+  resourceAsteroids,
+  sectorIndex,
+} from './model';
+import {
+  ALL_LAYERS,
+  BELTS_LAYER,
+  bossAt,
+  layerSectors,
+  materialsAt,
+  nearestProducers,
+  PLACE_LAYERS,
+  PLAN_LAYER,
+  STATION_LAYERS,
+  stationSectorAt,
+} from './queries';
+import { templateName } from './templates';
+
+function parseSel(v: string | null): { x: number; y: number } | null {
+  const m = v ? /^(-?\d+):(-?\d+)$/.exec(v) : null;
+  if (!m) return null;
+  const x = Number(m[1]);
+  const y = Number(m[2]);
+  return inGalaxy(x, y) ? { x, y } : null;
+}
+
+interface Best {
+  good: string;
+  buy: number;
+  x: number;
+  y: number;
+  distance: number;
+  station: string;
+}
+
+function useBest(galaxy: GalaxyData | undefined, plan: Plan): Best[] {
+  const gt = useGameText();
+  return useMemo(() => {
+    if (!galaxy) return [];
+    const out: Best[] = [];
+    for (const r of plan.rows) {
+      if (r.buy <= 0) continue;
+      const [n] = nearestProducers(galaxy, r.good, plan.position, 1);
+      if (!n) continue;
+      const st = stationByProduction.get(n.productions[0]);
+      out.push({ good: r.good, buy: r.buy, x: n.x, y: n.y, distance: n.distance, station: st ? gt.station(st) : '' });
+    }
+    return out.sort((a, b) => a.distance - b.distance);
+  }, [galaxy, plan, gt]);
+}
+
+export function GalaxyPage() {
+  const t = useT();
+  const dispatch = useAppDispatch();
+  const mobile = useIsMobile();
+  const params = useAppSelector((st) => st.settings.galaxy);
+  const layers = useAppSelector((st) => st.settings.layers);
+  const galaxy = useGalaxy();
+  const plan = usePlan();
+  const [search, setSearch] = useSearchParams();
+  const selected = parseSel(search.get('sel'));
+  const focus = search.get('focus');
+  // a link with `go` flies the map to the sector once, from another page or from this one
+  const goTo = search.get('go') ? search.get('sel') : null;
+  const [jump, setFly] = useState<{ x: number; y: number } | null>(null);
+  const [seenGo, setSeenGo] = useState<string | null>(null);
+  if (goTo !== seenGo) {
+    setSeenGo(goTo);
+    if (goTo) setFly(parseSel(goTo));
+  }
+  useEffect(() => {
+    if (!search.get('go')) return;
+    const next = new URLSearchParams(search);
+    next.delete('go');
+    setSearch(next, { replace: true });
+  }, [search, setSearch]);
+  const [draft, setDraft] = useState(params?.seed ?? '');
+  const [factions, setFactions] = useState(params?.mapFactions ?? DEFAULT_GALAXY.mapFactions);
+  const [rifts, setRifts] = useState(params?.rifts ?? DEFAULT_GALAXY.rifts);
+  const [barrier, setBarrier] = useState(params?.barrier ?? DEFAULT_GALAXY.barrier);
+  const [showServer, setShowServer] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+  const helpId = useId();
+  const seedField = useRef<HTMLDivElement>(null);
+  // touch browsers do not focus a tapped button, so a tap anywhere else closes the tip
+  useEffect(() => {
+    if (!showHelp) return;
+    const onDown = (e: PointerEvent) => {
+      if (!seedField.current?.contains(e.target as Node)) setShowHelp(false);
+    };
+    document.addEventListener('pointerdown', onDown);
+    return () => document.removeEventListener('pointerdown', onDown);
+  }, [showHelp]);
+
+  const generate = () => {
+    const seed = draft.trim();
+    if (!seed) return;
+    dispatch(settingsActions.setGalaxy({ seed, mapFactions: factions, rifts, barrier }));
+  };
+
+  const data = galaxy.state === 'ready' ? galaxy.data : undefined;
+  const best = useBest(data, plan);
+  const route = focus ? best.find((b) => b.good === focus) : undefined;
+
+  // sectors producing something the plan still needs; every other layer depends on the galaxy alone
+  const planSectors = useMemo(() => {
+    if (!data) return [];
+    const planGoods = new Set(plan.rows.filter((r) => r.buy > 0).map((r) => r.good));
+    return data.stations
+      .filter((st) => [...st.factories, ...st.mines].some((pi) => productionByIndex.get(pi)?.results.some((r) => planGoods.has(r.good))))
+      .map((st) => st.i);
+  }, [data, plan]);
+
+  const markers = useMemo<MapMarkers>(() => {
+    const out: MapMarkers['layers'] = [];
+    if (data)
+      for (const layer of ALL_LAYERS)
+        if (layers.includes(layer.id))
+          out.push({ color: layer.color, sectors: layer === PLAN_LAYER ? planSectors : layerSectors(data, layer) });
+    return {
+      layers: out,
+      belts: layers.includes(BELTS_LAYER.id),
+      you: plan.position,
+      selected,
+      route: route ? { x: route.x, y: route.y } : null,
+    };
+  }, [data, layers, planSectors, plan.position, selected, route]);
+
+  const counts = useMemo(() => {
+    const c = new Map<string, number>();
+    if (data) for (const layer of ALL_LAYERS) c.set(layer.id, (layer === PLAN_LAYER ? planSectors : layerSectors(data, layer)).length);
+    return c;
+  }, [data, planSectors]);
+
+  const select = (x: number, y: number) => {
+    const next = new URLSearchParams(search);
+    next.set('sel', `${x}:${y}`);
+    setSearch(next, { replace: true });
+  };
+  const focusGood = (b: Best) => {
+    const next = new URLSearchParams(search);
+    next.set('sel', `${b.x}:${b.y}`);
+    next.set('focus', b.good);
+    setSearch(next, { replace: true });
+    setFly({ x: b.x, y: b.y });
+  };
+
+  const seedBox = (
+    <div className={mobile ? s.mSeedRow : s.seedBox}>
+      {!mobile && <span className="label">{t('GALAXY SEED')}</span>}
+      <div className={s.seedField} ref={seedField}>
+        <TextInput
+          className={mobile ? s.mSeed : s.seed}
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') generate();
+            if (e.key === 'Escape') setShowHelp(false);
+          }}
+          placeholder={t('/seed in game')}
+          aria-label={t('GALAXY SEED')}
+          aria-describedby={showHelp ? helpId : undefined}
+          spellCheck={false}
+        />
+        {/* hover, focus or a tap shows the tip; leaving, blurring or Escape hides it */}
+        <button
+          type="button"
+          className={s.seedHelp}
+          aria-label={t('Where to get the seed')}
+          aria-expanded={showHelp}
+          aria-describedby={showHelp ? helpId : undefined}
+          onMouseEnter={() => setShowHelp(true)}
+          onMouseLeave={() => setShowHelp(false)}
+          onFocus={() => setShowHelp(true)}
+          onBlur={() => setShowHelp(false)}
+          onClick={() => setShowHelp(true)}
+          onKeyDown={(e) => e.key === 'Escape' && setShowHelp(false)}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+            <circle cx="8" cy="8" r="6.5" />
+            <path d="M6.2 6.3a1.9 1.9 0 1 1 2.7 1.7c-.6.3-.9.7-.9 1.3v.3" strokeLinecap="round" />
+            <circle cx="8" cy="11.6" r="0.4" fill="currentColor" />
+          </svg>
+        </button>
+        {showHelp && (
+          <div role="tooltip" id={helpId} className={s.seedTip}>
+            {t('Type')} <span className="mono">/seed</span>{' '}
+            {t('in the game chat to get it. Shows the galaxy as it was generated, before players changed it.')}
+          </div>
+        )}
+      </div>
+      <button type="button" className={s.serverToggle} aria-expanded={showServer} onClick={() => setShowServer((v) => !v)}>
+        {t('Server settings')} {showServer ? '▴' : '▾'}
+      </button>
+      {showServer && (
+        <div className={s.server}>
+          <label className={s.serverRow}>
+            <span>{t('Factions')}</span>
+            <NumberInput className={s.serverNum} value={factions} onValue={setFactions} max={5000} />
+          </label>
+          <label className={s.serverRow}>
+            <span>{t('Rifts')}</span>
+            <NumberInput className={s.serverNum} value={rifts} onValue={setRifts} max={5000} />
+          </label>
+          <div className={s.serverRow}>
+            <span>{t('Barrier')}</span>
+            <Switch checked={barrier} onChange={setBarrier} label={t('Barrier')} />
+          </div>
+        </div>
+      )}
+      <Button variant="primary" className={mobile ? s.mGenerate : s.generate} onClick={generate} disabled={!draft.trim()}>
+        {t('Generate')}
+      </Button>
+    </div>
+  );
+
+  const layerButton = (l: { id: string; name: string; color: string }, count: number | null) => {
+    const on = layers.includes(l.id);
+    return (
+      <button
+        key={l.id}
+        type="button"
+        className={mobile ? s.mLayer : s.layer}
+        aria-pressed={on}
+        onClick={() => dispatch(settingsActions.toggleLayer(l.id))}
+      >
+        <span className={s.layerDot} style={{ background: on ? l.color : 'var(--c-border-strong)' }} />
+        <span className={s.layerName}>{t(l.name)}</span>
+        {!mobile && data && count !== null && <span className={s.layerCount}>{fmt(count)}</span>}
+      </button>
+    );
+  };
+  const layerList = (
+    <>
+      <div className={mobile ? s.mLayers : s.layers}>
+        <span className={`label ${mobile ? s.mLayersLabel : s.layersLabel}`}>{t('STATIONS')}</span>
+        {[PLAN_LAYER, ...STATION_LAYERS].map((l) => layerButton(l, counts.get(l.id) ?? 0))}
+      </div>
+      <div className={mobile ? s.mLayers : s.layers}>
+        <span className={`label ${mobile ? s.mLayersLabel : s.layersLabel}`}>{t('POINTS OF INTEREST')}</span>
+        {PLACE_LAYERS.map((l) => layerButton(l, counts.get(l.id) ?? 0))}
+        {layerButton(BELTS_LAYER, null)}
+      </div>
+    </>
+  );
+
+  const mapArea = (
+    <div className={mobile ? s.mMapBox : s.mapArea}>
+      {!mobile && (
+        <div className={s.mapHead}>
+          <span>
+            {params ? (
+              <>
+                {t('SEED')} <span className={s.seedValue}>{params.seed}</span>
+                {data && (
+                  <>
+                    {' '}
+                    · {fmt(data.stations.length)} {t('sectors with stations')}
+                  </>
+                )}
+              </>
+            ) : null}
+          </span>
+          <span>{t('click a sector')}</span>
+        </div>
+      )}
+      {data ? (
+        <GalaxyMap key={data.key.seed + JSON.stringify(data.key)} galaxy={data} markers={markers} onSelect={select} focusOn={jump} />
+      ) : (
+        <div className={s.placeholder}>
+          {galaxy.state === 'loading' ? (
+            <div className={s.progressBox}>
+              <div className={s.progressLabel}>
+                {t('Generating galaxy…')} {Math.round(galaxy.progress * 100)}%
+              </div>
+              <div className={s.progress}>
+                <div className={s.progressBar} style={{ width: `${Math.max(2, galaxy.progress * 100)}%` }} />
+              </div>
+              <div className={s.help}>
+                {t('The map is computed by the game’s own generation scripts, sector by sector, the way the server creates them.')}
+              </div>
+            </div>
+          ) : galaxy.state === 'error' ? (
+            <div className={s.error}>{galaxy.message}</div>
+          ) : (
+            <div className={s.help}>{t('Enter the server seed to map your galaxy.')}</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+
+  const details =
+    data && selected ? <SectorPanel galaxy={data} x={selected.x} y={selected.y} from={plan.position} mobile={mobile} /> : null;
+  const bestList = <BestList best={best} plan={plan} active={focus} onPick={focusGood} mobile={mobile} />;
+
+  if (mobile) {
+    return (
+      <div className={s.mPage}>
+        {seedBox}
+        {mapArea}
+        <PositionBox plan={plan} mobile />
+        {layerList}
+        {details}
+        {bestList}
+      </div>
+    );
+  }
+
+  return (
+    <div className={s.grid}>
+      <aside className={s.rail}>
+        {seedBox}
+        <PositionBox plan={plan} />
+        {layerList}
+      </aside>
+      {mapArea}
+      <aside className={s.panel}>
+        {details}
+        {bestList}
+      </aside>
+    </div>
+  );
+}
+
+function SectorPanel({
+  galaxy,
+  x,
+  y,
+  from,
+  mobile,
+}: {
+  galaxy: GalaxyData;
+  x: number;
+  y: number;
+  from: { x: number; y: number };
+  mobile: boolean;
+}) {
+  const t = useT();
+  const gt = useGameText();
+  const dispatch = useAppDispatch();
+  const go = useGo();
+  const i = sectorIndex(x, y);
+  const f = galaxy.flags[i];
+  const kind = f & 3;
+  const st = stationSectorAt(galaxy, i);
+  const factionIndex = galaxy.faction[i];
+  const faction = factionIndex ? galaxy.factions.find((fc) => fc.index === factionIndex) : undefined;
+  const template = galaxy.template[i] ? db.templates[galaxy.template[i] - 1]?.id : undefined;
+  const titles = db.stationTitles;
+  const kindText =
+    kind === KIND_BLOCKED
+      ? t('Rift')
+      : kind === KIND_OFFGRID
+        ? `${t('Hidden sector')}${template ? ` · ${templateName(template, gt.lang)}` : ''}`
+        : kind === KIND_REGULAR
+          ? template
+            ? templateName(template, gt.lang)
+            : ''
+          : t('Empty space');
+  const generic = st
+    ? Object.entries(st.counts)
+        .filter(([k, n]) => n > 0 && k !== 'factories' && k !== 'mines' && titles[k])
+        .map(([k, n]) => ({ key: k, title: gt.text(titles[k]), n }))
+    : [];
+  const prodList = st ? [...st.factories, ...st.mines] : [];
+  const here = x === from.x && y === from.y;
+  const boss = bossAt(galaxy, i);
+  // asteroids, and so their materials, belong to sectors with something in them
+  const materials = kind === KIND_REGULAR || kind === KIND_OFFGRID ? materialsAt(Math.hypot(x, y)) : [];
+  const rich = resourceAsteroids(galaxy.asteroids[i]);
+  const claimable = claimableAsteroids(galaxy.asteroids[i]);
+  // unnamed sectors are named by their coordinates, which the header already shows
+  const name = st && st.name !== `${x} : ${y}` ? st.name : null;
+  return (
+    <div className={mobile ? s.mSel : s.sel}>
+      <div className={s.selHead}>
+        <span className={s.selXY}>
+          {x}:{y}
+        </span>
+        {here ? (
+          <span className={s.hereTag}>{t('You are here')}</span>
+        ) : (
+          <span className={s.selAway}>
+            {fmt(Math.hypot(x - from.x, y - from.y))} {t('sectors away')}
+          </span>
+        )}
+      </div>
+      {name && <div className={s.selName}>{name}</div>}
+      <div className={s.selMeta}>
+        {kindText && <>{kindText} · </>}
+        {faction ? (
+          <>
+            {t('Faction territory, home')}{' '}
+            <button type="button" className={s.linkXY} onClick={() => go.map(faction.x, faction.y)}>
+              {faction.x}:{faction.y}
+            </button>
+          </>
+        ) : (
+          t('No faction')
+        )}
+      </div>
+      {!here && (
+        <button type="button" className={s.hereBtn} onClick={() => dispatch(settingsActions.setPosition({ x, y }))}>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
+            <circle cx="6" cy="6" r="3.5" />
+            <path d="M6 0v2.5M6 9.5V12M0 6h2.5M9.5 6H12" strokeLinecap="round" />
+          </svg>
+          {t('I’m here')}
+        </button>
+      )}
+      {(boss || materials.length > 0 || rich > 0 || claimable > 0) && (
+        <dl className={s.facts}>
+          {boss && (
+            <>
+              <dt>{t('World boss')}</dt>
+              <dd className={s.bossName}>{gt.text(boss).replace(/\s*\$\{\w+\}/g, '')}</dd>
+            </>
+          )}
+          {materials.length > 0 && (
+            <>
+              <dt>{t('Asteroid materials')}</dt>
+              <dd>{materials.map((m) => gt.text(m)).join(' · ')}</dd>
+            </>
+          )}
+          {rich > 0 && (
+            <>
+              <dt>{t('Rich asteroids')}</dt>
+              <dd className="mono">{rich}</dd>
+            </>
+          )}
+          {claimable > 0 && (
+            <>
+              <dt>{t('Claimable asteroids')}</dt>
+              <dd className="mono">{claimable}</dd>
+            </>
+          )}
+        </dl>
+      )}
+      {(f & (FLAG_GATES | FLAG_ANCIENT_GATES | FLAG_HOME)) !== 0 && (
+        <div className={s.flags}>
+          {f & FLAG_HOME ? <span className={s.flag}>{t('Faction home')}</span> : null}
+          {f & FLAG_GATES ? <span className={s.flag}>{t('Gates')}</span> : null}
+          {f & FLAG_ANCIENT_GATES ? <span className={s.flag}>{t('Ancient gates')}</span> : null}
+        </div>
+      )}
+      {generic.map((g) => (
+        <div key={g.key} className={s.station}>
+          <span className={s.stationName}>
+            {g.title}
+            {g.n > 1 ? ` ×${g.n}` : ''}
+          </span>
+        </div>
+      ))}
+      {prodList.map((pi, k) => {
+        const p = productionByIndex.get(pi);
+        if (!p) return null;
+        const station = stationByProduction.get(pi);
+        return (
+          // biome-ignore lint/suspicious/noArrayIndexKey: one sector can hold the same production several times
+          <div key={`${pi}-${k}`} className={s.station}>
+            <button type="button" className={s.stationLink} onClick={() => station && go.station(station.id)}>
+              {gt.production(p)}
+            </button>
+            <div className={s.goods}>
+              {p.results.map((r) => (
+                <button key={r.good} type="button" className={s.goodChip} onClick={() => go.good(r.good)}>
+                  {gt.good(r.good)} <span className={s.goodPrice}>¢{fmt(goodById.get(r.good)?.price ?? 0)}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function BestList({
+  best,
+  plan,
+  active,
+  onPick,
+  mobile,
+}: {
+  best: Best[];
+  plan: Plan;
+  active: string | null;
+  onPick: (b: Best) => void;
+  mobile: boolean;
+}) {
+  const t = useT();
+  const gt = useGameText();
+  return (
+    <div className={s.best}>
+      <div className={s.bestTitle}>{t('Best places to buy')}</div>
+      {!mobile && (
+        <div className={s.help} style={{ marginBottom: 6 }}>
+          {t('Nearest producer for each commodity still needed')} · <span className={s.tabName}>{plan.tab?.name ?? '-'}</span>
+        </div>
+      )}
+      {best.map((b) => (
+        <button
+          key={b.good}
+          type="button"
+          className={mobile ? s.mBestRow : s.bestRow}
+          aria-pressed={active === b.good}
+          onClick={() => onPick(b)}
+        >
+          <GameIcon src={goodIcon(b.good)} size={20} />
+          <div style={{ minWidth: 0 }}>
+            <div className={s.bestName}>
+              {gt.good(b.good)} <span className={s.mutedMono}>×{fmt(b.buy)}</span>
+            </div>
+            <div className={s.bestStation}>{b.station}</div>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <div className={s.cyanMono}>
+              {b.x}:{b.y}
+            </div>
+            <div className={s.mutedMono}>
+              {fmt(b.distance)} {t('sec')} · ¢{fmt(goodById.get(b.good)?.price ?? 0)}
+            </div>
+          </div>
+        </button>
+      ))}
+      {best.length === 0 && <div className={s.help}>{t('Nothing to buy in the active tab. Add turrets and counts in the planner.')}</div>}
+    </div>
+  );
+}
+
+function PositionBox({ plan, mobile }: { plan: Plan; mobile?: boolean }) {
+  const t = useT();
+  const dispatch = useAppDispatch();
+  const set = (p: { x: number; y: number }) => dispatch(settingsActions.setPosition(p));
+  return (
+    <div className={mobile ? s.mPosition : s.position}>
+      <span className="label">{t('YOUR POSITION')}</span>
+      <div className={s.posRow}>
+        <CoordInput
+          className={s.posInput}
+          value={plan.position.x}
+          onValue={(x) => set({ x, y: plan.position.y })}
+          aria-label={`${t('YOUR POSITION')} x`}
+        />
+        <span className={s.posColon}>:</span>
+        <CoordInput
+          className={s.posInput}
+          value={plan.position.y}
+          onValue={(y) => set({ x: plan.position.x, y })}
+          aria-label={`${t('YOUR POSITION')} y`}
+        />
+      </div>
+    </div>
+  );
+}

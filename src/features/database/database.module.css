@@ -1,0 +1,861 @@
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr) 340px;
+}
+
+.rail {
+  border-right: 1px solid var(--c-border);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: sticky;
+  top: var(--header-h);
+  max-height: calc(100dvh - var(--header-h));
+  overflow-y: auto;
+}
+
+.rail > * {
+  flex-shrink: 0;
+}
+
+.seg {
+  margin-bottom: 10px;
+}
+
+.filter {
+  height: 34px;
+  padding: 0 10px;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.itemGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-bottom: 10px;
+}
+
+.groupLabel {
+  padding: 8px 8px 4px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--c-secondary);
+  font-size: 13px;
+  text-align: left;
+}
+
+.item:hover {
+  color: var(--c-text);
+}
+
+.item[aria-current='page'] {
+  background: var(--c-active);
+  color: var(--c-text);
+}
+
+.itemLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.main {
+  padding: 28px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  min-width: 0;
+  /* the recipe layout follows this column's width, not the window's */
+  container-type: inline-size;
+}
+
+.crumb {
+  font-size: 13px;
+  color: var(--c-muted);
+}
+
+.crumb span {
+  color: var(--c-secondary);
+}
+
+.hero {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.heroIcon,
+.heroIconSm {
+  width: 96px;
+  height: 96px;
+  flex: none;
+  border-radius: var(--r-xl);
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroIconSm {
+  width: 88px;
+  height: 88px;
+}
+
+.title {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Tags share the title's line, so the header is the same height with or without them. */
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+}
+
+.desc {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--c-secondary);
+  line-height: 1.5;
+  max-width: 620px;
+}
+
+.stats3,
+.stats4 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.stats4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stat {
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  background: var(--c-card);
+  min-width: 0;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--c-secondary);
+}
+
+.statValue,
+.statValueSm {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statValueSm {
+  font-size: 19px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.box {
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stationLink {
+  align-self: flex-start;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--c-accent);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.stationLink:hover {
+  color: var(--c-accent-hover);
+}
+
+.recipe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.recipeChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 6px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-border);
+  background: var(--c-card);
+  color: var(--c-text);
+  font-size: 12px;
+}
+
+.recipeChip:hover {
+  border-color: var(--c-border-strong);
+}
+
+.arrow {
+  color: var(--c-muted);
+}
+
+.recipeOut {
+  border-color: var(--c-accent);
+  background: var(--c-accent);
+  color: var(--c-on-accent);
+  font-weight: 600;
+}
+
+.recipeOut:hover {
+  border-color: var(--c-accent-hover);
+  background: var(--c-accent-hover);
+}
+
+.usedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 6px;
+}
+
+.used {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: var(--c-card);
+  color: var(--c-text);
+  text-align: left;
+  font-size: 14px;
+}
+
+.used > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+
+button.used:hover {
+  background: var(--c-active);
+}
+
+.kind,
+.kindPrice {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--c-muted);
+}
+
+.kindPrice {
+  font-size: 12px;
+  color: var(--c-accent);
+}
+
+.muted {
+  font-size: 13px;
+  color: var(--c-muted);
+  line-height: 1.5;
+}
+
+.source {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-muted);
+  padding-top: 14px;
+  border-top: 1px solid var(--c-divider);
+  line-height: 1.5;
+}
+
+.panel {
+  border-left: 1px solid var(--c-border);
+  background: var(--c-panel);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+
+.callout {
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-accent);
+  background: var(--c-callout);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.calloutTitle {
+  font-weight: 600;
+  color: var(--c-accent);
+}
+
+.calloutText {
+  color: var(--c-secondary);
+  margin-top: 4px;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sideTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.sideSub {
+  font-size: 12px;
+  color: var(--c-muted);
+  margin-bottom: 4px;
+}
+
+.nearRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: var(--c-card);
+  color: var(--c-text);
+  text-align: left;
+}
+
+.nearRow:hover {
+  background: var(--c-active);
+}
+
+.nearXY {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--c-cyan);
+  width: 76px;
+  flex: none;
+}
+
+/* the seed and the position in the subtitle, coloured like the sector coordinates below */
+.subValue {
+  font-family: var(--font-mono);
+  color: var(--c-cyan);
+}
+
+/* a planner tab named in running text */
+.tabName {
+  color: var(--c-accent);
+}
+
+.nearName {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  color: var(--c-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nearDist {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+/* station */
+.pickers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.variants {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.variant {
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-secondary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.variant[aria-pressed='true'] {
+  border-color: var(--c-accent);
+  background: var(--c-active);
+  color: var(--c-text);
+}
+
+.sizes {
+  font-family: var(--font-mono);
+}
+
+.size {
+  min-width: 40px;
+  height: 28px;
+  padding: 0 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
+  align-items: start;
+}
+
+.flowArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--c-border-strong);
+  font-size: 20px;
+}
+
+.table,
+.tableOut {
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.tableOut {
+  border-color: var(--c-border-strong);
+}
+
+.tableRow {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96px 78px;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 0;
+  border-top: 1px solid var(--c-divider);
+  background: transparent;
+  color: var(--c-text);
+  text-align: left;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+button.tableRow:hover {
+  background: var(--c-panel);
+}
+
+.tableHead {
+  border-top: 0;
+  background: var(--c-card);
+  padding: 10px 14px;
+  letter-spacing: 0.12em;
+}
+
+.tableHead > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tableOut .tableHead {
+  background: var(--c-callout);
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-family: var(--font-ui);
+  font-size: 14px;
+}
+
+.cellName {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.right {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tableEmpty {
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--c-muted);
+  border-top: 1px solid var(--c-divider);
+}
+
+/* five sizes in one row, the size above its cost so each cell stays narrow */
+.upgrades {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.upgrade {
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--c-border);
+  background: var(--c-card);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  min-width: 0;
+}
+
+.upgrade[data-active='true'] {
+  border-color: var(--c-accent);
+}
+
+.upgradeLabel {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-secondary);
+}
+
+.upgrade > span {
+  white-space: nowrap;
+}
+
+/* two recipe tables side by side need about 800px; below that they stack */
+@container (max-width: 800px) {
+  .flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .flowArrow {
+    height: auto;
+    transform: rotate(90deg);
+  }
+}
+
+/* a cost is about 108px wide, so five fit down to 540px */
+@container (max-width: 540px) {
+  .upgrades {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* a long station name next to the size pickers would wrap; the pickers move under it */
+@container (max-width: 860px) {
+  .hero {
+    flex-wrap: wrap;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .pickers {
+    flex-basis: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+@container (max-width: 620px) {
+  .stats4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* a good the station needs, with the station that makes it underneath */
+.supplier {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  background: transparent;
+  padding: 2px 0;
+  color: var(--c-text);
+  text-align: left;
+}
+
+.supplierText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.supplierGood {
+  font-size: 13px;
+}
+
+.supplierStation {
+  font-size: 11px;
+  color: var(--c-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.supplier:hover .supplierGood {
+  color: var(--c-accent);
+}
+
+.consumer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  border: 0;
+  background: transparent;
+  padding: 2px 0;
+  color: var(--c-text);
+  text-align: left;
+}
+
+.consumer > span:nth-child(2) {
+  flex: 1;
+}
+
+button.consumer:hover > span:nth-child(2) {
+  color: var(--c-accent);
+}
+
+/* mobile */
+.mList {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mSeg {
+  border-radius: var(--r-lg);
+}
+
+.mSegItem {
+  height: 40px;
+  font-size: 14px;
+  border-radius: var(--r-md);
+}
+
+.mFilter {
+  height: 44px;
+  font-size: 16px;
+  border-radius: var(--r-md);
+}
+
+.mItem {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 6px;
+  border: 0;
+  border-bottom: 1px solid var(--c-divider);
+  background: transparent;
+  color: var(--c-text);
+  font-size: 15px;
+  text-align: left;
+}
+
+.chev {
+  color: var(--c-border-strong);
+}
+
+.mPage {
+  padding: 8px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.back {
+  align-self: flex-start;
+  height: 44px;
+  padding: 0 6px;
+  border: 0;
+  background: transparent;
+  color: var(--c-accent);
+  font-size: 15px;
+}
+
+/* tablet: narrower columns; recipe tables stack, stats and upgrade costs wrap */
+@media (min-width: 760px) and (max-width: 1199px) {
+  .grid {
+    grid-template-columns: 230px minmax(0, 1fr) 280px;
+  }
+
+  .main {
+    padding: 24px;
+  }
+
+  .panel {
+    padding: 20px 18px;
+  }
+}
+
+/* portrait tablet: the side panel moves under the content */
+@media (min-width: 760px) and (max-width: 1023px) {
+  .grid {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .panel {
+    grid-column: 2;
+    border-left: 0;
+    border-top: 1px solid var(--c-border);
+    background: transparent;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 759px) {
+  .main {
+    padding: 0;
+    gap: 16px;
+  }
+
+  .panel {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    gap: 16px;
+  }
+
+  .hero {
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .heroIcon,
+  .heroIconSm {
+    width: 64px;
+    height: 64px;
+  }
+
+  .heroIcon > span,
+  .heroIconSm > span {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .pickers {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .variants {
+    justify-content: flex-start;
+  }
+
+  .variant {
+    height: 40px;
+    padding: 0 14px;
+  }
+
+  .size {
+    height: 34px;
+  }
+
+  .stats3 {
+    gap: 6px;
+  }
+
+  .stats4 {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .stat {
+    padding: 10px;
+    border-radius: var(--r-lg);
+  }
+
+  .statValue,
+  .statValueSm {
+    font-size: 15px;
+  }
+
+  .flow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .flowArrow {
+    transform: rotate(90deg);
+    height: 24px;
+  }
+
+  .upgrades {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .used,
+  .nearRow,
+  .tableRow,
+  .recipeChip {
+    min-height: 44px;
+  }
+
+  .crumb {
+    display: none;
+  }
+}

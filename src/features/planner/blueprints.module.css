@@ -1,0 +1,171 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.sub {
+  font-size: 12px;
+  color: var(--c-secondary);
+  margin-top: 2px;
+}
+
+.modes {
+  margin: 16px 20px 0;
+  background: var(--c-app);
+  border-radius: var(--r-md);
+}
+
+.mode {
+  height: 34px;
+  font-size: 14px;
+}
+
+.body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.small {
+  font-size: 12px;
+  color: var(--c-secondary);
+}
+
+.nameInput {
+  background: var(--c-app);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.rarities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.rarity {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-border);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.rarity[aria-pressed='true'] {
+  background: var(--c-active);
+}
+
+.rDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.preview {
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 18px;
+}
+
+.previewRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.previewRow > span:first-child {
+  color: var(--c-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* price and sector, set apart from the component counts */
+.previewExtra {
+  margin-top: 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--c-divider);
+}
+
+.list {
+  padding: 14px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 12px;
+  border-radius: var(--r-md);
+}
+
+.item:hover {
+  background: var(--c-divider);
+}
+
+.itemName {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.itemSum {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-muted);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--c-muted);
+}
+
+@media (max-width: 759px) {
+  .preview {
+    grid-template-columns: 1fr;
+  }
+
+  .previewExtra + .previewExtra {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+}

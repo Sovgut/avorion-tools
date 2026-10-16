@@ -1,0 +1,750 @@
+/* exactly one screen tall: the side columns scroll inside it, so a long sector panel never
+   stretches the row, resizes the canvas and shifts the map under the pointer */
+.grid {
+  flex: none;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr) 360px;
+  grid-template-rows: minmax(0, 1fr);
+  height: calc(100dvh - var(--header-h));
+}
+
+.rail {
+  border-right: 1px solid var(--c-border);
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+}
+
+.rail > * {
+  flex-shrink: 0;
+}
+
+.seedBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* the seed input with a help button inside it, and the tip that opens under it */
+.seedField {
+  position: relative;
+}
+
+.seed {
+  width: 100%;
+  height: 38px;
+  padding-right: 38px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.seedHelp {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  width: 28px;
+  height: 28px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-muted);
+}
+
+.seedHelp:hover,
+.seedHelp[aria-expanded='true'] {
+  color: var(--c-text);
+}
+
+.seedTip {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  padding: 10px 12px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-md);
+  background: var(--c-callout);
+  box-shadow: var(--shadow-overlay);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--c-secondary);
+}
+
+.seedTip :global(.mono) {
+  color: var(--c-text);
+}
+
+.generate {
+  height: 36px;
+}
+
+.help {
+  font-size: 12px;
+  color: var(--c-muted);
+  line-height: 1.4;
+}
+
+.help :global(.mono) {
+  color: var(--c-secondary);
+}
+
+.serverToggle {
+  align-self: flex-start;
+  border: 0;
+  background: transparent;
+  padding: 2px 0;
+  color: var(--c-secondary);
+  font-size: 12px;
+}
+
+.serverToggle:hover {
+  color: var(--c-text);
+}
+
+.server {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  border-radius: var(--r-sm);
+  background: var(--c-card);
+}
+
+.serverRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--c-secondary);
+}
+
+.serverNum {
+  width: 80px;
+  height: 30px;
+  font-size: 13px;
+}
+
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.layersLabel {
+  padding-bottom: 4px;
+}
+
+.mLayersLabel {
+  flex-basis: 100%;
+  padding: 4px 2px 0;
+}
+
+.layer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-muted);
+  font-size: 14px;
+  text-align: left;
+}
+
+.layer[aria-pressed='true'] {
+  background: var(--c-divider);
+  color: var(--c-text);
+}
+
+.layer:hover {
+  color: var(--c-text);
+}
+
+/* square, like the filled cells the layer paints on the map */
+.layerDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex: none;
+}
+
+.layerName {
+  flex: 1;
+}
+
+.layerCount {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-muted);
+}
+
+.position {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.posRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* the two coordinates split the row between them */
+.posInput {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  height: 34px;
+  font-size: 15px;
+}
+
+.posColon {
+  font-family: var(--font-mono);
+  color: var(--c-muted);
+}
+
+.hereTag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-cyan);
+}
+
+.mPosition {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border-radius: var(--r-xl);
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+}
+
+.mPosition .posInput {
+  height: 44px;
+  font-size: 16px;
+}
+
+.mapArea {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--c-map);
+  min-width: 0;
+  min-height: 0;
+}
+
+.mapHead {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-secondary);
+}
+
+.mapWrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--c-map);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.zoomBtns {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.zoomBtns button {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--c-border);
+  background: rgba(21, 21, 22, 0.9);
+  color: var(--c-text);
+  font-size: 16px;
+}
+
+.zoomBtns button:hover {
+  border-color: var(--c-border-strong);
+}
+
+.placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--c-border);
+  border-radius: var(--r-md);
+  padding: 24px;
+  text-align: center;
+}
+
+.progressBox {
+  width: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progressLabel {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--c-secondary);
+}
+
+.progress {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--c-active);
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--c-cyan), var(--c-accent));
+  transition: width 0.2s;
+}
+
+.error {
+  color: var(--c-red);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.panel {
+  border-left: 1px solid var(--c-border);
+  background: var(--c-panel);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  overflow-y: auto;
+}
+
+.sel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.selHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.selXY {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.selAway {
+  font-size: 12px;
+  color: var(--c-secondary);
+  white-space: nowrap;
+}
+
+.selName {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* boss, materials and asteroid counts: label on the left, value on the right */
+.facts {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 12px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.facts dt {
+  color: var(--c-muted);
+}
+
+.facts dd {
+  margin: 0;
+  color: var(--c-text);
+  text-align: right;
+}
+
+.bossName {
+  font-weight: 600;
+}
+
+.selMeta {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--c-secondary);
+}
+
+.hereBtn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-secondary);
+  font-size: 12px;
+  transition:
+    color 0.12s,
+    border-color 0.12s;
+}
+
+.hereBtn svg {
+  color: var(--c-cyan);
+}
+
+.hereBtn:hover {
+  color: var(--c-text);
+  border-color: color-mix(in oklch, var(--c-cyan) 45%, transparent);
+}
+
+.linkXY {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-cyan);
+}
+
+.selMeta .linkXY {
+  font-size: 13px;
+}
+
+.flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.flag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--c-border-strong);
+  color: var(--c-secondary);
+}
+
+.station {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  background: var(--c-card);
+}
+
+.stationName {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stationLink {
+  align-self: flex-start;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-text);
+  text-align: left;
+}
+
+.stationLink:hover {
+  color: var(--c-accent);
+}
+
+.goods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.goodChip {
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-secondary);
+  font-size: 11px;
+}
+
+.goodChip:hover {
+  border-color: var(--c-border-strong);
+  color: var(--c-text);
+}
+
+.goodPrice {
+  font-family: var(--font-mono);
+  color: var(--c-accent);
+}
+
+.best {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bestTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.bestRow,
+.mBestRow {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-text);
+  text-align: left;
+}
+
+.bestRow:hover,
+.bestRow[aria-pressed='true'] {
+  background: var(--c-active);
+}
+
+.bestName {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bestStation {
+  font-size: 11px;
+  color: var(--c-secondary);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mutedMono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-muted);
+}
+
+.cyanMono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-cyan);
+}
+
+/* a planner tab named in running text */
+.tabName {
+  color: var(--c-accent);
+}
+
+/* a seed is coloured like sector coordinates */
+.seedValue {
+  color: var(--c-cyan);
+}
+
+/* mobile */
+.mPage {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mSeedRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mSeed {
+  width: 100%;
+  height: 44px;
+  padding-right: 44px;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  border-radius: var(--r-md);
+}
+
+.mSeedRow .seedHelp {
+  width: 36px;
+  height: 36px;
+}
+
+.mGenerate {
+  height: 44px;
+  border-radius: var(--r-md);
+}
+
+.mSeedRow .serverToggle {
+  min-height: 32px;
+}
+
+.mSeedRow .serverNum {
+  height: 40px;
+  font-size: 16px;
+}
+
+.mMapBox {
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 1;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--c-border);
+  overflow: hidden;
+  background: var(--c-map);
+}
+
+.mMapBox .placeholder {
+  border: 0;
+}
+
+.mLayers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mLayer {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-muted);
+  font-size: 12px;
+}
+
+.mLayer[aria-pressed='true'] {
+  background: var(--c-divider);
+  color: var(--c-text);
+}
+
+.mLayer .layerDot {
+  width: 8px;
+  height: 8px;
+}
+
+.mSel {
+  padding: 12px;
+  border-radius: var(--r-xl);
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mSel .selXY {
+  font-size: 18px;
+}
+
+.mSel .station {
+  background: var(--c-app);
+}
+
+.mBestRow {
+  min-height: 52px;
+  padding: 8px 10px;
+  border-radius: var(--r-lg);
+  background: var(--c-card);
+}
+
+.mBestRow[aria-pressed='true'] {
+  background: var(--c-active);
+}
+
+.mSel .hereBtn {
+  height: 36px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+/* landscape tablet: the desktop columns, narrower */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .grid {
+    grid-template-columns: 220px minmax(0, 1fr) 300px;
+  }
+
+  .mapArea {
+    padding: 16px;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+}
+
+/* portrait tablet: controls beside a near-square map, the sector and best places below */
+@media (min-width: 760px) and (max-width: 1023px) {
+  .grid {
+    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-rows: clamp(520px, calc(100vw - 220px), 780px) auto;
+    height: auto;
+  }
+
+  .rail {
+    min-height: 0;
+  }
+
+  .mapArea {
+    padding: 14px;
+  }
+
+  .panel {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 28px;
+    padding: 20px 16px 28px;
+    border-left: 0;
+    border-top: 1px solid var(--c-border);
+    overflow: visible;
+  }
+
+  .panel .sel {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+}

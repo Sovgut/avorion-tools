@@ -1,0 +1,144 @@
+@import '@fontsource/barlow/400.css';
+@import '@fontsource/barlow/500.css';
+@import '@fontsource/barlow/600.css';
+@import '@fontsource/barlow/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css';
+
+:root {
+  color-scheme: dark;
+
+  /* neutrals */
+  --c-map: #0b0b0c;
+  --c-app: #111112;
+  --c-panel: #151516;
+  --c-card: #1b1b1d;
+  --c-callout: #202022;
+  --c-divider: #222224;
+  --c-active: #29292c;
+  --c-border: #303033;
+  --c-border-strong: #424246;
+  --c-muted: #85858b;
+  --c-secondary: #a5a5ab;
+  --c-text: #ececee;
+
+  /* hues share lightness and chroma */
+  --c-accent: oklch(0.8 0.13 75);
+  --c-accent-hover: oklch(0.88 0.1 75);
+  --c-on-accent: #111112;
+  --c-cyan: oklch(0.8 0.13 200);
+  --c-green: oklch(0.8 0.13 150);
+  --c-violet: oklch(0.75 0.13 300);
+  --c-red: oklch(0.72 0.15 25);
+  --c-barrier: oklch(0.6 0.15 25);
+
+  --font-ui: 'Barlow', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 10px;
+  --r-xl: 12px;
+  --r-pill: 999px;
+
+  --shadow-overlay: 0 24px 60px rgba(0, 0, 0, 0.5);
+  --backdrop: rgba(8, 8, 9, 0.72);
+  --header-h: 60px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--c-app);
+  color: var(--c-text);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+a {
+  color: var(--c-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--c-accent-hover);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+input::placeholder {
+  color: var(--c-muted);
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 1px;
+}
+
+input:focus-visible {
+  outline: none;
+  border-color: var(--c-accent) !important;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* Mono caps section label */
+.label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--c-muted);
+  text-transform: uppercase;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c-active);
+  border-radius: 5px;
+  border: 2px solid var(--c-app);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
