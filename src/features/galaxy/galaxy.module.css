@@ -190,8 +190,11 @@
   gap: 6px;
 }
 
+/* the two coordinates split the row between them */
 .posInput {
-  width: 72px;
+  flex: 1;
+  min-width: 0;
+  width: auto;
   height: 34px;
   font-size: 15px;
 }
@@ -218,7 +221,6 @@
 }
 
 .mPosition .posInput {
-  width: 88px;
   height: 44px;
   font-size: 16px;
 }
