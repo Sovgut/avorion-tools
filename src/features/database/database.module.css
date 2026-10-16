@@ -245,15 +245,15 @@
 }
 
 .recipeOut {
-  border-color: var(--c-accent-2);
-  background: var(--c-accent-2);
-  color: var(--c-on-accent-2);
+  border-color: var(--c-accent);
+  background: var(--c-accent);
+  color: var(--c-on-accent);
   font-weight: 600;
 }
 
 .recipeOut:hover {
-  border-color: var(--c-accent-2-hover);
-  background: var(--c-accent-2-hover);
+  border-color: var(--c-accent-hover);
+  background: var(--c-accent-hover);
 }
 
 .usedGrid {

@@ -179,7 +179,7 @@ function Recipe({ p, gt, size = 0 }: { p: Production; gt: GameText; size?: numbe
       {p.ingredients.length > 0 && <span className={s.arrow}>→</span>}
       {p.results.map((r) => (
         <button key={r.good} type="button" className={`${s.recipeChip} ${s.recipeOut}`} onClick={() => go.good(r.good)}>
-          <GameIcon src={goodIcon(r.good)} size={14} color="var(--c-on-accent-2)" />
+          <GameIcon src={goodIcon(r.good)} size={14} color="var(--c-on-accent)" />
           {fmt(r.amount * mult)} × {gt.good(r.good)}
         </button>
       ))}
