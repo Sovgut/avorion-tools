@@ -1,25 +1,17 @@
-import {defineConfig} from 'vite'
-import react from '@vitejs/plugin-react'
+import { fileURLToPath, URL } from 'node:url';
+import babel from '@rolldown/plugin-babel';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
-    base: "/avorion-tools/",
-    resolve: {
-        alias: {
-            '~components': '/src/components',
-            '~constants': '/src/constants',
-            '~contexts': '/src/contexts',
-            '~layouts': '/src/layouts',
-            '~pages': '/src/pages',
-            '~hooks': '/src/hooks',
-            '~reducers': '/src/reducers',
-            '~utils': '/src/utils',
-            '~store': '/src/store',
-            '~types': '/src/types',
-            '~workers': '/src/workers',
-            '~data': '/src/data',
-            '~models': '/src/models',
-        }
-    }
-})
+  base: '/avorion-tools/',
+  plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
+  resolve: {
+    alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
+  },
+  worker: { format: 'es' },
+  build: {
+    target: 'es2023',
+    chunkSizeWarningLimit: 2000,
+  },
+});

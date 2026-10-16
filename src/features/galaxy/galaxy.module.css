@@ -1,0 +1,523 @@
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr) 360px;
+  height: calc(100dvh - var(--header-h));
+}
+
+.rail {
+  border-right: 1px solid var(--c-border);
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+}
+
+.seedBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.seed {
+  height: 38px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.generate {
+  height: 36px;
+}
+
+.help {
+  font-size: 12px;
+  color: var(--c-muted);
+  line-height: 1.4;
+}
+
+.help :global(.mono) {
+  color: var(--c-secondary);
+}
+
+.serverToggle {
+  align-self: flex-start;
+  border: 0;
+  background: transparent;
+  padding: 2px 0;
+  color: var(--c-secondary);
+  font-size: 12px;
+}
+
+.serverToggle:hover {
+  color: var(--c-text);
+}
+
+.server {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  border-radius: var(--r-sm);
+  background: var(--c-card);
+}
+
+.serverRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--c-secondary);
+}
+
+.serverNum {
+  width: 80px;
+  height: 30px;
+  font-size: 13px;
+}
+
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.layersLabel {
+  padding-bottom: 4px;
+}
+
+.layer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-muted);
+  font-size: 14px;
+  text-align: left;
+}
+
+.layer[aria-pressed='true'] {
+  background: var(--c-divider);
+  color: var(--c-text);
+}
+
+.layer:hover {
+  color: var(--c-text);
+}
+
+.layerDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.layerName {
+  flex: 1;
+}
+
+.layerCount {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-muted);
+}
+
+.position {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.posValue {
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+
+.mapArea {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--c-map);
+  min-width: 0;
+  min-height: 0;
+}
+
+.mapHead {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-secondary);
+}
+
+.mapWrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--c-map);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.zoomBtns {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.zoomBtns button {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--c-border);
+  background: rgba(21, 21, 22, 0.9);
+  color: var(--c-text);
+  font-size: 16px;
+}
+
+.zoomBtns button:hover {
+  border-color: var(--c-border-strong);
+}
+
+.placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--c-border);
+  border-radius: var(--r-md);
+  padding: 24px;
+  text-align: center;
+}
+
+.progressBox {
+  width: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progressLabel {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--c-secondary);
+}
+
+.progress {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--c-active);
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--c-cyan), var(--c-accent));
+  transition: width 0.2s;
+}
+
+.error {
+  color: var(--c-red);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.panel {
+  border-left: 1px solid var(--c-border);
+  background: var(--c-panel);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  overflow-y: auto;
+}
+
+.sel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.selHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.selXY {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.selName {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.linkXY {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-cyan);
+}
+
+.flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.flag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--c-border-strong);
+  color: var(--c-secondary);
+}
+
+.station {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  background: var(--c-card);
+}
+
+.stationName {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stationLink {
+  align-self: flex-start;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-text);
+  text-align: left;
+}
+
+.stationLink:hover {
+  color: var(--c-accent);
+}
+
+.goods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.goodChip {
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-secondary);
+  font-size: 11px;
+}
+
+.goodChip:hover {
+  border-color: var(--c-border-strong);
+  color: var(--c-text);
+}
+
+.goodPrice {
+  font-family: var(--font-mono);
+  color: var(--c-accent);
+}
+
+.best {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bestTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.bestRow,
+.mBestRow {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-text);
+  text-align: left;
+}
+
+.bestRow:hover,
+.bestRow[aria-pressed='true'] {
+  background: var(--c-active);
+}
+
+.bestName {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bestStation {
+  font-size: 11px;
+  color: var(--c-secondary);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mutedMono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-muted);
+}
+
+.cyanMono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-cyan);
+}
+
+/* mobile */
+.mPage {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mSeedRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mSeed {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  border-radius: var(--r-md);
+}
+
+.mGenerate {
+  height: 44px;
+  border-radius: var(--r-md);
+}
+
+.mSeedRow .serverToggle {
+  flex-basis: 100%;
+  min-height: 32px;
+}
+
+.mSeedRow .server {
+  flex-basis: 100%;
+}
+
+.mSeedRow .serverNum {
+  height: 40px;
+  font-size: 16px;
+}
+
+.mMapBox {
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 1;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--c-border);
+  overflow: hidden;
+  background: var(--c-map);
+}
+
+.mMapBox .placeholder {
+  border: 0;
+}
+
+.mLayers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mLayer {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-muted);
+  font-size: 12px;
+}
+
+.mLayer[aria-pressed='true'] {
+  background: var(--c-divider);
+  color: var(--c-text);
+}
+
+.mLayer .layerDot {
+  width: 8px;
+  height: 8px;
+}
+
+.mSel {
+  padding: 12px;
+  border-radius: var(--r-xl);
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mSel .selXY {
+  font-size: 18px;
+}
+
+.mSel .station {
+  background: var(--c-app);
+}
+
+.mBestRow {
+  min-height: 52px;
+  padding: 8px 10px;
+  border-radius: var(--r-lg);
+  background: var(--c-card);
+}
+
+.mBestRow[aria-pressed='true'] {
+  background: var(--c-active);
+}
