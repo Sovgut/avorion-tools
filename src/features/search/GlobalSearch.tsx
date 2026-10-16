@@ -93,7 +93,7 @@ export function GlobalSearch({ mobile }: { mobile?: boolean }) {
               );
               const chip = (
                 <button type="button" className={main ? s.chipAccent : s.chip} onClick={() => openStation(main, good.id)}>
-                  {main ? gt.station(main) : '—'}
+                  {main ? gt.station(main) : '-'}
                 </button>
               );
               if (mobile) {

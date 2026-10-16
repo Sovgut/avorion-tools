@@ -484,7 +484,7 @@ function MobilePlanner() {
           <div>
             <div className={s.mAvg}>≈ {fmt(plan.avg)}</div>
             <div className={s.mRange}>
-              {fmt(plan.min)} – {fmt(plan.max)} · {fmt2(plan.volume)} m³
+              {fmt(plan.min)} - {fmt(plan.max)} · {fmt2(plan.volume)} m³
             </div>
           </div>
           <span className={s.mCargoBadge}>
@@ -621,7 +621,7 @@ function CargoSheet({ plan, open, onClose }: { plan: Plan; open: boolean; onClos
         <div className={s.sheetAvg}>≈ {fmt(plan.avg)}</div>
         <div className={s.rangeLabels}>
           <span>
-            {fmt(plan.min)} – {fmt(plan.max)}
+            {fmt(plan.min)} - {fmt(plan.max)}
           </span>
           <span>{fmt2(plan.volume)} m³</span>
         </div>

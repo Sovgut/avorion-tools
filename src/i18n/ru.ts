@@ -36,7 +36,7 @@ export const RU: Record<string, string> = {
   'Main fleet': 'Основной флот',
   Tab: 'Вкладка',
   'Create tab with': 'Создать вкладку с',
-  'is a community work, and not officially created or maintained by': '— проект сообщества, официально не создан и не поддерживается',
+  'is a community work, and not officially created or maintained by': '- проект сообщества, официально не создан и не поддерживается',
 
   // planner
   '+ Add turret': '+ Добавить турель',

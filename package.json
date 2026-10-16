@@ -15,7 +15,8 @@
     "analyze": "tsx analyzer/index.ts",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "format": "biome check --write ."
+    "format": "biome check --write .",
+    "verify": "tsx tools/verify/index.ts"
   },
   "dependencies": {
     "@fontsource/barlow": "5.3.0",

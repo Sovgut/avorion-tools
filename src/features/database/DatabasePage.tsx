@@ -439,7 +439,7 @@ function StationDetail({ station }: { station: StationType }) {
         <div className={s.stats4}>
           <Stat small label={t('Founding cost')} value={`¢${fmt(p.cost)}`} />
           <Stat small label={t('Profit / cycle')} value={`¢${fmt(profit)}`} tone="green" />
-          <Stat small label={t('Payback')} value={profit > 0 ? `${fmt(p.cost / profit)} ${t('cycles')}` : '—'} />
+          <Stat small label={t('Payback')} value={profit > 0 ? `${fmt(p.cost / profit)} ${t('cycles')}` : '-'} />
           <Stat small label={t('Required cargo')} value={`${fmt2(cargo)} m³`} />
         </div>
         <div className={s.flow}>
