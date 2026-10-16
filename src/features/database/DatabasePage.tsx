@@ -209,7 +209,7 @@ function PlanCallout({ good, t, gt }: { good: string; t: T; gt: GameText }) {
     <div className={s.callout}>
       <div className={s.calloutTitle}>{t('In your plan')}</div>
       <div className={s.calloutText}>
-        {plan.tab?.name} {t('needs')} {fmt(need)} × {gt.good(good)}.
+        <span className={s.tabName}>{plan.tab?.name}</span> {t('needs')} {fmt(need)} × {gt.good(good)}.
       </div>
     </div>
   );

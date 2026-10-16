@@ -387,6 +387,11 @@ button.used:hover {
   color: var(--c-cyan);
 }
 
+/* a planner tab named in running text */
+.tabName {
+  color: var(--c-accent);
+}
+
 .nearName {
   flex: 1;
   min-width: 0;

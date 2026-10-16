@@ -488,6 +488,11 @@
   color: var(--c-cyan);
 }
 
+/* a planner tab named in running text */
+.tabName {
+  color: var(--c-accent);
+}
+
 /* a seed is coloured like sector coordinates */
 .seedValue {
   color: var(--c-cyan);
