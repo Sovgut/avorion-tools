@@ -58,7 +58,7 @@ export function toSignedNumber(hi: number, lo: number): number {
 export function fromDouble(d: number): [number, number] {
   if (d !== d) return [0x80000000, 0];
   const t = Math.trunc(d);
-  if (t >= 9223372036854775807 || t < -9223372036854775808) return [0x80000000, 0];
+  if (t >= 2 ** 63 || t < -(2 ** 63)) return [0x80000000, 0];
   if (Math.abs(t) < 4294967296) {
     if (t >= 0) return [0, t >>> 0];
     const lo = t >>> 0;

@@ -1,5 +1,4 @@
 // std::mt19937_64 on 32-bit halves. The game's Random class is a thin wrapper around it.
-import { mul64 } from './int64';
 
 const N = 312;
 const M = 156;
@@ -25,9 +24,20 @@ export class MT19937_64 {
     for (let i = 1; i < N; i++) {
       const ph = hi[i - 1];
       const pl = lo[i - 1];
-      // x = prev ^ (prev >> 62)
+      // x = prev ^ (prev >> 62); mt[i] = F * x + i  (mod 2^64)
       const xl = (pl ^ (ph >>> 30)) >>> 0;
-      const [mh, ml] = mul64(F_HI, F_LO, ph, xl);
+      const xh = ph;
+      // low 32×32 → 64 product of F_LO and xl, in 16-bit limbs
+      const a0 = F_LO & 0xffff;
+      const a1 = F_LO >>> 16;
+      const b0 = xl & 0xffff;
+      const b1 = xl >>> 16;
+      const p00 = a0 * b0;
+      const p01 = a0 * b1;
+      const p10 = a1 * b0;
+      const mid = (p00 >>> 16) + (p01 & 0xffff) + (p10 & 0xffff);
+      const ml = (((mid & 0xffff) << 16) | (p00 & 0xffff)) >>> 0;
+      const mh = (a1 * b1 + (p01 >>> 16) + (p10 >>> 16) + Math.floor(mid / 65536) + Math.imul(F_HI, xl) + Math.imul(F_LO, xh)) >>> 0;
       const sum = ml + i;
       lo[i] = sum >>> 0;
       hi[i] = (mh + (sum > 0xffffffff ? 1 : 0)) >>> 0;

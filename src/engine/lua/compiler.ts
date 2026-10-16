@@ -6,9 +6,38 @@ import luaparse from 'luaparse';
 type Node = any; // luaparse AST nodes are loosely typed; shapes are checked by `type`.
 
 const RUNTIME_NAMES = [
-  'first', 'nth', 'mret', 'mretv', 'va', 'truthy', 'index', 'setindex', 'call', 'callv', 'method', 'methodv',
-  'add', 'sub', 'mul', 'div', 'mod', 'pow', 'unm', 'concat', 'len', 'eq', 'lt', 'le', 'gt', 'ge',
-  'newTable', 'forNum', 'forIter', 'gget', 'gset', 'LuaError',
+  'first',
+  'nth',
+  'mret',
+  'mretv',
+  'va',
+  'truthy',
+  'index',
+  'setindex',
+  'call',
+  'callv',
+  'method',
+  'methodv',
+  'add',
+  'sub',
+  'mul',
+  'div',
+  'mod',
+  'pow',
+  'unm',
+  'concat',
+  'len',
+  'eq',
+  'lt',
+  'le',
+  'gt',
+  'ge',
+  'newTable',
+  'forNum',
+  'forIter',
+  'gget',
+  'gset',
+  'LuaError',
 ] as const;
 
 interface Scope {
@@ -67,12 +96,12 @@ export class Compiler {
   private tempDecl(fn: FnState): string {
     if (fn.temps === 0) return '';
     const names: string[] = [];
-    for (let i = 1; i <= fn.temps; i++) names.push('$t' + i);
+    for (let i = 1; i <= fn.temps; i++) names.push(`$t${i}`);
     return `let ${names.join(', ')};\n`;
   }
 
   private temp(scope: Scope): string {
-    return '$t' + ++scope.fn.temps;
+    return `$t${++scope.fn.temps}`;
   }
 
   private declare(scope: Scope, name: string): string {
@@ -146,7 +175,7 @@ export class Compiler {
       case 'AssignmentStatement':
         return line + this.assignment(s, scope);
       case 'CallStatement':
-        return line + this.callExpr(s.expression, scope, true) + ';';
+        return `${line + this.callExpr(s.expression, scope, true)};`;
       case 'FunctionDeclaration':
         return line + this.functionDeclaration(s, scope);
       case 'ReturnStatement':
@@ -219,7 +248,7 @@ export class Compiler {
     const fixed = inits.slice(0, -1).map((e) => this.expr(e, scope));
     const tmps = fixed.map(() => this.temp(scope));
     const mt = this.temp(scope);
-    const pre = fixed.map((v, i) => `${tmps[i]} = ${v};`).join(' ') + ` ${mt} = ${this.multiExpr(inits[inits.length - 1], scope)};`;
+    const pre = `${fixed.map((v, i) => `${tmps[i]} = ${v};`).join(' ')} ${mt} = ${this.multiExpr(inits[inits.length - 1], scope)};`;
     const js = names.map((n) => this.declare(scope, n));
     const assigns = js.map((j, i) => (i < fixed.length ? `${j} = ${tmps[i]}` : `${j} = nth(${mt}, ${i - fixed.length})`));
     return `${pre}\nlet ${assigns.join(', ')};`;
@@ -445,7 +474,8 @@ export class Compiler {
   /** Expression whose value may carry several results (a call or `...`). */
   private multiExpr(e: Node, scope: Scope): string {
     if (e.type === 'VarargLiteral') return 'va($va)';
-    if (e.type === 'CallExpression' || e.type === 'TableCallExpression' || e.type === 'StringCallExpression') return this.callExpr(e, scope, false);
+    if (e.type === 'CallExpression' || e.type === 'TableCallExpression' || e.type === 'StringCallExpression')
+      return this.callExpr(e, scope, false);
     return this.expr(e, scope);
   }
 
@@ -494,8 +524,18 @@ export class Compiler {
     const a = this.expr(e.left, scope);
     const b = this.expr(e.right, scope);
     const fn: Record<string, string> = {
-      '+': 'add', '-': 'sub', '*': 'mul', '/': 'div', '%': 'mod', '^': 'pow', '..': 'concat',
-      '==': 'eq', '<': 'lt', '<=': 'le', '>': 'gt', '>=': 'ge',
+      '+': 'add',
+      '-': 'sub',
+      '*': 'mul',
+      '/': 'div',
+      '%': 'mod',
+      '^': 'pow',
+      '..': 'concat',
+      '==': 'eq',
+      '<': 'lt',
+      '<=': 'le',
+      '>': 'gt',
+      '>=': 'ge',
     };
     if (e.operator === '~=') return `!eq(${a}, ${b})`;
     const f = fn[e.operator];

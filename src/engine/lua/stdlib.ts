@@ -1,14 +1,16 @@
 // Lua 5.2 base, table and math libraries (lbaselib.c, ltablib.c, lmathlib.c semantics).
+
+import { makeStringLib } from './lstrlib';
 import {
-  LuaError,
-  LuaMulti,
-  LuaTable,
-  Userdata,
   call,
   eq,
   first,
   getMetamethod,
   getMetatable,
+  LuaError,
+  LuaMulti,
+  LuaTable,
+  type LuaValue,
   len,
   lt,
   mret,
@@ -17,9 +19,8 @@ import {
   tonum,
   truthy,
   type,
-  type LuaValue,
+  Userdata,
 } from './runtime';
-import { makeStringLib } from './lstrlib';
 
 const addressIds = new WeakMap<object, number>();
 let nextAddress = 0x10000000;
@@ -53,10 +54,10 @@ export function tostring(v: LuaValue): string {
     case 'string':
       return v;
     case 'function':
-      return 'function: ' + address(v);
+      return `function: ${address(v)}`;
     default:
-      if (v instanceof Userdata) return v.luaTypeName + ': ' + address(v);
-      return type(v) + ': ' + address(v as object);
+      if (v instanceof Userdata) return `${v.luaTypeName}: ${address(v)}`;
+      return `${type(v)}: ${address(v as object)}`;
   }
 }
 
@@ -67,7 +68,8 @@ function checkTable(v: LuaValue, arg: number, fname: string): LuaTable {
 
 function checkNumber(v: LuaValue, arg: number, fname: string): number {
   const n = tonum(v);
-  if (n === undefined) throw new LuaError(`bad argument #${arg} to '${fname}' (number expected, got ${v === undefined ? 'no value' : type(v)})`);
+  if (n === undefined)
+    throw new LuaError(`bad argument #${arg} to '${fname}' (number expected, got ${v === undefined ? 'no value' : type(v)})`);
   return n;
 }
 
@@ -129,7 +131,7 @@ export function installBaseLib(G: LuaTable, opts: BaseLibOptions = {}): void {
     let n = 0;
     for (const c of str) {
       const d = parseInt(c, 36);
-      if (isNaN(d) || d >= b) return undefined;
+      if (Number.isNaN(d) || d >= b) return undefined;
       n = n * b + d;
     }
     return neg ? -n : n;
@@ -143,7 +145,7 @@ export function installBaseLib(G: LuaTable, opts: BaseLibOptions = {}): void {
   def('rawlen', (v) => {
     if (v instanceof LuaTable) return v.length();
     if (typeof v === 'string') return v.length;
-    throw new LuaError("table or string expected");
+    throw new LuaError('table or string expected');
   });
   def('next', luaNext);
   def('pairs', (t) => {
@@ -401,7 +403,7 @@ export function installMathLib(G: LuaTable): LuaTable {
   n1('deg', (x) => x * (180 / Math.PI));
   n1('rad', (x) => x * (Math.PI / 180));
   def('atan2', (y, x) => Math.atan2(checkNumber(y, 1, 'atan2'), checkNumber(x, 2, 'atan2')));
-  def('pow', (x, y) => Math.pow(checkNumber(x, 1, 'pow'), checkNumber(y, 2, 'pow')));
+  def('pow', (x, y) => checkNumber(x, 1, 'pow') ** checkNumber(y, 2, 'pow'));
   def('fmod', (x, y) => checkNumber(x, 1, 'fmod') % checkNumber(y, 2, 'fmod'));
   def('modf', (xv) => {
     const x = checkNumber(xv, 1, 'modf');
@@ -415,7 +417,7 @@ export function installMathLib(G: LuaTable): LuaTable {
     if (b === 10) return Math.log10(x);
     return Math.log(x) / Math.log(b);
   });
-  def('ldexp', (m, e) => checkNumber(m, 1, 'ldexp') * Math.pow(2, checkInt(e, 2, 'ldexp')));
+  def('ldexp', (m, e) => checkNumber(m, 1, 'ldexp') * 2 ** checkInt(e, 2, 'ldexp'));
   def('min', (...a) => {
     let d = checkNumber(a[0], 1, 'min');
     for (let i = 1; i < a.length; i++) {

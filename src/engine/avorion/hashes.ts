@@ -13,7 +13,7 @@ function wang(k: number): number {
 
 /** lua_tointeger as the game reads it: cvttsd2si to int64, then the low 32 bits. */
 export function luaToInt32(d: number): number {
-  if (d !== d || d >= 9223372036854775808 || d < -9223372036854775808) return 0;
+  if (d !== d || d >= 2 ** 63 || d < -(2 ** 63)) return 0;
   const t = Math.trunc(d);
   if (t >= -2147483648 && t <= 2147483647) return t | 0;
   return Number(BigInt.asIntN(32, BigInt(t)));
@@ -34,7 +34,7 @@ export class ByteHasher {
     const sb = b > 127 ? b - 256 : b;
     const bl = sb >>> 0;
     const bh = sb < 0 ? 0xffffffff : 0;
-    const shl = ((this.lo << 5) >>> 0);
+    const shl = (this.lo << 5) >>> 0;
     const shh = ((this.hi << 5) | (this.lo >>> 27)) >>> 0;
     this.lo = (this.lo ^ shl ^ bl) >>> 0;
     this.hi = (this.hi ^ shh ^ bh) >>> 0;

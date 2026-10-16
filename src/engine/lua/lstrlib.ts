@@ -1,21 +1,22 @@
 // Port of Lua 5.2 lstrlib.c. Strings are byte strings: one JS char per byte (0-255).
+
+import { formatNumber, padString, type Spec } from './format';
 import {
-  LuaError,
-  LuaMulti,
-  LuaTable,
   call,
   first,
   getMetamethod,
   index,
+  LuaError,
+  LuaMulti,
+  LuaTable,
+  type LuaValue,
   mret,
   numberToString,
   stringMeta,
   tonum,
   truthy,
   type,
-  type LuaValue,
 } from './runtime';
-import { formatNumber, padString, type Spec } from './format';
 
 const L_ESC = 37; // '%'
 const SPECIALS = '^$*+?.([%-';
@@ -61,7 +62,7 @@ function isgraph(c: number) {
 
 function classEnd(ms: MatchState, p: number): number {
   const pat = ms.pat;
-  if (p >= pat.length) throw new LuaError('malformed pattern (ends with \'%\')');
+  if (p >= pat.length) throw new LuaError("malformed pattern (ends with '%')");
   const c = pat.charCodeAt(p++);
   if (c === L_ESC) {
     if (p >= pat.length) throw new LuaError("malformed pattern (ends with '%')");
@@ -82,17 +83,39 @@ function classEnd(ms: MatchState, p: number): number {
 function singleMatchClass(c: number, cl: number): boolean {
   let res: boolean;
   switch (cl | 32) {
-    case 97: res = isalpha(c); break; // a
-    case 99: res = iscntrl(c); break; // c
-    case 100: res = isdigit(c); break; // d
-    case 103: res = isgraph(c); break; // g
-    case 108: res = islower(c); break; // l
-    case 112: res = ispunct(c); break; // p
-    case 115: res = isspace(c); break; // s
-    case 117: res = isupper(c); break; // u
-    case 119: res = isalpha(c) || isdigit(c); break; // w
-    case 120: res = isxdigit(c); break; // x
-    case 122: res = c === 0; break; // z
+    case 97:
+      res = isalpha(c);
+      break; // a
+    case 99:
+      res = iscntrl(c);
+      break; // c
+    case 100:
+      res = isdigit(c);
+      break; // d
+    case 103:
+      res = isgraph(c);
+      break; // g
+    case 108:
+      res = islower(c);
+      break; // l
+    case 112:
+      res = ispunct(c);
+      break; // p
+    case 115:
+      res = isspace(c);
+      break; // s
+    case 117:
+      res = isupper(c);
+      break; // u
+    case 119:
+      res = isalpha(c) || isdigit(c);
+      break; // w
+    case 120:
+      res = isxdigit(c);
+      break; // x
+    case 122:
+      res = c === 0;
+      break; // z
     default:
       return cl === c;
   }
@@ -322,7 +345,8 @@ function checkStr(v: LuaValue, arg: number, fname: string): string {
 function checkInt(v: LuaValue, arg: number, fname: string, def?: number): number {
   if (v === undefined && def !== undefined) return def;
   const n = tonum(v);
-  if (n === undefined) throw new LuaError(`bad argument #${arg} to '${fname}' (number expected, got ${v === undefined ? 'no value' : type(v)})`);
+  if (n === undefined)
+    throw new LuaError(`bad argument #${arg} to '${fname}' (number expected, got ${v === undefined ? 'no value' : type(v)})`);
   return n < 0 ? Math.ceil(n) : Math.floor(n);
 }
 
@@ -339,7 +363,7 @@ function strFindAux(find: boolean, s0: LuaValue, p0: LuaValue, init0: LuaValue, 
   let init = posrelat(checkInt(init0, 3, fname, 1), s.length);
   if (init < 1) init = 1;
   else if (init > s.length + 1) return undefined;
-  if (find && (truthy(plain) || !/[\^$*+?.(\[%-]/.test(p))) {
+  if (find && (truthy(plain) || !/[\^$*+?.([%-]/.test(p))) {
     const idx = s.indexOf(p, init - 1);
     if (idx === -1) return undefined;
     return mret(idx + 1, idx + p.length);
@@ -451,15 +475,15 @@ function addQuoted(s: string): string {
   let out = '"';
   for (let i = 0; i < s.length; i++) {
     const c = s.charCodeAt(i);
-    if (c === 34 || c === 92 || c === 10) out += '\\' + s[i];
+    if (c === 34 || c === 92 || c === 10) out += `\\${s[i]}`;
     else if (c === 13) out += '\\r';
     else if (c === 0) out += '\\0';
     else if (iscntrl(c)) {
       const next = i + 1 < s.length ? s.charCodeAt(i + 1) : -1;
-      out += isdigit(next) ? '\\' + String(c).padStart(3, '0') : '\\' + c;
+      out += isdigit(next) ? `\\${String(c).padStart(3, '0')}` : `\\${c}`;
     } else out += s[i];
   }
-  return out + '"';
+  return `${out}"`;
 }
 
 export function makeStringLib(tostringFn: (v: LuaValue) => string): LuaTable {
@@ -529,7 +553,7 @@ export function makeStringLib(tostringFn: (v: LuaValue) => string): LuaTable {
         continue;
       }
       const m = /^([-+ #0]*)(\d*)(?:\.(\d*))?([a-zA-Z])/.exec(fmt.slice(i));
-      if (!m) throw new LuaError("invalid option '%" + (fmt[i] ?? '') + "' to 'format'");
+      if (!m) throw new LuaError(`invalid option '%${fmt[i] ?? ''}' to 'format'`);
       i += m[0].length - 1;
       const spec: Spec = {
         flags: m[1],

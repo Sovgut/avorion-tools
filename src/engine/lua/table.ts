@@ -100,21 +100,29 @@ export function int2fb(x: number): number {
 }
 
 export class LuaError extends Error {
-  constructor(public value: LuaValue, public traceback?: string) {
+  constructor(
+    public value: LuaValue,
+    public traceback?: string,
+  ) {
     super(typeof value === 'string' ? value : 'Lua error');
   }
 }
+
+const DUMMY_NEXT = new Int32Array([-1]);
+const NUMS = new Array<number>(MAXBITS + 1);
 
 export class LuaTable {
   /** Array part; its length is `sizearray`. */
   arr: LuaValue[] = [];
   keys: LuaValue[] = [undefined];
   vals: LuaValue[] = [undefined];
-  nexts: number[] = [-1];
+  nexts: Int32Array | number[] = DUMMY_NEXT;
   lsize = 0;
   dummy = true;
   lastfree = 0;
   metatable: LuaTable | undefined = undefined;
+  /** String key → node index. Mirrors the node array so lookups skip hashing and chain walks. */
+  private sidx: Map<string, number> | undefined = undefined;
 
   /** Mirrors OP_NEWTABLE: sizes are the constructor's counts, rounded the way the bytecode encodes them. */
   constructor(narray = 0, nhash = 0) {
@@ -162,14 +170,8 @@ export class LuaTable {
   }
 
   private findNodeString(k: string): number {
-    let n = hashString(k) & ((1 << this.lsize) - 1);
-    const keys = this.keys;
-    const nexts = this.nexts;
-    do {
-      if (keys[n] === k) return n;
-      n = nexts[n];
-    } while (n !== -1);
-    return -1;
+    const n = this.sidx?.get(k);
+    return n === undefined ? -1 : n;
   }
 
   /** luaH_get. */
@@ -274,26 +276,34 @@ export class LuaTable {
       if (othern !== mp) {
         while (this.nexts[othern] !== mp) othern = this.nexts[othern];
         this.nexts[othern] = f;
-        this.keys[f] = this.keys[mp];
+        const moved = this.keys[mp];
+        this.keys[f] = moved;
         this.vals[f] = this.vals[mp];
         this.nexts[f] = this.nexts[mp];
         this.nexts[mp] = -1;
         this.vals[mp] = undefined;
+        if (typeof moved === 'string') this.sidx!.set(moved, f);
       } else {
         this.nexts[f] = this.nexts[mp];
         this.nexts[mp] = f;
         mp = f;
       }
+    } else {
+      // a dead key may still occupy the free main position
+      const dead = this.keys[mp];
+      if (typeof dead === 'string') this.sidx?.delete(dead);
     }
     this.keys[mp] = k;
     this.vals[mp] = v;
+    if (typeof k === 'string') (this.sidx ??= new Map()).set(k, mp);
   }
 
   private setNodeVector(size: number): void {
+    this.sidx = undefined;
     if (size === 0) {
       this.keys = [undefined];
       this.vals = [undefined];
-      this.nexts = [-1];
+      this.nexts = DUMMY_NEXT;
       this.lsize = 0;
       this.dummy = true;
       this.lastfree = 0;
@@ -304,7 +314,7 @@ export class LuaTable {
     const n = 1 << lsize;
     this.keys = new Array(n).fill(undefined);
     this.vals = new Array(n).fill(undefined);
-    this.nexts = new Array(n).fill(-1);
+    this.nexts = new Int32Array(n).fill(-1);
     this.lsize = lsize;
     this.dummy = false;
     this.lastfree = n;
@@ -339,7 +349,7 @@ export class LuaTable {
   }
 
   private rehash(ek: LuaValue): void {
-    const nums = new Array<number>(MAXBITS + 1).fill(0);
+    const nums = NUMS.fill(0);
     // numusearray
     let ause = 0;
     let i = 1;
@@ -440,6 +450,11 @@ export class LuaTable {
     if (k === undefined) return 0;
     const ai = arrayIndex(k);
     if (ai > 0 && ai <= this.arr.length) return ai;
+    if (typeof k === 'string') {
+      const n = this.findNodeString(k);
+      if (n === -1) throw new LuaError("invalid key to 'next'");
+      return n + 1 + this.arr.length;
+    }
     let n = this.mainPosition(k);
     for (;;) {
       if (this.keys[n] === k) return n + 1 + this.arr.length;

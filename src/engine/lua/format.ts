@@ -15,7 +15,7 @@ function fixExponent(s: string, upper: boolean): string {
   const mant = s.slice(0, i);
   const sign = s[i + 1];
   let digits = s.slice(i + 2);
-  while (digits.length < 3) digits = '0' + digits;
+  while (digits.length < 3) digits = `0${digits}`;
   return mant + (upper ? 'E' : 'e') + sign + digits;
 }
 
@@ -38,7 +38,7 @@ export function formatF(n: number, prec: number, alt = false): string {
 
 function bigFixed(n: number, prec: number): string {
   let s = BigInt(n).toString();
-  if (prec > 0) s += '.' + '0'.repeat(prec);
+  if (prec > 0) s += `.${'0'.repeat(prec)}`;
   return s;
 }
 
@@ -48,7 +48,7 @@ export function formatG(n: number, prec: number, upper = false, alt = false): st
   if (prec === 0) prec = 1;
   if (n === 0) {
     let z = '0';
-    if (alt) z = '0.' + '0'.repeat(prec - 1);
+    if (alt) z = `0.${'0'.repeat(prec - 1)}`;
     return (Object.is(n, -0) ? '-' : '') + z;
   }
   const e = Math.abs(n).toExponential(prec - 1);
@@ -119,9 +119,9 @@ export function formatNumber(spec: Spec, n: number): string {
         if (s.length < spec.precision) s = '0'.repeat(spec.precision - s.length) + s;
       }
       if (alt && v !== 0n) {
-        if (conv === 'x') s = '0x' + s;
-        else if (conv === 'X') s = '0X' + s;
-        else if (conv === 'o' && s[0] !== '0') s = '0' + s;
+        if (conv === 'x') s = `0x${s}`;
+        else if (conv === 'X') s = `0X${s}`;
+        else if (conv === 'o' && s[0] !== '0') s = `0${s}`;
       }
       break;
     }
@@ -145,7 +145,7 @@ export function formatNumber(spec: Spec, n: number): string {
       s = n.toString(16);
       break;
     default:
-      throw new Error('bad conversion ' + conv);
+      throw new Error(`bad conversion ${conv}`);
   }
   return pad(s, width, left, zero);
 }

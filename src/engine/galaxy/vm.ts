@@ -1,7 +1,8 @@
 // A Lua state that runs the game's compiled generation scripts with the native API installed.
-import { LuaTable, type LuaValue } from '../lua/runtime';
+
+import { type GalaxySettings, installNatives, installStubs } from '../avorion/natives';
 import { LuaState, type ModuleFactory } from '../lua/rt';
-import { installNatives, installStubs, type GalaxySettings } from '../avorion/natives';
+import { LuaTable, type LuaValue } from '../lua/runtime';
 
 /** Libraries the engine runs in each script context up front (they define globals like StationSubType). */
 export const PRELOADED = ['data/scripts/lib/plangeneratorbase.lua'];
@@ -34,7 +35,7 @@ export class GameVM {
           const rel = p.replace('?', name);
           if (rel in opts.modules) return rel;
         }
-        return '\0missing:' + name;
+        return `\0missing:${name}`;
       },
       require: (path) => {
         if (path.startsWith('\0missing:')) {

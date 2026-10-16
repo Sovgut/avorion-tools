@@ -1,28 +1,22 @@
 // Avorion's native script API, as far as galaxy generation and data extraction need it.
-import {
-  LuaError,
-  LuaMulti,
-  LuaTable,
-  Userdata,
-  call,
-  first,
-  getMetamethod,
-  method,
-  tonum,
-  type LuaValue,
-} from '../lua/runtime';
+import { call, first, getMetamethod, LuaError, LuaMulti, LuaTable, type LuaValue, method, tonum, Userdata } from '../lua/runtime';
 import { tostring } from '../lua/stdlib';
-import { fromBigInt, fromDouble, toBigInt, toSignedNumber, toSignedString } from './int64';
+import enumData from './enums.json';
 import { luaToInt32, makeFastHash, sectorSeed, seedFromString } from './hashes';
+import { fromBigInt, fromDouble, toBigInt, toSignedNumber, toSignedString } from './int64';
 import { MT19937_64 } from './mt64';
 import { QuadTree } from './quadtree';
-import enumData from './enums.json';
 
 const fr = Math.fround;
 
 type Fn = (...a: LuaValue[]) => LuaValue;
 
-function metatable(name: string, methods: Record<string, Fn>, getField?: (o: any, k: LuaValue) => LuaValue, extra?: Record<string, Fn>): LuaTable {
+function metatable(
+  name: string,
+  methods: Record<string, Fn>,
+  getField?: (o: any, k: LuaValue) => LuaValue,
+  extra?: Record<string, Fn>,
+): LuaTable {
   const mt = new LuaTable();
   const methodTable = new Map(Object.entries(methods));
   mt.set('__index', (o: LuaValue, k: LuaValue) => {
@@ -81,7 +75,7 @@ export class Seed extends Userdata {
       return new Seed(h, l);
     }
     if (v === undefined) return new Seed(0, 0);
-    throw new LuaError('Seed: bad argument ' + tostring(v));
+    throw new LuaError(`Seed: bad argument ${tostring(v)}`);
   }
 }
 
@@ -169,7 +163,8 @@ export class Random extends Userdata {
 
 Random.meta = metatable('Random', {
   getInt: (self, a, b) => (self as Random).getInt(num(a, 'getInt'), num(b, 'getInt')),
-  getFloat: (self, a, b) => (self as Random).getFloat(a === undefined ? undefined : num(a, 'getFloat'), b === undefined ? undefined : num(b, 'getFloat')),
+  getFloat: (self, a, b) =>
+    (self as Random).getFloat(a === undefined ? undefined : num(a, 'getFloat'), b === undefined ? undefined : num(b, 'getFloat')),
   test: (self, p) => (self as Random).test(num(p, 'test')),
   getBool: (self) => (self as Random).getBool(),
   multitest: (self, tries, p) => {
@@ -262,15 +257,24 @@ function vecOp(op: (a: number, b: number) => number) {
     if ((a instanceof Vec2 || a instanceof Vec3) && (b instanceof Vec2 || b instanceof Vec3)) {
       const ca = comps(a);
       const cb = comps(b);
-      return make(a, ca.map((x, i) => fr(op(x, cb[i]))));
+      return make(
+        a,
+        ca.map((x, i) => fr(op(x, cb[i]))),
+      );
     }
     if (a instanceof Vec2 || a instanceof Vec3) {
       const s = fr(num(b, 'vec'));
-      return make(a, comps(a).map((x) => fr(op(x, s))));
+      return make(
+        a,
+        comps(a).map((x) => fr(op(x, s))),
+      );
     }
     const v = b as AnyVec;
     const s = fr(num(a, 'vec'));
-    return make(v, comps(v).map((x) => fr(op(s, x))));
+    return make(
+      v,
+      comps(v).map((x) => fr(op(s, x))),
+    );
   };
 }
 
@@ -284,13 +288,22 @@ function vecMeta(name: string, fields: string[]): LuaTable {
     __sub: vecOp((a, b) => a - b),
     __mul: vecOp((a, b) => a * b),
     __div: vecOp((a, b) => a / b),
-    __unm: (a) => make(a as AnyVec, comps(a as AnyVec).map((x) => -x)),
+    __unm: (a) =>
+      make(
+        a as AnyVec,
+        comps(a as AnyVec).map((x) => -x),
+      ),
     __eq: (a, b) => {
       const ca = comps(a as AnyVec);
       const cb = comps(b as AnyVec);
       return ca.length === cb.length && ca.every((x, i) => x === cb[i]);
     },
-    __tostring: (a) => '(' + comps(a as AnyVec).map((x) => tostring(x)).join(', ') + ')',
+    __tostring: (a) =>
+      '(' +
+      comps(a as AnyVec)
+        .map((x) => tostring(x))
+        .join(', ') +
+      ')',
   });
   mt.set('__newindex', (o: any, k: LuaValue, v: LuaValue) => {
     if (typeof k === 'string' && fields.includes(k)) o[k] = fr(num(v, name));
@@ -336,7 +349,11 @@ LuaQuadTree.meta = metatable(
       return undefined;
     },
     nearest: (self, x, y, radius) => {
-      const r = (self as LuaQuadTree).tree.nearest(num(x, 'nearest'), num(y, 'nearest'), radius === undefined ? undefined : num(radius, 'nearest'));
+      const r = (self as LuaQuadTree).tree.nearest(
+        num(x, 'nearest'),
+        num(y, 'nearest'),
+        radius === undefined ? undefined : num(radius, 'nearest'),
+      );
       return r === undefined ? new LuaMulti([undefined, undefined]) : new LuaMulti([r[0], r[1]]);
     },
     get: (self, c, radius) => {
@@ -401,7 +418,10 @@ export function installNatives(G: LuaTable, opts: NativeOptions): void {
     if (c === undefined) return undefined;
     return makeFastHash(num(a, 'makeFastHash'), num(b, 'makeFastHash'), num(c, 'makeFastHash'));
   });
-  def('vec2', (x, y) => new Vec2(x === undefined ? 0 : num(x, 'vec2'), y === undefined ? (x === undefined ? 0 : num(x, 'vec2')) : num(y, 'vec2')));
+  def(
+    'vec2',
+    (x, y) => new Vec2(x === undefined ? 0 : num(x, 'vec2'), y === undefined ? (x === undefined ? 0 : num(x, 'vec2')) : num(y, 'vec2')),
+  );
   def('vec3', (x, y, z) => {
     if (x === undefined) return new Vec3(0, 0, 0);
     if (y === undefined) return new Vec3(num(x, 'vec3'), num(x, 'vec3'), num(x, 'vec3'));
@@ -412,17 +432,26 @@ export function installNatives(G: LuaTable, opts: NativeOptions): void {
   def('length', (a) => fr(Math.sqrt(dotf(a as AnyVec, a as AnyVec))));
   def('length2', (a) => dotf(a as AnyVec, a as AnyVec));
   def('distance', (a, b) => {
-    const d = make(a as AnyVec, comps(a as AnyVec).map((x, i) => fr(x - comps(b as AnyVec)[i])));
+    const d = make(
+      a as AnyVec,
+      comps(a as AnyVec).map((x, i) => fr(x - comps(b as AnyVec)[i])),
+    );
     return fr(Math.sqrt(dotf(d, d)));
   });
   def('distance2', (a, b) => {
-    const d = make(a as AnyVec, comps(a as AnyVec).map((x, i) => fr(x - comps(b as AnyVec)[i])));
+    const d = make(
+      a as AnyVec,
+      comps(a as AnyVec).map((x, i) => fr(x - comps(b as AnyVec)[i])),
+    );
     return dotf(d, d);
   });
   def('normalize', (a) => {
     const v = a as AnyVec;
     const l = fr(Math.sqrt(dotf(v, v)));
-    return make(v, comps(v).map((x) => fr(x / l)));
+    return make(
+      v,
+      comps(v).map((x) => fr(x / l)),
+    );
   });
   def('QuadTree', (min, max, level) => {
     const a = min as Vec2;
@@ -437,17 +466,51 @@ export function installNatives(G: LuaTable, opts: NativeOptions): void {
     t.set('barrier', settings.barrier);
     // the remaining server.ini defaults; generation only reads a few of them
     const defaults: Record<string, LuaValue> = {
-      difficulty: 0, storyline: true, behemothEvents: false, resourceAsteroidFactor: 1, resourceWreckageFactor: 1,
-      eventsFactor: 1, riftMassFactor: 1, riftDamageFactor: 1, damageMultiplier: 0.6000000238418579, initialRelations: 0,
-      relationGainFactor: 1, relationLossFactor: 1, startingResources: 0, collisionDamage: 1, devMode: false,
-      infiniteResources: false, playTutorial: false, permaDestruction: false, reconstructionAllowed: true,
-      dockingRestrictions: true, unlimitedProcessingPower: false, unlimitedShipSize: false, fullBuildingUnlocked: false,
-      buildModeFreeTurrets: false, buildModeExtraBlockTypes: false, creativeModeCommandCenter: false,
-      instantShipyardBuilding: false, shipyardBoundBuilding: true, repairingAlwaysAllowed: false, preciseAIAim: false,
-      safePlayerInput: false, pvpDamage: true, bigWreckageDespawnTime: 1800, smallWreckageDespawnTime: 900,
-      maximumFightersPerSectorAndPlayer: -1, maximumStationsPerSector: -1, maximumBlocksPerCraft: -1,
-      maximumVolumePerShip: -1, maximumVolumePerStation: -1, maximumPlayerShips: -1, maximumPlayerStations: -1,
-      maximumAllianceShips: -1, maximumAllianceStations: -1, maximumAllianceShipsPerMember: -1, maximumAllianceStationsPerMember: -1,
+      difficulty: 0,
+      storyline: true,
+      behemothEvents: false,
+      resourceAsteroidFactor: 1,
+      resourceWreckageFactor: 1,
+      eventsFactor: 1,
+      riftMassFactor: 1,
+      riftDamageFactor: 1,
+      damageMultiplier: 0.6000000238418579,
+      initialRelations: 0,
+      relationGainFactor: 1,
+      relationLossFactor: 1,
+      startingResources: 0,
+      collisionDamage: 1,
+      devMode: false,
+      infiniteResources: false,
+      playTutorial: false,
+      permaDestruction: false,
+      reconstructionAllowed: true,
+      dockingRestrictions: true,
+      unlimitedProcessingPower: false,
+      unlimitedShipSize: false,
+      fullBuildingUnlocked: false,
+      buildModeFreeTurrets: false,
+      buildModeExtraBlockTypes: false,
+      creativeModeCommandCenter: false,
+      instantShipyardBuilding: false,
+      shipyardBoundBuilding: true,
+      repairingAlwaysAllowed: false,
+      preciseAIAim: false,
+      safePlayerInput: false,
+      pvpDamage: true,
+      bigWreckageDespawnTime: 1800,
+      smallWreckageDespawnTime: 900,
+      maximumFightersPerSectorAndPlayer: -1,
+      maximumStationsPerSector: -1,
+      maximumBlocksPerCraft: -1,
+      maximumVolumePerShip: -1,
+      maximumVolumePerStation: -1,
+      maximumPlayerShips: -1,
+      maximumPlayerStations: -1,
+      maximumAllianceShips: -1,
+      maximumAllianceStations: -1,
+      maximumAllianceShipsPerMember: -1,
+      maximumAllianceStationsPerMember: -1,
     };
     for (const [k, v] of Object.entries(defaults)) t.set(k, v);
     return t;
@@ -462,14 +525,25 @@ export function installNatives(G: LuaTable, opts: NativeOptions): void {
     return factionsMap;
   };
   const galaxy = new LuaTable();
-  galaxy.set('isCentralFactionArea', (_self: LuaValue, x: LuaValue, y: LuaValue) => first(method(getFactionsMap(), 'isCentralFactionArea', x, y)) === true);
+  galaxy.set(
+    'isCentralFactionArea',
+    (_self: LuaValue, x: LuaValue, y: LuaValue) => first(method(getFactionsMap(), 'isCentralFactionArea', x, y)) === true,
+  );
   galaxy.set('getLocalFaction', () => undefined);
   galaxy.set('getNearestFaction', () => undefined);
   def('Galaxy', () => galaxy);
 
   def('PlanetSpecifics', () => {
     const t = new LuaTable();
-    for (const [k, v] of Object.entries({ type: 0, size: 1, atmosphere: false, clouds: false, habitated: false, ring: false, isPrimary: false }))
+    for (const [k, v] of Object.entries({
+      type: 0,
+      size: 1,
+      atmosphere: false,
+      clouds: false,
+      habitated: false,
+      ring: false,
+      isPrimary: false,
+    }))
       t.set(k, v);
     t.set('position', new Vec3(0, 0, 0));
     return t;
@@ -512,6 +586,7 @@ export function installNatives(G: LuaTable, opts: NativeOptions): void {
 }
 
 import { stringMeta } from '../lua/runtime';
+
 function getMetamethodTable(): LuaTable {
   return stringMeta;
 }

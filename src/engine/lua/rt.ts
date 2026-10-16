@@ -1,8 +1,5 @@
 // Helpers that compiled chunks call, and a Lua state that loads compiled modules.
 import {
-  LuaError,
-  LuaMulti,
-  LuaTable,
   add,
   call,
   callv,
@@ -11,6 +8,10 @@ import {
   eq,
   first,
   index,
+  LuaError,
+  LuaMulti,
+  LuaTable,
+  type LuaValue,
   le,
   len,
   lt,
@@ -27,9 +28,8 @@ import {
   tonum,
   truthy,
   unm,
-  type LuaValue,
 } from './runtime';
-import { createGlobals, luaNext, type BaseLibOptions } from './stdlib';
+import { type BaseLibOptions, createGlobals, luaNext } from './stdlib';
 
 export type ChunkFn = (...va: LuaValue[]) => LuaValue;
 export type ModuleFactory = (R: Rt) => ChunkFn;
@@ -126,11 +126,35 @@ function va(v: LuaValue[]): LuaValue {
 
 export function createRt(G: LuaTable): Rt {
   return {
-    first, nth, mret, mretv, va, truthy, index, setindex, call, callv, method, methodv,
-    add, sub, mul, div, mod, pow, unm, concat, len, eq, lt, le,
+    first,
+    nth,
+    mret,
+    mretv,
+    va,
+    truthy,
+    index,
+    setindex,
+    call,
+    callv,
+    method,
+    methodv,
+    add,
+    sub,
+    mul,
+    div,
+    mod,
+    pow,
+    unm,
+    concat,
+    len,
+    eq,
+    lt,
+    le,
     gt: (a, b) => lt(b, a),
     ge: (a, b) => le(b, a),
-    newTable, forNum, forIter,
+    newTable,
+    forNum,
+    forIter,
     gget: (name) => {
       const v = G.getStr(name);
       if (v !== undefined || G.metatable === undefined) return v;

@@ -1,10 +1,11 @@
 // Core Lua 5.2 value semantics for transpiled game scripts: metatables, operators,
 // calls with multiple results, string/number coercion and number formatting.
-import { LuaError, LuaTable, type LuaValue } from './table';
-import { formatG } from './format';
 
-export { LuaError, LuaTable };
+import { formatG } from './format';
+import { LuaError, LuaTable, type LuaValue } from './table';
+
 export type { LuaValue };
+export { LuaError, LuaTable };
 
 export type LuaFunction = (...args: LuaValue[]) => LuaValue;
 
@@ -91,13 +92,15 @@ export function getMetamethod(v: LuaValue, event: string): LuaValue {
 
 /** lua_Number2str: "%.14g" through msvcrt printf. */
 export function numberToString(n: number): string {
+  // integers below 10^14 print the same under %.14g as in JavaScript
+  if (Number.isInteger(n) && n < 1e14 && n > -1e14 && !Object.is(n, -0)) return String(n);
   return formatG(n, 14);
 }
 
 export function tostr(v: LuaValue): string {
   if (typeof v === 'string') return v;
   if (typeof v === 'number') return numberToString(v);
-  throw new LuaError('attempt to concatenate a ' + type(v) + ' value');
+  throw new LuaError(`attempt to concatenate a ${type(v)} value`);
 }
 
 const hexRe = /^\s*[-+]?0[xX]([0-9a-fA-F]*)(\.[0-9a-fA-F]*)?([pP][-+]?\d+)?\s*$/;
@@ -121,7 +124,7 @@ export function str2number(s: string): number | undefined {
       r += parseInt(c, 16) * scale;
       scale /= 16;
     }
-    if (m[3]) r *= Math.pow(2, parseInt(m[3].slice(1), 10));
+    if (m[3]) r *= 2 ** parseInt(m[3].slice(1), 10);
     return neg ? -r : r;
   }
   return undefined;
@@ -147,12 +150,12 @@ export function index(o: LuaValue, k: LuaValue): LuaValue {
       if (h === undefined) return undefined;
     } else {
       h = getMetamethod(o, '__index');
-      if (h === undefined) throw new LuaError(`attempt to index a ${type(o)} value` + (typeof k === 'string' ? ` (field '${k}')` : ''));
+      if (h === undefined) throw new LuaError(`attempt to index a ${type(o)} value${typeof k === 'string' ? ` (field '${k}')` : ''}`);
     }
     if (typeof h === 'function') return first(h(o, k));
     o = h;
   }
-  throw new LuaError("loop in gettable");
+  throw new LuaError('loop in gettable');
 }
 
 export function setindex(o: LuaValue, k: LuaValue, v: LuaValue): void {
@@ -171,7 +174,7 @@ export function setindex(o: LuaValue, k: LuaValue, v: LuaValue): void {
       }
     } else {
       h = getMetamethod(o, '__newindex');
-      if (h === undefined) throw new LuaError(`attempt to index a ${type(o)} value` + (typeof k === 'string' ? ` (field '${k}')` : ''));
+      if (h === undefined) throw new LuaError(`attempt to index a ${type(o)} value${typeof k === 'string' ? ` (field '${k}')` : ''}`);
     }
     if (typeof h === 'function') {
       h(o, k, v);
@@ -266,7 +269,7 @@ export function mod(a: LuaValue, b: LuaValue): LuaValue {
   return arithSlow('__mod', a, b, luaMod);
 }
 export function pow(a: LuaValue, b: LuaValue): LuaValue {
-  if (typeof a === 'number' && typeof b === 'number') return Math.pow(a, b);
+  if (typeof a === 'number' && typeof b === 'number') return a ** b;
   return arithSlow('__pow', a, b, Math.pow);
 }
 export function unm(a: LuaValue): LuaValue {

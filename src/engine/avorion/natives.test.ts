@@ -2,8 +2,8 @@
 import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { makeFastHash, sectorSeed, seedFromString } from './hashes';
-import { QuadTree } from './quadtree';
 import { Random, Seed } from './natives';
+import { QuadTree } from './quadtree';
 
 const rows = fs
   .readFileSync(new URL('../../../test/fixtures/natives.tsv', import.meta.url), 'utf8')
@@ -45,7 +45,10 @@ describe('Seed', () => {
 });
 
 describe('Random', () => {
-  const seq = (kind: string, sv: string) => byKind(kind).find((r) => r[1] === sv)![2].split(',');
+  const seq = (kind: string, sv: string) =>
+    byKind(kind)
+      .find((r) => r[1] === sv)![2]
+      .split(',');
   const seeds = ['0', '1', 'testseed123', '42', '-5'];
   const fresh = (sv: string) => new Random(Seed.from(sv));
   it.each(seeds)('reproduces sequences for seed %s', (sv) => {
@@ -77,7 +80,19 @@ describe('Random', () => {
 describe('QuadTree', () => {
   it('matches nearest, nearest-with-radius and get ordering', () => {
     const t = new QuadTree(-499, -499, 500, 500, 7);
-    for (const [x, y] of [[10, 0], [-10, 0], [0, 10], [0, -10], [5, 5], [-5, -5], [200, 200], [-300, 100], [7, 1], [1, 7]]) t.insert(x, y);
+    for (const [x, y] of [
+      [10, 0],
+      [-10, 0],
+      [0, 10],
+      [0, -10],
+      [5, 5],
+      [-5, -5],
+      [200, 200],
+      [-300, 100],
+      [7, 1],
+      [1, 7],
+    ])
+      t.insert(x, y);
     const fmt = (p: [number, number] | undefined) => (p ? `${p[0]}:${p[1]}` : 'nil:nil');
     for (const [, x, y, near, nearR, got] of byKind('qt')) {
       expect(fmt(t.nearest(+x, +y))).toBe(near);
