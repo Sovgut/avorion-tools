@@ -735,6 +735,11 @@
   text-align: right;
 }
 
+/* lines the "in hold" heading up with the number inside the field (padding plus border) */
+.holdHead {
+  padding-right: 7px;
+}
+
 .cargoItem {
   padding: 6px 0;
   border-bottom: 1px solid var(--c-divider);
@@ -1108,26 +1113,35 @@
   padding-top: 8px;
 }
 
+/* the desktop stepper at touch height: one frame, shaded - and + ends */
 .mStep {
   display: flex;
   align-items: center;
-  gap: 4px;
+  height: 44px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
 }
 
 .mStep button {
   width: 44px;
-  height: 44px;
-  border-radius: var(--r-lg);
-  border: 1px solid var(--c-border-strong);
-  background: var(--c-app);
+  height: 100%;
+  border: 0;
+  background: var(--c-divider);
   color: var(--c-text);
   font-size: 18px;
 }
 
+.mStep button:active {
+  background: var(--c-active);
+}
+
 .mStep input {
   flex: 1;
-  height: 44px;
+  min-width: 0;
+  height: 100%;
   border: 0;
+  border-radius: 0;
   background: transparent;
   text-align: center;
   font-size: 16px;
@@ -1137,7 +1151,7 @@
 .mNumInput {
   height: 44px;
   border-radius: var(--r-lg);
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .mCoordRow {
@@ -1339,12 +1353,12 @@
   padding: 0 16px 16px;
 }
 
+/* the desktop field, a little taller for a finger; 16px keeps iOS from zooming in on focus */
 .sheetHave {
-  height: 44px;
-  padding: 0 8px;
-  border-radius: var(--r-md);
-  font-size: 15px;
-  background: var(--c-card);
+  height: 32px;
+  padding: 0 6px;
+  border-radius: var(--r-xs);
+  font-size: 16px;
 }
 
 .sheetHint {

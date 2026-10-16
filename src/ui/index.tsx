@@ -1,6 +1,14 @@
 import * as RDialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
-import { type ButtonHTMLAttributes, type CSSProperties, type InputHTMLAttributes, type ReactNode, useState } from 'react';
+import {
+  type ButtonHTMLAttributes,
+  type CSSProperties,
+  type InputHTMLAttributes,
+  type PointerEvent,
+  type ReactNode,
+  useRef,
+  useState,
+} from 'react';
 import s from './ui.module.css';
 
 /** A game icon (white on black PNG) tinted through a luminance mask. */
@@ -38,8 +46,12 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: 'sm' | 'md' | 'lg';
 };
 
-export function Button({ variant = 'outline', size = 'md', className, type = 'button', ...rest }: ButtonProps) {
-  return <button type={type} className={clsx(s.btn, s[variant], s[size], className)} {...rest} />;
+export function Button({ variant = 'outline', size = 'md', className, type = 'button', children, ...rest }: ButtonProps) {
+  return (
+    <button type={type} className={clsx(s.btn, s[variant], s[size], className)} {...rest}>
+      <span className={s.btnLabel}>{children}</span>
+    </button>
+  );
 }
 
 /** A cross drawn as two strokes, so it sits in the exact center of its box at any font. */
@@ -304,13 +316,47 @@ export function Sheet({
   children: ReactNode;
   className?: string;
 }) {
+  const sheet = useRef<HTMLDivElement>(null);
+  const drag = useRef<{ y: number; t: number; dy: number } | null>(null);
+  const move = (dy: number, animate: boolean) => {
+    const el = sheet.current;
+    if (!el) return;
+    el.style.transition = animate ? 'transform 0.18s ease-out' : 'none';
+    el.style.transform = dy ? `translateY(${dy}px)` : '';
+  };
+  // pulling the handle down far or fast enough closes the sheet; otherwise it springs back
+  const onDown = (e: PointerEvent<HTMLDivElement>) => {
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // the pointer is already gone; the drag still follows the events that arrive
+    }
+    drag.current = { y: e.clientY, t: e.timeStamp, dy: 0 };
+  };
+  const onMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (!drag.current) return;
+    drag.current.dy = Math.max(0, e.clientY - drag.current.y);
+    move(drag.current.dy, false);
+  };
+  const onUp = (e: PointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    drag.current = null;
+    if (!d) return;
+    const speed = d.dy / Math.max(1, e.timeStamp - d.t);
+    if (d.dy > 120 || (d.dy > 30 && speed > 0.5)) {
+      move(sheet.current?.offsetHeight ?? 600, true);
+      setTimeout(onClose, 180);
+    } else move(0, true);
+  };
   return (
     <RDialog.Root open={open} onOpenChange={(o) => !o && onClose()}>
       <RDialog.Portal>
         <RDialog.Overlay className={s.backdrop} />
-        <RDialog.Content className={clsx(s.sheet, className)} aria-describedby={undefined}>
+        <RDialog.Content ref={sheet} className={clsx(s.sheet, className)} aria-describedby={undefined}>
           <RDialog.Title className={s.visuallyHidden}>{title}</RDialog.Title>
-          <div className={s.grabber} />
+          <div className={s.grabZone} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp}>
+            <div className={s.grabber} />
+          </div>
           {children}
         </RDialog.Content>
       </RDialog.Portal>

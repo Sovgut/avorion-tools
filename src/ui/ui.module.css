@@ -27,6 +27,12 @@
     border-color 0.12s;
 }
 
+/* Barlow sits low in its line box; trimmed to cap height and baseline, the label centres on its letters */
+.btnLabel {
+  display: block;
+  text-box: trim-both cap alphabetic;
+}
+
 .primary {
   background: var(--c-accent);
   color: var(--c-on-accent);
@@ -339,13 +345,24 @@ button.chipAccent:hover {
   outline: none;
 }
 
+/* the whole strip around the handle can be dragged, not just the 4px bar */
+.grabZone {
+  flex: none;
+  padding: 10px 0 8px;
+  touch-action: none;
+  cursor: grab;
+}
+
+.grabZone:active {
+  cursor: grabbing;
+}
+
 .grabber {
   width: 40px;
   height: 4px;
   border-radius: 2px;
   background: var(--c-border-strong);
-  margin: 10px auto 4px;
-  flex: none;
+  margin: 0 auto;
 }
 
 @keyframes fade {

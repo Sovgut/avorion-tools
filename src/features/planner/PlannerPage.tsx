@@ -360,7 +360,7 @@ function CargoTable({ plan }: { plan: Plan }) {
         <span />
         <span>{t('COMMODITY')}</span>
         <span className={s.right}>{t('NEED')}</span>
-        <span className={s.right} title={t('Already in your hold; taken off what is left to buy.')}>
+        <span className={`${s.right} ${s.holdHead}`} title={t('Already in your hold; taken off what is left to buy.')}>
           {t('IN HOLD')}
         </span>
         <span className={s.right}>{t('BUY')}</span>
@@ -705,7 +705,7 @@ function CargoSheet({ plan, open, onClose }: { plan: Plan; open: boolean; onClos
         <span />
         <span>{t('COMMODITY')}</span>
         <span className={s.right}>{t('NEED')}</span>
-        <span className={s.right}>{t('IN HOLD')}</span>
+        <span className={`${s.right} ${s.holdHead}`}>{t('IN HOLD')}</span>
         <span className={s.right}>{t('BUY')}</span>
       </div>
       <div className={s.sheetBody}>
