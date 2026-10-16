@@ -1,0 +1,30 @@
+[
+ {
+  "tag": "de",
+  "name": "German"
+ },
+ {
+  "tag": "es",
+  "name": "Spanish"
+ },
+ {
+  "tag": "fr",
+  "name": "French"
+ },
+ {
+  "tag": "jp",
+  "name": "Japanese"
+ },
+ {
+  "tag": "pt-br",
+  "name": "Portuguese (Brazil)"
+ },
+ {
+  "tag": "ru",
+  "name": "Russian"
+ },
+ {
+  "tag": "zh",
+  "name": "Chinese (Simplified)"
+ }
+]
