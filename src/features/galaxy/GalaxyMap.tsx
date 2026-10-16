@@ -204,7 +204,6 @@ export function GalaxyMap({
 
     // layer sectors fill their whole cell, bottom layer first; zoomed far out a cell stays 3px so it shows
     const side = Math.max(3, v.scale);
-    const filled = new Set<number>();
     for (const layer of [...markers.layers].reverse()) {
       ctx.fillStyle = resolveColor(layer.color);
       for (const i of layer.sectors) {
@@ -212,7 +211,6 @@ export function GalaxyMap({
         const py = sy(sectorY(i));
         if (px < -side || py < -side || px > size.w + side || py > size.h + side) continue;
         ctx.fillRect(px - side / 2, py - side / 2, side, side);
-        filled.add(i);
       }
     }
 
@@ -234,17 +232,26 @@ export function GalaxyMap({
         ctx.lineTo(size.w, sy(y - 0.5));
       }
       ctx.stroke();
-      if (v.scale >= 30) {
-        ctx.font = '9px "JetBrains Mono", monospace';
-        for (let y = y0; y <= y1; y++)
-          for (let x = x0; x <= x1; x++) {
-            if (!inGalaxy(x, y)) continue;
-            const i = sectorIndex(x, y);
-            if ((galaxy.flags[i] & 3) !== KIND_REGULAR) continue;
-            // dark text on a filled cell, grey on a plain one
-            ctx.fillStyle = filled.has(i) ? 'rgba(17,17,18,0.75)' : '#85858b';
-            ctx.fillText(`${x}:${y}`, sx(x), sy(y) + v.scale * 0.42);
-          }
+      // coordinates on regular sectors, sized so the longest label on screen fits its cell with a
+      // margin (mono glyphs are 0.6em wide); too small to read, they are left out
+      const labels: { x: number; y: number; text: string }[] = [];
+      let longest = 0;
+      for (let y = y0; y <= y1; y++)
+        for (let x = x0; x <= x1; x++) {
+          if (!inGalaxy(x, y) || (galaxy.flags[sectorIndex(x, y)] & 3) !== KIND_REGULAR) continue;
+          const text = `${x}:${y}`;
+          labels.push({ x, y, text });
+          longest = Math.max(longest, text.length);
+        }
+      const fontPx = Math.min(11, (v.scale - 6) / (longest * 0.6));
+      if (labels.length > 0 && fontPx >= 6) {
+        ctx.font = `600 ${fontPx}px "JetBrains Mono", monospace`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        // regular sectors are light grey, white or a layer colour, so dark text reads on all of them
+        ctx.fillStyle = 'rgba(17,17,18,0.8)';
+        for (const l of labels) ctx.fillText(l.text, sx(l.x), sy(l.y));
+        ctx.textBaseline = 'alphabetic';
       }
     }
 
