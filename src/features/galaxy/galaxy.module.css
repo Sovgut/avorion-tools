@@ -1,7 +1,10 @@
+/* exactly one screen tall: the side columns scroll inside it, so a long sector panel never
+   stretches the row, resizes the canvas and shifts the map under the pointer */
 .grid {
-  flex: 1;
+  flex: none;
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr) 360px;
+  grid-template-rows: minmax(0, 1fr);
   height: calc(100dvh - var(--header-h));
 }
 

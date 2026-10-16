@@ -38,6 +38,12 @@ interface View {
 
 const BARRIER = 150;
 const MAX_SCALE = 48;
+/** From this many pixels per sector a click picks exactly the cell under the pointer. */
+const EXACT_PICK_SCALE = 10;
+/** Below that, a click snaps to a sector with stations within this many screen pixels. */
+const SNAP_PX = 8;
+/** Movement beyond this many pixels turns a press into a pan; a finger wobbles more than a mouse. */
+const DRAG_PX = { mouse: 6, touch: 10 } as const;
 
 function factionColor(index: number): [number, number, number] {
   // a stable, muted hue per faction
@@ -132,7 +138,7 @@ export function GalaxyMap({
   const [view, setView] = useState<View | null>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
   const pointers = useRef(new Map<number, { x: number; y: number }>());
-  const drag = useRef<{ moved: boolean; startX: number; startY: number; pinch?: number } | null>(null);
+  const drag = useRef<{ moved: boolean; startX: number; startY: number; slop: number; pinch?: number } | null>(null);
 
   // track the container size
   useEffect(() => {
@@ -252,11 +258,11 @@ export function GalaxyMap({
       ctx.setLineDash([]);
     }
     if (markers.selected) {
+      // a square just outside the cell's edges; zoomed out, never smaller than 14px so it stays visible
+      const half = Math.max(7, v.scale / 2 + 1);
       ctx.strokeStyle = '#ececee';
       ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.arc(sx(markers.selected.x), sy(markers.selected.y), Math.max(8, v.scale * 0.8), 0, Math.PI * 2);
-      ctx.stroke();
+      ctx.strokeRect(sx(markers.selected.x) - half, sy(markers.selected.y) - half, half * 2, half * 2);
     }
     const yx = sx(you.x);
     const yy = sy(you.y);
@@ -310,7 +316,12 @@ export function GalaxyMap({
   const onPointerDown = (e: RPointerEvent<HTMLCanvasElement>) => {
     e.currentTarget.setPointerCapture(e.pointerId);
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    drag.current = { moved: false, startX: e.clientX, startY: e.clientY };
+    drag.current = {
+      moved: false,
+      startX: e.clientX,
+      startY: e.clientY,
+      slop: e.pointerType === 'mouse' ? DRAG_PX.mouse : DRAG_PX.touch,
+    };
     if (pointers.current.size === 2) {
       const [a, b] = [...pointers.current.values()];
       drag.current.pinch = Math.hypot(a.x - b.x, a.y - b.y);
@@ -329,7 +340,7 @@ export function GalaxyMap({
       drag.current.pinch = dist;
       return;
     }
-    if (Math.hypot(e.clientX - drag.current.startX, e.clientY - drag.current.startY) > 4) drag.current.moved = true;
+    if (Math.hypot(e.clientX - drag.current.startX, e.clientY - drag.current.startY) > drag.current.slop) drag.current.moved = true;
     if (drag.current.moved) setView({ ...v, cx: v.cx - (e.clientX - prev.x) / v.scale, cy: v.cy + (e.clientY - prev.y) / v.scale });
   };
 
@@ -339,16 +350,19 @@ export function GalaxyMap({
     if (pointers.current.size === 0) drag.current = null;
     if (d && !d.moved && v) {
       const p = toSector(v, e.clientX, e.clientY);
-      // snap to the nearest sector with content within a few pixels
-      const radius = Math.max(1, Math.ceil(10 / v.scale));
+      // sector centres sit on whole coordinates, so the cell under the pointer is the rounded point
       const rx = Math.round(p.x);
       const ry = Math.round(p.y);
       let best: { x: number; y: number; d: number } | null = null;
-      for (let y = ry - radius; y <= ry + radius; y++) {
-        for (let x = rx - radius; x <= rx + radius; x++) {
-          if (!inGalaxy(x, y) || (galaxy.flags[sectorIndex(x, y)] & 3) !== KIND_REGULAR) continue;
-          const dd = Math.hypot(x - p.x, y - p.y);
-          if (!best || dd < best.d) best = { x, y, d: dd };
+      // zoomed out, cells are a few pixels wide: snap to a nearby station dot so it can be hit at all
+      if (v.scale < EXACT_PICK_SCALE) {
+        const radius = Math.ceil(SNAP_PX / v.scale);
+        for (let y = ry - radius; y <= ry + radius; y++) {
+          for (let x = rx - radius; x <= rx + radius; x++) {
+            if (!inGalaxy(x, y) || (galaxy.flags[sectorIndex(x, y)] & 3) !== KIND_REGULAR) continue;
+            const dd = Math.hypot(x - p.x, y - p.y) * v.scale;
+            if (dd <= SNAP_PX && (!best || dd < best.d)) best = { x, y, d: dd };
+          }
         }
       }
       if (best) onSelect(best.x, best.y);
