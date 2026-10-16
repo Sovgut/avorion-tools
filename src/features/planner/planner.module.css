@@ -667,6 +667,18 @@
   line-height: 1.4;
 }
 
+/* the multiple keeps its size; only the description beside it shrinks to fit the line */
+.priceLine {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.priceLineText {
+  flex: 1;
+  min-width: 0;
+}
+
 /* sized by FitText, so it sets no font size of its own */
 .priceNoteFit {
   font-family: var(--font-mono);
@@ -675,7 +687,9 @@
 }
 
 .priceFactor {
+  flex: none;
   font-family: var(--font-mono);
+  font-size: 12px;
   color: var(--c-text);
 }
 

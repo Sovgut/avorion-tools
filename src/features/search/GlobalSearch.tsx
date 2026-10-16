@@ -6,7 +6,7 @@ import { goodIcon, goods, producersOf, type StationType } from '@/game/database'
 import { fmt, fmt2, useGameText, useT } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { uiActions } from '@/store/ui';
-import { GameIcon } from '@/ui';
+import { CloseIcon, GameIcon } from '@/ui';
 import s from './search.module.css';
 
 export function GlobalSearch({ mobile }: { mobile?: boolean }) {
@@ -51,22 +51,48 @@ export function GlobalSearch({ mobile }: { mobile?: boolean }) {
         {!mobile && <RDialog.Overlay className={s.backdrop} />}
         <RDialog.Content className={mobile ? s.mPanel : s.panel} aria-describedby={undefined} onOpenAutoFocus={() => setQ('')}>
           <RDialog.Title className={s.hidden}>{t('Search')}</RDialog.Title>
-          <div className={mobile ? s.mHead : s.head}>
-            <input
-              className={mobile ? s.mInput : s.input}
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder={t('Stations & commodities…')}
-              aria-label={t('Search')}
-            />
-            {mobile ? (
+          {mobile ? (
+            <div className={s.mHead}>
+              <label className={s.mField}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                  <circle cx="7" cy="7" r="5" />
+                  <path d="M11 11l3.5 3.5" strokeLinecap="round" />
+                </svg>
+                <input
+                  className={s.mInput}
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  placeholder={t('Stations & commodities…')}
+                  aria-label={t('Search')}
+                  enterKeyHint="search"
+                />
+                {q && (
+                  <button type="button" className={s.mClear} aria-label={t('Clear')} onClick={() => setQ('')}>
+                    <CloseIcon size={10} />
+                  </button>
+                )}
+              </label>
               <button type="button" className={s.cancel} onClick={close}>
                 {t('Cancel')}
               </button>
-            ) : (
+            </div>
+          ) : (
+            <div className={s.head}>
+              <input
+                className={s.input}
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder={t('Stations & commodities…')}
+                aria-label={t('Search')}
+              />
               <kbd className={s.esc}>ESC</kbd>
-            )}
-          </div>
+            </div>
+          )}
+          {mobile && (
+            <div className={`label ${s.mCount}`}>
+              {t('COMMODITY')} · {rows.length}
+            </div>
+          )}
           {!mobile && (
             <div className={`label ${s.grid} ${s.colHead}`}>
               <span>
@@ -98,17 +124,22 @@ export function GlobalSearch({ mobile }: { mobile?: boolean }) {
               );
               if (mobile) {
                 return (
-                  <div key={good.id} className={s.mRow}>
-                    <button type="button" className={s.mName} onClick={() => go.good(good.id)}>
-                      <GameIcon src={goodIcon(good.id)} size={22} color="var(--c-text)" />
-                      <span style={{ flex: 1 }}>{gt.good(good.id)}</span>
-                      <span className={s.price}>¢{fmt(good.price)}</span>
-                    </button>
-                    <div className={s.mMeta}>
-                      {chip}
-                      {badges}
-                    </div>
-                  </div>
+                  <button key={good.id} type="button" className={s.mRow} onClick={() => go.good(good.id)}>
+                    <span className={s.mIcon}>
+                      <GameIcon src={goodIcon(good.id)} size={20} color="var(--c-text)" />
+                    </span>
+                    <span className={s.mText}>
+                      <span className={s.mTitle}>
+                        <span className={s.mName}>{gt.good(good.id)}</span>
+                        {badges}
+                      </span>
+                      <span className={s.mSub}>{main ? gt.station(main) : t('Not produced by any factory.')}</span>
+                    </span>
+                    <span className={s.mNums}>
+                      <span className={s.mPrice}>¢{fmt(good.price)}</span>
+                      <span className={s.mVol}>{fmt2(good.volume)} m³</span>
+                    </span>
+                  </button>
                 );
               }
               return (

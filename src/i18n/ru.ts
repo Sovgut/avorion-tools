@@ -64,6 +64,7 @@ export const RU: Record<string, string> = {
   'All cargo is bought or in the hold.': 'Весь груз куплен или уже лежит в трюме.',
   'Storage is full. Delete a tab or some blueprints to make room.':
     'Память заполнена. Удали вкладку или часть чертежей, чтобы освободить место.',
+  Clear: 'Очистить',
   'Reset hold and marks': 'Сбросить трюм и отметки',
   'IN HOLD': 'В ТРЮМЕ',
   Bought: 'Куплено',

@@ -335,9 +335,12 @@ function PriceSlider({ plan }: { plan: Plan }) {
           {t(plan.rows.length > 0 ? 'All cargo is bought or in the hold.' : 'No cargo to buy: the estimate is the turret purchase.')}
         </div>
       ) : (
-        <FitText className={s.priceNoteFit} chars={`×${fmt2(f)} ${t(priceNote(f))}`.length} max={12}>
-          <span className={s.priceFactor}>×{fmt2(f)}</span> {t(priceNote(f))}
-        </FitText>
+        <div className={s.priceLine}>
+          <span className={s.priceFactor}>×{fmt2(f)}</span>
+          <div className={s.priceLineText}>
+            <FitText className={s.priceNoteFit} text={t(priceNote(f))} max={12} />
+          </div>
+        </div>
       )}
     </div>
   );
