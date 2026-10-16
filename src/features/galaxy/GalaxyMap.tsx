@@ -49,6 +49,17 @@ const SNAP_PX = 8;
 /** Movement beyond this many pixels turns a press into a pan; a finger wobbles more than a mouse. */
 const DRAG_PX = { mouse: 6, touch: 10 } as const;
 
+/** Faint tints for the material belts, after the materials' colours in the game. */
+const BELT_COLORS: Record<string, string> = {
+  Iron: 'rgba(196,140,96,0.07)',
+  Titanium: 'rgba(225,228,235,0.05)',
+  Naonite: 'rgba(90,210,110,0.07)',
+  Trinium: 'rgba(80,170,255,0.08)',
+  Xanion: 'rgba(255,215,70,0.08)',
+  Ogonite: 'rgba(255,130,50,0.09)',
+  Avorion: 'rgba(255,60,90,0.11)',
+};
+
 /** Lightness of faction territory: the central area a faction controls strongly, then its outskirts. */
 const CENTRAL_LIGHT = 0.17;
 const OUTER_LIGHT = 0.1;
@@ -198,8 +209,24 @@ export function GalaxyMap({
       ctx.arc(ox, oy, r * v.scale, 0, Math.PI * 2);
       ctx.stroke();
     }
-    // material belts: a dashed ring at the outer edge of each material that does not reach the rim
+    // material belts: each material tints the ring where it is the best one available, and a dashed
+    // line marks where its asteroids end
     if (markers.belts) {
+      // the outer belts reach past the galaxy's corners; tint only the galaxy itself
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(sx(MIN - 0.5), sy(MAX + 0.5), SIZE * v.scale, SIZE * v.scale);
+      ctx.clip();
+      db.materials.forEach((m, k) => {
+        const inner = Math.max(0, ...db.materials.slice(k + 1).map((n) => n.max));
+        if (m.max <= inner) return;
+        ctx.fillStyle = BELT_COLORS[m.name] ?? 'rgba(214,201,170,0.06)';
+        ctx.beginPath();
+        ctx.arc(ox, oy, m.max * v.scale, 0, Math.PI * 2);
+        ctx.arc(ox, oy, inner * v.scale, 0, Math.PI * 2, true);
+        ctx.fill();
+      });
+      ctx.restore();
       ctx.setLineDash([2, 5]);
       ctx.lineWidth = 1;
       ctx.font = '600 10px "JetBrains Mono", monospace';
