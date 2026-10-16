@@ -84,6 +84,8 @@
   flex-direction: column;
   gap: 26px;
   min-width: 0;
+  /* the recipe layout follows this column's width, not the window's */
+  container-type: inline-size;
 }
 
 .crumb {
@@ -467,8 +469,8 @@ button.used:hover {
 .tableRow {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 80px 70px;
-  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) 96px 78px;
+  gap: 10px;
   padding: 9px 14px;
   border: 0;
   border-top: 1px solid var(--c-divider);
@@ -491,6 +493,12 @@ button.tableRow:hover {
   letter-spacing: 0.12em;
 }
 
+.tableHead > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .tableOut .tableHead {
   background: var(--c-callout);
 }
@@ -504,8 +512,16 @@ button.tableRow:hover {
   font-size: 14px;
 }
 
+.cellName {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .right {
   text-align: right;
+  white-space: nowrap;
 }
 
 .tableEmpty {
@@ -515,6 +531,7 @@ button.tableRow:hover {
   border-top: 1px solid var(--c-divider);
 }
 
+/* five sizes in one row, the size above its cost so each cell stays narrow */
 .upgrades {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -522,15 +539,14 @@ button.tableRow:hover {
 }
 
 .upgrade {
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-radius: var(--r-sm);
   border: 1px solid var(--c-border);
   background: var(--c-card);
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 6px;
-  font-size: 13px;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
   min-width: 0;
 }
 
@@ -543,6 +559,54 @@ button.tableRow:hover {
   font-size: 12px;
   font-weight: 600;
   color: var(--c-secondary);
+}
+
+.upgrade > span {
+  white-space: nowrap;
+}
+
+/* two recipe tables side by side need about 800px; below that they stack */
+@container (max-width: 800px) {
+  .flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .flowArrow {
+    height: auto;
+    transform: rotate(90deg);
+  }
+}
+
+/* a cost is about 108px wide, so five fit down to 540px */
+@container (max-width: 540px) {
+  .upgrades {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* a long station name next to the size pickers would wrap; the pickers move under it */
+@container (max-width: 860px) {
+  .hero {
+    flex-wrap: wrap;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .pickers {
+    flex-basis: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+@container (max-width: 620px) {
+  .stats4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* a good the station needs, with the station that makes it underneath */
@@ -670,40 +734,6 @@ button.consumer:hover > span:nth-child(2) {
 
   .panel {
     padding: 20px 18px;
-  }
-
-  .hero {
-    flex-wrap: wrap;
-  }
-
-  .title {
-    font-size: 28px;
-  }
-
-  /* size and variant pickers get their own row under the title */
-  .pickers {
-    flex-basis: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .stats4 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .flow {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 4px;
-  }
-
-  .flowArrow {
-    height: auto;
-    transform: rotate(90deg);
-  }
-
-  .upgrades {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
 }
 

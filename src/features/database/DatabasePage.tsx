@@ -391,7 +391,9 @@ function StationDetail({ station }: { station: StationType }) {
         <button key={r.good} type="button" className={s.tableRow} onClick={() => go.good(r.good)}>
           <span className={s.cell}>
             <GameIcon src={goodIcon(r.good)} size={20} color={out ? 'var(--c-accent)' : undefined} />
-            <span style={{ fontWeight: out ? 600 : 400 }}>{gt.good(r.good)}</span>
+            <span className={s.cellName} style={{ fontWeight: out ? 600 : 400 }} title={gt.good(r.good)}>
+              {gt.good(r.good)}
+            </span>
           </span>
           <span className={s.right} style={{ color: out ? 'var(--c-green)' : 'var(--c-accent)' }}>
             ¢{fmt(goodById.get(r.good)?.price ?? 0)}
