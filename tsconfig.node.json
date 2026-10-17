@@ -17,5 +17,5 @@
     "noUnusedParameters": true,
     "paths": { "@/*": ["./src/*"] }
   },
-  "include": ["vite.config.ts", "vitest.config.ts", "analyzer", "tools", "src/**/*.test.ts"]
+  "include": ["vite.config.ts", "vitest.config.ts", "analyzer", "src/**/*.test.ts"]
 }

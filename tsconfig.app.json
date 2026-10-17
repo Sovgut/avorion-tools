@@ -21,5 +21,5 @@
     "paths": { "@/*": ["./src/*"] }
   },
   "include": ["src"],
-  "exclude": ["src/**/*.test.ts", "src/generated/galaxy-scripts.js"]
+  "exclude": ["src/**/*.test.ts"]
 }

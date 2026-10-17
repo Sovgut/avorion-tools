@@ -23,8 +23,6 @@ export interface Plan {
   enabled: PlannedTurret[];
   need: Map<string, number>;
   rows: NeedRow[];
-  /** Position used for distances: the one set on the map, else the first enabled turret's sector, else 0:0. */
-  position: { x: number; y: number };
   /** Cargo cost at the base price. */
   cargoCost: number;
   /** Totals with the cargo at the lowest, chosen and highest price multiple. */
@@ -41,7 +39,6 @@ export function computePlan(
   allTurrets: PlannedTurret[],
   cargo: Record<string, number>,
   bought: Record<string, true>,
-  position: { x: number; y: number } | null = null,
   priceFactor = PRICE_FACTOR_DEFAULT,
 ): Plan {
   const turrets = tab ? allTurrets.filter((t) => t.tabId === tab.id) : [];
@@ -61,14 +58,12 @@ export function computePlan(
   rows.sort((a, b) => Number(a.bought) - Number(b.bought) || b.cost - a.cost || a.good.localeCompare(b.good));
   const cargoCost = rows.reduce((a, r) => a + r.cost, 0);
   const turretSum = enabled.reduce((a, t) => a + t.price * t.qty, 0);
-  const me = enabled[0] ?? turrets[0];
   return {
     tab,
     turrets,
     enabled,
     need,
     rows,
-    position: position ?? (me ? { x: me.x, y: me.y } : { x: 0, y: 0 }),
     cargoCost,
     min: cargoCost * PRICE_FACTOR_MIN + turretSum,
     estimate: cargoCost * priceFactor + turretSum,
@@ -81,7 +76,6 @@ export function computePlan(
 
 export function usePlan(): Plan {
   const { tabs, currentTabId, turrets, cargo, bought } = useAppSelector((s) => s.planner);
-  const position = useAppSelector((s) => s.settings.position);
   const priceFactor = useAppSelector((s) => s.settings.priceFactor);
   return useMemo(
     () =>
@@ -90,9 +84,8 @@ export function usePlan(): Plan {
         turrets,
         cargo,
         bought,
-        position,
         priceFactor,
       ),
-    [tabs, currentTabId, turrets, cargo, bought, position, priceFactor],
+    [tabs, currentTabId, turrets, cargo, bought, priceFactor],
   );
 }

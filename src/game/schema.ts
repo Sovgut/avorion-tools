@@ -77,12 +77,6 @@ export interface ConsumerStation {
   goods: string[];
 }
 
-export interface SectorTemplate {
-  /** Script path, e.g. "sectors/factoryfield". */
-  id: string;
-  offgrid: boolean;
-}
-
 export interface GameDatabase {
   game: {
     version: string;
@@ -91,30 +85,8 @@ export interface GameDatabase {
   productions: Production[];
   turrets: TurretType[];
   consumers: ConsumerStation[];
-  templates: SectorTemplate[];
   /** Factory size labels for sizes 1..5. */
   sizes: string[];
-  /** Station title per contents field (shipyards → "Shipyard"), as the galaxy map lists them. */
-  stationTitles: Record<string, string>;
-  /** World bosses in the order sectors/worldboss.lua picks from (getInt(1, n) is 1-based). */
-  worldBosses: WorldBoss[];
-  /** Where each material's asteroids occur, by distance from the core, iron first. */
-  materials: MaterialBelt[];
-}
-
-export interface WorldBoss {
-  /** Sector script, e.g. "jester". */
-  id: string;
-  /** The game's title string for the boss ship; a "${serialNumber}" placeholder is dropped on display. */
-  name: string;
-}
-
-export interface MaterialBelt {
-  /** MaterialType name, e.g. "Naonite". */
-  name: string;
-  /** Distance range from the core, in sectors, where its asteroids can appear. */
-  min: number;
-  max: number;
 }
 
 /** English source string → translation. Plural forms are keyed "msgid\u0001plural". */

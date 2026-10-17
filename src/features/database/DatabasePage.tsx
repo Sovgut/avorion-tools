@@ -1,9 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router';
 import { consumerPath, goodPath, stationPath, useGo } from '@/app/nav';
-import { useGalaxy } from '@/features/galaxy/client';
-import { sectorX, sectorY } from '@/features/galaxy/model';
-import { nearestProducers } from '@/features/galaxy/queries';
 import { usePlan } from '@/features/planner/plan';
 import {
   consumerById,
@@ -25,28 +22,11 @@ import {
 } from '@/game/database';
 import type { ConsumerStation, Good, Production } from '@/game/schema';
 import { fmt, fmt2, type GameText, type T, useGameText, useT, useTx } from '@/i18n';
-import { useAppSelector } from '@/store';
 import { GameIcon, Segmented, Tag, TextInput } from '@/ui';
 import { useDocumentTitle, useIsMobile } from '@/ui/hooks';
 import s from './database.module.css';
 
 type Section = 'commodities' | 'stations' | 'consumers';
-
-/** Contents field the generator reports for each consumer station. */
-const CONSUMER_FIELD: Record<string, string> = {
-  Habitat: 'habitats',
-  Biotope: 'biotopes',
-  Casino: 'casinos',
-  EquipmentDock: 'equipmentDocks',
-  MilitaryOutpost: 'militaryOutposts',
-  ResearchStation: 'researchStations',
-  RiftResearchStation: 'riftResearchCenters',
-  Shipyard: 'shipyards',
-  RepairDock: 'repairDocks',
-  TravelHub: 'travelHubs',
-  TurretFactory: 'turretFactories',
-  Mine: 'mines',
-};
 
 export function DatabasePage() {
   const params = useParams();
@@ -238,49 +218,6 @@ function PlanCallout({ good, t, gt }: { good: string; t: T; gt: GameText }) {
   );
 }
 
-function NearbyProducers({ good }: { good: string }) {
-  const t = useT();
-  const tx = useTx();
-  const go = useGo();
-  const galaxy = useGalaxy();
-  const plan = usePlan();
-  const seed = useAppSelector((st) => st.settings.galaxy?.seed);
-  const near = galaxy.state === 'ready' ? nearestProducers(galaxy.data, good, plan.position, 5) : [];
-  return (
-    <div className={s.side}>
-      <div className={s.sideTitle}>{t('In your galaxy')}</div>
-      {galaxy.state === 'ready' ? (
-        <>
-          <div className={s.sideSub}>
-            {tx('Seed {seed} · nearest to {position}', {
-              seed: <span className={s.subValue}>{seed}</span>,
-              position: (
-                <span className={s.subValue}>
-                  {plan.position.x}:{plan.position.y}
-                </span>
-              ),
-            })}
-          </div>
-          {near.map((n) => (
-            <button key={n.sector.i} type="button" className={s.nearRow} onClick={() => go.map(n.x, n.y, good)}>
-              <span className={s.nearXY}>
-                {n.x}:{n.y}
-              </span>
-              <span className={s.nearName}>{n.sector.name}</span>
-              <span className={s.nearDist}>{fmt(n.distance)}</span>
-            </button>
-          ))}
-          {near.length === 0 && <div className={s.muted}>{t('Not produced anywhere in this galaxy.')}</div>}
-        </>
-      ) : (
-        <div className={s.muted}>
-          {galaxy.state === 'loading' ? t('Generating galaxy…') : t('Generate a galaxy to see producers near you.')}
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ---------------------------------------------------------------- commodity
 
 function CommodityDetail({ good }: { good: Good }) {
@@ -377,10 +314,11 @@ function CommodityDetail({ good }: { good: Good }) {
         </div>
         <Source />
       </section>
-      <aside className={s.panel}>
-        <PlanCallout good={good.id} t={t} gt={gt} />
-        <NearbyProducers good={good.id} />
-      </aside>
+      {plan.need.get(good.id) ? (
+        <aside className={s.panel}>
+          <PlanCallout good={good.id} t={t} gt={gt} />
+        </aside>
+      ) : null}
     </>
   );
 }
@@ -541,7 +479,6 @@ function StationDetail({ station }: { station: StationType }) {
             <div className={s.muted}>{t('Nothing in the game buys it.')}</div>
           )}
         </div>
-        <NearbyProducers good={main} />
       </aside>
     </>
   );
@@ -553,61 +490,32 @@ function ConsumerDetail({ consumer }: { consumer: ConsumerStation }) {
   const t = useT();
   const gt = useGameText();
   const go = useGo();
-  const galaxy = useGalaxy();
-  const plan = usePlan();
-  const field = CONSUMER_FIELD[consumer.id];
-  const nearest = useMemo(() => {
-    if (galaxy.state !== 'ready' || !field) return [];
-    return galaxy.data.stations
-      .filter((st) => (st.counts[field] ?? 0) > 0)
-      .map((st) => ({ st, x: sectorX(st.i), y: sectorY(st.i) }))
-      .map((o) => ({ ...o, d: Math.hypot(o.x - plan.position.x, o.y - plan.position.y) }))
-      .sort((a, b) => a.d - b.d)
-      .slice(0, 5);
-  }, [galaxy, field, plan.position]);
   return (
-    <>
-      <section className={s.main}>
-        <div className={s.crumb}>
-          {t('Database')} / {t('Stations')} / <span>{gt.text(consumer.name)}</span>
+    <section className={s.main}>
+      <div className={s.crumb}>
+        {t('Database')} / {t('Stations')} / <span>{gt.text(consumer.name)}</span>
+      </div>
+      <div className={s.hero}>
+        <div className={s.heroIconSm}>
+          <GameIcon src={goodIcon(consumer.goods[0] ?? '')} size={56} color="var(--c-accent)" />
         </div>
-        <div className={s.hero}>
-          <div className={s.heroIconSm}>
-            <GameIcon src={goodIcon(consumer.goods[0] ?? '')} size={56} color="var(--c-accent)" />
-          </div>
-          <h1 className={s.title} style={{ flex: 1 }}>
-            {gt.text(consumer.name)}
-          </h1>
-        </div>
-        <div className={s.block}>
-          <h2 className={s.h2}>{t('Buys goods')}</h2>
-          <div className={s.usedGrid}>
-            {consumer.goods.map((g) => (
-              <button key={g} type="button" className={s.used} onClick={() => go.good(g)}>
-                <GameIcon src={goodIcon(g)} size={22} />
-                <span>{gt.good(g)}</span>
-                <span className={s.kindPrice}>¢{fmt(goodById.get(g)?.price ?? 0)}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-        <Source />
-      </section>
-      <aside className={s.panel}>
-        <div className={s.side}>
-          <div className={s.sideTitle}>{t('Nearest in your galaxy')}</div>
-          {galaxy.state !== 'ready' && <div className={s.muted}>{t('Generate a galaxy to see producers near you.')}</div>}
-          {nearest.map((n) => (
-            <button key={n.st.i} type="button" className={s.nearRow} onClick={() => go.map(n.x, n.y)}>
-              <span className={s.nearXY}>
-                {n.x}:{n.y}
-              </span>
-              <span className={s.nearName}>{n.st.name}</span>
-              <span className={s.nearDist}>{fmt(n.d)}</span>
+        <h1 className={s.title} style={{ flex: 1 }}>
+          {gt.text(consumer.name)}
+        </h1>
+      </div>
+      <div className={s.block}>
+        <h2 className={s.h2}>{t('Buys goods')}</h2>
+        <div className={s.usedGrid}>
+          {consumer.goods.map((g) => (
+            <button key={g} type="button" className={s.used} onClick={() => go.good(g)}>
+              <GameIcon src={goodIcon(g)} size={22} />
+              <span>{gt.good(g)}</span>
+              <span className={s.kindPrice}>¢{fmt(goodById.get(g)?.price ?? 0)}</span>
             </button>
           ))}
         </div>
-      </aside>
-    </>
+      </div>
+      <Source />
+    </section>
   );
 }

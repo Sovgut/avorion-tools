@@ -1,19 +1,15 @@
 // Builds the game database by running the game's data scripts and reading their tables.
 import path from 'node:path';
-import enumData from '../src/engine/avorion/enums.json';
-import { call, first, LuaTable, type LuaValue, method } from '../src/engine/lua/runtime';
+import { call, first, LuaTable, type LuaValue } from '../src/engine/lua/runtime';
 import type {
   Armament,
   ConsumerStation,
   GameDatabase,
   Good,
   GoodAmount,
-  MaterialBelt,
   Production,
-  SectorTemplate,
   TurretIngredient,
   TurretType,
-  WorldBoss,
 } from '../src/game/schema';
 import type { GameFiles } from './game';
 import { createScriptVM } from './vm';
@@ -24,7 +20,6 @@ const DATA_ENTRIES = [
   'data/scripts/lib/weapontype.lua',
   'data/scripts/lib/turretingredients.lua',
   'data/scripts/lib/consumergoods.lua',
-  'data/scripts/sectorspecifics.lua',
 ];
 
 /** Station titles for the ConsumerGoods lists, keyed by function name. */
@@ -260,69 +255,7 @@ export function extractDatabase(game: GameFiles): ExtractResult {
   }
   consumers.sort((a, b) => (a.id < b.id ? -1 : 1));
 
-  // sector templates in the order SectorSpecifics registers them
-  const SectorSpecifics = include('sectorspecifics');
-  const specs = first(call(SectorSpecifics)) as LuaTable;
-  method(specs, 'addTemplates');
-  const templates: SectorTemplate[] = [];
-  for (const t of list(tbl(specs.get('templates'), 'templates'))) {
-    const tt = t as LuaTable;
-    templates.push({ id: str(tt.get('path')), offgrid: first(call(tt.get('offgrid'), 0, 0)) === true });
-  }
-
   for (const s of SIZE_LABELS) strings.add(`${s} /* Size, as in S, M, L, XL etc.*/`);
-
-  // station titles the galaxy map shows for each contents field
-  const stationTitles: Record<string, string> = {};
-  const specSource = game.readBytes('data/scripts/sectorspecifics.lua');
-  const titleRe = /contents\.(\w+)\s+or\s+0\)\s+do\s+table\.insert\(titles,\s*NamedFormat\("([^"]+)"/g;
-  for (let m = titleRe.exec(specSource); m; m = titleRe.exec(specSource)) {
-    stationTitles[m[1]] = stripComment(decodeUtf8(m[2]));
-    strings.add(decodeUtf8(m[2]));
-  }
-  if (Object.keys(stationTitles).length === 0) warnings.push('no station titles found in sectorspecifics.lua fillSectorView');
-
-  // world bosses: the scripts sectors/worldboss.lua picks from, and the title each gives its ship
-  const worldBosses: WorldBoss[] = [];
-  const bossSource = game.readBytes('data/scripts/sectors/worldboss.lua');
-  const bossList = /local bossScripts\s*=\s*\{([^}]*)\}/.exec(bossSource)?.[1] ?? '';
-  for (const m of bossList.matchAll(/"data\/scripts\/sector\/worldbosses\/(\w+)\.lua"/g)) {
-    const script = game.readBytes(`data/scripts/sector/worldbosses/${m[1]}.lua`);
-    const title = /local bossTitle = "([^"]+)"%_t/.exec(script)?.[1] ?? /boss\.name = "([^"]+)"%_[tT]/.exec(script)?.[1];
-    if (!title) warnings.push(`world boss ${m[1]} has no title`);
-    // kept as the game's string so it translates; "Sentinel ${serialNumber}" loses its number on display
-    const name = decodeUtf8(title ?? m[1]);
-    worldBosses.push({ id: m[1], name });
-    strings.add(name);
-  }
-  if (worldBosses.length === 0) warnings.push('no world bosses found in sectors/worldboss.lua');
-
-  // material belts, from the game's own probability function sampled along a radius
-  const materials: MaterialBelt[] = [];
-  include('galaxy');
-  const probabilityAt = vm.state.G.get('Balancing_GetMaterialProbability');
-  const materialNames = Object.entries((enumData.enums as Record<string, Record<string, number>>).MaterialType)
-    .sort((a, b) => a[1] - b[1])
-    .map(([name]) => name);
-  if (typeof probabilityAt === 'function') {
-    const ranges = materialNames.map(() => ({ min: Infinity, max: -Infinity }));
-    const STEP = 0.05;
-    for (let d = 0; d <= 710; d += STEP) {
-      const probs = first(call(probabilityAt, d, 0));
-      if (!(probs instanceof LuaTable)) continue;
-      materialNames.forEach((_, i) => {
-        if (num(probs.get(i)) > 0) {
-          ranges[i].min = Math.min(ranges[i].min, d);
-          ranges[i].max = Math.max(ranges[i].max, d);
-        }
-      });
-    }
-    materialNames.forEach((name, i) => {
-      if (ranges[i].min <= ranges[i].max)
-        materials.push({ name, min: Math.round(ranges[i].min * 100) / 100, max: Math.round(ranges[i].max * 100) / 100 });
-      strings.add(name);
-    });
-  } else warnings.push('Balancing_GetMaterialProbability not found');
 
   void missingIncludes;
 
@@ -333,11 +266,7 @@ export function extractDatabase(game: GameFiles): ExtractResult {
       productions,
       turrets,
       consumers,
-      templates,
       sizes: SIZE_LABELS,
-      stationTitles,
-      worldBosses,
-      materials,
     },
     strings,
     icons,

@@ -834,57 +834,9 @@
   font-size: 12px;
 }
 
-.buyHint {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: 26px;
-  padding: 4px 8px;
-  border-radius: 5px;
-  border: 1px solid var(--c-border);
-  background: var(--c-card);
-  color: var(--c-secondary);
-  font-size: 11px;
-  text-align: left;
-}
-
-/* the station name wraps if it must; coordinates and distance stay whole */
-.hintStation {
-  flex: 1;
-  min-width: 0;
-  line-height: 1.25;
-}
-
-.buyHint > span:not(.hintStation) {
-  white-space: nowrap;
-}
-
-.buyHint:hover {
-  border-color: var(--c-border-strong);
-  color: var(--c-text);
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--c-cyan);
-  flex: none;
-}
-
-.cyan {
-  font-family: var(--font-mono);
-  color: var(--c-cyan);
-}
-
 .mutedMono {
   font-family: var(--font-mono);
   color: var(--c-muted);
-}
-
-/* a seed is coloured like sector coordinates */
-.seedValue {
-  color: var(--c-cyan);
 }
 
 .note {
@@ -892,13 +844,6 @@
   font-size: 13px;
   color: var(--c-muted);
   line-height: 1.5;
-}
-
-.footNote {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--c-muted);
-  padding-top: 8px;
 }
 
 /* ------------------------------------------------------------ mobile */
@@ -1412,12 +1357,6 @@
   padding: 0 6px;
   border-radius: var(--r-xs);
   font-size: 16px;
-}
-
-.sheetHint {
-  min-height: 36px;
-  font-size: 12px;
-  border-radius: var(--r-md);
 }
 
 .sheetClear {

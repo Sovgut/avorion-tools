@@ -1,7 +1,7 @@
 // Runs game scripts inside Node with the same runtime the browser uses.
 
 import { DEFAULT_SETTINGS, type GalaxySettings } from '../src/engine/avorion/natives';
-import { GameVM } from '../src/engine/galaxy/vm';
+import { GameVM } from '../src/engine/avorion/vm';
 import { Compiler, runtimeImportNames } from '../src/engine/lua/compiler';
 import type { ModuleFactory } from '../src/engine/lua/rt';
 import type { GameFiles } from './game';
