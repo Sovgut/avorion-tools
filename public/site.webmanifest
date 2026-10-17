@@ -1,7 +1,7 @@
 {
   "name": "Avorion Tools",
   "short_name": "Avorion Tools",
-  "description": "Turret planner, seed-accurate galaxy map and game database for Avorion.",
+  "description": "Turret planner and game database for Avorion.",
   "start_url": "/avorion-tools/",
   "scope": "/avorion-tools/",
   "display": "standalone",
