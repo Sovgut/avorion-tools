@@ -1,8 +1,8 @@
-// A Lua state that runs the game's compiled generation scripts with the native API installed.
+// A Lua state that runs compiled game scripts with the native API installed.
 
-import { type GalaxySettings, installNatives, installStubs } from '../avorion/natives';
 import { LuaState, type ModuleFactory } from '../lua/rt';
 import { LuaTable, type LuaValue } from '../lua/runtime';
+import { type GalaxySettings, installNatives, installStubs } from './natives';
 
 /** Libraries the engine runs in each script context up front (they define globals like StationSubType). */
 export const PRELOADED = ['data/scripts/lib/plangeneratorbase.lua'];

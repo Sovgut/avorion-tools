@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useGo } from '@/app/nav';
-import { type BuyHint, useBuyHints } from '@/features/galaxy/hints';
 import { goodIcon, iconUrl, rarityById, turretById, turrets as turretTypes } from '@/game/database';
-import { fmt, fmt2, fmtShort, useGameText, useT, useTx } from '@/i18n';
+import { fmt, fmt2, fmtShort, useGameText, useT } from '@/i18n';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { MAX_COUNT, MAX_PRICE, MAX_QUANTITY, type PlannedTurret, plannerActions } from '@/store/planner';
 import { PRICE_FACTOR_MAX, PRICE_FACTOR_MIN, settingsActions } from '@/store/settings';
@@ -352,7 +351,6 @@ function CargoTable({ plan }: { plan: Plan }) {
   const t = useT();
   const go = useGo();
   const dispatch = useAppDispatch();
-  const hints = useBuyHints(plan);
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div className={s.cargoHead}>
@@ -371,25 +369,14 @@ function CargoTable({ plan }: { plan: Plan }) {
         <span className={s.right}>{t('BUY')}</span>
       </div>
       {plan.rows.map((r) => (
-        <CargoRow key={r.good} row={r} hint={hints.get(r.good)} onOpenGood={() => go.good(r.good)} />
+        <CargoRow key={r.good} row={r} onOpenGood={() => go.good(r.good)} />
       ))}
       {plan.rows.length === 0 && <div className={s.note}>{t('Nothing to buy yet. Enter component counts on the turret cards.')}</div>}
-      <HintsFootnote plan={plan} hints={hints} />
     </div>
   );
 }
 
-function CargoRow({
-  row: r,
-  hint,
-  mobile,
-  onOpenGood,
-}: {
-  row: NeedRow;
-  hint: BuyHint | undefined;
-  mobile?: boolean;
-  onOpenGood: () => void;
-}) {
+function CargoRow({ row: r, mobile, onOpenGood }: { row: NeedRow; mobile?: boolean; onOpenGood: () => void }) {
   const t = useT();
   const gt = useGameText();
   const dispatch = useAppDispatch();
@@ -431,45 +418,8 @@ function CargoRow({
           {r.bought ? '✓' : fmtShort(r.buy, mobile ? 10_000 : undefined)}
         </span>
       </div>
-      {r.buy > 0 && hint && <HintChip hint={hint} good={r.good} mobile={mobile} />}
     </div>
   );
-}
-
-function HintChip({ hint, good, mobile }: { hint: BuyHint; good: string; mobile?: boolean }) {
-  const t = useT();
-  const go = useGo();
-  return (
-    <button
-      type="button"
-      className={mobile ? `${s.buyHint} ${s.sheetHint}` : s.buyHint}
-      title={t('Show on galaxy map')}
-      onClick={() => go.map(hint.x, hint.y, good)}
-    >
-      <span className={s.dot} />
-      <span className={s.hintStation}>{hint.station}</span>
-      <span className={s.cyan}>
-        {hint.x}:{hint.y}
-      </span>
-      {!mobile && <span className={s.mutedMono}>{t('{n} sec', { n: fmt(hint.distance) })}</span>}
-    </button>
-  );
-}
-
-function HintsFootnote({ plan, hints }: { plan: Plan; hints: ReturnType<typeof useBuyHints> }) {
-  const t = useT();
-  const tx = useTx();
-  const seed = useAppSelector((st) => st.settings.galaxy?.seed);
-  if (!plan.rows.some((r) => r.buy > 0)) return null;
-  if (hints.size > 0) {
-    return (
-      <div className={s.footNote}>
-        {tx('Nearest producers from galaxy seed {seed}', { seed: <span className={s.seedValue}>{seed}</span> })}
-      </div>
-    );
-  }
-  if (!seed) return <div className={s.footNote}>{t('Generate a galaxy to see where to buy.')}</div>;
-  return null;
 }
 
 // ---------------------------------------------------------------- mobile
@@ -677,7 +627,6 @@ function CargoSheet({ plan, open, onClose }: { plan: Plan; open: boolean; onClos
   const t = useT();
   const go = useGo();
   const dispatch = useAppDispatch();
-  const hints = useBuyHints(plan);
   return (
     <Sheet open={open} onClose={onClose} title={t('Cargo required')}>
       <div className={s.sheetHead}>
@@ -706,7 +655,6 @@ function CargoSheet({ plan, open, onClose }: { plan: Plan; open: boolean; onClos
           <CargoRow
             key={r.good}
             row={r}
-            hint={hints.get(r.good)}
             mobile
             onOpenGood={() => {
               onClose();

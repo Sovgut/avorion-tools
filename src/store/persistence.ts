@@ -43,8 +43,12 @@ function sanitize(data: any): Partial<Persisted> {
   planner.turrets = (planner.turrets ?? []).filter((t: PlannedTurret) => turretById.has(t.type));
   planner.blueprints = (planner.blueprints ?? []).filter((b: Blueprint) => turretById.has(b.type));
   if (planner.currentTabId && !planner.tabs.some((t) => t.id === planner.currentTabId)) planner.currentTabId = planner.tabs[0]?.id ?? null;
-  const settings: SettingsState = { ...initialSettings, ...data.settings };
-  if (!isLang(settings.lang)) settings.lang = initialSettings.lang;
+  // only the fields SettingsState defines are read; other keys in the saved object are dropped
+  const saved = data.settings ?? {};
+  const settings: SettingsState = {
+    lang: isLang(saved.lang) ? saved.lang : initialSettings.lang,
+    priceFactor: typeof saved.priceFactor === 'number' ? saved.priceFactor : initialSettings.priceFactor,
+  };
   return { planner, settings };
 }
 

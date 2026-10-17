@@ -9,7 +9,6 @@ export default defineConfig({
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
-  worker: { format: 'es' },
   build: {
     target: 'es2023',
     chunkSizeWarningLimit: 2000,

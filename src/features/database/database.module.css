@@ -87,6 +87,11 @@
   container-type: inline-size;
 }
 
+/* a detail with no side panel takes its column too */
+.main:last-child {
+  grid-column: 2 / -1;
+}
+
 .crumb {
   font-size: 13px;
   color: var(--c-muted);
@@ -350,57 +355,9 @@ button.used:hover {
   font-weight: 600;
 }
 
-.sideSub {
-  font-size: 12px;
-  color: var(--c-muted);
-  margin-bottom: 4px;
-}
-
-.nearRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 10px;
-  border: 0;
-  border-radius: var(--r-sm);
-  background: var(--c-card);
-  color: var(--c-text);
-  text-align: left;
-}
-
-.nearRow:hover {
-  background: var(--c-active);
-}
-
-.nearXY {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--c-cyan);
-  width: 76px;
-  flex: none;
-}
-
-/* the seed and the position in the subtitle, coloured like the sector coordinates below */
-.subValue {
-  font-family: var(--font-mono);
-  color: var(--c-cyan);
-}
-
 /* a planner tab named in running text */
 .tabName {
   color: var(--c-accent);
-}
-
-.nearName {
-  flex: 1;
-  min-width: 0;
-  font-size: 12px;
-  color: var(--c-secondary);
-}
-
-.nearDist {
-  font-family: var(--font-mono);
-  font-size: 12px;
 }
 
 /* station */
@@ -851,7 +808,6 @@ button.consumer:hover > span:nth-child(2) {
   }
 
   .used,
-  .nearRow,
   .tableRow,
   .recipeChip {
     min-height: 44px;

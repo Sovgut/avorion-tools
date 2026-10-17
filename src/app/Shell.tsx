@@ -1,11 +1,10 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router';
-import { loadGalaxy } from '@/features/galaxy/client';
 import { BlueprintDialog } from '@/features/planner/BlueprintDialog';
 import { GlobalSearch } from '@/features/search/GlobalSearch';
 import { htmlLang, LANGUAGES, loadLanguage, useLang, useT, useTx } from '@/i18n';
-import { useAppDispatch, useAppSelector } from '@/store';
+import { useAppDispatch } from '@/store';
 import { settingsActions } from '@/store/settings';
 import { uiActions } from '@/store/ui';
 import { useIsMobile } from '@/ui/hooks';
@@ -47,7 +46,6 @@ function LanguageMenu({ mobile }: { mobile?: boolean }) {
 
 const NAV = [
   { to: '/planner', label: 'Turret planner' },
-  { to: '/galaxy', label: 'Galaxy' },
   { to: '/database', label: 'Database' },
 ];
 
@@ -57,7 +55,6 @@ export function Shell() {
   const dispatch = useAppDispatch();
   const mobile = useIsMobile();
   const location = useLocation();
-  const galaxy = useAppSelector((st) => st.settings.galaxy);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -74,11 +71,6 @@ export function Shell() {
     document.documentElement.lang = htmlLang(lang);
     void loadLanguage(lang);
   }, [lang]);
-
-  // the planner's buy hints need the galaxy too, so it loads on every page
-  useEffect(() => {
-    if (galaxy) void loadGalaxy(galaxy);
-  }, [galaxy]);
 
   const openSearch = () => dispatch(uiActions.setSearchOpen(true));
 

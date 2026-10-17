@@ -10,7 +10,6 @@
   color-scheme: dark;
 
   /* neutrals */
-  --c-map: #0b0b0c;
   --c-app: #111112;
   --c-panel: #151516;
   --c-card: #1b1b1d;
@@ -31,7 +30,6 @@
   --c-green: oklch(0.8 0.13 150);
   --c-violet: oklch(0.75 0.13 300);
   --c-red: oklch(0.72 0.15 25);
-  --c-barrier: oklch(0.6 0.15 25);
 
   --font-ui: 'Barlow', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;

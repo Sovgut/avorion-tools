@@ -285,7 +285,7 @@
 .mNav {
   flex: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   padding: 4px;
   background: var(--c-panel);
   border-top: 1px solid var(--c-border);

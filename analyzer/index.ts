@@ -7,8 +7,6 @@ import { checkEnums } from './enums';
 import { extractDatabase } from './extract';
 import { GameFiles } from './game';
 import { parsePo, selectTranslations } from './localization';
-import { BUNDLE_DTS, collectClosure, compileBundle, findNativeReferences, GENERATION_ENTRIES } from './scripts';
-import { smokeTestGalaxy } from './smoke';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(repo, 'src/generated');
@@ -109,24 +107,7 @@ function main() {
     for (const name of fs.readdirSync(ICON_DIR)) if (!wanted.has(name)) fs.rmSync(path.join(ICON_DIR, name));
   });
 
-  const closure = step('Compiling galaxy generation scripts', () => {
-    const c = collectClosure(game, GENERATION_ENTRIES);
-    const header = `Avorion ${version}: ${c.files.length} scripts`;
-    write(path.join(OUT_DIR, 'galaxy-scripts.js'), compileBundle(game, c.files, header));
-    write(path.join(OUT_DIR, 'galaxy-scripts.d.ts'), BUNDLE_DTS);
-    const stubs = findNativeReferences(game, c.files);
-    write(path.join(OUT_DIR, 'galaxy-meta.json'), `${JSON.stringify({ version, scripts: c.files.length, stubs }, null, 1)}\n`);
-    // the game ships these only inside the encrypted scripts.db; generation does not reach them
-    const unexpected = [...new Set(c.unresolved.map((u) => u.name))].filter((n) => !n.startsWith('internal/'));
-    for (const n of unexpected) warnings.push(`scripts include "${n}", which is not in data/scripts; it becomes an empty table`);
-    return c;
-  });
-
   step('Checking native enums against the API documentation', () => warnings.push(...checkEnums(game)));
-  const smoke = step('Generating a test galaxy region', () => smokeTestGalaxy(game, closure.files));
-  console.log(`  ${smoke.sectors} sectors, ${smoke.withContent} with content, ${smoke.stations} station sectors`);
-  if (smoke.stubLeaks.length > 0) warnings.push(`stand-ins for natives reached generated data: ${smoke.stubLeaks.join(', ')}`);
-
   console.log(
     `\nDatabase: ${db.goods.length} goods, ${db.productions.length} productions, ${db.turrets.length} turret types, ${db.consumers.length} consumer stations`,
   );
