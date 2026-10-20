@@ -165,4 +165,7 @@ export default {
     'Supprimer tous les onglets, tourelles, cargaisons et plans enregistrés dans ce navigateur ?',
   'Technical details': 'Détails techniques',
   'Report the problem on GitHub': 'Signaler le problème sur GitHub',
+  'MOVE TO': 'DÉPLACER VERS',
+  'COPY TO': 'COPIER VERS',
+  'Move or copy to a tab': 'Déplacer ou copier vers un onglet',
 } satisfies Record<string, string>;

@@ -379,6 +379,31 @@
   border-bottom: 1px solid var(--c-active);
 }
 
+.moreBtn {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.moreBtn:hover,
+.moreBtn[data-state='open'] {
+  color: var(--c-text);
+  background: var(--c-active);
+}
+
+.moreBtn:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 1px;
+}
+
 .cardTitle {
   flex: 1;
   min-width: 0;
@@ -1227,8 +1252,26 @@
   font-size: 13px;
 }
 
-.mRemove {
+/* the turret menu sits at the right end of the foot, the remove button after it */
+.mMore {
   margin-left: auto;
+  width: 44px;
+  height: 36px;
+  border-radius: var(--r-md);
+  border: 0;
+  background: transparent;
+  color: var(--c-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mMore[data-state='open'] {
+  background: var(--c-active);
+  color: var(--c-text);
+}
+
+.mRemove {
   width: 44px;
   height: 36px;
   border-radius: var(--r-md);

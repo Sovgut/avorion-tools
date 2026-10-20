@@ -1,16 +1,15 @@
 // First visit and "+ New tab": pick a turret type, name the tab, create it.
 import { useMemo, useState } from 'react';
-import { useStore } from 'react-redux';
 import { useGo } from '@/app/nav';
 import { goodById, goodIcon, iconUrl, turrets } from '@/game/database';
 import type { Armament } from '@/game/schema';
 import { fmt, useGameText, useT } from '@/i18n';
-import { type RootState, useAppDispatch, useAppSelector } from '@/store';
-import { savePersisted } from '@/store/persistence';
-import { plannerActions, plannerReducer } from '@/store/planner';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { plannerActions } from '@/store/planner';
 import { uiActions } from '@/store/ui';
 import { Button, GameIcon, TextInput } from '@/ui';
 import s from './planner.module.css';
+import { useStoredDispatch } from './storage';
 
 const GROUPS: { id: Armament; label: string }[] = [
   { id: 'armed', label: 'ARMED' },
@@ -41,24 +40,19 @@ function usePicker() {
   );
   const selected = turrets.find((tt) => tt.id === pick) ?? turrets[0];
   const defName = first ? t('Main fleet') : t('Tab {n}', { n: tabs.length + 1 });
-  const store = useStore<RootState>();
+  const storedDispatch = useStoredDispatch();
   const [storageFull, setStorageFull] = useState(false);
   const create = () => {
     if (!selected) return;
-    const action = plannerActions.createTab({
-      name: tabName.trim() || defName,
-      type: selected.id,
-      components: selected.ingredients.map((i) => i.good),
-    });
-    // a tab is only created if the state with it still fits in local storage
-    const state = store.getState();
-    if (savePersisted({ ...state, planner: plannerReducer(state.planner, action) }) === 'full') {
-      setStorageFull(true);
-      return;
-    }
-    setStorageFull(false);
-    dispatch(action);
-    dispatch(uiActions.setPicking(false));
+    const created = storedDispatch(
+      plannerActions.createTab({
+        name: tabName.trim() || defName,
+        type: selected.id,
+        components: selected.ingredients.map((i) => i.good),
+      }),
+    );
+    setStorageFull(!created);
+    if (created) dispatch(uiActions.setPicking(false));
   };
   return {
     t,

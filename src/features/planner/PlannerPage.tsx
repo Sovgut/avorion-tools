@@ -1,3 +1,4 @@
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useState } from 'react';
 import { useGo } from '@/app/nav';
 import { goodIcon, iconUrl, rarityById, turretById, turrets as turretTypes } from '@/game/database';
@@ -6,10 +7,25 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import { MAX_COUNT, MAX_PRICE, MAX_QUANTITY, type PlannedTurret, plannerActions } from '@/store/planner';
 import { PRICE_FACTOR_MAX, PRICE_FACTOR_MIN, settingsActions } from '@/store/settings';
 import { uiActions } from '@/store/ui';
-import { Button, Checkbox, CloseIcon, CoordInput, FitText, GameIcon, IconButton, NumberInput, Sheet, Switch, TextInput } from '@/ui';
+import {
+  Button,
+  Checkbox,
+  CloseIcon,
+  CoordInput,
+  FitText,
+  GameIcon,
+  IconButton,
+  MoreIcon,
+  menuClass,
+  NumberInput,
+  Sheet,
+  Switch,
+  TextInput,
+} from '@/ui';
 import { useDocumentTitle, useIsMobile } from '@/ui/hooks';
 import { type NeedRow, type Plan, usePlan } from './plan';
 import s from './planner.module.css';
+import { useStoredDispatch } from './storage';
 import { MobileTurretPicker, TurretPicker } from './TurretPicker';
 
 export function PlannerPage() {
@@ -39,6 +55,45 @@ function useConfirmRemoveTurret() {
     if (window.confirm(t('Remove {turret} from this tab?', { turret: gt.turret(turret.type) })))
       dispatch(plannerActions.removeTurret(turret.id));
   };
+}
+
+/** Moving or copying a turret to another tab, or to a new one made for it. */
+function TurretTabMenu({ turret, trigger }: { turret: PlannedTurret; trigger: string }) {
+  const t = useT();
+  const tabs = useAppSelector((st) => st.planner.tabs);
+  const storedDispatch = useStoredDispatch();
+  const others = tabs.filter((x) => x.id !== turret.tabId);
+  const send = (copy: boolean, target: { tabId: string } | { newTab: string }) => {
+    if (!storedDispatch(plannerActions.sendTurret({ id: turret.id, copy, ...target })))
+      window.alert(t('Storage is full. Delete a tab or some blueprints to make room.'));
+  };
+  const group = (copy: boolean) => (
+    <DropdownMenu.Group>
+      <DropdownMenu.Label className={menuClass.label}>{t(copy ? 'COPY TO' : 'MOVE TO')}</DropdownMenu.Label>
+      {others.map((tab) => (
+        <DropdownMenu.Item key={tab.id} className={menuClass.item} onSelect={() => send(copy, { tabId: tab.id })}>
+          {tab.name}
+        </DropdownMenu.Item>
+      ))}
+      <DropdownMenu.Item className={menuClass.item} onSelect={() => send(copy, { newTab: t('Tab {n}', { n: tabs.length + 1 }) })}>
+        {t('+ New tab')}
+      </DropdownMenu.Item>
+    </DropdownMenu.Group>
+  );
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger className={trigger} aria-label={t('Move or copy to a tab')} title={t('Move or copy to a tab')}>
+        <MoreIcon />
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content className={menuClass.content} align="end" sideOffset={6} collisionPadding={8}>
+          {group(false)}
+          <DropdownMenu.Separator className={menuClass.separator} />
+          {group(true)}
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
 }
 
 function useAddTurret() {
@@ -192,6 +247,7 @@ function TurretCard({ turret }: { turret: PlannedTurret }) {
           </div>
         </div>
         <Switch checked={turret.enabled} onChange={(enabled) => upd({ enabled })} label={t('Count in estimate')} />
+        <TurretTabMenu turret={turret} trigger={s.moreBtn} />
         <IconButton label={t('Remove turret')} danger onClick={() => removeTurret(turret)} />
       </div>
       <div className={s.cardRow2}>
@@ -613,6 +669,7 @@ function MobileTurretCard({ turret, open, onToggle }: { turret: PlannedTurret; o
             >
               {t('Blueprints')}
             </button>
+            <TurretTabMenu turret={turret} trigger={s.mMore} />
             <button type="button" className={s.mRemove} aria-label={t('Remove turret')} onClick={() => removeTurret(turret)}>
               <CloseIcon size={12} />
             </button>

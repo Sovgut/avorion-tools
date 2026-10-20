@@ -96,6 +96,23 @@ const slice = createSlice({
       if (!state.currentTabId) return;
       state.turrets.push(newTurret(state, state.currentTabId, a.payload.type, a.payload.components));
     },
+    /**
+     * Moves a turret to another tab, or copies it there with its counts, price and sector.
+     * `newTab` names a tab to create for it; the current tab stays current either way.
+     */
+    sendTurret(state, a: PayloadAction<{ id: string; copy: boolean; tabId?: string; newTab?: string }>) {
+      const t = state.turrets.find((x) => x.id === a.payload.id);
+      if (!t) return;
+      let tabId = a.payload.tabId;
+      if (a.payload.newTab !== undefined) {
+        const tab = { id: `tab${state.seq++}`, name: a.payload.newTab.trim().slice(0, 60) };
+        state.tabs.push(tab);
+        tabId = tab.id;
+      }
+      if (!tabId || !state.tabs.some((x) => x.id === tabId)) return;
+      if (a.payload.copy) state.turrets.push({ ...t, id: `t${state.seq++}`, tabId, counts: { ...t.counts } });
+      else t.tabId = tabId;
+    },
     removeTurret(state, a: PayloadAction<string>) {
       state.turrets = state.turrets.filter((t) => t.id !== a.payload);
     },

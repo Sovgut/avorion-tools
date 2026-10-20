@@ -164,4 +164,7 @@ export default {
     'このブラウザに保存されたタブ、タレット、貨物、設計図をすべて削除しますか？',
   'Technical details': '技術的な詳細',
   'Report the problem on GitHub': 'GitHubで問題を報告',
+  'MOVE TO': '移動先',
+  'COPY TO': 'コピー先',
+  'Move or copy to a tab': 'タブへ移動またはコピー',
 } satisfies Record<string, string>;

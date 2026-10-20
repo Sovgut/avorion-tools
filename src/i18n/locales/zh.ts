@@ -159,4 +159,7 @@ export default {
   'Delete all tabs, turrets, cargo and blueprints saved in this browser?': '删除此浏览器中保存的所有标签页、炮塔、货物和蓝图？',
   'Technical details': '技术细节',
   'Report the problem on GitHub': '在 GitHub 上报告问题',
+  'MOVE TO': '移动到',
+  'COPY TO': '复制到',
+  'Move or copy to a tab': '移动或复制到标签页',
 } satisfies Record<string, string>;

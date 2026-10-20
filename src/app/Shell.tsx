@@ -7,6 +7,7 @@ import { htmlLang, LANGUAGES, loadLanguage, useLang, useT, useTx } from '@/i18n'
 import { useAppDispatch } from '@/store';
 import { settingsActions } from '@/store/settings';
 import { uiActions } from '@/store/ui';
+import { menuClass } from '@/ui';
 import { useIsMobile } from '@/ui/hooks';
 import s from './Shell.module.css';
 
@@ -29,10 +30,10 @@ function LanguageMenu({ mobile }: { mobile?: boolean }) {
         )}
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
-        <DropdownMenu.Content className={s.langMenu} align="end" sideOffset={6} collisionPadding={8}>
+        <DropdownMenu.Content className={menuClass.content} align="end" sideOffset={6} collisionPadding={8}>
           <DropdownMenu.RadioGroup value={lang} onValueChange={(v) => dispatch(settingsActions.setLang(v))}>
             {LANGUAGES.map((l) => (
-              <DropdownMenu.RadioItem key={l.tag} value={l.tag} className={s.langItem} lang={htmlLang(l.tag)}>
+              <DropdownMenu.RadioItem key={l.tag} value={l.tag} className={menuClass.item} lang={htmlLang(l.tag)}>
                 <span>{l.native}</span>
                 <span className={s.langItemCode}>{langCode(l.tag)}</span>
               </DropdownMenu.RadioItem>

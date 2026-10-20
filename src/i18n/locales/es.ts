@@ -165,4 +165,7 @@ export default {
     '¿Borrar todas las pestañas, torretas, carga y planos guardados en este navegador?',
   'Technical details': 'Detalles técnicos',
   'Report the problem on GitHub': 'Informar del problema en GitHub',
+  'MOVE TO': 'MOVER A',
+  'COPY TO': 'COPIAR A',
+  'Move or copy to a tab': 'Mover o copiar a una pestaña',
 } satisfies Record<string, string>;

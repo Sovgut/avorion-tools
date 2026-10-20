@@ -55,6 +55,20 @@ export function Button({ variant = 'outline', size = 'md', className, type = 'bu
 }
 
 /** A cross drawn as two strokes, so it sits in the exact center of its box at any font. */
+/** Class names for a Radix dropdown menu's parts, so every menu looks the same. */
+export const menuClass = { content: s.menu, item: s.menuItem, label: `label ${s.menuLabel}`, separator: s.menuSeparator };
+
+/** Three dots: a button that opens a menu of further actions. */
+export function MoreIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+      <circle cx="2.5" cy="7" r="1.3" />
+      <circle cx="7" cy="7" r="1.3" />
+      <circle cx="11.5" cy="7" r="1.3" />
+    </svg>
+  );
+}
+
 export function CloseIcon({ size = 10 }: { size?: number }) {
   return (
     <svg

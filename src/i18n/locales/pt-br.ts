@@ -165,4 +165,7 @@ export default {
     'Excluir todas as abas, torretas, cargas e projetos salvos neste navegador?',
   'Technical details': 'Detalhes técnicos',
   'Report the problem on GitHub': 'Relatar o problema no GitHub',
+  'MOVE TO': 'MOVER PARA',
+  'COPY TO': 'COPIAR PARA',
+  'Move or copy to a tab': 'Mover ou copiar para uma aba',
 } satisfies Record<string, string>;

@@ -165,4 +165,7 @@ export default {
     'Удалить все вкладки, турели, груз и чертежи, сохранённые в этом браузере?',
   'Technical details': 'Технические подробности',
   'Report the problem on GitHub': 'Сообщить о проблеме на GitHub',
+  'MOVE TO': 'ПЕРЕМЕСТИТЬ В',
+  'COPY TO': 'КОПИРОВАТЬ В',
+  'Move or copy to a tab': 'Переместить или скопировать во вкладку',
 } satisfies Record<string, string>;

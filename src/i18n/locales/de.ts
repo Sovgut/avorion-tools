@@ -165,4 +165,7 @@ export default {
     'Alle in diesem Browser gespeicherten Tabs, Geschütztürme, Fracht und Baupläne löschen?',
   'Technical details': 'Technische Details',
   'Report the problem on GitHub': 'Problem auf GitHub melden',
+  'MOVE TO': 'VERSCHIEBEN NACH',
+  'COPY TO': 'KOPIEREN NACH',
+  'Move or copy to a tab': 'In einen Tab verschieben oder kopieren',
 } satisfies Record<string, string>;
